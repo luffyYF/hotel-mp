@@ -1,6 +1,12 @@
 {
 	"pages": [{
-			//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+			"path": "pages/order/order",
+			"style": {
+				"navigationBarTitleText": "订单",
+				"navigationBarBackgroundColor": "#cda754",
+				"enablePullDownRefresh": true
+			}
+		},{
 			"path": "pages/home/home",
 			"style": {
 				"navigationStyle": "custom",
@@ -8,22 +14,10 @@
 			}
 		},
 		{
-			"path": "pages/hot/hot",
-			"style": {
-				"navigationBarTitleText": "登录"
-			}
-		},
-		{
-			"path": "pages/list/list",
-			"style": {
-				"navigationBarTitleText": "专题",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
 			"path": "pages/center/center",
 			"style": {
 				"navigationBarTitleText": "个人中心",
+				"navigationBarBackgroundColor": "#cda754",
 				"enablePullDownRefresh": false
 			}
 		},
@@ -32,23 +26,11 @@
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
-		},
-		{
-			"path": "platforms/app-plus/about/about",
-			"style": {
-				"navigationBarTitleText": "关于"
-			}
-		},
-		{
-			"path": "platforms/h5/about/about",
-			"style": {
-				"navigationBarTitleText": "关于"
-			}
 		}
 	],
 	"tabBar": {
 		"color": "#8c8c8c",
-		"selectedColor": "#b89452",
+		"selectedColor": "#cda754",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{
@@ -58,7 +40,7 @@
 				"text": "首页"
 			},
 			{
-				"pagePath": "pages/home/home",
+				"pagePath": "pages/order/order",
 				"iconPath": "static/images/tab/orderoutline.png",
 				"selectedIconPath": "static/images/tab/order.png",
 				"text": "订单"

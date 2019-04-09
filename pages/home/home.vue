@@ -15,7 +15,7 @@
 				<view class='search-item' hover-class='hover-class' bindtap='pickCity'>
 					<text class='show-address'>{{searchCondition.address}}</text>
 					<view class='my-address'>
-						<image class='address-icon' src='/static/images/icon/icon_position.png'></image>
+						<image class='address-icon' src='/static/images/home/dinwei.png'></image>
 						<text>我的位置</text>
 					</view>
 				</view>
@@ -31,7 +31,7 @@
 					<!-- 入住天数 -->
 					<view class='date-item'>
 						<view class='check-days'>
-							<image src='/static/images/icon/icon_moon.png' class='check-moon'></image>
+							<image src='/static/images/home/yue.png' class='check-moon' mode='widthFix'></image>
 							<text>共{{(searchCondition.checkOut.timeStamp-searchCondition.checkIn.timeStamp)/86400000}}晚</text>
 						</view>
 					</view>
@@ -83,11 +83,11 @@
 				</view>
 				<!---->
 				<view class="card-content card-content-ios hotels-content">
-					<image src="http://www.housefeel.cn/file/rentPath/20181214180440638808038.jpg"  mode='aspectFill'>
+					<image src="http://www.housefeel.cn/file/rentPath/20181214180440638808038.jpg" mode='aspectFill'>
 						<span class="tag">¥198/<view class="small">晚</view>
 						</span>
 					</image>
-					
+
 					<view class="card-title card-title-ios">
 						香泉酒店 - 商务双人房
 					</view>
@@ -336,7 +336,7 @@
 	.card-list {
 		position: absolute;
 		width: 100%;
-		top: 275px;
+		top: 255px;
 	}
 
 	.search-box {
@@ -381,11 +381,11 @@
 	}
 
 	.address-icon {
-		width: 28rpx;
-		height: 28rpx;
+		width: 38rpx;
+		height: 38rpx;
 		position: relative;
-		top: 4rpx;
-		margin-right: 12rpx;
+		margin-right: 8rpx;
+		vertical-align: middle;
 	}
 
 	/* 入住天数 */
@@ -400,7 +400,7 @@
 
 	.check-info {
 		line-height: 30rpx;
-		color: #b89452!important;
+		color: #b89452 !important;
 		font-size: 22rpx;
 		float: right;
 		margin-top: 14rpx;
@@ -412,12 +412,14 @@
 		line-height: 70rpx;
 		color: #b89452;
 		text-align: center;
+		font-size: 12px;
 	}
 
 	.check-moon {
-		width: 20rpx;
-		height: 23rpx;
+		width: 45rpx;
+		height: 45rpx;
 		margin-right: 10rpx;
+		vertical-align: middle;
 	}
 
 	.search-ipt {
@@ -484,8 +486,8 @@
 	}
 
 	.tool {
-		padding: 17px 8px;
-		padding-bottom: 5px;
+		padding: 25px 8px;
+		padding-bottom: 7px;
 	}
 
 	.col {
@@ -539,7 +541,7 @@
 	}
 
 	.tool .col .inner h3 {
-		margin: 0 0 5px;
+		margin: 0;
 		font-size: 16px;
 		font-weight: 400;
 	}
@@ -564,7 +566,7 @@
 		box-shadow: none !important;
 		position: initial;
 		/* top: 100%; */
-		background-color:#fff;
+		background-color: #fff;
 	}
 
 	.hotels .card-header-ios {
@@ -618,9 +620,11 @@
 	.card-ios .item+.card-content-ios {
 		padding-top: 0;
 	}
-	.hotels.card-list .card-content{
+
+	.hotels.card-list .card-content {
 		padding-bottom: 10px;
 	}
+
 	.hotels.card-list .card-content image {
 		width: 100%;
 		height: 170px;
