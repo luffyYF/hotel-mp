@@ -1,0 +1,1 @@
+<view class="index" bind:__l="__l"><view class="tabs"><view class="tabs-title">待付款</view><view class="tabs-title">已付款</view><view class="tabs-title">已取消</view><view class="tabs-title">已完成</view></view></view>
