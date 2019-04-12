@@ -296,6 +296,24 @@
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 60b8a9b2145b98d2431f160a224740c9ae802d92
 /* 轮播图 */
 .swiper-box {
 	height: 452rpx;
@@ -326,8 +344,13 @@
 	height: 490rpx;
 	background-color: #fff;
 	border-radius: 5px;
+<<<<<<< HEAD
 	-webkit-box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1) !important;
 	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1) !important;
+=======
+	-webkit-box-shadow: 0 2px 12px rgba(0, 0, 0, .1) !important;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, .1) !important;
+>>>>>>> 60b8a9b2145b98d2431f160a224740c9ae802d92
 	padding: 0rpx 50rpx;
 	margin: auto;
 }
@@ -419,8 +442,13 @@
 	background: -webkit-gradient(linear, left top, left bottom, from(#a99344), to(#cbbe85)) !important;
 	background: -o-linear-gradient(top, #a99344, #cbbe85) !important;
 	background: linear-gradient(to bottom, #a99344, #cbbe85) !important;
+<<<<<<< HEAD
 	-webkit-box-shadow: 0 2px 10px rgba(136, 102, 39, 0.33);
 	box-shadow: 0 2px 10px rgba(136, 102, 39, 0.33);
+=======
+	-webkit-box-shadow: 0 2px 10px rgba(136, 102, 39, .33);
+	box-shadow: 0 2px 10px rgba(136, 102, 39, .33);
+>>>>>>> 60b8a9b2145b98d2431f160a224740c9ae802d92
 }
 .quick-btn {
 	color: #ff7a00;
@@ -491,8 +519,13 @@
 	background: #fff;
 	padding: 15px 10px;
 	border-radius: 5px;
+<<<<<<< HEAD
 	-webkit-box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+=======
+	-webkit-box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
+	box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
+>>>>>>> 60b8a9b2145b98d2431f160a224740c9ae802d92
 	position: relative;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -575,8 +608,13 @@
 	color: #999;
 	text-align: center;
 }
+<<<<<<< HEAD
 .hotels .card-header-ios + .card-content-ios,
 .card-ios .item + .card-content-ios {
+=======
+.hotels .card-header-ios+.card-content-ios,
+.card-ios .item+.card-content-ios {
+>>>>>>> 60b8a9b2145b98d2431f160a224740c9ae802d92
 	padding-top: 0;
 }
 .hotels.card-list .card-content {
@@ -586,15 +624,24 @@
 	width: 100%;
 	height: 170px;
 	border-radius: 6px;
+<<<<<<< HEAD
 	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+=======
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+>>>>>>> 60b8a9b2145b98d2431f160a224740c9ae802d92
 	-o-object-fit: cover;
 	object-fit: cover;
 }
 .hotels .tag {
 	position: absolute;
 	margin-top: -40px;
+<<<<<<< HEAD
 	background: rgba(0, 0, 0, 0.7);
+=======
+	background: rgba(0, 0, 0, .7);
+>>>>>>> 60b8a9b2145b98d2431f160a224740c9ae802d92
 	color: #fff;
 	padding: 6px 12px;
 	font-weight: 500;

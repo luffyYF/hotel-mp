@@ -1,5 +1,143 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],{
 
+<<<<<<< HEAD
+=======
+/***/ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/filter/dateFilter.js":
+/*!*********************************************************************!*\
+  !*** /Users/mac/Desktop/company/HSKJ/hotel-mp/filter/dateFilter.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var dateFilter = {
+  getDateObject: function getDateObject(str) {
+    return new Date(str);
+  },
+  formatDate: function formatDate(date) {
+    var _date = new Date(date);
+    var _week = ['日', '一', '二', '三', '四', '五', '六'];
+    return {
+      year: _date.getFullYear() || '',
+      month: _date.getMonth() + 1 || '',
+      day: _date.getDate() || '',
+      week: _week[_date.getDay()] || '',
+      timeStamp: date || '' };
+
+  } };
+
+
+module.exports = dateFilter;
+
+/***/ }),
+
+/***/ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/main.js":
+/*!********************************************************!*\
+  !*** /Users/mac/Desktop/company/HSKJ/hotel-mp/main.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createApp) {__webpack_require__(/*! uni-pages */ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/pages.json");
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/App.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+
+_vue.default.config.productionTip = false;
+
+_vue.default.prototype.$serverUrl = 'https://unidemo.dcloud.net.cn';
+
+_App.default.mpType = 'app';
+
+var app = new _vue.default(_objectSpread({},
+_App.default));
+
+createApp(app).$mount();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createApp"]))
+
+/***/ }),
+
+/***/ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/main.js?{\"page\":\"pages%2Fhome%2Fhome\"}":
+/*!***************************************************************************************!*\
+  !*** /Users/mac/Desktop/company/HSKJ/hotel-mp/main.js?{"page":"pages%2Fhome%2Fhome"} ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _home = _interopRequireDefault(__webpack_require__(/*! ./pages/home/home.vue */ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/pages/home/home.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_home.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/main.js?{\"page\":\"pages%2Flogin%2Flogin\"}":
+/*!*****************************************************************************************!*\
+  !*** /Users/mac/Desktop/company/HSKJ/hotel-mp/main.js?{"page":"pages%2Flogin%2Flogin"} ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _login = _interopRequireDefault(__webpack_require__(/*! ./pages/login/login.vue */ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/pages/login/login.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_login.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/main.js?{\"page\":\"pages%2Forder%2Forder\"}":
+/*!*****************************************************************************************!*\
+  !*** /Users/mac/Desktop/company/HSKJ/hotel-mp/main.js?{"page":"pages%2Forder%2Forder"} ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _order = _interopRequireDefault(__webpack_require__(/*! ./pages/order/order.vue */ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/pages/order/order.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_order.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/main.js?{\"page\":\"pages%2Fuser%2Fuser\"}":
+/*!***************************************************************************************!*\
+  !*** /Users/mac/Desktop/company/HSKJ/hotel-mp/main.js?{"page":"pages%2Fuser%2Fuser"} ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _user = _interopRequireDefault(__webpack_require__(/*! ./pages/user/user.vue */ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/pages/user/user.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_user.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "../../../../../../Users/mac/Desktop/company/HSKJ/hotel-mp/pages.json":
+/*!***********************************************************!*\
+  !*** /Users/mac/Desktop/company/HSKJ/hotel-mp/pages.json ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+
+>>>>>>> 60b8a9b2145b98d2431f160a224740c9ae802d92
 /***/ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js":
 /*!************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js ***!
@@ -6201,6 +6339,7 @@ function type(obj) {
     return Object.prototype.toString.call(obj)
 }
 
+<<<<<<< HEAD
 /*  */
 
 function cloneWithData(vm) {
@@ -6243,6 +6382,50 @@ var patch = function(oldVnode, vnode) {
             });
         }
     }
+=======
+/*  */
+
+function cloneWithData(vm) {
+    // 确保当前 vm 所有数据被同步
+    var dataKeys = [].concat(
+        Object.keys(vm._data || {}),
+        Object.keys(vm._computedWatchers || {}));
+
+    var ret = dataKeys.reduce(function(ret, key) {
+        ret[key] = vm[key];
+        return ret
+    }, Object.create(null));
+    //TODO 需要把无用数据处理掉，比如 list=>l0 则 list 需要移除，否则多传输一份数据
+    Object.assign(ret, vm.$mp.data || {});
+    //remove observer
+    return JSON.parse(JSON.stringify(ret))
+}
+
+var patch = function(oldVnode, vnode) {
+    if (vnode === null) { //destroy
+        return
+    }
+    if (this.mpType === 'page' || this.mpType === 'component') {
+        var mpInstance = this.$mp[this.mpType];
+        var data = cloneWithData(this);
+        data.__webviewId__ = mpInstance.data.__webviewId__;
+        var mpData = Object.create(null);
+        Object.keys(data).forEach(function (key) { //仅同步 data 中有的数据
+            mpData[key] = mpInstance.data[key];
+        });
+        var diffData = diff(data, mpData);
+        if (Object.keys(diffData).length) {
+            if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+                console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
+                    ']差量更新',
+                    JSON.stringify(diffData));
+            }
+            mpInstance.setData(diffData,function(){
+                //TODO
+            });
+        }
+    }
+>>>>>>> 60b8a9b2145b98d2431f160a224740c9ae802d92
 };
 
 /*  */
@@ -6381,6 +6564,7 @@ function normalizeStyleBinding (bindingStyle) {
   return bindingStyle
 }
 
+<<<<<<< HEAD
 /*  */
 
 
@@ -6563,6 +6747,190 @@ Vue.prototype.$mount = function(
 };
 
 lifecycleMixin$1(Vue);
+=======
+/*  */
+
+
+var MP_METHODS = ['createSelectorQuery', 'createIntersectionObserver', 'selectAllComponents', 'selectComponent'];
+
+var customizeRE = /:/g;
+
+var customize = cached(function (str) {
+    return camelize(str.replace(customizeRE, '-'))
+});
+
+function getTarget(obj, path) {
+    var parts = path.split('.');
+    if (parts.length === 1) {
+        return obj[parts[0]]
+    }
+    return getTarget(obj[parts[0]], parts.slice(1).join('.'))
+}
+
+function internalMixin(Vue) {
+
+    var oldEmit = Vue.prototype.$emit;
+
+    Vue.prototype.$emit = function(event) {
+        if (this.$mp && event) {
+            //click-left,click:left => clickLeft
+            this.$mp[this.mpType]['triggerEvent'](customize(event), toArray(arguments, 1));
+        }
+        return oldEmit.apply(this, arguments)
+    };
+
+    MP_METHODS.forEach(function (method) {
+        Vue.prototype[method] = function(args) {
+            if (this.$mp) {
+                return this.$mp[this.mpType][method](args)
+            }
+        };
+    });
+
+    Vue.prototype.__init_provide = initProvide;
+
+    Vue.prototype.__init_injections = initInjections;
+
+    Vue.prototype.__call_hook = function(hook, args) {
+        var vm = this;
+        // #7573 disable dep collection when invoking lifecycle hooks
+        pushTarget();
+        var handlers = vm.$options[hook];
+        var info = hook + " hook";
+        var ret;
+        if (handlers) {
+            for (var i = 0, j = handlers.length; i < j; i++) {
+                ret = invokeWithErrorHandling(handlers[i], vm, args ? [args] : null, vm, info);
+            }
+        }
+        if (vm._hasHookEvent) {
+            vm.$emit('hook:' + hook);
+        }
+        popTarget();
+        return ret
+    };
+
+    Vue.prototype.__set_model = function(target, value, modifiers) {
+        if (Array.isArray(modifiers)) {
+            if (modifiers.includes('trim')) {
+                value = value.trim();
+            }
+            if (modifiers.includes('number')) {
+                value = this._n(value);
+            }
+        }
+        if (target.indexOf('.') === -1) {
+            this[target] = value;
+        } else {
+            var paths = target.split('.');
+            var key = paths.pop();
+            this.$set(getTarget(this, paths.join('.')), key, value);
+        }
+    };
+
+    Vue.prototype.__set_sync = function(target, key, value) {
+        if (!target) {
+            this[key] = value;
+        } else {
+            this.$set(getTarget(this, target), key, value);
+        }
+    };
+
+    Vue.prototype.__get_orig = function(item) {
+        if (isPlainObject(item)) {
+            return item['$orig'] || item
+        }
+        return item
+    };
+
+
+    Vue.prototype.__get_class = function(dynamicClass, staticClass) {
+        return renderClass(staticClass, dynamicClass)
+    };
+
+    Vue.prototype.__get_style = function(dynamicStyle, staticStyle) {
+        if (!dynamicStyle && !staticStyle) {
+            return ''
+        }
+        var dynamicStyleObj = normalizeStyleBinding(dynamicStyle);
+        var styleObj = staticStyle ? extend(staticStyle, dynamicStyleObj) : dynamicStyleObj;
+        return Object.keys(styleObj).map(function (name) { return ((hyphenate(name)) + ":" + (styleObj[name])); }).join(';')
+    };
+
+}
+
+/*  */
+
+var LIFECYCLE_HOOKS$1 = [
+    //App
+    'onLaunch',
+    'onShow',
+    'onHide',
+    'onUniNViewMessage',
+    //Page
+    'onLoad',
+    // 'onShow',
+    'onReady',
+    // 'onHide',
+    'onUnload',
+    'onPullDownRefresh',
+    'onReachBottom',
+    'onTabItemTap',
+    'onShareAppMessage',
+    'onPageScroll',
+    'onNavigationBarButtonTap',
+    'onBackPress',
+    'onNavigationBarSearchInputChanged',
+    'onNavigationBarSearchInputConfirmed',
+    'onNavigationBarSearchInputClicked',
+    //Component
+    'onReady', // 兼容旧版本，应该移除该事件
+    'onPageShow',
+    'onPageHide',
+    'onPageResize'
+];
+function lifecycleMixin$1(Vue) {
+
+    //fixed vue-class-component
+    var oldExtend = Vue.extend;
+    Vue.extend = function(extendOptions) {
+        extendOptions = extendOptions || {};
+
+        var methods = extendOptions.methods;
+        if (methods) {
+            Object.keys(methods).forEach(function (methodName) {
+                if (LIFECYCLE_HOOKS$1.includes(methodName)) {
+                    extendOptions[methodName] = methods[methodName];
+                    delete methods[methodName];
+                }
+            });
+        }
+        
+        return oldExtend.call(this,extendOptions)
+    };
+
+    var strategies = Vue.config.optionMergeStrategies;
+    var mergeHook = strategies.created;
+    LIFECYCLE_HOOKS$1.forEach(function (hook) {
+        strategies[hook] = mergeHook;
+    });
+}
+
+/*  */
+
+// install platform patch function
+Vue.prototype.__patch__ = patch;
+
+// public mount method
+Vue.prototype.$mount = function(
+    el ,
+    hydrating 
+) {
+    return mountComponent$1(this, el, hydrating)
+};
+
+lifecycleMixin$1(Vue);
+>>>>>>> 60b8a9b2145b98d2431f160a224740c9ae802d92
 internalMixin(Vue);
 
 /*  */
@@ -6709,6 +7077,7 @@ try {
 module.exports = g;
 
 
+<<<<<<< HEAD
 /***/ }),
 
 /***/ "E:\\project\\hotel-mp\\components\\uni-calendar\\calendar.js":
@@ -7473,6 +7842,8 @@ createPage(_selectPrice.default);
 "use strict";
 
 
+=======
+>>>>>>> 60b8a9b2145b98d2431f160a224740c9ae802d92
 /***/ })
 
 }]);
