@@ -1,0 +1,1 @@
+<view class="nav" bind:__l="__l"><view class="status_bar"><view class="top_view"></view></view><view class="{{['headnav',flag?'white':'black']}}" hidden="{{hd}}"><image src="{{flag?'../../static/images/back-black.png':'../../static/images/back-white.png'}}" mode data-event-opts="{{[['tap',[['goback']]]]}}" bindtap="__e"></image></view></view>

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "查找房间",
+  "navigationBarBackgroundColor": "#cda754",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "uni-swiper-dot": "/components/uni-swiper-dot/uni-swiper-dot",
+    "headnav": "/components/headnav/headnav"
+  }
+}

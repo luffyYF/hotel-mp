@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "订单",
+  "navigationBarBackgroundColor": "#cda754",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "tab": "/components/tab/tab",
+    "orderlist": "/components/order/list-item",
+    "np": "/components/order/no-order"
+  }
+}

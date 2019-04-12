@@ -6,7 +6,7 @@
 				"navigationBarBackgroundColor": "#cda754",
 				"enablePullDownRefresh": true
 			}
-		},{
+		}, {
 			"path": "pages/home/home",
 			"style": {
 				"navigationStyle": "custom",
@@ -26,8 +26,38 @@
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
+		}, {
+			"path": "pages/order/orderDetails",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"navigationBarBackgroundColor": "#cda754",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/order/roomDetails",
+			"style": {
+				"navigationBarTitleText": "房间详情",
+				"navigationBarBackgroundColor": "#cda754",
+				"enablePullDownRefresh": true
+			}
 		}
-	],
+	    ,{
+            "path" : "pages/order/roomReservation",
+            "style" : {
+				"navigationBarTitleText": "查找房间",
+				"navigationBarBackgroundColor": "#cda754",
+				"enablePullDownRefresh": true
+			}
+        }
+        ,{
+            "path" : "pages/order/selectPrice",
+            "style" : {
+				"navigationBarTitleText": "选择价格",
+				"navigationBarBackgroundColor": "#cda754",
+				"enablePullDownRefresh": true
+			}
+        }
+    ],
 	"tabBar": {
 		"color": "#8c8c8c",
 		"selectedColor": "#cda754",
@@ -52,5 +82,13 @@
 				"text": "我的"
 			}
 		]
+	},
+	"condition": { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [{
+			"name": "", //模式名称
+			"path": "", //启动页面，必选
+			"query": "" //启动参数，在页面的onLoad函数里面得到
+		}]
 	}
 }
