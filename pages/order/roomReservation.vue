@@ -200,6 +200,7 @@ export default {
 }
 .roomReservation .checkindate .cy text {
 	border: 0.55px solid #eee;
+	font-size: 25.36231upx;
 	border-radius: 3px;
 	padding: 9.05797upx;
 }

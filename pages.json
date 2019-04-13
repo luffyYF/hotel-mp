@@ -57,6 +57,22 @@
 				"enablePullDownRefresh": true
 			}
         }
+        ,{
+            "path" : "pages/order/fillorder",
+            "style" : {
+				"navigationBarTitleText": "填写订单",
+				"navigationBarBackgroundColor": "#cda754",
+				"enablePullDownRefresh": false
+			}
+        }
+        ,{
+            "path" : "pages/order/orderPay",
+            "style" : {
+				"navigationBarTitleText": "支付订单",
+				"navigationBarBackgroundColor": "#cda754",
+				"enablePullDownRefresh": false
+			}
+        }
     ],
 	"tabBar": {
 		"color": "#8c8c8c",

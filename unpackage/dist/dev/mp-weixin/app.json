@@ -7,7 +7,9 @@
     "pages/order/orderDetails",
     "pages/order/roomDetails",
     "pages/order/roomReservation",
-    "pages/order/selectPrice"
+    "pages/order/selectPrice",
+    "pages/order/fillorder",
+    "pages/order/orderPay"
   ],
   "subPackages": [],
   "tabBar": {

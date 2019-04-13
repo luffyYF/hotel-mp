@@ -1,1 +1,1 @@
-<view bind:__l="__l"></view>
+<view class="selectPrice" bind:__l="__l"><view class="checkindate"><view><view class="_p">入住</view><view class="_p">4月12日 五</view></view><view class="cy"><text>41晚</text></view><view><view class="_p">离开</view><view class="_p">4月13日 六</view></view></view><view class="payment"><view><view class="_h2">全额预付 即时订</view><view class="_p">会员等级优惠</view></view><view><label class="_span">￥182.4</label><button data-event-opts="{{[['tap',[['gotoFill',['$event']]]]]}}" bindtap="__e">订</button></view></view></view>

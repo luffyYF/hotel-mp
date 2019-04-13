@@ -7378,6 +7378,23 @@ createPage(_login.default);
 
 /***/ }),
 
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2Forder%2Ffillorder\"}":
+/*!************************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2Forder%2Ffillorder"} ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _fillorder = _interopRequireDefault(__webpack_require__(/*! ./pages/order/fillorder.vue */ "E:\\project\\hotel-mp\\pages\\order\\fillorder.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_fillorder.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
 /***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2Forder%2Forder\"}":
 /*!********************************************************************!*\
   !*** E:/project/hotel-mp/main.js?{"page":"pages%2Forder%2Forder"} ***!
@@ -7408,6 +7425,23 @@ createPage(_order.default);
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
 var _orderDetails = _interopRequireDefault(__webpack_require__(/*! ./pages/order/orderDetails.vue */ "E:\\project\\hotel-mp\\pages\\order\\orderDetails.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 createPage(_orderDetails.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2Forder%2ForderPay\"}":
+/*!***********************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2Forder%2ForderPay"} ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _orderPay = _interopRequireDefault(__webpack_require__(/*! ./pages/order/orderPay.vue */ "E:\\project\\hotel-mp\\pages\\order\\orderPay.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_orderPay.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
 
 /***/ }),
