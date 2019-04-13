@@ -8,7 +8,11 @@
   },
   "compileType": "miniprogram",
   "libVersion": "",
+<<<<<<< HEAD
   "appid": "wx6361c16979341fc9",
+=======
+  "appid": "wx8da6ebf3721af9a4",
+>>>>>>> 60b8a9b2145b98d2431f160a224740c9ae802d92
   "projectname": "hotel-reservation",
   "condition": {
     "search": {
@@ -24,6 +28,7 @@
       "list": []
     },
     "miniprogram": {
+<<<<<<< HEAD
       "current": 0,
       "list": [
         {
@@ -33,6 +38,10 @@
           "id": 0
         }
       ]
+=======
+      "current": -1,
+      "list": []
+>>>>>>> 60b8a9b2145b98d2431f160a224740c9ae802d92
     }
   }
 }
