@@ -1,27 +1,30 @@
 <script>
+	import api from './utils/api.js'
 	export default {
 		data() {
 			return {
 				globalData: {
+					appid: 'wx8da6ebf3721af9a4',
+					code: '',
+					userInfo: null,
 					today: '',
 					checkIn: '',
-					checkOut: '',
-					userInfo: ''
+					checkOut: ''
 				}
 			}
 		},
 		onLaunch: function() {
 			console.log('App Launch')
 			let _this = this;
-			// 登录
+			// 登录ode
 			wx.login({
 				success: function(res) {
-					console.log(res)
-					// _this.getAuthorize()
-					_this.getUserInfo()
+					// console.log(res)
+					if(res.errMsg == 'login:ok'){
+						_this.globalData.code = res.code;
+					}
 				}
 			})
-
 		},
 		onShow: function() {
 			console.log('App Show')
@@ -29,22 +32,7 @@
 		onHide: function() {
 			console.log('App Hide')
 		},
-		methods: {
-			// 获取个人信息
-			getUserInfo() {
-				let _this = this;
-				wx.getUserInfo({
-					success: function(res) {
-						_this.globalData.userInfo = res.userInfo;
-						console.log(_this.globalData.userInfo)
-					},
-					fail: function(res) {
-						// 未授权获取用户失败
-						console.log(res)
-					}
-				})
-			}
-		}
+		methods: {}
 	}
 </script>
 

@@ -1,28 +1,21 @@
 <template>
 	<view class='hotel-query'>
-		<!-- 轮播图banner -->
-		<!-- <swiper :autoplay="autoplay" :interval="interval" :duration="duration" class='swiper-box'>
-			<block v-for="item of swiperImgs" :key="index">
-				<swiper-item>
-					<image :src="item.imgUrl" class="slide-image" />
-				</swiper-item>
-			</block>
-		</swiper> -->
 		<img class="img-bg" src="/static/images/home/banner_hotel_2.jpg" mode='scaleToFill' style="filter: opacity(100%);">
 		<view class="card-list">
 			<!-- 搜索框 -->
 			<view class='search-box'>
-				<view class='search-item' hover-class='hover-class' bindtap='pickCity'>
+				<view class='search-item' hover-class='hover-class' @click='pickCity'>
 					<text class='show-address'>{{searchCondition.address}}</text>
 					<view class='my-address'>
-						<image class='address-icon' src='/static/images/home/dinwei.png'></image>
+						<image class='address-icon' src='/static/images/home/dinwei.png' mode="widthFix"></image>
 						<text>我的位置</text>
 					</view>
+					<image class="right" src="/static/images/home/right.png" mode="widthFix"></image>
 				</view>
-				<view class='search-item' bindtap='pickDate'>
+				<view class='search-item' @click='pickDate'>
 					<!-- 入住 -->
 					<view class='date-item' hover-class='hover-class'>
-						<text>{{searchCondition.checkIn.month}}月{{searchCondition.checkIn.day}}日</text>
+						<text style="padding: 10upx;">{{searchCondition.checkIn.month}}月{{searchCondition.checkIn.day}}日</text>
 						<view class='check-info'>
 							<view>周{{searchCondition.checkIn.week}}</view>
 							<view>入住</view>
@@ -43,6 +36,7 @@
 							<view>离店</view>
 						</view>
 					</view>
+					<image class="right" src="/static/images/home/right.png" mode="widthFix"></image>
 				</view>
 				<view class='search-item' hover-class='hover-class'>
 					<input placeholder="请输入关键字/酒店/地址" class='search-ipt' />
@@ -118,13 +112,25 @@
 				</view>
 			</view>
 		</view>
+		<authorize v-if="isAuthorizeShow" @GetUserInfo="getUserInfo"></authorize>
 	</view>
 </template>
 
 <script>
+	import authorize from '@/components/authorize'
+	import api from '@/utils/api.js'
+	import dateFilter from '@/filter/dateFilter.js'
+	import utils from '@/utils/utils.js'
+	var app = getApp();
+	
 	export default {
+		components: {
+			authorize
+		},
 		data() {
 			return {
+				code:'',
+				isAuthorizeShow: false,
 				autoplay: true,
 				interval: 3000,
 				duration: 1000,
@@ -137,73 +143,16 @@
 					checkIn: '',
 					checkOut: '',
 				},
-				swiperImgs: [{
-						imgUrl: '/static/images/index/ad_pic1.png',
-						toUrl: ''
-					},
-					{
-						imgUrl: '/static/images/index/ad_pic1.png',
-						toUrl: ''
-					}
-				],
-				funcEntrances: [{
-						icon: '/static/images/icon/icon_rights.png',
-						text: '会员权益'
-					},
-					{
-						icon: '/static/images/icon/icon_clock.png',
-						text: '十元抢房'
-					},
-					{
-						icon: '/static/images/icon/icon_hour.png',
-						text: '钟点房'
-					}
-				],
-				hotelList: [{
-						hotelName: '汉唐大酒店（贵阳中天会展城店）',
-						hotelPic: '/static/images/index/hotel_pic.png',
-						hotelScore: '4.7',
-						hotelStar: '3',
-						hotelAddr: '贵阳观山湖区长岭北路6号（大唐东原财富广场6号楼）',
-						hotelDistance: '18.0',
-						hotelPrice: '699.0',
-						hotelFeatures: [
-							'含早餐', '特色2', '特色3'
-						]
-					},
-					{
-						hotelName: '汉唐大酒店（贵阳中天会展城店）',
-						hotelPic: '/static/images/index/hotel_pic.png',
-						hotelScore: '4.7',
-						hotelStar: '3',
-						hotelAddr: '贵阳观山湖区长岭北路6号（大唐东原财富广场6号楼）',
-						hotelDistance: '18.0',
-						hotelPrice: '699.0',
-						hotelFeatures: [
-							'含早餐', '特色2', '特色3'
-						]
-					},
-					{
-						hotelName: '汉唐大酒店（贵阳中天会展城店）',
-						hotelPic: '/static/images/index/hotel_pic.png',
-						hotelScore: '4.7',
-						hotelStar: '3',
-						hotelAddr: '贵阳观山湖区长岭北路6号（大唐东原财富广场6号楼）',
-						hotelDistance: '18.0',
-						hotelPrice: '699.0',
-						hotelFeatures: [
-							'含早餐', '特色2', '特色3'
-						]
-					}
-				]
+				hotelList: []
 			}
 		},
-		onLoad() {},
+		onLoad() {
+			
+		},
 		/**
 		 * 页面显示
 		 */
 		onShow() {
-
 			let _now_day = new Date();
 			_now_day.setHours(0);
 			_now_day.setMinutes(0);
@@ -219,6 +168,12 @@
 			_checkOut.setDate(_checkOut.getDate() + 1)
 			this.searchCondition.checkIn = this.formatDate(Date.parse(_now_day))
 			this.searchCondition.checkOut = this.formatDate(Date.parse(_checkOut))
+			let that = this
+			utils.checkSession().then(res=>{
+				// that.goLogin();
+			}).catch(res=>{
+				that.isAuthorizeShow = true
+			});
 		},
 		onReachBottom() {
 			console.log("滑动到页面底部")
@@ -231,35 +186,7 @@
 		},
 		methods: {
 			getData() {
-				// 				uni.request({
-				// 					url: this.$serverUrl + '/api/picture/posts.php?page=' + (this.refreshing ? 1 : this.fetchPageNum) +
-				// 						'&per_page=5',
-				// 					success: (ret) => {
-				// 						console.log("data", ret);
-				// 						if (ret.statusCode !== 200) {
-				// 							console.log("失败!");
-				// 						} else {
-				// 							if (this.refreshing && ret.data[0].id === this.list[0].id) {
-				// 								uni.showToast({
-				// 									title: "已经最新",
-				// 									icon: "none",
-				// 								})
-				// 								this.refreshing = false;
-				// 								uni.stopPullDownRefresh();
-				// 								return;
-				// 							}
-				// 							if (this.refreshing) {
-				// 								this.refreshing = false;
-				// 								uni.stopPullDownRefresh()
-				// 								this.list = ret.data;
-				// 								this.fetchPageNum = 2;
-				// 							} else {
-				// 								this.list = this.list.concat(ret.data);
-				// 								this.fetchPageNum += 1;
-				// 							}
-				// 						}
-				// 					}
-				// 				});
+				
 			},
 			goDetail(e) {
 				uni.navigateTo({
@@ -268,7 +195,29 @@
 			},
 			// 将时间戳转化为年月日星期
 			formatDate(date) {
-				return require('../../filter/dateFilter.js').formatDate(date)
+				return dateFilter.formatDate(date)
+			},
+			pickDate() {
+				let checkIn = JSON.stringify(this.searchCondition.checkIn)
+				let checkOut = JSON.stringify(this.searchCondition.checkOut)
+				uni.navigateTo({
+					url: "../selectDate/selectDate?checkIn=" + checkIn + "&checkOut=" + checkOut
+				})
+			},
+			// 获取个人信息
+			getUserInfo(res) {
+				console.log(res)
+				let globalData = app.$vm.globalData
+				globalData.userInfo = res.userInfo;
+				api.authorize({
+					appid:globalData.appid,
+					code:globalData.code,
+					encryptedData:res.encryptedData,
+					iv:res.iv
+				}).then((res)=>{
+					console.log(res)
+				});
+				
 			},
 			share(e) {
 				if (this.providerList.length === 0) {
@@ -351,7 +300,7 @@
 		padding: 0rpx 50rpx;
 		margin: auto;
 	}
-
+	
 	.search-item {
 		width: 100%;
 		font-size: 28rpx;
@@ -372,13 +321,16 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		width: calc(100% - 150upx);
 	}
 
 	.my-address {
-		float: right;
 		color: #666;
 		font-size: 24rpx;
+		display: inline-block;
+		width: 150upx;
 	}
+	
 
 	.address-icon {
 		width: 38rpx;
@@ -387,17 +339,26 @@
 		margin-right: 8rpx;
 		vertical-align: middle;
 	}
+	
+	.right{
+		width: 50upx;
+		margin-top: 19upx;
+		float: right;
+	}
 
 	/* 入住天数 */
 
 	.date-item {
-		width: 170rpx;
+		width: 180rpx;
 	}
 
 	.date-item:nth-child(2) {
-		width: 160rpx;
+		width: 145rpx;
 	}
-
+	.date-item text{
+		padding: 10upx;
+	}
+	
 	.check-info {
 		line-height: 30rpx;
 		color: #b89452 !important;

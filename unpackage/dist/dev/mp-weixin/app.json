@@ -1,9 +1,10 @@
 {
   "pages": [
+    "pages/home/home",
     "pages/user/user",
     "pages/order/order",
-    "pages/home/home",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/selectDate/selectDate"
   ],
   "subPackages": [],
   "tabBar": {

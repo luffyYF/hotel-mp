@@ -1,5 +1,10 @@
 {
 	"pages": [{
+			"path": "pages/home/home",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},{
 			"path": "pages/user/user",
 			"style": {
 				"navigationBarTitleText": "个人中心",
@@ -13,11 +18,6 @@
 				"navigationBarBackgroundColor": "#cda754",
 				"enablePullDownRefresh": true
 			}
-		},{
-			"path": "pages/home/home",
-			"style": {
-				"navigationStyle": "custom"
-			}
 		},
 		{
 			"path": "pages/login/login",
@@ -25,7 +25,11 @@
 				"navigationBarTitleText": "登录"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/selectDate/selectDate",
+            "style" : {}
+        }
+    ],
 	"tabBar": {
 		"color": "#8c8c8c",
 		"selectedColor": "#cda754",
