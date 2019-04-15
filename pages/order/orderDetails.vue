@@ -120,7 +120,7 @@ export default {
 				this.active = 1;
 				uni.navigateTo({
 					url:'selectPrice'
-				})
+				});
 			} else {
 				this.active = 2;
 			}
