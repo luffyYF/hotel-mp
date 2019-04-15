@@ -37,5 +37,5 @@
 </script>
 
 <style>
-
+	@import url("./common/uni.css");
 </style>

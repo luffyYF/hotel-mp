@@ -259,7 +259,11 @@
 	}
 </script>
 
-<style>
+<style scoped>
+	
+	view{
+		line-height:inherit;
+	}
 	/* 轮播图 */
 
 	.swiper-box {
@@ -347,13 +351,12 @@
 	}
 
 	/* 入住天数 */
-
 	.date-item {
 		width: 180rpx;
 	}
 
 	.date-item:nth-child(2) {
-		width: 145rpx;
+		width: 170rpx;
 	}
 	.date-item text{
 		padding: 10upx;

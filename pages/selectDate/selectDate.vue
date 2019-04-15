@@ -222,7 +222,11 @@
 	}
 </script>
 
-<style>
+<style scoped>
+	
+	view{
+		line-height:inherit;
+	}
 	/* pages/datePicker/datePicker.wxss */
 
 	.date-header {
