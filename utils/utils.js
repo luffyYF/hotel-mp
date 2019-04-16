@@ -35,6 +35,9 @@ function login() {
 	});
 }
 
+/**
+ * 存储本地数据
+ */
 function setStorage(key, data) {
 	var timestamp = Date.parse(new Date());
 	var expiration = timestamp + 60 * 60 * 1000;
@@ -42,6 +45,9 @@ function setStorage(key, data) {
 	wx.setStorageSync(key + "_expiration", expiration);
 }
 
+/**
+ * 获取本地数据
+ */
 function getStorage(key, success, fail) {
 	var timestamp = Date.parse(new Date());
 	var expiration = wx.getStorageSync(key + "_expiration");
@@ -53,11 +59,32 @@ function getStorage(key, success, fail) {
 	}
 }
 
+/**
+ * 日期格式
+ */
+var dateFilter = {
+  getDateObject: function (str) {
+    return new Date(str)
+  },
+  formatDate(date) {
+    let _date = new Date(date);
+    let _week = ['日', '一', '二', '三', '四', '五', '六']
+    return {
+      year: _date.getFullYear() || '',
+      month: _date.getMonth() + 1 || '',
+      day: _date.getDate() || '',
+      week: _week[_date.getDay()] || '',
+      timeStamp: date || ''
+    }
+  },
+}
+
 const util = {
 	checkSession,
 	login,
 	getStorage,
-	setStorage
+	setStorage,
+	dateFilter
 }
 
 export default util

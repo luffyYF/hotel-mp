@@ -1,6 +1,5 @@
 <template>
 	<view class="orderPage">
-		<!-- <headnav ref="headnav"></headnav> -->
 		<view class="orderDetails">
 			<view class="markedwords">
 				<text>已入住</text>
@@ -97,23 +96,15 @@
 </template>
 
 <script>
-import headnav from '../../components/headnav/headnav.vue';
 export default {
 	components: {
-		headnav
 	},
 	data() {
 		return {
 			active: 1
 		};
 	},
-	onPageScroll(Object) {
-		if (Object.scrollTop >30 ) {
-			this.$refs.headnav.changeColor(false);
-		} else {
-			this.$refs.headnav.changeColor(true);
-		}
-	},
+	onPageScroll(Object) {},
 	methods: {
 		changeActive: function(e) {
 			if (e == 1) {

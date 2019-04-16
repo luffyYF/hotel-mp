@@ -1,10 +1,10 @@
 {
 	"pages": [{
-			"path": "pages/home/home",
-			"style": {
+            "path" : "pages/index/index",
+            "style" : {
 				"navigationStyle": "custom"
 			}
-		},{
+        },{
 			"path": "pages/user/user",
 			"style": {
 				"navigationBarTitleText": "个人中心",
@@ -32,34 +32,15 @@
 				"enablePullDownRefresh": true
 			}
 		}, {
-			"path": "pages/order/roomDetails",
+			"path": "pages/roominfo/roominfo",
 			"style": {
 				"navigationBarTitleText": "房间详情",
 				"navigationBarBackgroundColor": "#cda754",
 				"enablePullDownRefresh": true
 			}
 		}
-	    ,{
-            "path" : "pages/order/roomReservation",
-            "style" : {
-				"navigationBarTitleText": "查找房间",
-				"navigationBarBackgroundColor": "#cda754",
-				"enablePullDownRefresh": true
-			}
-        }
         ,{
-            "path" : "pages/order/selectPrice",
-            "style" : {
-				"navigationBarTitleText": "选择价格",
-				"navigationBarBackgroundColor": "#cda754",
-				"enablePullDownRefresh": true
-			}
-        },{
-            "path" : "pages/selectDate/selectDate",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/order/fillorder",
+            "path" : "pages/placeOrder/placeOrder",
             "style" : {
 				"navigationBarTitleText": "填写订单",
 				"navigationBarBackgroundColor": "#cda754",
@@ -67,11 +48,17 @@
 			}
         }
         ,{
-            "path" : "pages/order/orderPay",
+            "path" : "pages/payment/payment",
             "style" : {
 				"navigationBarTitleText": "支付订单",
 				"navigationBarBackgroundColor": "#cda754",
 				"enablePullDownRefresh": false
+			}
+        },{
+            "path" : "pages/selectDate/selectDate",
+            "style" : {
+				"navigationBarTitleText": "选择日期",
+				"navigationBarBackgroundColor": "#cda754"
 			}
         }
     ],
@@ -81,7 +68,7 @@
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{
-				"pagePath": "pages/home/home",
+				"pagePath": "pages/index/index",
 				"iconPath": "static/images/tab/homeoutline.png",
 				"selectedIconPath": "static/images/tab/home.png",
 				"text": "首页"

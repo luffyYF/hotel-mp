@@ -1,0 +1,213 @@
+
+.orderPage .orderDetails {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	margin-bottom: 96rpx;
+	background-color: #f5f9fc;
+}
+.orderPage .orderDetails > view {
+	background-color: white;
+	margin-bottom: 30rpx;
+	padding: 0 23.55072rpx 0 23.55072rpx;
+	font-size: 30rpx;
+}
+.orderPage .orderDetails .markedwords {
+	padding: 40rpx 0;
+}
+.orderPage .orderDetails .markedwords text {
+	text-align: center;
+	display: block;
+}
+.orderPage .orderDetails .markedwords text:nth-child(1) {
+	color: #cda754;
+	font-size: 43.47826rpx;
+	font-weight: bold;
+	margin-bottom: 25rpx;
+}
+.orderPage .orderDetails .markedwords text:nth-child(2) {
+	color: #666;
+	font-size: 27.17391rpx;
+}
+.orderPage .orderDetails .warmPrompt .warm-title {
+	padding: 20rpx 10rpx;
+	border-bottom: 1px solid #f7f9fb;
+	font-size: 27.17391rpx;
+}
+.orderPage .orderDetails .warmPrompt .warm-content {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	font-size: 27.17391rpx;
+}
+.orderPage .orderDetails .warmPrompt .warm-content .warm-left {
+	-webkit-box-flex: 0.2;
+	-webkit-flex: 0.2;
+	    -ms-flex: 0.2;
+	        flex: 0.2;
+	padding-left: 10rpx;
+	padding-top: 20rpx;
+	color: #666666;
+}
+.orderPage .orderDetails .warmPrompt .warm-content .warm-right {
+	-webkit-box-flex: 0.8;
+	-webkit-flex: 0.8;
+	    -ms-flex: 0.8;
+	        flex: 0.8;
+	padding: 20rpx 0 20rpx 10rpx;
+	color: #333333;
+}
+.orderPage .orderDetails .checkin .checkindate {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	padding: 28.9855rpx 0;
+	border-bottom: 1px dashed #eee;
+}
+.orderPage .orderDetails .checkin .checkindate view {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
+	text-align: center;
+	line-height: 50rpx;
+	display: box;
+	box-pack: center;
+	box-orient: vertical;
+	display: -webkit-box;
+	-webkit-box-pack: center;
+	-webkit-box-orient: vertical;
+	color: #666666;
+}
+.orderPage .orderDetails .checkin .checkindate view > ._p:nth-child(1) {
+	font-size: 25.36231rpx;
+}
+.orderPage .orderDetails .checkin .checkindate view > ._p:nth-child(2) {
+	font-size: 27.17391rpx;
+	font-weight: 600;
+}
+.orderPage .orderDetails .checkin .checkindate .cy {
+	color: #cda754;
+	font-size: 25.36231rpx;
+}
+.orderPage .orderDetails .checkin .checkinCard {
+	padding-top: 9.05797rpx;
+	font-size: 25.36231rpx;
+}
+.orderPage .orderDetails .checkin .checkinCard .checkinName > image {
+	width: 36.23188rpx;
+	height: 36.23188rpx;
+	float: right;
+	position: relative;
+	top: -19.92753rpx;
+}
+.orderPage .orderDetails .checkin .checkinCard .checkinName {
+	margin: 19.92753rpx 0;
+}
+.orderPage .orderDetails .checkin .checkinCard .checkinName > ._p:nth-child(1) {
+	font-size: 27.17391rpx;
+}
+.orderPage .orderDetails .checkin .checkinCard .checkinName > ._h3 {
+	font-weight: 400;
+	line-height: 38.04347rpx;
+	font-size: 27.17391rpx;
+}
+.orderPage .orderDetails .checkin .checkinCard .checkinName > .cc {
+	color: #8e9093;
+	line-height: 38.04347rpx;
+}
+.orderPage .orderDetails .checkin .checkinCard .houseImg {
+	width: 100%;
+	height: 463.76811rpx;
+}
+.orderPage .orderDetails .checkin .checkinCard .checkinAddress {
+	color: #8e9093;
+}
+.orderPage .orderDetails .checkin .checkinCard .checkinAddress > view {
+	line-height: 63.40579rpx;
+}
+.orderPage .orderDetails .checkin .checkinCard .checkinAddress .icons {
+	display: inline-block;
+	float: right;
+	width: 39.85507rpx;
+	height: 39.85507rpx;
+	margin-top: 9.05797rpx;
+	position: none;
+}
+.orderPage .orderDetails .checkinCost,
+.orderPage .orderDetails .reserve,
+.orderPage .orderDetails .orderDate {
+	color: #666666;
+	font-size: 25.36231rpx;
+}
+.orderPage .orderDetails .checkinCost > view .icons {
+	width: 39.85507rpx;
+	height: 39.85507rpx;
+	position: relative;
+	top: 9.05797rpx;
+}
+.orderPage .orderDetails .checkinCost > view {
+	border-bottom: 1px solid #f7f9fb;
+}
+.orderPage .orderDetails .checkinCost .details,
+.orderPage .orderDetails .checkinCost .deposit,
+.orderPage .orderDetails .checkinCost .invoice {
+	line-height: 88rpx;
+}
+.orderPage .orderDetails .checkinCost .details,
+.orderPage .orderDetails .checkinCost .deposit,
+.orderPage .orderDetails .checkinCost .invoice {
+	text-align: right;
+}
+.orderPage .orderDetails .checkinCost .details > text:nth-child(1),
+.orderPage .orderDetails .checkinCost .details > text:nth-child(2) {
+	float: left;
+}
+.orderPage .orderDetails .checkinCost .details > text:nth-child(2) {
+	margin-left: 20rpx;
+	color: #cda754;
+}
+.orderPage .orderDetails .checkinCost .deposit > text:nth-child(1) {
+	float: left;
+}
+.orderPage .orderDetails .checkinCost .invoice > text:nth-child(1) {
+	float: left;
+}
+.orderPage .orderDetails .reserve > view,
+.orderPage .orderDetails .orderDate > view {
+	line-height: 86.95652rpx;
+	border-bottom: 1px solid #f7f9fb;
+}
+.orderPage .orderDetails .reserve > view > text:nth-child(2),
+.orderPage .orderDetails .orderDate > view > text:nth-child(2) {
+	color: #333333;
+	margin-left: 30rpx;
+	font-weight: 500;
+}
+.orderPage .bottomBtn {
+	width: 100%;
+	text-align: right;
+	position: fixed;
+	bottom: 0;
+	margin: 0;
+	padding: 20rpx 0;
+	background-color: white;
+	border-top: 1px solid #f1f1f1;
+}
+.orderPage .bottomBtn > button {
+	display: inline-block;
+	float: right;
+	height: 56rpx;
+	font-size: 28rpx;
+	line-height: 56rpx;
+	margin-right: 20rpx;
+	color: #cda754;
+	background: white;
+}
+.orderPage .bottomBtn > .active {
+	background-color: #cda754;
+	color: white;
+}
+

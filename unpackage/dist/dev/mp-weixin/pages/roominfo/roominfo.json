@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "房间详情",
+  "navigationBarBackgroundColor": "#cda754",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "uni-swiper-dot": "/components/uni-swiper-dot/uni-swiper-dot"
+  }
+}
