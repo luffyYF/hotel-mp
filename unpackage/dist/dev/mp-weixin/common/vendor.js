@@ -1,388 +1,5 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],{
 
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/main.js":
-/*!********************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/main.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createApp) {__webpack_require__(/*! uni-pages */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages.json");
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
-var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/App.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
-
-_vue.default.config.productionTip = false;
-
-_App.default.mpType = 'app';
-
-var app = new _vue.default(_objectSpread({},
-_App.default));
-
-createApp(app).$mount();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createApp"]))
-
-/***/ }),
-
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/main.js?{\"page\":\"pages%2Findex%2Findex\"}":
-/*!*****************************************************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/main.js?{"page":"pages%2Findex%2Findex"} ***!
-  \*****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages.json");
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
-var _index = _interopRequireDefault(__webpack_require__(/*! ./pages/index/index.vue */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages/index/index.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_index.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
-
-/***/ }),
-
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/main.js?{\"page\":\"pages%2Flogin%2Flogin\"}":
-/*!*****************************************************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/main.js?{"page":"pages%2Flogin%2Flogin"} ***!
-  \*****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages.json");
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
-var _login = _interopRequireDefault(__webpack_require__(/*! ./pages/login/login.vue */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages/login/login.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_login.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
-
-/***/ }),
-
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/main.js?{\"page\":\"pages%2Forder%2Forder\"}":
-/*!*****************************************************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/main.js?{"page":"pages%2Forder%2Forder"} ***!
-  \*****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages.json");
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
-var _order = _interopRequireDefault(__webpack_require__(/*! ./pages/order/order.vue */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages/order/order.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_order.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
-
-/***/ }),
-
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/main.js?{\"page\":\"pages%2Forder%2ForderDetails\"}":
-/*!************************************************************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/main.js?{"page":"pages%2Forder%2ForderDetails"} ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages.json");
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
-var _orderDetails = _interopRequireDefault(__webpack_require__(/*! ./pages/order/orderDetails.vue */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages/order/orderDetails.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_orderDetails.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
-
-/***/ }),
-
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/main.js?{\"page\":\"pages%2Fpayment%2Fpayment\"}":
-/*!*********************************************************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/main.js?{"page":"pages%2Fpayment%2Fpayment"} ***!
-  \*********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages.json");
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
-var _payment = _interopRequireDefault(__webpack_require__(/*! ./pages/payment/payment.vue */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages/payment/payment.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_payment.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
-
-/***/ }),
-
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/main.js?{\"page\":\"pages%2FplaceOrder%2FplaceOrder\"}":
-/*!***************************************************************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/main.js?{"page":"pages%2FplaceOrder%2FplaceOrder"} ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages.json");
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
-var _placeOrder = _interopRequireDefault(__webpack_require__(/*! ./pages/placeOrder/placeOrder.vue */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages/placeOrder/placeOrder.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_placeOrder.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
-
-/***/ }),
-
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/main.js?{\"page\":\"pages%2Froominfo%2Froominfo\"}":
-/*!***********************************************************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/main.js?{"page":"pages%2Froominfo%2Froominfo"} ***!
-  \***********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages.json");
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
-var _roominfo = _interopRequireDefault(__webpack_require__(/*! ./pages/roominfo/roominfo.vue */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages/roominfo/roominfo.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_roominfo.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
-
-/***/ }),
-
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/main.js?{\"page\":\"pages%2FselectDate%2FselectDate\"}":
-/*!***************************************************************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/main.js?{"page":"pages%2FselectDate%2FselectDate"} ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages.json");
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
-var _selectDate = _interopRequireDefault(__webpack_require__(/*! ./pages/selectDate/selectDate.vue */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages/selectDate/selectDate.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_selectDate.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
-
-/***/ }),
-
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/main.js?{\"page\":\"pages%2Fuser%2Fuser\"}":
-/*!***************************************************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/main.js?{"page":"pages%2Fuser%2Fuser"} ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages.json");
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
-var _user = _interopRequireDefault(__webpack_require__(/*! ./pages/user/user.vue */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages/user/user.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_user.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
-
-/***/ }),
-
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/pages.json":
-/*!***********************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/pages.json ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/utils/api.js":
-/*!*************************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/utils/api.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./request */ "../../../../project/newHOUSEFEEL/mp/hotel-mp/utils/request.js"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-var ApiRootUrl = 'http://192.168.5.11/';
-
-var ApiWxUrl = ApiRootUrl + 'wx/';
-
-
-var api = {
-  authorize: function authorize(data) {return _request.default.post('applet/authorize', {
-      appid: data.appid,
-      code: data.code,
-      encryptedData: data.encryptedData,
-      iv: data.encryptedData },
-    {
-      baseURL: ApiWxUrl });} };var _default =
-
-
-
-api;exports.default = _default;
-
-/***/ }),
-
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/utils/request.js":
-/*!*****************************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/utils/request.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var request = {
-  get: function get(url, param, option) {
-    return new Promise(function (resolve, reject) {
-      var baseURL = "";
-      if (option.baseURL) {
-        baseURL = option.baseURL + url;
-      } else {
-        baseURL = url;
-      }
-      uni.request({
-        url: baseURL,
-        data: param,
-        header: {
-          'X-Xbyjshop-Token': wx.getStorageSync('token') },
-
-        method: "GET",
-        success: function success(res) {
-          resolve(res.data);
-        },
-        fail: function fail(err) {
-          reject(err);
-        } });
-
-    });
-  },
-  post: function post(url, param, option) {
-    return new Promise(function (resolve, reject) {
-      var baseURL = "";
-      if (option.baseURL) {
-        baseURL = option.baseURL + url;
-      } else {
-        baseURL = url;
-      }
-      uni.request({
-        url: baseURL,
-        data: param,
-        header: {
-          'X-Xbyjshop-Token': wx.getStorageSync('token') },
-
-        method: "POST",
-        success: function success(res) {
-          resolve(res.data);
-        },
-        fail: function fail(err) {
-          reject(err);
-        } });
-
-    });
-  } };var _default =
-
-request;exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
-
-/***/ }),
-
-/***/ "../../../../project/newHOUSEFEEL/mp/hotel-mp/utils/utils.js":
-/*!***************************************************************!*\
-  !*** E:/wugm/project/newHOUSEFEEL/mp/hotel-mp/utils/utils.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
-                                                                                                      * 检查微信会话是否过期
-                                                                                                      */
-function checkSession() {
-  return new Promise(function (resolve, reject) {
-    wx.checkSession({
-      success: function success() {
-        resolve(true);
-      },
-      fail: function fail() {
-        reject(false);
-      } });
-
-  });
-}
-/**
-   * 调用微信登录
-   */
-function login() {
-  return new Promise(function (resolve, reject) {
-    wx.login({
-      success: function success(res) {
-        if (res.code) {
-          // 登录远程服务器
-          // console.log('微信登陆成功', res)
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      },
-      fail: function fail(err) {
-        reject(err);
-      } });
-
-  });
-}
-
-/**
-   * 存储本地数据
-   */
-function setStorage(key, data) {
-  var timestamp = Date.parse(new Date());
-  var expiration = timestamp + 60 * 60 * 1000;
-  wx.setStorageSync(key, data);
-  wx.setStorageSync(key + "_expiration", expiration);
-}
-
-/**
-   * 获取本地数据
-   */
-function getStorage(key, success, fail) {
-  var timestamp = Date.parse(new Date());
-  var expiration = wx.getStorageSync(key + "_expiration");
-  var data = wx.getStorageSync(key);
-  if (data && expiration > timestamp) {
-    success(data);
-  } else {
-    fail();
-  }
-}
-
-/**
-   * 日期格式
-   */
-var dateFilter = {
-  getDateObject: function getDateObject(str) {
-    return new Date(str);
-  },
-  formatDate: function formatDate(date) {
-    var _date = new Date(date);
-    var _week = ['日', '一', '二', '三', '四', '五', '六'];
-    return {
-      year: _date.getFullYear() || '',
-      month: _date.getMonth() + 1 || '',
-      day: _date.getDate() || '',
-      week: _week[_date.getDay()] || '',
-      timeStamp: date || '' };
-
-  } };
-
-
-var util = {
-  checkSession: checkSession,
-  login: login,
-  getStorage: getStorage,
-  setStorage: setStorage,
-  dateFilter: dateFilter };var _default =
-
-
-util;exports.default = _default;
-
-/***/ }),
-
 /***/ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js":
 /*!************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js ***!
@@ -414,30 +31,9 @@ function hasOwn(obj, key) {
 
 function noop() {}
 
-/**
-                    * Create a cached version of a pure function.
-                    */
-function cached(fn) {
-  var cache = Object.create(null);
-  return function cachedFn(str) {
-    var hit = cache[str];
-    return hit || (cache[str] = fn(str));
-  };
-}
-
-/**
-   * Camelize a hyphen-delimited string.
-   */
-var camelizeRE = /-(\w)/g;
-var camelize = cached(function (str) {
-  return str.replace(camelizeRE, function (_, c) {return c ? c.toUpperCase() : '';});
-});
-
 var SYNC_API_RE = /requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$/;
 
 var CONTEXT_API_RE = /^create|Manager$/;
-
-var TASK_APIS = ['request', 'downloadFile', 'uploadFile', 'connectSocket'];
 
 var CALLBACK_API_RE = /^on/;
 
@@ -452,10 +48,6 @@ function isCallbackApi(name) {
   return CALLBACK_API_RE.test(name);
 }
 
-function isTaskApi(name) {
-  return TASK_APIS.indexOf(name) !== -1;
-}
-
 function handlePromise(promise) {
   return promise.then(function (data) {
     return [null, data];
@@ -464,12 +56,10 @@ function handlePromise(promise) {
 }
 
 function shouldPromise(name) {
-  if (
-  isContextApi(name) ||
-  isSyncApi(name) ||
-  isCallbackApi(name) ||
-  isTaskApi(name))
-  {
+  if (isSyncApi(name)) {
+    return false;
+  }
+  if (isCallbackApi(name)) {
     return false;
   }
   return true;
@@ -688,51 +278,6 @@ var api = /*#__PURE__*/Object.freeze({});
 
 
 
-var WXPage = Page;
-var WXComponent = Component;
-
-var customizeRE = /:/g;
-
-var customize = cached(function (str) {
-  return camelize(str.replace(customizeRE, '-'));
-});
-
-function initTriggerEvent(mpInstance) {
-  if (wx.canIUse('nextTick')) {// 微信旧版本基础库不支持重写triggerEvent
-    var oldTriggerEvent = mpInstance.triggerEvent;
-    mpInstance.triggerEvent = function (event) {for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {args[_key2 - 1] = arguments[_key2];}
-      return oldTriggerEvent.apply(mpInstance, [customize(event)].concat(args));
-    };
-  }
-}
-
-Page = function Page() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var name = 'onLoad';
-  var oldHook = options[name];
-  if (!oldHook) {
-    options[name] = function () {
-      initTriggerEvent(this);
-    };
-  } else {
-    options[name] = function () {
-      initTriggerEvent(this);for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {args[_key3] = arguments[_key3];}
-      return oldHook.apply(this, args);
-    };
-  }
-  return WXPage(options);
-};
-
-var behavior = Behavior({
-  created: function created() {
-    initTriggerEvent(this);
-  } });
-
-
-Component = function Component() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  (options.behaviors || (options.behaviors = [])).unshift(behavior);
-  return WXComponent(options);
-};
-
 var MOCKS = ['__route__', '__wxExparserNodeId__', '__wxWebviewId__'];
 
 function initMocks(vm) {
@@ -772,7 +317,7 @@ function getData(vueOptions, context) {
   }
 
   Object.keys(methods).forEach(function (methodName) {
-    if (context.__lifecycle_hooks__.indexOf(methodName) === -1 && !hasOwn(data, methodName)) {
+    if (!hasOwn(data, methodName)) {
       data[methodName] = methods[methodName];
     }
   });
@@ -842,123 +387,31 @@ function wrapper$1(event) {
   event.preventDefault = noop;
 
   event.target = event.target || {};
-
-  if (!hasOwn(event, 'detail')) {
-    event.detail = {};
-  }
+  event.detail = event.detail || {};
 
   // TODO 又得兼容 mpvue 的 mp 对象
   event.mp = event;
-
-  if (isPlainObject(event.detail)) {
-    event.target = Object.assign({}, event.target, event.detail);
-  }
-
+  event.target = Object.assign({}, event.target, event.detail);
   return event;
 }
 
-function getExtraValue(vm, dataPathsArray) {
-  var context = vm;
-  dataPathsArray.forEach(function (dataPathArray) {
-    var dataPath = dataPathArray[0];
-    var value = dataPathArray[2];
-    if (dataPath || typeof value !== 'undefined') {// ['','',index,'disable']
-      var propPath = dataPathArray[1];
-      var valuePath = dataPathArray[3];
-
-      var vFor = dataPath ? vm.__get_value(dataPath, context) : context;
-
-      if (Number.isInteger(vFor)) {
-        context = value;
-      } else if (!propPath) {
-        context = vFor[value];
-      } else {
-        if (Array.isArray(vFor)) {
-          context = vFor.find(function (vForItem) {
-            return vm.__get_value(propPath, vForItem) === value;
-          });
-        } else if (isPlainObject(vFor)) {
-          context = Object.keys(vFor).find(function (vForKey) {
-            return vm.__get_value(propPath, vFor[vForKey]) === value;
-          });
-        } else {
-          console.error('v-for 暂不支持循环数据：', vFor);
-        }
-      }
-
-      if (valuePath) {
-        context = vm.__get_value(valuePath, context);
-      }
+function processEventArgs(event) {var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];var isCustom = arguments.length > 2 ? arguments[2] : undefined;var methodName = arguments.length > 3 ? arguments[3] : undefined;
+  if (isCustom && !args.length) {// 无参数，直接传入 detail 数组
+    if (!Array.isArray(event.detail)) {// 应该是使用了 wxcomponent 原生组件，为了向前兼容，传递原始 event 对象
+      return [event];
     }
-  });
-  return context;
-}
-
-function processEventExtra(vm, extra) {
-  var extraObj = {};
-
-  if (Array.isArray(extra) && extra.length) {
-    /**
-                                                  *[
-                                                  *    ['data.items', 'data.id', item.data.id],
-                                                  *    ['metas', 'id', meta.id]
-                                                  *],
-                                                  *[
-                                                  *    ['data.items', 'data.id', item.data.id],
-                                                  *    ['metas', 'id', meta.id]
-                                                  *],
-                                                  *'test'
-                                                  */
-    extra.forEach(function (dataPath, index) {
-      if (typeof dataPath === 'string') {
-        if (!dataPath) {// model,prop.sync
-          extraObj['$' + index] = vm;
-        } else {
-          extraObj['$' + index] = vm.__get_value(dataPath);
-        }
-      } else {
-        extraObj['$' + index] = getExtraValue(vm, dataPath);
-      }
-    });
+    return event.detail;
   }
-
-  return extraObj;
-}
-
-function processEventArgs(vm, event) {var args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];var extra = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];var isCustom = arguments.length > 4 ? arguments[4] : undefined;var methodName = arguments.length > 5 ? arguments[5] : undefined;
-  var isCustomMPEvent = false; // wxcomponent 组件，传递原始 event 对象
-  if (isCustom) {// 自定义事件
-    isCustomMPEvent = event.currentTarget &&
-    event.currentTarget.dataset &&
-    event.currentTarget.dataset.comType === 'wx';
-    if (!args.length) {// 无参数，直接传入 event 或 detail 数组
-      if (isCustomMPEvent) {
-        return [event];
-      }
-      return event.detail;
-    }
-  }
-
-  var extraObj = processEventExtra(vm, extra);
-
   var ret = [];
   args.forEach(function (arg) {
     if (arg === '$event') {
       if (methodName === '__set_model' && !isCustom) {// input v-model value
         ret.push(event.target.value);
       } else {
-        if (isCustom && !isCustomMPEvent) {
-          ret.push(event.detail[0]);
-        } else {// wxcomponent 组件或内置组件
-          ret.push(event);
-        }
+        ret.push(isCustom ? event.detail[0] : event);
       }
     } else {
-      if (typeof arg === 'string' && hasOwn(extraObj, arg)) {
-        ret.push(extraObj[arg]);
-      } else {
-        ret.push(arg);
-      }
+      ret.push(arg);
     }
   });
 
@@ -991,26 +444,17 @@ function handleEvent(event) {var _this = this;
     if (eventsArray && eventType === type) {
       eventsArray.forEach(function (eventArray) {
         var methodName = eventArray[0];
-        if (methodName) {
-          var handler = _this.$vm[methodName];
-          if (!isFn(handler)) {
-            throw new Error(" _vm.".concat(methodName, " is not a function"));
-          }
-          if (isOnce) {
-            if (handler.once) {
-              return;
-            }
-            handler.once = true;
-          }
-          handler.apply(_this.$vm, processEventArgs(
-          _this.$vm,
-          event,
-          eventArray[1],
-          eventArray[2],
-          isCustom,
-          methodName));
-
+        var handler = _this.$vm[methodName];
+        if (!isFn(handler)) {
+          throw new Error(" _vm.".concat(methodName, " is not a function"));
         }
+        if (isOnce) {
+          if (handler.once) {
+            return;
+          }
+          handler.once = true;
+        }
+        handler.apply(_this.$vm, processEventArgs(event, eventArray[1], isCustom, methodName));
       });
     }
   });
@@ -1024,7 +468,7 @@ function initRefs(vm) {
       var components = mpInstance.selectAllComponents('.vue-ref');
       components.forEach(function (component) {
         var ref = component.dataset.ref;
-        $refs[ref] = component.$vm || component;
+        $refs[ref] = component.$vm;
       });
       var forComponents = mpInstance.selectAllComponents('.vue-ref-in-for');
       forComponents.forEach(function (component) {
@@ -1032,7 +476,7 @@ function initRefs(vm) {
         if (!$refs[ref]) {
           $refs[ref] = [];
         }
-        $refs[ref].push(component.$vm || component);
+        $refs[ref].push(component.$vm);
       });
       return $refs;
     } });
@@ -1043,8 +487,7 @@ var hooks = [
 'onShow',
 'onHide',
 'onError',
-'onPageNotFound',
-'onUniNViewMessage'];
+'onPageNotFound'];
 
 
 function createApp(vm) {
@@ -1075,17 +518,7 @@ function createApp(vm) {
 
   var appOptions = {
     onLaunch: function onLaunch(args) {
-      {
-        if (!wx.canIUse('nextTick')) {// 事实 上2.2.3 即可，简单使用 2.3.0 的 nextTick 判断
-          console.error('当前微信基础库版本过低，请将 微信开发者工具-详情-项目设置-调试基础库版本 更换为`2.3.0`以上');
-        }
-      }
-
       this.$vm = vm;
-
-      this.$vm.$mp = {
-        app: this };
-
 
       this.$vm._isMounted = true;
       this.$vm.__call_hook('mounted');
@@ -1093,9 +526,6 @@ function createApp(vm) {
       this.$vm.__call_hook('onLaunch', args);
     } };
 
-
-  // 兼容旧版本 globalData
-  appOptions.globalData = vm.$options.globalData || {};
 
   initHooks(appOptions, hooks); // 延迟执行，因为 App 的注册在 main.js 之前，可能导致生命周期内 Vue 原型上开发者注册的属性无法访问
 
@@ -6953,7 +6383,14 @@ function normalizeStyleBinding (bindingStyle) {
 
 /*  */
 
+
 var MP_METHODS = ['createSelectorQuery', 'createIntersectionObserver', 'selectAllComponents', 'selectComponent'];
+
+var customizeRE = /:/g;
+
+var customize = cached(function (str) {
+    return camelize(str.replace(customizeRE, '-'))
+});
 
 function getTarget(obj, path) {
     var parts = path.split('.');
@@ -6970,7 +6407,7 @@ function internalMixin(Vue) {
     Vue.prototype.$emit = function(event) {
         if (this.$mp && event) {
             //click-left,click:left => clickLeft
-            this.$mp[this.mpType]['triggerEvent'](event, toArray(arguments, 1));
+            this.$mp[this.mpType]['triggerEvent'](customize(event), toArray(arguments, 1));
         }
         return oldEmit.apply(this, arguments)
     };
@@ -7006,7 +6443,7 @@ function internalMixin(Vue) {
         return ret
     };
 
-    Vue.prototype.__set_model = function(target, key, value, modifiers) {
+    Vue.prototype.__set_model = function(target, value, modifiers) {
         if (Array.isArray(modifiers)) {
             if (modifiers.includes('trim')) {
                 value = value.trim();
@@ -7015,11 +6452,21 @@ function internalMixin(Vue) {
                 value = this._n(value);
             }
         }
-        target[key] = value;
+        if (target.indexOf('.') === -1) {
+            this[target] = value;
+        } else {
+            var paths = target.split('.');
+            var key = paths.pop();
+            this.$set(getTarget(this, paths.join('.')), key, value);
+        }
     };
 
     Vue.prototype.__set_sync = function(target, key, value) {
-        target[key] = value;
+        if (!target) {
+            this[key] = value;
+        } else {
+            this.$set(getTarget(this, target), key, value);
+        }
     };
 
     Vue.prototype.__get_orig = function(item) {
@@ -7027,10 +6474,6 @@ function internalMixin(Vue) {
             return item['$orig'] || item
         }
         return item
-    };
-
-    Vue.prototype.__get_value = function(dataPath, target) {
-        return getTarget(target || this, dataPath)
     };
 
 
@@ -7095,8 +6538,8 @@ function lifecycleMixin$1(Vue) {
                 }
             });
         }
-
-        return oldExtend.call(this, extendOptions)
+        
+        return oldExtend.call(this,extendOptions)
     };
 
     var strategies = Vue.config.optionMergeStrategies;
@@ -7104,8 +6547,6 @@ function lifecycleMixin$1(Vue) {
     LIFECYCLE_HOOKS$1.forEach(function (hook) {
         strategies[hook] = mergeHook;
     });
-
-    Vue.prototype.__lifecycle_hooks__ = LIFECYCLE_HOOKS$1;
 }
 
 /*  */
@@ -7267,6 +6708,440 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js":
+/*!***********************************!*\
+  !*** E:/project/hotel-mp/main.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createApp) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ "E:\\project\\hotel-mp\\App.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+
+_vue.default.config.productionTip = false;
+
+_App.default.mpType = 'app';
+
+var app = new _vue.default(_objectSpread({},
+_App.default));
+
+createApp(app).$mount();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createApp"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2Findex%2Findex\"}":
+/*!********************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2Findex%2Findex"} ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _index = _interopRequireDefault(__webpack_require__(/*! ./pages/index/index.vue */ "E:\\project\\hotel-mp\\pages\\index\\index.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_index.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2Flogin%2FchangePwd\"}":
+/*!************************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2Flogin%2FchangePwd"} ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _changePwd = _interopRequireDefault(__webpack_require__(/*! ./pages/login/changePwd.vue */ "E:\\project\\hotel-mp\\pages\\login\\changePwd.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_changePwd.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2Flogin%2Flogin\"}":
+/*!********************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2Flogin%2Flogin"} ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _login = _interopRequireDefault(__webpack_require__(/*! ./pages/login/login.vue */ "E:\\project\\hotel-mp\\pages\\login\\login.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_login.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2Flogin%2Fregister\"}":
+/*!***********************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2Flogin%2Fregister"} ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _register = _interopRequireDefault(__webpack_require__(/*! ./pages/login/register.vue */ "E:\\project\\hotel-mp\\pages\\login\\register.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_register.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2Forder%2Forder\"}":
+/*!********************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2Forder%2Forder"} ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _order = _interopRequireDefault(__webpack_require__(/*! ./pages/order/order.vue */ "E:\\project\\hotel-mp\\pages\\order\\order.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_order.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2Forder%2ForderDetails\"}":
+/*!***************************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2Forder%2ForderDetails"} ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _orderDetails = _interopRequireDefault(__webpack_require__(/*! ./pages/order/orderDetails.vue */ "E:\\project\\hotel-mp\\pages\\order\\orderDetails.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_orderDetails.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2Fpayment%2Fpayment\"}":
+/*!************************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2Fpayment%2Fpayment"} ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _payment = _interopRequireDefault(__webpack_require__(/*! ./pages/payment/payment.vue */ "E:\\project\\hotel-mp\\pages\\payment\\payment.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_payment.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2FplaceOrder%2FplaceOrder\"}":
+/*!******************************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2FplaceOrder%2FplaceOrder"} ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _placeOrder = _interopRequireDefault(__webpack_require__(/*! ./pages/placeOrder/placeOrder.vue */ "E:\\project\\hotel-mp\\pages\\placeOrder\\placeOrder.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_placeOrder.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2Froominfo%2Froominfo\"}":
+/*!**************************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2Froominfo%2Froominfo"} ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _roominfo = _interopRequireDefault(__webpack_require__(/*! ./pages/roominfo/roominfo.vue */ "E:\\project\\hotel-mp\\pages\\roominfo\\roominfo.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_roominfo.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2FselectDate%2FselectDate\"}":
+/*!******************************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2FselectDate%2FselectDate"} ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _selectDate = _interopRequireDefault(__webpack_require__(/*! ./pages/selectDate/selectDate.vue */ "E:\\project\\hotel-mp\\pages\\selectDate\\selectDate.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_selectDate.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2Fuser%2Fdiscounts\"}":
+/*!***********************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2Fuser%2Fdiscounts"} ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _discounts = _interopRequireDefault(__webpack_require__(/*! ./pages/user/discounts.vue */ "E:\\project\\hotel-mp\\pages\\user\\discounts.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_discounts.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\main.js?{\"page\":\"pages%2Fuser%2Fuser\"}":
+/*!******************************************************************!*\
+  !*** E:/project/hotel-mp/main.js?{"page":"pages%2Fuser%2Fuser"} ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ "E:\\project\\hotel-mp\\pages.json");
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js"));
+var _user = _interopRequireDefault(__webpack_require__(/*! ./pages/user/user.vue */ "E:\\project\\hotel-mp\\pages\\user\\user.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_user.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["createPage"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\pages.json":
+/*!**************************************!*\
+  !*** E:/project/hotel-mp/pages.json ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\utils\\api.js":
+/*!****************************************!*\
+  !*** E:/project/hotel-mp/utils/api.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./request */ "E:\\project\\hotel-mp\\utils\\request.js"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+var ApiRootUrl = 'http://192.168.5.11/';
+
+var ApiWxUrl = ApiRootUrl + 'wx/';
+
+
+var api = {
+  authorize: function authorize(data) {return _request.default.post('applet/authorize', {
+      appid: data.appid,
+      code: data.code,
+      encryptedData: data.encryptedData,
+      iv: data.encryptedData },
+    {
+      baseURL: ApiWxUrl });} };var _default =
+
+
+
+api;exports.default = _default;
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\utils\\request.js":
+/*!********************************************!*\
+  !*** E:/project/hotel-mp/utils/request.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var request = {
+  get: function get(url, param, option) {
+    return new Promise(function (resolve, reject) {
+      var baseURL = "";
+      if (option.baseURL) {
+        baseURL = option.baseURL + url;
+      } else {
+        baseURL = url;
+      }
+      uni.request({
+        url: baseURL,
+        data: param,
+        header: {
+          'X-Xbyjshop-Token': wx.getStorageSync('token') },
+
+        method: "GET",
+        success: function success(res) {
+          resolve(res.data);
+        },
+        fail: function fail(err) {
+          reject(err);
+        } });
+
+    });
+  },
+  post: function post(url, param, option) {
+    return new Promise(function (resolve, reject) {
+      var baseURL = "";
+      if (option.baseURL) {
+        baseURL = option.baseURL + url;
+      } else {
+        baseURL = url;
+      }
+      uni.request({
+        url: baseURL,
+        data: param,
+        header: {
+          'X-Xbyjshop-Token': wx.getStorageSync('token') },
+
+        method: "POST",
+        success: function success(res) {
+          resolve(res.data);
+        },
+        fail: function fail(err) {
+          reject(err);
+        } });
+
+    });
+  } };var _default =
+
+request;exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
+
+/***/ }),
+
+/***/ "E:\\project\\hotel-mp\\utils\\utils.js":
+/*!******************************************!*\
+  !*** E:/project/hotel-mp/utils/utils.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
+                                                                                                      * 检查微信会话是否过期
+                                                                                                      */
+function checkSession() {
+  return new Promise(function (resolve, reject) {
+    wx.checkSession({
+      success: function success() {
+        resolve(true);
+      },
+      fail: function fail() {
+        reject(false);
+      } });
+
+  });
+}
+/**
+   * 调用微信登录
+   */
+function login() {
+  return new Promise(function (resolve, reject) {
+    wx.login({
+      success: function success(res) {
+        if (res.code) {
+          // 登录远程服务器
+          // console.log('微信登陆成功', res)
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+
+/**
+   * 存储本地数据
+   */
+function setStorage(key, data) {
+  var timestamp = Date.parse(new Date());
+  var expiration = timestamp + 60 * 60 * 1000;
+  wx.setStorageSync(key, data);
+  wx.setStorageSync(key + "_expiration", expiration);
+}
+
+/**
+   * 获取本地数据
+   */
+function getStorage(key, success, fail) {
+  var timestamp = Date.parse(new Date());
+  var expiration = wx.getStorageSync(key + "_expiration");
+  var data = wx.getStorageSync(key);
+  if (data && expiration > timestamp) {
+    success(data);
+  } else {
+    fail();
+  }
+}
+
+/**
+   * 日期格式
+   */
+var dateFilter = {
+  getDateObject: function getDateObject(str) {
+    return new Date(str);
+  },
+  formatDate: function formatDate(date) {
+    var _date = new Date(date);
+    var _week = ['日', '一', '二', '三', '四', '五', '六'];
+    return {
+      year: _date.getFullYear() || '',
+      month: _date.getMonth() + 1 || '',
+      day: _date.getDate() || '',
+      week: _week[_date.getDay()] || '',
+      timeStamp: date || '' };
+
+  } };
+
+
+var util = {
+  checkSession: checkSession,
+  login: login,
+  getStorage: getStorage,
+  setStorage: setStorage,
+  dateFilter: dateFilter };var _default =
+
+
+util;exports.default = _default;
 
 /***/ })
 

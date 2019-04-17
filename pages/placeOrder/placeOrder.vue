@@ -112,7 +112,7 @@ export default {
 	methods:{
 		gotoPayment(){
 			uni.navigateTo({
-				url:'orderPay'
+				url:'../payment/payment'
 			})
 		}
 	}

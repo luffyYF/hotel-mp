@@ -8,7 +8,10 @@
     "pages/roominfo/roominfo",
     "pages/placeOrder/placeOrder",
     "pages/payment/payment",
-    "pages/selectDate/selectDate"
+    "pages/selectDate/selectDate",
+    "pages/login/register",
+    "pages/login/changePwd",
+    "pages/user/discounts"
   ],
   "subPackages": [],
   "tabBar": {

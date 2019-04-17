@@ -96,7 +96,7 @@
 			</view>
 			<view class="configuration">
 				<h2>配置信息</h2>
-				<view class="configuration-items">
+				<view class="configuration-items" :class="showConfig?'item-height':''">
 					<view class="configuration-item">
 						<image src="../../static/images/room/20170315200120274808045.png" mode=""></image>
 						<p>电梯</p>
@@ -130,7 +130,7 @@
 						<p>电梯</p>
 					</view>
 				</view>
-				<view class="lookall">
+				<view class="lookall" @click="showitems">
 					<span>展开全部</span>
 					<image class="icon-down" src="../../static/images/room/down.png" mode=""></image>
 				</view>
@@ -186,7 +186,8 @@ export default {
 				}
 			],
 			current: 0,
-			mode: 'long'
+			mode: 'long',
+			showConfig:false
 		};
 	},
 	methods: {
@@ -195,8 +196,11 @@ export default {
 		},
 		gotoPrice(){
 			uni.navigateTo({
-				url:'selectPrice'
+				url:'../payment/payment'
 			})
+		},
+		showitems(){
+			this.showConfig=!this.showConfig;
 		}
 	}
 };
@@ -433,10 +437,16 @@ export default {
 }
 .roomPage > .configuration > .configuration-items {
 	width: 100%;
+	height: 81.52173upx;
+	overflow: hidden;
 	padding: 18.11594upx 0;
 	display: flex;
 	flex-wrap: wrap;
 	align-self: flex-start;
+}
+.roomPage > .configuration > .item-height{
+	height: auto;
+	
 }
 .roomPage > .configuration > .configuration-items > .configuration-item {
 	width: 20%;

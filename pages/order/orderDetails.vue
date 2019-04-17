@@ -110,7 +110,7 @@ export default {
 			if (e == 1) {
 				this.active = 1;
 				uni.navigateTo({
-					url:'selectPrice'
+					url:'../payment/payment'
 				});
 			} else {
 				this.active = 2;
@@ -118,7 +118,7 @@ export default {
 		},
 		goRoom: function() {
 			uni.navigateTo({
-				url: 'roomDetails'
+				url: '../roominfo/roominfo'
 			});
 		}
 	}

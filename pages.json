@@ -22,7 +22,8 @@
 		{
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "登录"
+				"navigationBarTitleText": "登录",
+				"navigationBarBackgroundColor": "#cda754"
 			}
 		}, {
 			"path": "pages/order/orderDetails",
@@ -58,6 +59,27 @@
             "path" : "pages/selectDate/selectDate",
             "style" : {
 				"navigationBarTitleText": "选择日期",
+				"navigationBarBackgroundColor": "#cda754"
+			}
+        }
+        ,{
+            "path" : "pages/login/register",
+            "style" : {
+				"navigationBarTitleText": "账号注冊",
+				"navigationBarBackgroundColor": "#cda754"
+			}
+        }
+        ,{
+            "path" : "pages/login/changePwd",
+            "style" : {
+				"navigationBarTitleText": "修改密码",
+				"navigationBarBackgroundColor": "#cda754"
+			}
+        }
+        ,{
+            "path" : "pages/user/discounts",
+            "style" : {
+				"navigationBarTitleText": "优惠券",
 				"navigationBarBackgroundColor": "#cda754"
 			}
         }

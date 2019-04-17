@@ -135,13 +135,6 @@
 					animationDuration: 1000
 				});
 			},
-			gotoPrice() {
-				uni.navigateTo({
-					url: 'selectPrice',
-					animationType: 'fade-in',
-					animationDuration: 1000
-				});
-			},
 			selectDate() {
 				uni.navigateTo({
 					url: '../selectDate/selectDate?checkIn='+JSON.stringify(this.globalData.checkIn)+'&checkOut='+JSON.stringify(this.globalData.checkOut),

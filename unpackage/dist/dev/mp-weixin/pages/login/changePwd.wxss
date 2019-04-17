@@ -1,0 +1,41 @@
+.forgetPage {
+  padding: 27.17391rpx;
+}
+.forgetPage .forgetContent view {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    vertical-align: middle;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 32.60869rpx 27.17391rpx;
+    border-bottom: 0.55px solid #e8ebec;
+}
+.forgetPage .forgetContent view image {
+      width: 45.28985rpx;
+      height: 45.28985rpx;
+      margin-right: 36.23188rpx;
+}
+.forgetPage .forgetContent view ._span {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      text-align: right;
+      font-size: 28.9855rpx;
+      color: #cda754;
+}
+.forgetPage .btnRow {
+    margin-top: 45.28985rpx;
+}
+.forgetPage .btnRow button {
+      color: white;
+      border-radius: 45.28985rpx;
+      background: -webkit-gradient(linear, left top, left bottom, from(#cda754), to(#e5c893)) !important;
+      background: -o-linear-gradient(top, #cda754, #e5c893) !important;
+      background: linear-gradient(to bottom, #cda754, #e5c893) !important;
+}
+

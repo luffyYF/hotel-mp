@@ -34,18 +34,18 @@
 		<view class='calendar-wrap'>
 			<!-- 日期 -->
 			<view class='calendar-list'>
-				<view class='calendar-item' v-for="(calendarList,idx) in calendarLists" :key="idx">
+				<view class='calendar-item' v-for="(calendarList,index) in calendarLists" :key="index">
 					<!-- 年月 -->
 					<view class='year-month'>{{calendarList.year}}年{{calendarList.month}}月</view>
 					<!-- 日子 -->
 					<view class='canlendar-day-wrap'>
 						<view v-for="(item,index) in calendarList.list" :key="index" class='day-row' v-if="item.length!=0">
-							<view class="canlendar-day" v-for="tmp in item" :class="(tmp.day?' week-day':'')+
+							<view class="canlendar-day" v-for="(tmp,index) in item"  :class="(tmp.day?' week-day':'')+
 							 (tmp.timeStamp<today? ' disabled':'')+
 							 (tmp.timeStamp &&(tmp.timeStamp == checkIn.timeStamp)? ' check-in':'')+
 							 (tmp.timeStamp&&(tmp.timeStamp== checkOut.timeStamp)? ' check-out':'')+
 							 ((tmp.timeStamp> checkIn.timeStamp &&tmp.timeStamp< checkOut.timeStamp)? ' check-in-day':'')"
-							 :key='tmp.date' @click="pickDate" :data-stamp="tmp.timeStamp" :data-can-click="tmp.timeStamp>=today">
+							 :key='index' @click="pickDate" :data-stamp="tmp.timeStamp" :data-can-click="tmp.timeStamp>=today">
 								{{tmp.timeStamp==today?'今天':tmp.date}}
 								<view class='check-day-text' v-if="checkIn.timeStamp && tmp.timeStamp == checkIn.timeStamp">入住</view>
 								<view class='check-day-text' v-if="checkOut.timeStamp &&(tmp.timeStamp == checkOut.timeStamp)">离店</view>
@@ -140,6 +140,8 @@
 					if (this.checkOut.timeStamp) {
 						this.checkIn = this.formatDate(timeStamp)
 						this.checkOut = this.formatDate('')
+						console.log(this.checkOut)
+						console.log(this.checkIn)
 					} else if (this.checkIn.timeStamp != timeStamp) {
 						if (this.checkIn.timeStamp > timeStamp) {
 							this.checkIn = this.formatDate(timeStamp)
@@ -155,6 +157,7 @@
 				// 				app.globalData.checkIn = this.data.checkIn;
 				// 				app.globalData.checkOut = this.data.checkOut;
 				// wx.navigateBack();
+				
 			},
 			/**
 			 * @params year {Number} 年份

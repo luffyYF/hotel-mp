@@ -269,6 +269,8 @@
 }
 .roomPage > .configuration > .configuration-items {
 	width: 100%;
+	height: 81.52173rpx;
+	overflow: hidden;
 	padding: 18.11594rpx 0;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -280,6 +282,9 @@
 	-webkit-align-self: flex-start;
 	    -ms-flex-item-align: start;
 	        align-self: flex-start;
+}
+.roomPage > .configuration > .item-height{
+	height: auto;
 }
 .roomPage > .configuration > .configuration-items > .configuration-item {
 	width: 20%;

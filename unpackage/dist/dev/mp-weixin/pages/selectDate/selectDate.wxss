@@ -1,30 +1,30 @@
 
-view.data-v-4225a4d0{
+view.data-v-54614ec3{
 	line-height:inherit;
 }
 /* pages/datePicker/datePicker.wxss */
-.date-header.data-v-4225a4d0 {
+.date-header.data-v-54614ec3 {
 	width: 100%;
 	height: 190rpx;
 	font-size: 24rpx;
 	background-color: #f6f6f6;
 }
-.date-days.data-v-4225a4d0 {
+.date-days.data-v-54614ec3 {
 	height: 110rpx;
 	padding-top: 10rpx;
 	border-bottom: 1px solid #cecece;
 	background-color: #fff;
 }
-.check-date.data-v-4225a4d0 {
+.check-date.data-v-54614ec3 {
 	width: 160rpx;
 	padding-left: 50rpx;
 	color: #333;
 }
-.date-text.data-v-4225a4d0 {
+.date-text.data-v-54614ec3 {
 	color: #999;
 	font-size: 22rpx;
 }
-.check-days.data-v-4225a4d0 {
+.check-days.data-v-54614ec3 {
 	width: 160rpx;
 	margin: 0 auto;
 	color: #ff7a00;
@@ -34,10 +34,10 @@ view.data-v-4225a4d0{
 	padding-bottom: 15rpx;
 }
 /* 日期组件 */
-.fixed-top.data-v-4225a4d0 {
+.fixed-top.data-v-54614ec3 {
 	position: fixed;
 }
-.calendar-header.data-v-4225a4d0 {
+.calendar-header.data-v-54614ec3 {
 	background-color: #fff;
 	margin-top: 20rpx;
 	height: 48rpx;
@@ -46,7 +46,7 @@ view.data-v-4225a4d0{
 	border-top: 1px solid #eee;
 	border-bottom: 1px solid #eee;
 }
-.calendar-week.data-v-4225a4d0 {
+.calendar-week.data-v-54614ec3 {
 	display: inline-block;
 	color: #333;
 	font-size: 24rpx;
@@ -54,30 +54,30 @@ view.data-v-4225a4d0{
 	text-align: center;
 }
 /* 日期 */
-.calendar-list.data-v-4225a4d0 {
+.calendar-list.data-v-54614ec3 {
 	padding-top: 195rpx;
 }
-.calendar-item.data-v-4225a4d0 {
+.calendar-item.data-v-54614ec3 {
 	background-color: #fff;
 	margin-bottom: 20rpx;
 }
-.calendar-item.data-v-4225a4d0:last-child {
+.calendar-item.data-v-54614ec3:last-child {
 	padding-bottom: 130rpx;
 }
-.year-month.data-v-4225a4d0 {
+.year-month.data-v-54614ec3 {
 	color: #333;
 	font-size: 24rpx;
 	text-align: center;
 	padding-top: 54rpx;
 	padding-bottom: 40rpx;
 }
-.canlendar-day-wrap.data-v-4225a4d0 {
+.canlendar-day-wrap.data-v-54614ec3 {
 	padding: 0 20rpx;
 }
-.day-row.data-v-4225a4d0 {
+.day-row.data-v-54614ec3 {
 	height: 92rpx;
 }
-.canlendar-day.data-v-4225a4d0 {
+.canlendar-day.data-v-54614ec3 {
 	float: left;
 	width: 100rpx;
 	height: 82rpx;
@@ -86,32 +86,32 @@ view.data-v-4225a4d0{
 	font-size: 24rpx;
 	margin-bottom: 10rpx;
 }
-.week-day.data-v-4225a4d0 {
+.week-day.data-v-54614ec3 {
 	color: #ff7a00;
 }
-.disabled.data-v-4225a4d0 {
+.disabled.data-v-54614ec3 {
 	color: #d1d1d1;
 }
-.check-in.data-v-4225a4d0,
-.check-out.data-v-4225a4d0 {
+.check-in.data-v-54614ec3,
+.check-out.data-v-54614ec3 {
 	background-color: #ff7a00;
 	color: #fff;
 }
-.check-in.data-v-4225a4d0 {
+.check-in.data-v-54614ec3 {
 	border-radius: 10rpx 0 0 10rpx;
 }
-.check-out.data-v-4225a4d0 {
+.check-out.data-v-54614ec3 {
 	border-radius: 0 10rpx 10rpx 0;
 }
-.check-day-text.data-v-4225a4d0 {
+.check-day-text.data-v-54614ec3 {
 	line-height: 10rpx;
 }
-.check-in-day.data-v-4225a4d0 {
+.check-in-day.data-v-54614ec3 {
 	color: #ff7a00;
 	background-color: rgba(255, 122, 0, .2)
 }
 /* 确定按钮 */
-.btn-wrap.data-v-4225a4d0 {
+.btn-wrap.data-v-54614ec3 {
 	width: 100%;
 	height: 100rpx;
 	padding-bottom: 40rpx;
@@ -119,7 +119,7 @@ view.data-v-4225a4d0{
 	position: fixed;
 	bottom: 0rpx;
 }
-button.data-v-4225a4d0 {
+button.data-v-54614ec3 {
 	background-color: #ff7a00;
 	color: #fff;
 	font-size: 36rpx;
@@ -128,7 +128,7 @@ button.data-v-4225a4d0 {
 	opacity: 0.9;
 	margin: 0 auto;
 }
-.sure-btn-hover.data-v-4225a4d0 {
+.sure-btn-hover.data-v-54614ec3 {
 	background-color: #ff7a00;
 	opacity: 1;
 }
