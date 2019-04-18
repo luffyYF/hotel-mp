@@ -1,145 +1,92 @@
 <template>
-	<view class="loginView">
-		<view class="logoImg">
-			<image src="../../static/images/user/logo3.png" mode=""></image>
+	<view class="loginPage">
+		<image class="loginback" src="../../static/images/login/loginback.jpg" mode=""></image>
+		<view class="company-icon">
+			<image src="../../static/images/login/logo.png" mode=""></image>
+			<h3>豪斯格兰</h3>
 		</view>
-		<view class="top_view"><h1>你好,请登录!</h1></view>
-		<form class="loginFrom" @submit="login">
+		<view class="form">
 			<view class="accountNo">
-				<image src="../../static/images/user/telphone.png" mode=""></image>
-				<input type="text" placeholder="请输入手机号码" value="" />
+				<image src="../../static/images/login/telphone.png" mode=""></image>
+				<input type="text" placeholder="请输入您的手机号码" value="" />
 			</view>
-			<view :class="flag?'verification':'pwd'">
-				<image :src="flag?'../../static/images/user/security.png':'../../static/images/user/pwd.png'" mode=""></image>
-				<input type="text"  :placeholder="flag?'请输入验证码':'请输入密码'" value="" />
-				<span>获取验证码</span>
+			<view class="verification">
+				<image src="../../static/images/login/security.png" mode=""></image>
+				<input type="text" placeholder="请输入验证码" value="" />
+				<span>验证码</span>
 			</view>
-			<view class="forgetPwd">
-				<image src="../../static/images/user/forgetPwd.png" mode=""></image>
-				<span @tap="forget">忘记密码</span>
-			</view>
-			<view class="loginRow"><button class="loginBtn">登录</button></view>
-			<view class="selectElse">
-				<span @tap="register">账号注册</span>
-				<span>|</span>
-				<span @tap="pwdLogin">{{flag?'密码登录':'验证码登录'}}</span>
-			</view>
-		</form>
+			<view class="loginRow"><button class="loginBtn">绑定</button></view>
+		</view>
 	</view>
 </template>
-
 <script>
 export default {
 	data() {
-		return {
-			flag:false
-		};
+		return {};
 	},
-	methods: {
-		login(e) {
-			console.log('得到账号:' + e.detail.value.nameValue + ';得到密码:' + e.detail.value.passwordValue);
-		},
-		register() {
-			uni.navigateTo({
-				url:'register'
-			})
-		},
-		pwdLogin(){
-			this.flag=!this.flag;
-		},
-		forget(){
-			uni.navigateTo({
-				url:'changePwd'
-			})
-		}
-	}
+	methods: {}
 };
 </script>
 
 <style lang="scss">
-.loginView {
-	padding: 90.57971upx 36.23188upx 54.34782upx 36.23188upx;
-	.logoImg{
+page {
+	height: 100%;
+}
+.loginPage {
+	.company-icon,.form{
+		position: relative;
+		bottom: -90.57971upx;
+	}
+	.loginback{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+	.company-icon {
 		text-align: center;
-		image{
-			width: 271.73913upx;
-			height: 271.73913upx;
-			
-		}
-	}
-	
-	.top_view {
-		h1 {
-			font-size: 45.28985upx;
-			font-weight: 500;
-			margin: 36.23188upx 0;
-		}
-	}
-	.verification,
-	.accountNo {
-		display: flex;
-		vertical-align: middle;
-		align-items: center;
-		padding: 39.85507upx 0;
-		border-bottom: 0.99637upx solid #e8ebec;
 		image {
-			width: 36.23188upx;
-			height: 36.23188upx;
-			margin-right: 36.23188upx;
+			width: 181.15942upx;
+			height: 181.15942upx;
 		}
-		span {
-			flex: 1;
-			text-align: right;
-			font-size: 28.9855upx;
+		h3 {
 			color: #cda754;
+			font-size: 36.23188upx;
+			font-weight: 500;
 		}
 	}
-	.pwd{
-		display: flex;
-		vertical-align: middle;
-		align-items: center;
-		padding: 39.85507upx 0;
-		border-bottom: 0.99637upx solid #e8ebec;
-		image {
-			src: '../../static/images/user/pwd.png';
-			width: 36.23188upx;
-			height: 36.23188upx;
-			margin-right: 36.23188upx;
-		}
-		span{
-			display: none
-		}
-	}
-	.forgetPwd{
-		text-align: right;
-		display: flex;
-		vertical-align: middle;
-		align-items: center;
-		justify-content: flex-end;
-		padding-top: 18.11594upx;
-		image{
-			width: 36.23188upx;
-			height: 36.23188upx;
-			margin-right: 9.05797upx;
-		}
-		span{
-			color: #cda754
+	.form {
+		margin: 0 72.46376upx;
+		margin-top: 90.57971upx;
+		.accountNo,
+		.verification {
+			display: flex;
+			vertical-align: middle;
+			align-items: center;
+			color: white;
+			padding: 9.05797upx;
+			border-bottom: 0.99637upx solid white;
+			margin-bottom: 45.28985upx;
+			image {
+				width: 45.28985upx;
+				height: 45.28985upx;
+				margin-right: 36.23188upx;
+			}
+			span {
+				flex: 1;
+				text-align: right;
+				font-size: 28.9855upx;
+				color: #cda754;
+			}
+			input {
+				color: white;
+			}
 		}
 	}
 	.loginRow {
-		margin: 63.40579upx 0;
 		.loginBtn {
 			color: white;
-			border-radius: 45.28985upx;
-			background: -webkit-gradient(linear, left top, left bottom, from(#cda754), to(#e5c893)) !important;
-			background: linear-gradient(to bottom, #cda754, #e5c893) !important;
-		}
-	}
-	.selectElse{
-		text-align: center;
-		color: #cda754;
-		span{
-			margin: 0 9.05797upx;
+			background-color: rgba($color: #cda754, $alpha: 0.7);
+			margin: 90.57971upx 0;
 		}
 	}
 }

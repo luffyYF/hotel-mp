@@ -29,7 +29,7 @@
     font-weight: 500;
     color: #ffffff;
     position: absolute;
-    z-index: 99999;
+    z-index: 1;
     top: 416.66666rpx;
     padding-left: 36.23188rpx;
     background-color: transparent;
@@ -123,7 +123,7 @@
 .roomReservation .room-list .room-cover .span {
       position: absolute;
       bottom: 16rpx;
-      z-index: 999999;
+      z-index: 1;
       left: 0;
       padding: 0 10.86956rpx;
       background: rgba(0, 0, 0, 0.75);

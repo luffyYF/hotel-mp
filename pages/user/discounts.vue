@@ -3,117 +3,50 @@
 		<view class="tabs">
 			<view class="tabs-title" :class="num == 0 ? 'active' : ''" @click="checked(0)">
 				可使用(
-				<span></span>
+				<span>12</span>
 				)
 			</view>
 			<view class="tabs-title" :class="num == 1 ? 'active' : ''" @click="checked(1)">
 				已失效(
-				<span></span>
+				<span>12</span>
 				)
 			</view>
 		</view>
-		<swiper class="swiper" duration="500" :current="num">
+		<swiper class="swiper" duration="500" :current="num" @change="change">
 			<swiper-item>
 				<view class="card-list">
 					<view class="card-item">
-						<image src="../../static/images/user/discounts.png" mode=""></image>
+						<image class="card-img" src="../../static/images/user/discounts.png" mode=""></image>
 						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
-							<p>可使用</p>
-						</view>
-					</view>
-					<view class="card-item">
-						<image src="../../static/images/user/discounts.png" mode=""></image>
-						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
-							<p>可使用</p>
-						</view>
-					</view>
-					<view class="card-item">
-						<image src="../../static/images/user/discounts.png" mode=""></image>
-						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
-							<p>可使用</p>
-						</view>
-					</view>
-					<view class="card-item">
-						<image src="../../static/images/user/discounts.png" mode=""></image>
-						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
-							<p>可使用</p>
-						</view>
-					</view>
-					<view class="card-item">
-						<image src="../../static/images/user/discounts.png" mode=""></image>
-						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
-							<p>可使用</p>
-						</view>
-					</view>
-					<view class="card-item">
-						<image src="../../static/images/user/discounts.png" mode=""></image>
-						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
-							<p>可使用</p>
-						</view>
-					</view>
-					<view class="card-item">
-						<image src="../../static/images/user/discounts.png" mode=""></image>
-						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
-							<p>可使用</p>
-						</view>
-					</view>
-					<view class="card-item">
-						<image src="../../static/images/user/discounts.png" mode=""></image>
-						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
-							<p>可使用</p>
-						</view>
-					</view>
-					<view class="card-item">
-						<image src="../../static/images/user/discounts.png" mode=""></image>
-						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
-							<p>可使用</p>
-						</view>
-					</view>
-					<view class="card-item">
-						<image src="../../static/images/user/discounts.png" mode=""></image>
-						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
-							<p>可使用</p>
-						</view>
-					</view>
-					<view class="card-item">
-						<image src="../../static/images/user/discounts.png" mode=""></image>
-						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
-							<p>可使用</p>
-						</view>
-					</view>
-					<view class="card-item">
-						<image src="../../static/images/user/discounts.png" mode=""></image>
-						<view class="card-content">
-							<h2>住房代金卷</h2>
+							<h2>住房代金卷(100元)</h2>
 							<span>有效期：2018-12-21 ~ 2019-12-21</span>
 							<p>可使用</p>
 						</view>
 					</view>
 				</view>
 			</swiper-item>
-			<swiper-item><view class="swiper-item uni-bg-green">B</view></swiper-item>
+			<swiper-item>
+				<view class="card-list">
+					<view class="card-item"  style="opacity: .6;">
+						<image class="card-img" src="../../static/images/user/discounts.png" mode=""></image>
+						<view class="card-content">
+							<h2>住房代金卷(100元)</h2>
+							<span>有效期：2018-12-21 ~ 2019-12-21</span>
+							<p>{{ num == 1 ? '已失效' : '可使用' }}</p>
+						</view>
+						<view class="card-lose"><image src="../../static/images/user/invalid.png" mode=""></image></view>
+					</view>
+					<view class="card-item"  style="opacity: .6;">
+						<image class="card-img" src="../../static/images/user/discounts.png" mode=""></image>
+						<view class="card-content">
+							<h2>住房代金卷(100元)</h2>
+							<span>有效期：2018-12-21 ~ 2019-12-21</span>
+							<p>{{ num == 1 ? '已失效' : '可使用' }}</p>
+						</view>
+						<view class="card-lose"><image src="../../static/images/user/invalid.png" mode=""></image></view>
+					</view>
+				</view>
+			</swiper-item>
 		</swiper>
 	</view>
 </template>
@@ -126,6 +59,9 @@ export default {
 		};
 	},
 	methods: {
+		change(e) {
+			this.num = e.detail.current;
+		},
 		checked: function(e) {
 			this.num = e;
 			this.$emit('selectFunc', e);
@@ -165,7 +101,11 @@ uni-swiper-item {
 		}
 	}
 	.swiper {
-		height: 200%;
+		height: 100%;
+		overflow-y: auto;
+		swiper-item {
+			overflow-y: auto;
+		}
 		.card-list {
 			.card-item {
 				height: 144.92753upx;
@@ -175,8 +115,10 @@ uni-swiper-item {
 				vertical-align: middle;
 				align-items: center;
 				background-color: white;
+				position: relative;
 				border-radius: 18.11594upx;
-				image {
+				overflow: hidden;
+				.card-img {
 					width: 181.15942upx;
 					height: 144.92753upx;
 				}
@@ -198,6 +140,16 @@ uni-swiper-item {
 						color: #999;
 						margin-top: 0;
 						font-size: 21.73913upx;
+					}
+				}
+				.card-lose {
+					image {
+						width: 144.92753upx;
+						height: 144.92753upx;
+						transform: rotate(-30deg);
+						position: absolute;
+						right: -18.11594upx;
+						top: 54.34782upx;
 					}
 				}
 			}

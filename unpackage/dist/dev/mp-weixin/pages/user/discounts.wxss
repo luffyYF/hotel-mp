@@ -38,7 +38,11 @@ uni-swiper-item {
       border-bottom: 2px solid #cda754;
 }
 .discountsPage .swiper {
-    height: 200%;
+    height: 100%;
+    overflow-y: auto;
+}
+.discountsPage .swiper swiper-item {
+      overflow-y: auto;
 }
 .discountsPage .swiper .card-list .card-item {
       height: 144.92753rpx;
@@ -54,9 +58,11 @@ uni-swiper-item {
           -ms-flex-align: center;
               align-items: center;
       background-color: white;
+      position: relative;
       border-radius: 18.11594rpx;
+      overflow: hidden;
 }
-.discountsPage .swiper .card-list .card-item image {
+.discountsPage .swiper .card-list .card-item .card-img {
         width: 181.15942rpx;
         height: 144.92753rpx;
 }
@@ -79,5 +85,15 @@ uni-swiper-item {
           color: #999;
           margin-top: 0;
           font-size: 21.73913rpx;
+}
+.discountsPage .swiper .card-list .card-item .card-lose image {
+        width: 144.92753rpx;
+        height: 144.92753rpx;
+        -webkit-transform: rotate(-30deg);
+            -ms-transform: rotate(-30deg);
+                transform: rotate(-30deg);
+        position: absolute;
+        right: -18.11594rpx;
+        top: 54.34782rpx;
 }
 

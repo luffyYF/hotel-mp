@@ -1,20 +1,33 @@
-.loginView {
-  padding: 90.57971rpx 36.23188rpx 54.34782rpx 36.23188rpx;
+page {
+  height: 100%;
 }
-.loginView .logoImg {
-    text-align: center;
+.loginPage .company-icon, .loginPage .form {
+  position: relative;
+  bottom: -90.57971rpx;
 }
-.loginView .logoImg image {
-      width: 271.73913rpx;
-      height: 271.73913rpx;
+.loginPage .loginback {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
-.loginView .top_view ._h1 {
-    font-size: 45.28985rpx;
+.loginPage .company-icon {
+  text-align: center;
+}
+.loginPage .company-icon image {
+    width: 181.15942rpx;
+    height: 181.15942rpx;
+}
+.loginPage .company-icon ._h3 {
+    color: #cda754;
+    font-size: 36.23188rpx;
     font-weight: 500;
-    margin: 36.23188rpx 0;
 }
-.loginView .verification,
-  .loginView .accountNo {
+.loginPage .form {
+  margin: 0 72.46376rpx;
+  margin-top: 90.57971rpx;
+}
+.loginPage .form .accountNo,
+  .loginPage .form .verification {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -24,17 +37,19 @@
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
-    padding: 39.85507rpx 0;
-    border-bottom: 0.99637rpx solid #e8ebec;
+    color: white;
+    padding: 9.05797rpx;
+    border-bottom: 0.99637rpx solid white;
+    margin-bottom: 45.28985rpx;
 }
-.loginView .verification image,
-    .loginView .accountNo image {
-      width: 36.23188rpx;
-      height: 36.23188rpx;
+.loginPage .form .accountNo image,
+    .loginPage .form .verification image {
+      width: 45.28985rpx;
+      height: 45.28985rpx;
       margin-right: 36.23188rpx;
 }
-.loginView .verification ._span,
-    .loginView .accountNo ._span {
+.loginPage .form .accountNo ._span,
+    .loginPage .form .verification ._span {
       -webkit-box-flex: 1;
       -webkit-flex: 1;
           -ms-flex: 1;
@@ -43,68 +58,13 @@
       font-size: 28.9855rpx;
       color: #cda754;
 }
-.loginView .pwd {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    vertical-align: middle;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    padding: 39.85507rpx 0;
-    border-bottom: 0.99637rpx solid #e8ebec;
-}
-.loginView .pwd image {
-      src: '../../static/images/user/pwd.png';
-      width: 36.23188rpx;
-      height: 36.23188rpx;
-      margin-right: 36.23188rpx;
-}
-.loginView .pwd ._span {
-      display: none;
-}
-.loginView .forgetPwd {
-    text-align: right;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    vertical-align: middle;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: end;
-    -webkit-justify-content: flex-end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
-    padding-top: 18.11594rpx;
-}
-.loginView .forgetPwd image {
-      width: 36.23188rpx;
-      height: 36.23188rpx;
-      margin-right: 9.05797rpx;
-}
-.loginView .forgetPwd ._span {
-      color: #cda754;
-}
-.loginView .loginRow {
-    margin: 63.40579rpx 0;
-}
-.loginView .loginRow .loginBtn {
+.loginPage .form .accountNo input,
+    .loginPage .form .verification input {
       color: white;
-      border-radius: 45.28985rpx;
-      background: -webkit-gradient(linear, left top, left bottom, from(#cda754), to(#e5c893)) !important;
-      background: -o-linear-gradient(top, #cda754, #e5c893) !important;
-      background: linear-gradient(to bottom, #cda754, #e5c893) !important;
 }
-.loginView .selectElse {
-    text-align: center;
-    color: #cda754;
-}
-.loginView .selectElse ._span {
-      margin: 0 9.05797rpx;
+.loginPage .loginRow .loginBtn {
+  color: white;
+  background-color: rgba(205, 167, 84, 0.7);
+  margin: 90.57971rpx 0;
 }
 

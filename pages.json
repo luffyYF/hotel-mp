@@ -1,17 +1,17 @@
 {
 	"pages": [{
-            "path" : "pages/index/index",
-            "style" : {
+			"path": "pages/index/index",
+			"style": {
 				"navigationStyle": "custom"
 			}
-        },{
+		}, {
 			"path": "pages/user/user",
 			"style": {
 				"navigationBarTitleText": "个人中心",
 				"navigationStyle": "custom",
 				"navigationBarBackgroundColor": "#cda754"
 			}
-		},{
+		}, {
 			"path": "pages/order/order",
 			"style": {
 				"navigationBarTitleText": "订单",
@@ -39,51 +39,42 @@
 				"navigationBarBackgroundColor": "#cda754",
 				"enablePullDownRefresh": true
 			}
-		}
-        ,{
-            "path" : "pages/placeOrder/placeOrder",
-            "style" : {
+		}, {
+			"path": "pages/placeOrder/placeOrder",
+			"style": {
 				"navigationBarTitleText": "填写订单",
 				"navigationBarBackgroundColor": "#cda754",
 				"enablePullDownRefresh": false
 			}
-        }
-        ,{
-            "path" : "pages/payment/payment",
-            "style" : {
+		}, {
+			"path": "pages/payment/payment",
+			"style": {
 				"navigationBarTitleText": "支付订单",
 				"navigationBarBackgroundColor": "#cda754",
 				"enablePullDownRefresh": false
 			}
-        },{
-            "path" : "pages/selectDate/selectDate",
-            "style" : {
+		}, {
+			"path": "pages/selectDate/selectDate",
+			"style": {
 				"navigationBarTitleText": "选择日期",
 				"navigationBarBackgroundColor": "#cda754"
 			}
-        }
-        ,{
-            "path" : "pages/login/register",
-            "style" : {
-				"navigationBarTitleText": "账号注冊",
-				"navigationBarBackgroundColor": "#cda754"
-			}
-        }
-        ,{
-            "path" : "pages/login/changePwd",
-            "style" : {
-				"navigationBarTitleText": "修改密码",
-				"navigationBarBackgroundColor": "#cda754"
-			}
-        }
-        ,{
-            "path" : "pages/user/discounts",
-            "style" : {
+		},
+		{
+			"path": "pages/user/discounts",
+			"style": {
 				"navigationBarTitleText": "优惠券",
 				"navigationBarBackgroundColor": "#cda754"
 			}
-        }
-    ],
+		},
+		{
+			"path": "pages/roominfo/roominfo2",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}
+
+	],
 	"tabBar": {
 		"color": "#8c8c8c",
 		"selectedColor": "#cda754",

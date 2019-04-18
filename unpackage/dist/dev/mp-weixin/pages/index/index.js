@@ -91,9 +91,6 @@
 
 
 
-
-
-
 var _utils = _interopRequireDefault(__webpack_require__(/*! @/utils/utils.js */ "E:\\project\\hotel-mp\\utils\\utils.js"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var authorize = function authorize() {return __webpack_require__.e(/*! import() | components/authorize */ "components/authorize").then(__webpack_require__.bind(null, /*! @/components/authorize */ "E:\\project\\hotel-mp\\components\\authorize.vue"));};
 var app = getApp();var _default =
 {
@@ -102,7 +99,8 @@ var app = getApp();var _default =
 
   data: function data() {
     return {
-      info: [{
+      info: [
+      {
         imgurl: '../../static/images/room/20181214161550000808031.jpg' },
 
       {
@@ -121,16 +119,21 @@ var app = getApp();var _default =
 
       current: 0,
       mode: 'long',
-      count: 10 };
+      count: 10,
+      type: '',
+      msg: '大佬' };
 
   },
   onShow: function onShow() {
     var that = this;
     that.globalData = app.$vm.globalData;
     console.log(this.globalData);
-    _utils.default.checkSession().then(function (res) {
+    _utils.default.
+    checkSession().
+    then(function (res) {
       // that.goLogin();
-    }).catch(function (res) {
+    }).
+    catch(function (res) {
       that.isAuthorizeShow = true;
     });
   },
@@ -140,7 +143,7 @@ var app = getApp();var _default =
     },
     gotoRoomInfo: function gotoRoomInfo() {
       uni.navigateTo({
-        url: '../roominfo/roominfo',
+        url: '../roominfo/roominfo2',
         animationType: 'fade-in',
         animationDuration: 1000 });
 
@@ -165,6 +168,10 @@ var app = getApp();var _default =
       then(function (res) {
         console.log(res);
       });
+    },
+    reservation: function reservation() {
+      uni.navigateTo({
+        url: '../placeOrder/placeOrder' });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))

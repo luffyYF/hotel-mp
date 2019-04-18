@@ -9,9 +9,8 @@
     "pages/placeOrder/placeOrder",
     "pages/payment/payment",
     "pages/selectDate/selectDate",
-    "pages/login/register",
-    "pages/login/changePwd",
-    "pages/user/discounts"
+    "pages/user/discounts",
+    "pages/roominfo/roominfo2"
   ],
   "subPackages": [],
   "tabBar": {

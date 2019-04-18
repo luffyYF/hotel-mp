@@ -8,16 +8,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -41,28 +32,9 @@
 var _default =
 {
   data: function data() {
-    return {
-      flag: false };
-
+    return {};
   },
-  methods: {
-    login: function login(e) {
-      console.log('得到账号:' + e.detail.value.nameValue + ';得到密码:' + e.detail.value.passwordValue);
-    },
-    register: function register() {
-      uni.navigateTo({
-        url: 'register' });
-
-    },
-    pwdLogin: function pwdLogin() {
-      this.flag = !this.flag;
-    },
-    forget: function forget() {
-      uni.navigateTo({
-        url: 'changePwd' });
-
-    } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
+  methods: {} };exports.default = _default;
 
 /***/ }),
 

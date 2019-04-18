@@ -51,7 +51,7 @@
 			<view class="discounts">
 				<span class="reserve-title">平台优惠</span>
 				<view class="discounts1"><p>已享用：会员优惠</p></view>
-				<view class="discounts2">
+				<view class="discounts2" @tap="gotoDiscounts">
 					<p>优惠卷</p>
 					<p>省20元</p>
 				</view>
@@ -113,6 +113,11 @@ export default {
 		gotoPayment(){
 			uni.navigateTo({
 				url:'../payment/payment'
+			})
+		},
+		gotoDiscounts(){
+			uni.navigateTo({
+				url:'../user/discounts'
 			})
 		}
 	}
