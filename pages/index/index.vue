@@ -133,7 +133,7 @@ export default {
 		},
 		gotoRoomInfo() {
 			uni.navigateTo({
-				url: '../roominfo/roominfo2',
+				url: '../roomDetails/roomDetails',
 				animationType: 'fade-in',
 				animationDuration: 1000
 			});

@@ -1,0 +1,104 @@
+page {
+  background-color: #f5f9fc;
+  height: 100%;
+}
+.discountsPage {
+  height: 100%;
+}
+.discountsPage .tabs {
+    position: fixed;
+    width: 100%;
+    z-index: 66;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: #ffffff;
+    /* -webkit-box-ordinal-group: 4; */
+}
+.discountsPage .tabs .tabs-title {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      text-align: center;
+      font-size: 25rpx;
+      border: none;
+      color: #333;
+      height: 44px;
+      line-height: 44px;
+}
+.discountsPage .tabs .active {
+      background: 0 0;
+      color: #cda754;
+      border-bottom: 2px solid #cda754;
+}
+.discountsPage .swiper {
+    height: 100%;
+    position: relative;
+    top: 81.52173rpx;
+    overflow-y: auto;
+}
+.discountsPage .swiper swiper-item {
+      overflow-y: auto;
+}
+.discountsPage .swiper .card-list {
+      top: 81.52173rpx;
+}
+.discountsPage .swiper .card-list .card-item {
+        height: 144.92753rpx;
+        margin: 18.11594rpx;
+        padding: 18.11594rpx;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        vertical-align: middle;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
+        background-color: white;
+        position: relative;
+        border-radius: 18.11594rpx;
+        overflow: hidden;
+}
+.discountsPage .swiper .card-list .card-item .card-img {
+          width: 181.15942rpx;
+          height: 144.92753rpx;
+}
+.discountsPage .swiper .card-list .card-item .card-content {
+          padding: 18.11594rpx;
+}
+.discountsPage .swiper .card-list .card-item .card-content ._h2 {
+            font-size: 28.9855rpx;
+            text-align: left;
+            margin-bottom: 18.11594rpx;
+            font-weight: 500;
+}
+.discountsPage .swiper .card-list .card-item .card-content ._span {
+            display: block;
+            font-size: 21.73913rpx;
+            text-align: left;
+            margin-bottom: 9.05797rpx;
+}
+.discountsPage .swiper .card-list .card-item .card-content ._p {
+            color: #999;
+            margin-top: 0;
+            font-size: 21.73913rpx;
+}
+.discountsPage .swiper .card-list .card-item .card-lose image {
+          width: 144.92753rpx;
+          height: 144.92753rpx;
+          -webkit-transform: rotate(-30deg);
+              -ms-transform: rotate(-30deg);
+                  transform: rotate(-30deg);
+          position: absolute;
+          right: -18.11594rpx;
+          top: 54.34782rpx;
+}
+

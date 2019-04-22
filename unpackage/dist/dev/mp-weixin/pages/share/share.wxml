@@ -1,0 +1,1 @@
+<view bind:__l="__l"><view class="share-img1"><image src="../../static/images/user/share_img.jpg" mode="widthFix"></image></view><view class="share-img2"><view><image src="../../static/images/user/wx.png" mode></image><view class="_p">微信好友</view></view><view><image src="../../static/images/user/moments.png" mode></image><view class="_p">微信好友</view></view></view></view>

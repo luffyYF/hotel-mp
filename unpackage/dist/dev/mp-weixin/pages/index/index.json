@@ -1,5 +1,6 @@
 {
   "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "authorize": "/components/authorize"
   }

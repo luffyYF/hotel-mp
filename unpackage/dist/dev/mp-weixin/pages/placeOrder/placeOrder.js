@@ -114,6 +114,9 @@
 //
 //
 //
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -127,7 +130,7 @@ var _default =
     },
     gotoDiscounts: function gotoDiscounts() {
       uni.navigateTo({
-        url: '../user/discounts' });
+        url: '../discounts/discounts' });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))

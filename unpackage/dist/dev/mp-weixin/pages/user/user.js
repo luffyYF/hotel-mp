@@ -77,7 +77,32 @@ var _default =
     },
     goDiscounts: function goDiscounts() {
       uni.navigateTo({
-        url: 'discounts' });
+        url: '../discounts/discounts' });
+
+    },
+    gotoUs: function gotoUs() {
+      uni.navigateTo({
+        url: '../aboutUs/aboutUs' });
+
+    },
+    gotoCollect: function gotoCollect() {
+      uni.navigateTo({
+        url: '../collect/collect' });
+
+    },
+    gotoShare: function gotoShare() {
+      uni.navigateTo({
+        url: '../share/share' });
+
+    },
+    makingCall: function makingCall() {
+      uni.makePhoneCall({
+        phoneNumber: '12345678910' });
+
+    },
+    gotoMember: function gotoMember() {
+      uni.navigateTo({
+        url: '../member/member' });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))

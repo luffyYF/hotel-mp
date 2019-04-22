@@ -118,7 +118,7 @@ export default {
 		},
 		goRoom: function() {
 			uni.navigateTo({
-				url: '../roominfo/roominfo'
+				url: '../roomDetails/roomDetails'
 			});
 		}
 	}

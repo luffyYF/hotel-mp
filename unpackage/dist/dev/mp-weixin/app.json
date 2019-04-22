@@ -5,12 +5,16 @@
     "pages/order/order",
     "pages/login/login",
     "pages/order/orderDetails",
-    "pages/roominfo/roominfo",
     "pages/placeOrder/placeOrder",
     "pages/payment/payment",
     "pages/selectDate/selectDate",
-    "pages/user/discounts",
-    "pages/roominfo/roominfo2"
+    "pages/discounts/discounts",
+    "pages/roominfo/comment/comment",
+    "pages/aboutUs/aboutUs",
+    "pages/collect/collect",
+    "pages/share/share",
+    "pages/roomDetails/roomDetails",
+    "pages/member/member"
   ],
   "subPackages": [],
   "tabBar": {

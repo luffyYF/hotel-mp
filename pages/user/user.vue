@@ -1,6 +1,6 @@
 <template>
 	<view class="center">
-		<view class="logo"  :hover-class="!login ? 'logo-hover' : ''">
+		<view class="logo" :hover-class="!login ? 'logo-hover' : ''">
 			<view class="logo-header">
 				<view class="portrait" @click="goLogin"><image :src="login ? uerInfo.avatarUrl : avatarUrl" mode="aspectFill"></image></view>
 				<view class="uer-name">
@@ -9,34 +9,34 @@
 				<view class="row">
 					<view class="row-dock" @tap="goDiscounts">
 						<image src="../../static/images/user/coupon.png" mode="aspectFill"></image>
-						<view ><text>优惠卷</text></view>
+						<view><text>优惠卷</text></view>
 					</view>
-					<view class="row-dock">
+					<view class="row-dock" @tap="gotoCollect">
 						<image src="../../static/images/user/collection.png" mode="aspectFill"></image>
 						<view><text>收藏</text></view>
 					</view>
-					<view class="row-dock">
+					<view class="row-dock" @tap="gotoShare">
 						<image src="../../static/images/user/share.png" mode="aspectFill"></image>
 						<view><text>分享</text></view>
 					</view>
 				</view>
-				<view class="member">
+				<view class="member" @tap="gotoMember">
 					<view class="row-dock">
 						<image src="../../static/images/user/vip.png" mode="aspectFill"></image>
 						<text>钻石会员</text>
 					</view>
-					<view class="row-dock"><text>会员积分规则>></text></view>
+					<view class="row-dock" style="justify-content: flex-end;"><text>会员积分规则>></text></view>
 				</view>
 			</view>
 		</view>
 
 		<view class="center-list">
-			<view>
+			<view @tap="makingCall">
 				<image src="../../static/images/user/phone.png" mode=""></image>
 				<span>联系客服</span>
 				<image src="../../static/images/index/right.png" mode=""></image>
 			</view>
-			<view>
+			<view @tap="gotoUs">
 				<image src="../../static/images/user/about.png" mode=""></image>
 				<span>关于我们</span>
 				<image src="../../static/images/index/right.png" mode=""></image>
@@ -65,10 +65,35 @@ export default {
 				url: '../login/login'
 			});
 		},
-		goDiscounts(){
+		goDiscounts() {
 			uni.navigateTo({
-				url: 'discounts'
+				url: '../discounts/discounts'
 			});
+		},
+		gotoUs() {
+			uni.navigateTo({
+				url: '../aboutUs/aboutUs'
+			});
+		},
+		gotoCollect() {
+			uni.navigateTo({
+				url: '../collect/collect'
+			});
+		},
+		gotoShare(){
+			uni.navigateTo({
+				url:'../share/share'
+			})
+		},
+		makingCall() {
+			uni.makePhoneCall({
+				phoneNumber: '12345678910'
+			});
+		},
+		gotoMember(){
+			uni.navigateTo({
+				url:'../member/member'
+			})
 		}
 	}
 };
@@ -79,7 +104,7 @@ page {
 	height: 100%;
 	background: #f5f9fc;
 }
-.center{
+.center {
 	background: #fff;
 }
 .logo {
@@ -150,8 +175,11 @@ page {
 }
 .logo-header .member .row-dock {
 	width: 33.33%;
+	flex: 1;
 	text-align: center;
 	display: flex;
+	vertical-align: middle;
+    align-items: center;
 }
 .logo-header .member .row-dock image {
 	width: 16px;

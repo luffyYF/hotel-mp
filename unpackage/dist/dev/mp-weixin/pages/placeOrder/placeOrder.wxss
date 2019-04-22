@@ -3,7 +3,7 @@
 	background-color: #f5f9fc;
 	overflow: hidden;
 }
-.fillorderPage .orderContent{
+.fillorderPage .orderContent {
 	margin-bottom: 81.52173rpx;
 }
 .fillorderPage .orderContent .room-info {
@@ -49,10 +49,14 @@
 .fillorderPage .orderContent .room-info > ._p {
 	font-size: 25.36231rpx;
 }
+.fillorderPage .orderContent .room-info > .intime > .days {
+	margin: 18.11594rpx;
+}
 .fillorderPage .reserve-msg,
 .fillorderPage .discounts {
 	background-color: white;
 	margin: 57.97101rpx 0 28.9855rpx 0;
+	position: relative;
 }
 .fillorderPage .reserve-msg .reserve-title {
 	background: #cda754;
@@ -64,7 +68,7 @@
 	border-radius: 10.86956rpx 10.86956rpx 0 0;
 	margin-left: 27.17391rpx;
 	position: absolute;
-	top: 199.27536rpx;
+	top: -36.23188rpx;
 }
 .fillorderPage .reserve-msg .reserve-content > view,
 .fillorderPage .discounts > view,
@@ -140,11 +144,12 @@
 	border-radius: 10.86956rpx 10.86956rpx 0 0;
 	margin-left: 27.17391rpx;
 	position: absolute;
-	top: 530.7971rpx;
+	top: -36.23188rpx;
 }
 .fillorderPage .discounts .discounts1 {
 	border-bottom: 1px solid #f7f9fb;
 	color: #cda754;
+	clear: both;
 }
 .fillorderPage .discounts .discounts2 {
 	display: -webkit-box;
@@ -199,10 +204,10 @@
 	height: 28.9855rpx;
 }
 .fillorderPage .invoice .invoice2 > ._p:nth-child(1) {
-	-webkit-box-flex: 0.2;
-	-webkit-flex: 0.2;
-	    -ms-flex: 0.2;
-	        flex: 0.2;
+	-webkit-box-flex: 0.3;
+	-webkit-flex: 0.3;
+	    -ms-flex: 0.3;
+	        flex: 0.3;
 }
 .fillorderPage .invoice .invoice2 > ._p:nth-child(2) {
 	-webkit-box-flex: 0.8;
@@ -240,14 +245,14 @@
 	background: linear-gradient(to bottom, #cda754, #cbbe85) !important;
 	color: #fff !important;
 }
-.fillorderPage .Specialtips{
+.fillorderPage .Specialtips {
 	font-size: 23.55072rpx;
 	padding: 0 18.11594rpx;
 }
-.fillorderPage .Specialtips>._p>._span{
+.fillorderPage .Specialtips > ._p > ._span {
 	color: #666666;
 }
-.fillorderPage .Specialtips>._p>._span>._a{
+.fillorderPage .Specialtips > ._p > ._span > ._a {
 	color: #cda754;
 	display: inline;
 }
@@ -284,18 +289,18 @@
 	font-weight: bold;
 	color: #f72845;
 }
-.operation > .orderPrice>._span:nth-child(1){
-	 color: #f72845;
-	 font-size: 32.60869rpx;
-	 float: left;
+.operation > .orderPrice > ._span:nth-child(1) {
+	color: #f72845;
+	font-size: 32.60869rpx;
+	float: left;
 }
-.operation > .orderPrice>._span:nth-child(2){
-	 color: #333333;
-	 font-size: 21.73913rpx;
+.operation > .orderPrice > ._span:nth-child(2) {
+	color: #333333;
+	font-size: 21.73913rpx;
 	float: right;
 }
-.operation > .orderPrice:after{
-	 border: none;
+.operation > .orderPrice:after {
+	border: none;
 }
 .operation > .submitOrder {
 	-webkit-box-flex: 1;
@@ -315,8 +320,7 @@
 	font-weight: bold;
 	color: #fff;
 }
-.operation > .submitOrder:after{
-	 border: none;
+.operation > .submitOrder:after {
+	border: none;
 }
-
 

@@ -98,7 +98,10 @@
 			</view>
 		</view>
 		<view class="operation">
-			<button class="orderPrice"><span>￥154.4</span><span>明细</span></button>
+			<button class="orderPrice">
+				<span>￥154.4</span>
+				<span>明细</span>
+			</button>
 			<button class="submitOrder" @click="gotoPayment()">提交订单</button>
 		</view>
 	</view>
@@ -109,27 +112,28 @@ export default {
 	data() {
 		return {};
 	},
-	methods:{
-		gotoPayment(){
+	methods: {
+		gotoPayment() {
 			uni.navigateTo({
-				url:'../payment/payment'
-			})
+				url: '../payment/payment'
+			});
 		},
-		gotoDiscounts(){
+		gotoDiscounts() {
 			uni.navigateTo({
-				url:'../user/discounts'
-			})
+				url: '../discounts/discounts'
+			});
 		}
 	}
 };
 </script>
 
 <style>
+
 .fillorderPage {
 	background-color: #f5f9fc;
 	overflow: hidden;
 }
-.fillorderPage .orderContent{
+.fillorderPage .orderContent {
 	margin-bottom: 81.52173upx;
 }
 .fillorderPage .orderContent .room-info {
@@ -169,10 +173,14 @@ export default {
 .fillorderPage .orderContent .room-info > p {
 	font-size: 25.36231upx;
 }
+.fillorderPage .orderContent .room-info > .intime > .days {
+	margin: 18.11594upx;
+}
 .fillorderPage .reserve-msg,
 .fillorderPage .discounts {
 	background-color: white;
 	margin: 57.97101upx 0 28.9855upx 0;
+	position: relative;
 }
 .fillorderPage .reserve-msg .reserve-title {
 	background: #cda754;
@@ -184,7 +192,7 @@ export default {
 	border-radius: 10.86956upx 10.86956upx 0 0;
 	margin-left: 27.17391upx;
 	position: absolute;
-	top: 199.27536upx;
+	top: -36.23188upx;
 }
 .fillorderPage .reserve-msg .reserve-content > view,
 .fillorderPage .discounts > view,
@@ -234,11 +242,12 @@ export default {
 	border-radius: 10.86956upx 10.86956upx 0 0;
 	margin-left: 27.17391upx;
 	position: absolute;
-	top: 530.7971upx;
+	top: -36.23188upx;
 }
 .fillorderPage .discounts .discounts1 {
 	border-bottom: 1px solid #f7f9fb;
 	color: #cda754;
+	clear: both;
 }
 .fillorderPage .discounts .discounts2 {
 	display: flex;
@@ -276,7 +285,7 @@ export default {
 }
 
 .fillorderPage .invoice .invoice2 > p:nth-child(1) {
-	flex: 0.2;
+	flex: 0.3;
 }
 
 .fillorderPage .invoice .invoice2 > p:nth-child(2) {
@@ -302,18 +311,18 @@ export default {
 	background: linear-gradient(to bottom, #cda754, #cbbe85) !important;
 	color: #fff !important;
 }
-.fillorderPage .Specialtips{
+.fillorderPage .Specialtips {
 	font-size: 23.55072upx;
 	padding: 0 18.11594upx;
 }
-.fillorderPage .Specialtips>p>span{
+.fillorderPage .Specialtips > p > span {
 	color: #666666;
 }
-.fillorderPage .Specialtips>p>span>a{
+.fillorderPage .Specialtips > p > span > a {
 	color: #cda754;
 	display: inline;
 }
- .operation {
+.operation {
 	width: 100%;
 	height: 81.52173upx;
 	display: flex;
@@ -321,9 +330,8 @@ export default {
 	bottom: 0;
 	vertical-align: middle;
 	align-items: center;
-	
 }
- .operation > .orderPrice {
+.operation > .orderPrice {
 	flex: 1;
 	border: none;
 	height: 100%;
@@ -335,20 +343,20 @@ export default {
 	font-weight: bold;
 	color: #f72845;
 }
-.operation > .orderPrice>span:nth-child(1){
-	 color: #f72845;
-	 font-size: 32.60869upx;
-	 float: left;
- }
- .operation > .orderPrice>span:nth-child(2){
-	 color: #333333;
-	 font-size: 21.73913upx;
+.operation > .orderPrice > span:nth-child(1) {
+	color: #f72845;
+	font-size: 32.60869upx;
+	float: left;
+}
+.operation > .orderPrice > span:nth-child(2) {
+	color: #333333;
+	font-size: 21.73913upx;
 	float: right;
- }
- 
- .operation > .orderPrice:after{
-	 border: none;
- }
+}
+
+.operation > .orderPrice:after {
+	border: none;
+}
 
 .operation > .submitOrder {
 	flex: 1;
@@ -362,8 +370,7 @@ export default {
 	font-weight: bold;
 	color: #fff;
 }
- .operation > .submitOrder:after{
-	 border: none;
- }
-
+.operation > .submitOrder:after {
+	border: none;
+}
 </style>
