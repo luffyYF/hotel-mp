@@ -214,6 +214,7 @@
 	-webkit-flex: 0.8;
 	    -ms-flex: 0.8;
 	        flex: 0.8;
+	text-align: right;
 }
 .fillorderPage .invoice .invoice2 > ._p:nth-child(2) > ._span {
 	padding: 0 9.05797rpx;
@@ -228,22 +229,28 @@
 	    -ms-flex-wrap: wrap;
 	        flex-wrap: wrap;
 }
+.fillorderPage .ServiceOptions > .selectBtn {
+	background: -webkit-gradient(linear, left top, left bottom, from(#cda754), to(#cbbe85)) !important;
+	background: -o-linear-gradient(top, #cda754, #cbbe85) !important;
+	background: linear-gradient(to bottom, #cda754, #cbbe85) !important;
+	color: #fff !important;
+}
 .fillorderPage .ServiceOptions > button {
 	-webkit-box-flex: 0;
 	-webkit-flex: 0 0 20%;
 	    -ms-flex: 0 0 20%;
 	        flex: 0 0 20%;
-	margin: 0;
 	width: 22%;
 	margin: 18.11594rpx;
 	max-width: 22%;
-	height: 54.34782rpx;
-	line-height: 54.34782rpx;
+	height: 30px;
+	line-height: 28px;
 	font-size: 23.55072rpx;
-	background: -webkit-gradient(linear, left top, left bottom, from(#cda754), to(#cbbe85)) !important;
-	background: -o-linear-gradient(top, #cda754, #cbbe85) !important;
-	background: linear-gradient(to bottom, #cda754, #cbbe85) !important;
-	color: #fff !important;
+	color: #000 !important;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.fillorderPage .ServiceOptions > button::after {
+	border: none;
 }
 .fillorderPage .Specialtips {
 	font-size: 23.55072rpx;
@@ -291,10 +298,10 @@
 }
 .operation > .orderPrice > ._span:nth-child(1) {
 	color: #f72845;
-	font-size: 32.60869rpx;
+	font-size: 36.23188rpx;
 	float: left;
 }
-.operation > .orderPrice > ._span:nth-child(2) {
+.operation > .orderPrice > ._span:nth-child(3) {
 	color: #333333;
 	font-size: 21.73913rpx;
 	float: right;

@@ -130,6 +130,11 @@ var _default =
       uni.navigateTo({
         url: '../roomDetails/roomDetails' });
 
+    },
+    gotoCost: function gotoCost() {
+      uni.navigateTo({
+        url: "../costDetail/costDetail" });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 

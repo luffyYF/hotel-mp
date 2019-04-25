@@ -2,6 +2,7 @@
   "navigationStyle": "custom",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "authorize": "/components/authorize"
+    "authorize": "/components/authorize",
+    "room-details": "/components/roomDetails/roomDetails"
   }
 }

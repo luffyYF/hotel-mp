@@ -1,15 +1,16 @@
 <template>
-	<view class="page">
+	<view class="page" >
+		<view class="masklayer"></view>
 		<view class="roomTop">
-			<h2>标准双床房[人气精选预付价]</h2>
-			<image src="../../static/images/room/error.png" mode=""></image>
+			<h2>{{ roomTypeInfo.typeName }}[人气精选预付价]</h2>
+			<image src="../../static/images/room/error.png" mode="" @tap="closePage"></image>
 		</view>
-		<view class="roomPage">
+		<scroll-view :scroll-y="true" class="roomPage">
 			<uniSwiperDot :info="info" :current="current" field="content" :mode="mode">
 				<swiper class="swiper-box" @change="change">
 					<swiper-item v-for="(item, index) in info" :key="index" style="width: 100%;height: 100%;">
 						<view class="swiper-item" style="width: 100%;height: 100%;">
-							<image style="width: 100%;height: 100%;" :src="item.imgurl" mode="" class="swiper-item-img"></image>
+							<image style="width: 100%;height: 100%;" :src="IMGURL+item.imgUrl" mode="" class="swiper-item-img"></image>
 						</view>
 					</swiper-item>
 				</swiper>
@@ -19,43 +20,43 @@
 					<view class="info-left">
 						<view>
 							<span>面积:</span>
-							<p>20㎡</p>
+							<p>{{ roomTypeInfo.area }}</p>
 						</view>
 						<view>
 							<span>楼层:</span>
-							<p>13-28层</p>
+							<p>{{ roomTypeInfo.disPrice }}</p>
 						</view>
 						<view>
 							<span>可住:</span>
-							<p>2人</p>
+							<p>{{ roomTypeInfo.customerNum }}</p>
 						</view>
 						<view>
 							<span>卫浴:</span>
-							<p>独立卫浴</p>
+							<p>{{ roomTypeInfo.bathroomDesc }}</p>
 						</view>
 					</view>
 					<view class="info-right">
 						<view>
 							<span>早餐:</span>
-							<p>无早餐</p>
+							<p>{{ roomTypeInfo.breakfastDesc }}</p>
 						</view>
 						<view>
 							<span>窗户:</span>
-							<p>有窗</p>
+							<p>{{ roomTypeInfo.windowDesc }}</p>
 						</view>
 						<view>
 							<span>宽带:</span>
-							<p>免费WiFi和宽带</p>
+							<p>{{ roomTypeInfo.broadbandDesc }}</p>
 						</view>
 						<view>
 							<span>空调:</span>
-							<p>有空调</p>
+							<p>{{ roomTypeInfo.airConditionerDesc }}</p>
 						</view>
 					</view>
 				</view>
 				<view class="infobottom">
 					<span>浴室配套:</span>
-					<p>24小时热水、洗漱用具</p>
+					<p>{{ roomTypeInfo.bathroomMatchingDesc }}</p>
 				</view>
 			</view>
 			<!-- <view class="sales">
@@ -80,76 +81,126 @@
 				<view class="des">
 					<h2>不可取消</h2>
 					<ul>
-						<li><p>订单确定后不可取消/变更，如未入住，酒店将扣除全额房费</p></li>
+						<li>
+							<p>{{ roomTypeInfo.description }}</p>
+						</li>
 					</ul>
 				</view>
 				<view class="des">
 					<h2>预定说明</h2>
 					<ul>
-						<li><p>15分钟内确认订单</p></li>
-						<li><p>发票由代理商开具，如需发票，请在下单时填写发票信息</p></li>
+						<li>
+							<p>{{ roomTypeInfo.reserveDesc }}</p>
+						</li>
 					</ul>
 				</view>
 				<view class="des">
 					<h2>使用规则</h2>
 					<ul>
-						<li><p>直接消费，无需美团劵，携带所有入住人的有效身份证办理入住，入住必须按照一人一证</p></li>
-						<li><p>请在14：00之后入住并于次日13：00之前退房；如需提前入住或延时退房，请咨询商家</p></li>
-						<li><p>入住需要押金，金额以前台为准</p></li>
+						<li>
+							<p>{{ roomTypeInfo.usageRuleDesc }}</p>
+						</li>
 					</ul>
 				</view>
 			</view>
-		</view>
+		</scroll-view>
 		<view class="operation">
-			<button class="contactBtn">联系客服</button>
-			<button class="reserveBtn" @click="gotoPrice()">预订</button>
+			<button class="contactBtn" @tap="makingCall('12345678910')">联系客服</button>
+			<button class="reserveBtn" style="" @click="gotoPrice()">
+				<span>￥{{ roomTypeInfo.price }}</span>
+				<span style="font-size: 21.73913upx;text-decoration: line-through;margin-right: 18.11594upx;color: #ccc;">￥{{ roomTypeInfo.disPrice }}</span>
+				<span style="font-size: 36.23188upx;">预订</span>
+			</button>
 		</view>
 	</view>
 </template>
 
 <script>
 import uniSwiperDot from '../../components/uni-swiper-dot/uni-swiper-dot.vue';
+import api from '@/utils/api.js';
 export default {
+	props: {
+		roomData: {}
+	},
 	components: {
 		uniSwiperDot
 	},
+	created() {
+		let that = this;
+
+		if (that.roomData.code == 1) {
+			uni.showLoading({
+				title: '加载中',
+				mask:true
+			});
+			
+			setTimeout(function() {
+				uni.hideLoading();
+			}, 1000);
+			that.roomTypeInfo = that.roomData.data.roomTypeInfo;
+			that.info = that.roomData.data.images;
+			this.IMGURL=api.config.IMGURL;
+		}
+	},
+	mounted() {
+		
+		
+	},
 	data() {
 		return {
-			info: [
-				{
-					imgurl: '../../static/images/room/20181214161550000808031.jpg'
-				},
-				{
-					imgurl: '../../static/images/room/20181214172226515808034.jpg'
-				},
-				{
-					imgurl: '../../static/images/room/20181214175519996808036.jpg'
-				}
-			],
+			info: [],
 			current: 0,
-			mode: 'long'
+			mode: 'long',
+			IMGURL: '',
+			roomTypeInfo: {}
 		};
 	},
 	methods: {
 		change(e) {
 			this.current = e.detail.current;
 		},
-		gotoPrice(){
+		gotoPrice() {
 			uni.navigateTo({
-				url:'../placeOrder/placeOrder'
-			})
+				url: '../placeOrder/placeOrder'
+			});
+		},
+		closePage() {
+			this.$emit('closeRoom');
+		},
+		makingCall(phoneNumber) {
+			uni.makePhoneCall({
+				phoneNumber: phoneNumber
+			});
 		}
 	}
 };
 </script>
 
 <style lang="scss">
+
+.masklayer {
+	background-color: rgba(0, 0, 0, 0.5);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	z-index: -1;
+}
 .page {
+	position: fixed;
+	background-color: white;
+	top: 326.08695upx;
+	bottom: 0;
+	width: 100%;
+	z-index: 10;
 	.roomTop {
-		position: fixed;
-		top: 0;
 		width: 100%;
 		display: flex;
+		height: 81.52173upx;
 		padding: 18.11594upx;
 		vertical-align: middle;
 		align-items: center;
@@ -170,8 +221,7 @@ export default {
 	.roomPage {
 		background-color: #f5f9fc;
 		overflow: hidden;
-		margin-top: 81.52173upx;
-		margin-bottom: 81.52173upx;
+		height: calc(100% - 195upx);
 		background-color: white;
 		.swiper-box {
 			width: 100%;
@@ -249,13 +299,13 @@ export default {
 				ul > li {
 					color: #999999;
 				}
-				ul > li::before{
-					content:"";
+				ul > li::before {
+					content: '';
 					position: relative;
 					bottom: -27.17391upx;
 					left: -21.73913upx;
-					display:block;
-					
+					display: block;
+
 					width: 9.05797upx;
 					height: 9.05797upx;
 					border-radius: 9.05797upx;
@@ -279,7 +329,7 @@ export default {
 	align-items: center;
 }
 .operation > .contactBtn {
-	flex: 0.3;
+	flex: 1;
 	border: none;
 	height: 100%;
 	line-height: 81.52173upx;
@@ -296,7 +346,7 @@ export default {
 }
 
 .operation > .reserveBtn {
-	flex: 0.7;
+	flex: 1;
 	height: 100%;
 	justify-content: center;
 	line-height: 81.52173upx;
@@ -306,6 +356,12 @@ export default {
 	font-size: 28.9855upx;
 	font-weight: bold;
 	color: #fff;
+}
+.operation > .reserveBtn > span:nth-child(1) {
+	font-size: 36.23188upx;
+}
+.operation > .reserveBtn > span:nth-child(2) {
+	font-size: 27.17391upx;
 }
 .operation > .reserveBtn:after {
 	border: none;

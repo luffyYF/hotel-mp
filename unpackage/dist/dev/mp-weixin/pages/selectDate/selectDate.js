@@ -8,7 +8,14 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -121,9 +128,7 @@ var _default =
     this.checkIn = _checkIn;
     this.checkOut = _checkOut;
   },
-  onShow: function onShow() {
-
-  },
+  onShow: function onShow() {},
   methods: {
     // 将时间戳转化为年月日星期
     formatDate: function formatDate(date) {
@@ -138,10 +143,13 @@ var _default =
 
     },
     classStr: function classStr(tmp) {
-      return (tmp.day ? ' week-day' : '') + (tmp.timeStamp < this.today ? ' disabled' : '') + (
-      tmp.timeStamp && tmp.timeStamp == this.checkIn.timeStamp ? ' check-in' : '') + (
-      tmp.timeStamp && tmp.timeStamp == this.checkOut.timeStamp ? ' check-out' : '') + (
-      tmp.timeStamp > this.checkIn.timeStamp && tmp.timeStamp < this.checkOut.timeStamp ? ' check-in-day' : '');
+      return (
+        (tmp.day ? ' week-day' : '') + (
+        tmp.timeStamp < this.today ? ' disabled' : '') + (
+        tmp.timeStamp && tmp.timeStamp == this.checkIn.timeStamp ? ' check-in' : '') + (
+        tmp.timeStamp && tmp.timeStamp == this.checkOut.timeStamp ? ' check-out' : '') + (
+        tmp.timeStamp > this.checkIn.timeStamp && tmp.timeStamp < this.checkOut.timeStamp ? ' check-in-day' : ''));
+
     },
     pickDate: function pickDate(e) {
       console.info(e.currentTarget);
@@ -163,11 +171,19 @@ var _default =
       }
     },
     sureDate: function sureDate() {
-      // 				var app = getApp()
-      // 				app.globalData.checkIn = this.data.checkIn;
-      // 				app.globalData.checkOut = this.data.checkOut;
-      // wx.navigateBack();
+      var app = getApp();
+      app.$vm.globalData.checkIn = this.checkIn;
+      app.$vm.globalData.checkOut = this.checkOut;
+      console.log(app.$vm.globalData);
 
+      var pages = getCurrentPages();
+      var currPage = pages[pages.length - 1]; //当前页面
+      var prevPage = pages[pages.length - 2]; //上一个页面
+      //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+      prevPage.setData({
+        globalData: app.$vm.globalData });
+
+      uni.navigateBack();
     },
     /**
         * @params year {Number} 年份
@@ -187,19 +203,10 @@ var _default =
       //new Date(year,month+1,0) ： month+1是下一个月，day为0代表的是上一个月的最后一天，即我们所需的当前月的最后一天。
       //getDate（）则返回这个日期对象是一个月中的第几天，我们由最后一天得知这个月一共有多少天
       var days;
-      if (month > 12)
-      days = new Date(year + 1, 1, 0).getDate();else
-
+      if (month > 12) days = new Date(year + 1, 1, 0).getDate();else
       days = new Date(year, month, 0).getDate();
 
-      var res = [
-      [],
-      [],
-      [],
-      [],
-      [],
-      []];
-
+      var res = [[], [], [], [], [], []];
       //输出第一天之前的空格
       if (weekday != 7) {
         for (var i = 0; i < weekday; i++) {
@@ -226,11 +233,11 @@ var _default =
         if (weekday % 7 == 0) {
           weekday = 0;
           m++;
-
         }
       }
       return res;
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
 

@@ -16,9 +16,9 @@
 			<swiper-item>
 				<view class="card-list">
 					<view class="card-item" v-for="(item, index) in count" :key="index">
-						<image class="card-img" src="../../static/images/user/discounts.png" mode=""></image>
+						<view class="card-img">￥100</view>
 						<view class="card-content">
-							<h2>住房代金卷(100元)</h2>
+							<h2>住房代金卷</h2>
 							<span>有效期：2018-12-21 ~ 2019-12-21</span>
 							<p>可使用</p>
 						</view>
@@ -28,18 +28,18 @@
 			<swiper-item>
 				<view class="card-list">
 					<view class="card-item" style="opacity: .6;">
-						<image class="card-img" src="../../static/images/user/discounts.png" mode=""></image>
+						<view class="card-img">￥100</view>
 						<view class="card-content">
-							<h2>住房代金卷(100元)</h2>
+							<h2>住房代金卷</h2>
 							<span>有效期：2018-12-21 ~ 2019-12-21</span>
 							<p>{{ num == 1 ? '已失效' : '可使用' }}</p>
 						</view>
 						<view class="card-lose"><image src="../../static/images/user/invalid.png" mode=""></image></view>
 					</view>
 					<view class="card-item" style="opacity: .6;">
-						<image class="card-img" src="../../static/images/user/discounts.png" mode=""></image>
+						<view class="card-img">￥100</view>
 						<view class="card-content">
-							<h2>住房代金卷(100元)</h2>
+							<h2>住房代金卷</h2>
 							<span>有效期：2018-12-21 ~ 2019-12-21</span>
 							<p>{{ num == 1 ? '已失效' : '可使用' }}</p>
 						</view>
@@ -76,7 +76,9 @@ page {
 	background-color: #f5f9fc;
 	height: 100%;
 }
-
+.tabs{
+	position: fixed;
+}
 .discountsPage {
 	height: 100%;
 	.tabs {
@@ -114,9 +116,9 @@ page {
 		.card-list {
 			top: 81.52173upx;
 			.card-item {
-				height: 144.92753upx;
-				margin: 18.11594upx;
-				padding: 18.11594upx;
+				height: 100px;
+				margin: 27.17391upx;
+				
 				display: flex;
 				vertical-align: middle;
 				align-items: center;
@@ -125,16 +127,34 @@ page {
 				border-radius: 18.11594upx;
 				overflow: hidden;
 				.card-img {
-					width: 181.15942upx;
-					height: 144.92753upx;
+					background: url('../../static/images/user/coupon_head.png') no-repeat center center;
+					align-items: center;
+					vertical-align: middle;
+					justify-content: center;
+					height: 100px;
+					display: flex;
+					width: 90px;
+					background-size: 100% 100%;
+					color: #f9df97;
+					font-size: 43.47826upx;
+					font-weight: bold;
 				}
+
 				.card-content {
-					padding: 18.11594upx;
+					padding-left: 18.11594upx;
+					flex: 1;
+					background: url(../../static/images/user/invaid_coupon_conter.png) no-repeat center center;
+					background-size: 100% 100%;
+					height: 100px;
+					position: relative;
+					overflow: hidden;
 					h2 {
 						font-size: 28.9855upx;
 						text-align: left;
 						margin-bottom: 18.11594upx;
+						padding-top: 18.11594upx;
 						font-weight: 500;
+						
 					}
 					span {
 						display: block;

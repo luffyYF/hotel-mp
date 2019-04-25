@@ -95,9 +95,9 @@ var _default =
         url: '../share/share' });
 
     },
-    makingCall: function makingCall() {
+    makingCall: function makingCall(phoneNumber) {
       uni.makePhoneCall({
-        phoneNumber: '12345678910' });
+        phoneNumber: phoneNumber });
 
     },
     gotoMember: function gotoMember() {

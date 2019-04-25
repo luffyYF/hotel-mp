@@ -91,25 +91,30 @@
 
 
 
-var _utils = _interopRequireDefault(__webpack_require__(/*! @/utils/utils.js */ "E:\\project\\hotel-mp\\utils\\utils.js"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var authorize = function authorize() {return __webpack_require__.e(/*! import() | components/authorize */ "components/authorize").then(__webpack_require__.bind(null, /*! @/components/authorize */ "E:\\project\\hotel-mp\\components\\authorize.vue"));};
+
+
+
+
+
+
+
+
+
+
+var _utils = _interopRequireDefault(__webpack_require__(/*! @/utils/utils.js */ "E:\\project\\hotel-mp\\utils\\utils.js"));
+var _api = _interopRequireDefault(__webpack_require__(/*! @/utils/api.js */ "E:\\project\\hotel-mp\\utils\\api.js"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var authorize = function authorize() {return __webpack_require__.e(/*! import() | components/authorize */ "components/authorize").then(__webpack_require__.bind(null, /*! @/components/authorize */ "E:\\project\\hotel-mp\\components\\authorize.vue"));};var roomDetails = function roomDetails() {return Promise.all(/*! import() | components/roomDetails/roomDetails */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/roomDetails/roomDetails")]).then(__webpack_require__.bind(null, /*! @/components/roomDetails/roomDetails */ "E:\\project\\hotel-mp\\components\\roomDetails\\roomDetails.vue"));};
 var app = getApp();var _default =
 {
   components: {
-    authorize: authorize },
+    authorize: authorize,
+    roomDetails: roomDetails },
 
   data: function data() {
     return {
-      info: [
-      {
-        imgurl: '../../static/images/room/20181214161550000808031.jpg' },
-
-      {
-        imgurl: '../../static/images/room/20181214172226515808034.jpg' },
-
-      {
-        imgurl: '../../static/images/room/20181214175519996808036.jpg' }],
-
-
+      isRoomDetails: false,
+      roomTypeList: [],
+      companyInfo: {},
+      IMGURL: '',
       globalData: {
         code: '',
         userInfo: null,
@@ -117,42 +122,169 @@ var app = getApp();var _default =
         checkIn: '',
         checkOut: '' },
 
-      current: 0,
-      mode: 'long',
-      count: 10,
-      type: '',
-      msg: '大佬' };
+      roomData: {},
+      beginDate: '',
+      endDate: '' };
 
   },
-  onShow: function onShow() {
-    var that = this;
-    that.globalData = app.$vm.globalData;
-    console.log(this.globalData);
-    _utils.default.
-    checkSession().
-    then(function (res) {
-      // that.goLogin();
-    }).
-    catch(function (res) {
-      that.isAuthorizeShow = true;
-    });
+  onLoad: function onLoad() {},
+
+  onShow: function onShow(e) {
+    var pages = getCurrentPages();
+    var currPage = pages[pages.length - 1];
+    if (currPage.data.globalData.code == '') {
+      var that = this;
+
+      that.globalData = app.$vm.globalData;
+      /* console.log(that.globalData); */
+      _utils.default.
+      checkSession().
+      then(function (res) {
+        // that.goLogin();
+      }).
+      catch(function (res) {
+        that.isAuthorizeShow = true;
+      });
+
+      //将日期判断改为2019-04-25这种格式
+      if (typeof that.globalData.checkOut.month != 'string') {
+        if (that.globalData.checkOut.month < 10) {
+          that.globalData.checkOut.month = '0' + that.globalData.checkOut.month;
+        }
+      }
+
+      if (typeof that.globalData.checkOut.day != 'string') {
+        if (that.globalData.checkOut.day < 10) {
+          that.globalData.checkOut.day = '0' + that.globalData.checkOut.day;
+        }
+      }
+
+      if (typeof that.globalData.checkIn.month != 'string') {
+        if (that.globalData.checkIn.month < 10) {
+          that.globalData.checkIn.month = '0' + that.globalData.checkIn.month;
+        }
+      }
+
+      if (typeof that.globalData.checkIn.day != 'string') {
+        if (that.globalData.checkIn.day < 10) {
+          that.globalData.checkIn.day = '0' + that.globalData.checkIn.day;
+        }
+      }
+
+
+      that.beginDate = that.globalData.checkIn.year + '-' + that.globalData.checkIn.month + '-' + that.globalData.checkIn.day;
+      that.endDate = that.globalData.checkOut.year + '-' + that.globalData.checkOut.month + '-' + that.globalData.checkOut.day;
+
+      //把图片路径中的“\”改为“/”
+      /* res.data[i].rentCoverImg = that.IMGURL+res.data[i].rentCoverImg.replace(/\\/g, '/'); */
+
+      _api.default.getHome({
+        gradePk: '',
+        companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
+        beginDate: that.beginDate,
+        endDate: that.endDate }).
+      then(function (res) {
+        if (res.code == 1) {
+          that.roomTypeList = res.data.roomTypeList;
+          that.companyInfo = res.data.companyInfo;
+          that.IMGURL = _api.default.config.IMGURL;
+          /* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
+        }
+      });
+    } else {
+      /*  this.hope_job = currPage.data.hope_job */
+      var _that = this;
+      _that.globalData = currPage.data.globalData;
+
+      /* console.log('返回后的' + that.globalData); */
+
+      //将日期判断改为2019-04-25这种格式
+      if (typeof _that.globalData.checkOut.month != 'string') {
+        if (_that.globalData.checkOut.month < 10) {
+          _that.globalData.checkOut.month = '0' + _that.globalData.checkOut.month;
+        }
+      }
+      if (typeof _that.globalData.checkOut.day != 'string') {
+        if (_that.globalData.checkOut.day < 10) {
+          _that.globalData.checkOut.day = '0' + _that.globalData.checkOut.day;
+        }
+      }
+      if (typeof _that.globalData.checkIn.month != 'string') {
+        if (_that.globalData.checkIn.month < 10) {
+          _that.globalData.checkIn.month = '0' + _that.globalData.checkIn.month;
+        }
+      }
+      if (typeof _that.globalData.checkIn.day != 'string') {
+        if (_that.globalData.checkIn.day < 10) {
+          _that.globalData.checkIn.day = '0' + _that.globalData.checkIn.day;
+        }
+      }
+
+
+
+      _that.beginDate = _that.globalData.checkIn.year + '-' + _that.globalData.checkIn.month + '-' + _that.globalData.checkIn.day;
+      _that.endDate = _that.globalData.checkOut.year + '-' + _that.globalData.checkOut.month + '-' + _that.globalData.checkOut.day;
+      //把图片路径中的“\”改为“/”
+      /* res.data[i].rentCoverImg = that.IMGURL+res.data[i].rentCoverImg.replace(/\\/g, '/'); */
+
+      _api.default.getHome({
+        gradePk: '',
+        companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
+        beginDate: _that.beginDate,
+        endDate: _that.endDate }).
+      then(function (res) {
+        if (res.code == 1) {
+          _that.roomTypeList = res.data.roomTypeList;
+          _that.companyInfo = res.data.companyInfo;
+          _that.IMGURL = _api.default.config.IMGURL;
+          /* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
+        }
+      });
+    }
   },
   methods: {
-    change: function change(e) {
-      this.current = e.detail.current;
+    //跳转到房间详情页
+    gotoRoomInfo: function gotoRoomInfo(roomTypePk) {
+      var that = this;
+      _api.default.getRoomType({
+        gradePk: '', //会员级别
+        companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55', //酒店主键
+        roomTypePk: roomTypePk, //房型主键
+        beginDate: that.beginDate, //开始日期
+        endDate: that.endDate //结束日期
+      }).then(function (res) {
+        if (res.code == 1) {
+          wx.hideTabBar();
+          that.isRoomDetails = true;
+          that.roomData = res;
+
+        }
+      });
+
+      /* console.log(this.roomData); */
+
+      /* uni.navigateTo({
+                                        	url: '../roomDetails/roomDetails?obj=' + JSON.stringify(obj)
+                                        }); */
     },
-    gotoRoomInfo: function gotoRoomInfo() {
-      uni.navigateTo({
-        url: '../roomDetails/roomDetails',
-        animationType: 'fade-in',
-        animationDuration: 1000 });
+    //关闭房间详情页
+    closeRoom: function closeRoom() {
+      this.isRoomDetails = false;
+      wx.showTabBar();
 
     },
+    //跳转到评论页
+    gotoComment: function gotoComment() {
+      uni.navigateTo({
+        url: '../comment/comment' });
+
+    },
+    //选择日期
     selectDate: function selectDate() {
       uni.navigateTo({
         url: '../selectDate/selectDate?checkIn=' + JSON.stringify(this.globalData.checkIn) + '&checkOut=' + JSON.stringify(this.globalData.checkOut),
-        animationType: 'fade-in',
-        animationDuration: 1000 });
+        animationType: 'pop-in',
+        animationDuration: 200 });
 
     },
     // 获取个人信息
@@ -160,7 +292,7 @@ var app = getApp();var _default =
       console.log(res);
       this.globalData.userInfo = res.userInfo;
 
-      api.authorize({
+      _api.default.authorize({
         appid: globalData.appid,
         code: globalData.code,
         encryptedData: res.encryptedData,
@@ -169,9 +301,15 @@ var app = getApp();var _default =
         console.log(res);
       });
     },
-    reservation: function reservation() {
+    //跳转到订单填写页
+    reservation: function reservation(item) {
+      var obj = {
+        roomInfo: item,
+        beginDate: this.beginDate, //开始日期
+        endDate: this.endDate //结束日期
+      };
       uni.navigateTo({
-        url: '../placeOrder/placeOrder' });
+        url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj) });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))

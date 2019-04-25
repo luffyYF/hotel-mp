@@ -31,7 +31,7 @@
 		</view>
 
 		<view class="center-list">
-			<view @tap="makingCall">
+			<view @tap="makingCall('12345678910')">
 				<image src="../../static/images/user/phone.png" mode=""></image>
 				<span>联系客服</span>
 				<image src="../../static/images/index/right.png" mode=""></image>
@@ -85,9 +85,9 @@ export default {
 				url:'../share/share'
 			})
 		},
-		makingCall() {
+		makingCall(phoneNumber) {
 			uni.makePhoneCall({
-				phoneNumber: '12345678910'
+				phoneNumber: phoneNumber
 			});
 		},
 		gotoMember(){

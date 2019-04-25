@@ -1,7 +1,7 @@
 <template>
 	<view class="fillorderPage">
 		<view class="orderContent">
-			<view class="room-info">
+			<view class="room-info" @tap="gotoRoom">
 				<h2>
 					豪华双人间
 					<span>
@@ -39,12 +39,12 @@
 						<p>预订人</p>
 						<p>
 							<image src="../../static/images/order/user.png" mode=""></image>
-							<span><input type="text" value="李白" /></span>
+							<span><input type="text"  placeholder="请填写姓名" /></span>
 						</p>
 					</view>
 					<view class="tellphone">
 						<p>手机号码</p>
-						<p><input type="text" value="15913570532" /></p>
+						<p><input type="number"   placeholder="请填写手机号码"/></p>
 					</view>
 				</view>
 			</view>
@@ -67,28 +67,16 @@
 				<view class="invoice2">
 					<p>个性化服务</p>
 					<p>
-						<span>无烟</span>
-						<span>宵夜</span>
-						<span>晨跑套装</span>
-						<span>有小孩</span>
-						<span>有老人</span>
-						<span>有孕妇</span>
-						<span>电影院</span>
+						<span v-for="(item, index) in selectAll" :key="index" v-if="item.state">{{ item.name }}</span>
 					</p>
 				</view>
 			</view>
 			<view class="ServiceOptions">
-				<button>无烟</button>
-				<button>宵夜</button>
-				<button>晨跑套装</button>
-				<button>有小孩</button>
-				<button>有老人</button>
-				<button>有孕妇</button>
-				<button>电影院</button>
+				<button :class="item.state == 1 ? 'selectBtn' : ''" v-for="(item, index) in selectAll" :key="index" @tap="addItem(item)">{{ item.name }}</button>
 			</view>
 			<view class="Specialtips">
 				<p>
-					特别提示
+					特别提示:
 					<span>
 						本订单预定成功后，根据“
 						<a href="#">取消订单规则</a>
@@ -98,9 +86,10 @@
 			</view>
 		</view>
 		<view class="operation">
-			<button class="orderPrice">
+			<button class="orderPrice" @tap="gotoCost">
 				<span>￥154.4</span>
-				<span>明细</span>
+				<span style="font-size: 18.11594upx;text-decoration: line-through;margin-left: -36.23188upx;color: #ccc;">￥154.4</span>
+				<span @tap="gotoCost()">明细</span>
 			</button>
 			<button class="submitOrder" @click="gotoPayment()">提交订单</button>
 		</view>
@@ -108,9 +97,26 @@
 </template>
 
 <script>
+import roomDetails from '@/components/roomDetails/roomDetails';
 export default {
+	components:{
+		roomDetails
+	},
 	data() {
-		return {};
+		return {
+			selectAll: [
+				{ name: '无烟', state: false },
+				{ name: '宵夜', state: false },
+				{ name: '晨跑套装', state: false },
+				{ name: '有小孩', state: false },
+				{ name: '有老人', state: false },
+				{ name: '有孕妇', state: false },
+				{ name: '电影院', state: false }
+			]
+		};
+	},
+	onLoad(opt) {
+		console.log(opt.gotoRoomInfo)
 	},
 	methods: {
 		gotoPayment() {
@@ -122,13 +128,25 @@ export default {
 			uni.navigateTo({
 				url: '../discounts/discounts'
 			});
+		},
+		addItem(item) {
+			item.state = !item.state;
+		},
+		gotoRoom() {
+			/* uni.navigateTo({
+				url: '../roomDetails/roomDetails'
+			}); */
+		},
+		gotoCost() {
+			uni.navigateTo({
+				url: '../costDetail/costDetail'
+			});
 		}
 	}
 };
 </script>
 
 <style>
-
 .fillorderPage {
 	background-color: #f5f9fc;
 	overflow: hidden;
@@ -290,6 +308,7 @@ export default {
 
 .fillorderPage .invoice .invoice2 > p:nth-child(2) {
 	flex: 0.8;
+	text-align: right;
 }
 .fillorderPage .invoice .invoice2 > p:nth-child(2) > span {
 	padding: 0 9.05797upx;
@@ -299,17 +318,23 @@ export default {
 	display: flex;
 	flex-wrap: wrap;
 }
+.fillorderPage .ServiceOptions > .selectBtn {
+	background: linear-gradient(to bottom, #cda754, #cbbe85) !important;
+	color: #fff !important;
+}
 .fillorderPage .ServiceOptions > button {
 	flex: 0 0 20%;
-	margin: 0;
 	width: 22%;
 	margin: 18.11594upx;
 	max-width: 22%;
-	height: 54.34782upx;
-	line-height: 54.34782upx;
+	height: 30px;
+	line-height: 28px;
 	font-size: 23.55072upx;
-	background: linear-gradient(to bottom, #cda754, #cbbe85) !important;
-	color: #fff !important;
+	color: #000 !important;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.fillorderPage .ServiceOptions > button::after {
+	border: none;
 }
 .fillorderPage .Specialtips {
 	font-size: 23.55072upx;
@@ -345,10 +370,10 @@ export default {
 }
 .operation > .orderPrice > span:nth-child(1) {
 	color: #f72845;
-	font-size: 32.60869upx;
+	font-size: 36.23188upx;
 	float: left;
 }
-.operation > .orderPrice > span:nth-child(2) {
+.operation > .orderPrice > span:nth-child(3) {
 	color: #333333;
 	font-size: 21.73913upx;
 	float: right;

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="collect-item" v-for="(item,index) in count" :key="index">
+		<view class="collect-item" v-for="(item,index) in count" :key="index" @tap="gotoRoom">
 			<image class="collect-icon" src="../../static/images/user/heart.png" mode=""></image>
 			<image class="collect-img" src="../../static/images/room/20181214161550000808031.jpg" mode=""></image>
 			<view class="collect-title">
@@ -18,7 +18,13 @@ export default {
 			count:10
 		};
 	},
-	methods: {}
+	methods: {
+		gotoRoom(){
+			uni.navigateTo({
+				url:"../roomDetails/roomDetails"
+			})
+		}
+	}
 };
 </script>
 

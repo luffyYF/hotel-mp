@@ -1,0 +1,237 @@
+.masklayer {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: -1;
+}
+.page {
+  position: fixed;
+  background-color: white;
+  top: 326.08695rpx;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+}
+.page .roomTop {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 81.52173rpx;
+    padding: 18.11594rpx;
+    vertical-align: middle;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    z-index: 55;
+    background-color: white;
+}
+.page .roomTop ._h2 {
+      font-size: 32.60869rpx;
+      font-weight: 500;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+}
+.page .roomTop image {
+      width: 54.34782rpx;
+      height: 54.34782rpx;
+      position: relative;
+      right: 36.23188rpx;
+}
+.page .roomPage {
+    background-color: #f5f9fc;
+    overflow: hidden;
+    height: calc(100% - 195rpx);
+    background-color: white;
+}
+.page .roomPage .swiper-box {
+      width: 100%;
+      height: 498.1884rpx;
+}
+.page .roomPage .roominfo {
+      padding: 18.11594rpx;
+      border-bottom: 1px solid #f5f9fc;
+}
+.page .roomPage .roominfo .infoRow {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+}
+.page .roomPage .roominfo .infoRow .info-left,
+        .page .roomPage .roominfo .infoRow .info-right {
+          -webkit-box-flex: 1;
+          -webkit-flex: 1;
+              -ms-flex: 1;
+                  flex: 1;
+}
+.page .roomPage .roominfo .infoRow .info-left view,
+          .page .roomPage .roominfo .infoRow .info-right view {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+}
+.page .roomPage .roominfo .infoRow .info-left view ._span,
+            .page .roomPage .roominfo .infoRow .info-right view ._span {
+              color: #666666;
+              margin-right: 36.23188rpx;
+}
+.page .roomPage .roominfo .infobottom {
+        margin-top: 36.23188rpx;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+}
+.page .roomPage .roominfo .infobottom ._span {
+          color: #666666;
+          margin-right: 36.23188rpx;
+}
+.page .roomPage .sales {
+      padding: 18.11594rpx;
+      border-bottom: 1px solid #f5f9fc;
+}
+.page .roomPage .sales ._h2 {
+        font-size: 36.23188rpx;
+        font-weight: bold;
+}
+.page .roomPage .sales .sales-item {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 9.05797rpx 0;
+        vertical-align: middle;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
+}
+.page .roomPage .sales .sales-item ._span {
+          -webkit-box-flex: 0.2;
+          -webkit-flex: 0.2;
+              -ms-flex: 0.2;
+                  flex: 0.2;
+          background-color: #fef6ec;
+          margin-right: 18.11594rpx;
+          text-align: center;
+          font-size: 25.36231rpx;
+}
+.page .roomPage .sales .sales-item ._p {
+          font-weight: 600;
+          -webkit-box-flex: 0.8;
+          -webkit-flex: 0.8;
+              -ms-flex: 0.8;
+                  flex: 0.8;
+          overflow: hidden;
+          white-space: nowrap;
+          -o-text-overflow: ellipsis;
+             text-overflow: ellipsis;
+}
+.page .roomPage .sales .sales-item image {
+          width: 32.60869rpx;
+          height: 32.60869rpx;
+          height: 600;
+}
+.page .roomPage .description {
+      padding: 18.11594rpx;
+}
+.page .roomPage .description .des ._h2 {
+        font-size: 36.23188rpx;
+        font-weight: bold;
+}
+.page .roomPage .description .des ._ul {
+        padding-left: 36.23188rpx;
+}
+.page .roomPage .description .des ._ul > ._li {
+        color: #999999;
+}
+.page .roomPage .description .des ._ul > ._li::before {
+        content: '';
+        position: relative;
+        bottom: -27.17391rpx;
+        left: -21.73913rpx;
+        display: block;
+        width: 9.05797rpx;
+        height: 9.05797rpx;
+        border-radius: 9.05797rpx;
+        background-color: #999999;
+}
+.page .roomPage .description .des ._ul > ._li > ._p {
+        color: #333333;
+}
+.operation {
+  width: 100%;
+  height: 81.52173rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  vertical-align: middle;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.operation > .contactBtn {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border: none;
+  height: 100%;
+  line-height: 81.52173rpx;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: inherit;
+  background-color: white;
+  font-size: 25.36231rpx;
+  font-weight: bold;
+  color: #cda754;
+}
+.operation > .contactBtn:after {
+  border: none;
+}
+.operation > .reserveBtn {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  line-height: 81.52173rpx;
+  border: none;
+  background-color: #cda754;
+  border-radius: inherit;
+  font-size: 28.9855rpx;
+  font-weight: bold;
+  color: #fff;
+}
+.operation > .reserveBtn > ._span:nth-child(1) {
+  font-size: 36.23188rpx;
+}
+.operation > .reserveBtn > ._span:nth-child(2) {
+  font-size: 27.17391rpx;
+}
+.operation > .reserveBtn:after {
+  border: none;
+}
+

@@ -58,7 +58,7 @@
 				"navigationBarBackgroundColor": "#cda754"
 			}
 		}, {
-			"path": "pages/roominfo/comment/comment",
+			"path": "pages/comment/comment",
 			"style": {
 				"navigationBarTitleText": "评论列表",
 				"navigationBarBackgroundColor": "#cda754"
@@ -69,33 +69,36 @@
 				"navigationBarTitleText": "关于我们",
 				"navigationBarBackgroundColor": "#cda754"
 			}
-		}
-	    ,{
-            "path" : "pages/collect/collect",
-            "style" : {
+		}, {
+			"path": "pages/collect/collect",
+			"style": {
 				"navigationBarTitleText": "我的收藏",
 				"navigationBarBackgroundColor": "#cda754"
 			}
-        }
-        ,{
-            "path" : "pages/share/share",
-            "style" : {
+		}, {
+			"path": "pages/share/share",
+			"style": {
 				"navigationBarTitleText": "分享",
 				"navigationBarBackgroundColor": "#cda754"
 			}
-        }
-        ,{
-            "path" : "pages/roomDetails/roomDetails",
-            "style" : {
+		},/* {
+			"path": "pages/roomDetails/roomDetails",
+			"style": {
 				"navigationBarTitleText": "房间详情",
 				"navigationBarBackgroundColor": "#cda754"
 			}
-        }
-        ,{
-            "path" : "pages/member/member",
-            "style" : {
-				"navigationBarTitleText":"会员与积分规则",
+		}, */ {
+			"path": "pages/member/member",
+			"style": {
+				"navigationBarTitleText": "会员与积分规则",
 				"navigationBarBackgroundColor": "#cda754"
+			}
+		}
+	    ,{
+            "path" : "pages/costDetail/costDetail",
+            "style" : {
+				"navigationBarTitleText":"费用明细",
+				"navigationBarBackgroundColor":"#cda754"
 			}
         }
     ],

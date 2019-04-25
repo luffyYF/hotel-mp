@@ -2,36 +2,36 @@
 	<view>
 		<view class="memberPage">
 			<view class="m-top">
-				<image src="../../static/images/member/memberbanner.jpg" mode="widthFix" style="width: 100%;"></image>
-				<image src="../../static/images/member/member_tit.jpg" mode="widthFix" style="width: 100%;"></image>
+				<image src="../../static/images/memberImg/memberbanner.jpg" mode="widthFix" style="width: 100%;"></image>
+				<image src="../../static/images/memberImg/member_tit.jpg" mode="widthFix" style="width: 100%;"></image>
 			</view>
 			<view class="m-content">
 				<view class="m-class">
 					<view class="section">
 						<view class="title">
 							<span>会员</span>
-							<image src="../../static/images/member/ORDINARY.png" mode="widthFix" style="width: 24px;height: 24px;"></image>
+							<image src="../../static/images/memberImg/ORDINARY.png" mode="widthFix" style="width: 24px;height: 24px;"></image>
 						</view>
 						<p>新用户注册成功后自动升级为注册会员，可获取100元代金劵。代金券不可兑换现金，代金券使用有效期限为一年。</p>
 					</view>
 					<view class="section">
 						<view class="title">
 							<span>银卡会员</span>
-							<image src="../../static/images/member/FORMAL.png" mode="widthFix" style="width: 24px;height: 24px;"></image>
+							<image src="../../static/images/memberImg/FORMAL.png" mode="widthFix" style="width: 24px;height: 24px;"></image>
 						</view>
 						<p>用户在豪斯格兰酒店累计消费满3间夜，自动升级为白银会员，通过豪斯格兰酒店预定消费即可享受9折优惠。</p>
 					</view>
 					<view class="section">
 						<view class="title">
 							<span>金卡会员</span>
-							<image src="../../static/images/member/GOLDEN.png" mode="widthFix" style="width: 24px;height: 24px;"></image>
+							<image src="../../static/images/memberImg/GOLDEN.png" mode="widthFix" style="width: 24px;height: 24px;"></image>
 						</view>
 						<p>用户在豪斯格兰酒店消费累计满30间夜，自动升级为黄金会员，通过豪斯格兰酒店预定消费即可享受8.5折优惠。</p>
 					</view>
 					<view class="section">
 						<view class="title">
 							<span>钻石会员</span>
-							<image src="../../static/images/member/DIAMOND.png" mode="widthFix" style="width: 24px;height: 24px;"></image>
+							<image src="../../static/images/memberImg/DIAMOND.png" mode="widthFix" style="width: 24px;height: 24px;"></image>
 						</view>
 						<p>用户在豪斯格兰酒店消费累计满60间夜，自动升级为钻石会员，通过豪斯格兰酒店预定消费即可享受8折优惠。</p>
 					</view>

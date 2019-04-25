@@ -1,4 +1,7 @@
 @charset "UTF-8";
+[v-cloak] {
+  display: none !important;
+}
 .hotel-img {
   position: relative;
 }
@@ -15,6 +18,31 @@
     padding-left: 36.23188rpx;
     background-color: transparent;
 }
+.hotel-img .evaluate {
+    padding: 0 9.05797rpx;
+    position: absolute;
+    right: 36.23188rpx;
+    top: 172.10144rpx;
+    width: 126.81159rpx;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 18.11594rpx;
+}
+.hotel-img .evaluate .b {
+      color: #e5c893;
+      font-size: 32.60869rpx;
+      font-weight: 600;
+      padding: 9.05797rpx 0;
+      display: block;
+      text-align: center;
+      border-bottom: 0.90579rpx solid #8e9093;
+}
+.hotel-img .evaluate .c {
+      font-size: 21.73913rpx;
+      padding: 9.05797rpx 0;
+      display: block;
+      text-align: center;
+      color: white;
+}
 .roomReservation {
   background-color: #f5f9fc;
   overflow: hidden;
@@ -30,13 +58,13 @@
     color: #ffffff;
     position: absolute;
     z-index: 1;
-    top: 416.66666rpx;
     padding-left: 36.23188rpx;
     background-color: transparent;
 }
 .roomReservation .room-info .locationMsg {
     padding: 14.49275rpx 14.49275rpx 14.49275rpx 28.9855rpx;
     margin-bottom: 28.9855rpx;
+    clear: both;
 }
 .roomReservation .room-info .locationMsg .positionDetails {
       border-bottom: 1px solid #f7f9fb;
@@ -129,6 +157,11 @@
       background: rgba(0, 0, 0, 0.75);
       color: #fff;
       font-size: 36.23188rpx;
+}
+.roomReservation .room-list .room-cover .span .original {
+        font-size: 21.73913rpx;
+        text-decoration: line-through;
+        color: #ccc;
 }
 .roomReservation .room-list .room-cover .span text {
         font-size: 27.17391rpx;

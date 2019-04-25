@@ -33,7 +33,7 @@
 						<image src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</view>
 
-					<image class="houseImg" src="../../static/images/order/20180607170339698808043.jpg" mode=""></image>
+					<image class="houseImg" src="../../static/images/room/20181214172004933808032.jpg" mode=""></image>
 					<view class="checkinAddress">
 						<view class="Address">
 							<text>地址:</text>
@@ -49,7 +49,7 @@
 				</view>
 			</view>
 			<view class="checkinCost">
-				<view class="details">
+				<view class="details" @tap="gotoCost">
 					<text>线上支付</text>
 					<text>￥228</text>
 					<text>费用明细</text>
@@ -120,6 +120,11 @@ export default {
 			uni.navigateTo({
 				url: '../roomDetails/roomDetails'
 			});
+		},
+		gotoCost(){
+			uni.navigateTo({
+				url:"../costDetail/costDetail"
+			})
 		}
 	}
 };

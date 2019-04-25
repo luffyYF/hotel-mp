@@ -1,6 +1,6 @@
 
-view.data-v-54614ec3{
-	line-height:inherit;
+view.data-v-54614ec3 {
+	line-height: inherit;
 }
 /* pages/datePicker/datePicker.wxss */
 .date-header.data-v-54614ec3 {
@@ -87,14 +87,14 @@ view.data-v-54614ec3{
 	margin-bottom: 10rpx;
 }
 .week-day.data-v-54614ec3 {
-	color: #ff7a00;
+	color: #cda754;
 }
 .disabled.data-v-54614ec3 {
 	color: #d1d1d1;
 }
 .check-in.data-v-54614ec3,
 .check-out.data-v-54614ec3 {
-	background-color: #ff7a00;
+	background-color: #cda754;
 	color: #fff;
 }
 .check-in.data-v-54614ec3 {
@@ -108,7 +108,7 @@ view.data-v-54614ec3{
 }
 .check-in-day.data-v-54614ec3 {
 	color: #ff7a00;
-	background-color: rgba(255, 122, 0, .2)
+	background-color: rgba(255, 122, 0, 0.2);
 }
 /* 确定按钮 */
 .btn-wrap.data-v-54614ec3 {
@@ -120,7 +120,7 @@ view.data-v-54614ec3{
 	bottom: 0rpx;
 }
 button.data-v-54614ec3 {
-	background-color: #ff7a00;
+	background-color: #cda754;
 	color: #fff;
 	font-size: 36rpx;
 	width: 710rpx;
@@ -129,7 +129,7 @@ button.data-v-54614ec3 {
 	margin: 0 auto;
 }
 .sure-btn-hover.data-v-54614ec3 {
-	background-color: #ff7a00;
+	background-color: #cda754;
 	opacity: 1;
 }
 

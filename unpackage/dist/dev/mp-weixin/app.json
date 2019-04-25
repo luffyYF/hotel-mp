@@ -9,12 +9,12 @@
     "pages/payment/payment",
     "pages/selectDate/selectDate",
     "pages/discounts/discounts",
-    "pages/roominfo/comment/comment",
+    "pages/comment/comment",
     "pages/aboutUs/aboutUs",
     "pages/collect/collect",
     "pages/share/share",
-    "pages/roomDetails/roomDetails",
-    "pages/member/member"
+    "pages/member/member",
+    "pages/costDetail/costDetail"
   ],
   "subPackages": [],
   "tabBar": {

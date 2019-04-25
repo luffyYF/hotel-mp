@@ -8,119 +8,125 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var roomDetails = function roomDetails() {return Promise.all(/*! import() | components/roomDetails/roomDetails */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/roomDetails/roomDetails")]).then(__webpack_require__.bind(null, /*! @/components/roomDetails/roomDetails */ "E:\\project\\hotel-mp\\components\\roomDetails\\roomDetails.vue"));};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
+  components: {
+    roomDetails: roomDetails },
+
   data: function data() {
-    return {};
+    return {
+      selectAll: [
+      { name: '无烟', state: false },
+      { name: '宵夜', state: false },
+      { name: '晨跑套装', state: false },
+      { name: '有小孩', state: false },
+      { name: '有老人', state: false },
+      { name: '有孕妇', state: false },
+      { name: '电影院', state: false }] };
+
+
+  },
+  onLoad: function onLoad(opt) {
+    console.log(opt.gotoRoomInfo);
   },
   methods: {
     gotoPayment: function gotoPayment() {
@@ -131,6 +137,19 @@ var _default =
     gotoDiscounts: function gotoDiscounts() {
       uni.navigateTo({
         url: '../discounts/discounts' });
+
+    },
+    addItem: function addItem(item) {
+      item.state = !item.state;
+    },
+    gotoRoom: function gotoRoom() {
+      /* uni.navigateTo({
+                                   	url: '../roomDetails/roomDetails'
+                                   }); */
+    },
+    gotoCost: function gotoCost() {
+      uni.navigateTo({
+        url: '../costDetail/costDetail' });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))

@@ -1,0 +1,90 @@
+.costPage {
+  padding: 28.9855rpx;
+  background-color: #f5f9fc !important;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  display: block;
+}
+.costContent {
+  background-color: white;
+  border-radius: 9.05797rpx;
+}
+.costContent .allPrice,
+  .costContent .time,
+  .costContent .detail {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.costContent .allPrice {
+    padding: 18.11594rpx;
+}
+.costContent .allPrice ._h3 {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      -o-text-overflow: ellipsis;
+         text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 500;
+}
+.costContent .allPrice ._p {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      text-align: right;
+      color: #cda754;
+      font-weight: 600;
+      font-size: 32.60869rpx;
+}
+.costContent .time {
+    padding: 18.11594rpx;
+    border-bottom: 1px solid #f6f7f9;
+}
+.costContent .time ._span {
+      overflow: inherit;
+      font-size: 14px;
+      line-height: normal;
+      font-weight: 600;
+      -o-text-overflow: inherit;
+         text-overflow: inherit;
+      color: #8e9093;
+      margin: 0 0 2px;
+}
+.costContent .detail {
+    display: block;
+}
+.costContent .detail view {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      padding: 18.11594rpx;
+}
+.costContent .detail view ._h3 {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        font-weight: 500;
+}
+.costContent .detail view ._p {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        -webkit-box-pack: end;
+        -webkit-justify-content: flex-end;
+            -ms-flex-pack: end;
+                justify-content: flex-end;
+        color: #cda754;
+        font-weight: 600;
+        font-size: 32.60869rpx;
+}
+
