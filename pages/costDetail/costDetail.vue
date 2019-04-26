@@ -2,7 +2,7 @@
 	<view class="costPage">
 		<view class="costContent">
 			<view class="allPrice">
-				<h3>全部房费:</h3>
+				<h3>总房费:</h3>
 				<p>134.4元</p>
 			</view>
 			<view class="time">

@@ -1,9 +1,8 @@
 <template>
 	<view class="roomReservation" v-cloak>
-		<authorize v-if="isAuthorizeShow" @GetUserInfo="getUserInfo"></authorize>
 		<view class="room-info">
 			<view class="hotel-img">
-				<image class="img-bg" :src="IMGURL + companyInfo.image" mode="widthFix"></image>
+				<image class="img-bg" :src="(IMGURL + companyInfo.image)" mode="widthFix"></image>
 				<h2 class="info-title">
 					<view class="title">{{ companyInfo.name }}</view>
 					<view class="imgCount">
@@ -97,14 +96,13 @@
 </template>
 
 <script>
-import authorize from '@/components/authorize';
 import roomDetails from '@/components/roomDetails/roomDetails';
-import utils from '@/utils/utils.js';
-import api from '@/utils/api.js';
+import utils from '@/utils/util';
+import api from '@/utils/api';
+import allocation from '@/utils/config.js';
 var app = getApp();
 export default {
 	components: {
-		authorize,
 		roomDetails
 	},
 	data() {
@@ -132,17 +130,8 @@ export default {
 		let currPage = pages[pages.length - 1];
 		if (currPage.data.globalData.code == '') {
 			let that = this;
-
 			that.globalData = app.$vm.globalData;
 			/* console.log(that.globalData); */
-			utils
-				.checkSession()
-				.then(res => {
-					// that.goLogin();
-				})
-				.catch(res => {
-					that.isAuthorizeShow = true;
-				});
 
 			//将日期判断改为2019-04-25这种格式
 			if (typeof that.globalData.checkOut.month != 'string') {
@@ -189,7 +178,6 @@ export default {
 				}
 			});
 		} else {
-			/*  this.hope_job = currPage.data.hope_job */
 			let that = this;
 			that.globalData = currPage.data.globalData;
 
@@ -243,7 +231,7 @@ export default {
 			let that = this;
 			api.getRoomType({
 				gradePk: '', //会员级别
-				companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55', //酒店主键
+				companyPk: allocation.COMPANYPK, //酒店主键
 				roomTypePk: roomTypePk, //房型主键
 				beginDate: that.beginDate, //开始日期
 				endDate: that.endDate //结束日期
@@ -252,14 +240,11 @@ export default {
 					wx.hideTabBar();
 					that.isRoomDetails = true;
 					that.roomData = res;
+					that.roomData.globalData = that.globalData;
+					that.roomData.beginDate = that.beginDate;
+					that.roomData.endDate = that.endDate;
 				}
 			});
-
-			/* console.log(this.roomData); */
-
-			/* uni.navigateTo({
-				url: '../roomDetails/roomDetails?obj=' + JSON.stringify(obj)
-			}); */
 		},
 		//关闭房间详情页
 		closeRoom() {
@@ -280,44 +265,28 @@ export default {
 				animationDuration: 200
 			});
 		},
-		// 获取个人信息
-		getUserInfo(res) {
-			console.log(res);
-			this.globalData.userInfo = res.userInfo;
-
-			api.authorize({
-				appid: globalData.appid,
-				code: globalData.code,
-				encryptedData: res.encryptedData,
-				iv: res.iv
-			}).then(res => {
-				console.log(res);
-			});
-		},
 		//跳转到订单填写页
 		reservation(item) {
-			console.log(item);
-			let that=this;
+			let that = this;
 			api.getRoomType({
 				gradePk: '', //会员级别
-				companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55', //酒店主键
+				companyPk: allocation.COMPANYPK, //酒店主键
 				roomTypePk: item.roomTypePk, //房型主键
 				beginDate: that.beginDate, //开始日期
 				endDate: that.endDate //结束日期
 			}).then(res => {
 				if (res.code == 1) {
-					console.log(res);
-					console.log((that.globalData.checkOut.timeStamp - that.globalData.checkIn.timeStamp) / 86400000);
-					console.log();
+					var obj = {
+						roomTypeInfo: res.data.roomTypeInfo, //房间信息
+						globalData: that.globalData ,//入住时间和退房时间
+						beginDate:that.beginDate,//入住日期
+						endDate:that.endDate//退房日期
+					};
+
+					uni.navigateTo({
+						url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
+					});
 				}
-			});
-			var obj = {
-				roomInfo: item,
-				beginDate: that.beginDate, //开始日期
-				endDate: that.endDate //结束日期
-			};
-			uni.navigateTo({
-				url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
 			});
 		}
 	}

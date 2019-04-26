@@ -81,9 +81,7 @@
 				<view class="des">
 					<h2>不可取消</h2>
 					<ul>
-						<li>
-							<p>订单确认后不可变更/取消，如未入住，酒店将扣除全额房费</p>
-						</li>
+						<li><p>订单确认后不可变更/取消，如未入住，酒店将扣除全额房费</p></li>
 					</ul>
 				</view>
 				<view class="des">
@@ -107,9 +105,11 @@
 		<view class="operation">
 			<button class="contactBtn" @tap="makingCall('12345678910')">联系客服</button>
 			<button class="reserveBtn" style="" @click="gotoPrice()">
-				<span>￥{{ roomTypeInfo.disPrice }}</span>
-				<span style="font-size: 21.73913upx;text-decoration: line-through;margin-right: 18.11594upx;color: #ccc;">￥{{ roomTypeInfo.price }}</span>
-				<span style="font-size: 36.23188upx;">预订</span>
+				<span v-if="roomTypeInfo.isFull == 'Y' ? false : true">￥{{ roomTypeInfo.disPrice }}</span>
+				<span style="font-size: 21.73913upx;text-decoration: line-through;margin-right: 18.11594upx;color: #ccc;" v-if="roomTypeInfo.isFull == 'Y' ? false : true">
+					￥{{ roomTypeInfo.price }}
+				</span>
+				<span style="font-size: 36.23188upx;">{{ roomTypeInfo.isFull == 'Y' ? '今日已满' : '预定' }}</span>
 			</button>
 		</view>
 	</view>
@@ -118,6 +118,7 @@
 <script>
 import uniSwiperDot from '../../components/uni-swiper-dot/uni-swiper-dot.vue';
 import api from '@/utils/api.js';
+import allocation from '@/utils/config.js'
 export default {
 	props: {
 		roomData: {}
@@ -137,9 +138,20 @@ export default {
 			setTimeout(function() {
 				uni.hideLoading();
 			}, 1000);
+			//房间信息
 			that.roomTypeInfo = that.roomData.data.roomTypeInfo;
+			//图片数组
 			that.info = that.roomData.data.images;
-			this.IMGURL = api.config.IMGURL;
+			//入住时间
+			that.globalData= that.roomData.globalData;
+			
+			//开始入住时间
+			that.beginDate= that.roomData.beginDate;
+			//开始退房时间
+			that.endDate = that.roomData.endDate;
+			
+			//图片站点
+			this.IMGURL = allocation.IMGROOTURL;
 		}
 	},
 	mounted() {},
@@ -149,7 +161,11 @@ export default {
 			current: 0,
 			mode: 'long',
 			IMGURL: '',
-			roomTypeInfo: {}
+			roomTypeInfo: {},
+			globalData:{},
+			beginDate:'',
+			endDate:''
+			
 		};
 	},
 	methods: {
@@ -157,8 +173,16 @@ export default {
 			this.current = e.detail.current;
 		},
 		gotoPrice() {
+			//跳转到订单填写页
+			let that = this;
+			var obj = {
+				roomTypeInfo: that.roomTypeInfo, //房间信息
+				globalData: that.globalData ,//入住时间和退房时间
+				beginDate:that.beginDate,//入住日期
+				endDate:that.endDate//退房日期
+			};
 			uni.navigateTo({
-				url: '../placeOrder/placeOrder'
+				url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
 			});
 		},
 		closePage() {

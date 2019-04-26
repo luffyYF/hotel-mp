@@ -3,25 +3,27 @@
 		<view class="orderContent">
 			<view class="room-info" @tap="gotoRoom">
 				<h2>
-					豪华双人间
+					{{ roomTypeInfo.typeName }}
 					<span>
 						房型详情
 						<image src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</span>
 				</h2>
 				<p class="tags">
-					<span>1.2米单人床 2张</span>
-					<span>空调</span>
-					<span>WIFI</span>
-					<span>电视柜</span>
-					<span>电视</span>
+					<span>{{ roomTypeInfo.area }}</span>
+					<span>{{ roomTypeInfo.bathroomDesc }}</span>
+					<span>{{ roomTypeInfo.breakfastDesc }}</span>
+					<span>{{ roomTypeInfo.windowDesc }}</span>
+					<span>{{ roomTypeInfo.broadbandDesc }}</span>
+					<span>{{ roomTypeInfo.airConditionerDesc }}</span>
+					<span>{{ roomTypeInfo.bathroomMatchingDesc }}</span>
 				</p>
 				<p class="intime">
 					入住：
-					<span class="days">4月12号</span>
+					<span class="days">{{ globalData.checkIn.month }}月{{ globalData.checkIn.day }}号</span>
 					离店：
-					<span class="days">4月13号</span>
-					<span>1晚</span>
+					<span class="days">{{ globalData.checkOut.month }}月{{ globalData.checkOut.day }}号</span>
+					<span>共{{ (globalData.checkOut.timeStamp - globalData.checkIn.timeStamp) / 86400000 }}晚</span>
 				</p>
 			</view>
 			<view class="reserve-msg">
@@ -39,12 +41,12 @@
 						<p>预订人</p>
 						<p>
 							<image src="../../static/images/order/user.png" mode=""></image>
-							<span><input type="text"  placeholder="请填写姓名" /></span>
+							<span><input type="text" placeholder="请填写姓名" /></span>
 						</p>
 					</view>
 					<view class="tellphone">
 						<p>手机号码</p>
-						<p><input type="number"   placeholder="请填写手机号码"/></p>
+						<p><input type="number" placeholder="请填写手机号码" /></p>
 					</view>
 				</view>
 			</view>
@@ -87,8 +89,8 @@
 		</view>
 		<view class="operation">
 			<button class="orderPrice" @tap="gotoCost">
-				<span>￥154.4</span>
-				<span style="font-size: 18.11594upx;text-decoration: line-through;margin-left: -36.23188upx;color: #ccc;">￥154.4</span>
+				<span>￥{{ roomTypeInfo.disPrice }}</span>
+				<span style="font-size: 18.11594upx;text-decoration: line-through;margin-left: -36.23188upx;color: #ccc;">￥{{ roomTypeInfo.price }}</span>
 				<span @tap="gotoCost()">明细</span>
 			</button>
 			<button class="submitOrder" @click="gotoPayment()">提交订单</button>
@@ -98,8 +100,10 @@
 
 <script>
 import roomDetails from '@/components/roomDetails/roomDetails';
+import api from '@/utils/api';
+import allocation from '@/utils/config';
 export default {
-	components:{
+	components: {
 		roomDetails
 	},
 	data() {
@@ -112,34 +116,68 @@ export default {
 				{ name: '有老人', state: false },
 				{ name: '有孕妇', state: false },
 				{ name: '电影院', state: false }
-			]
+			],
+			roomTypeInfo: {},
+			globalData: {},
+			beginDate: '',
+			endDate: ''
 		};
 	},
 	onLoad(opt) {
-		console.log(opt.gotoRoomInfo)
+		var obj = JSON.parse(opt.roomInfo);
+		//房间信息和入住时间
+		this.roomTypeInfo = obj.roomTypeInfo;
+		this.globalData = obj.globalData;
+		this.beginDate = obj.beginDate;
+		this.endDate = obj.endDate;
+		
 	},
 	methods: {
+		//支付下单
 		gotoPayment() {
 			uni.navigateTo({
 				url: '../payment/payment'
 			});
 		},
+		//选择优惠卷
 		gotoDiscounts() {
+			api.lisCouponByUser({
+				roomTypePk:this.roomTypeInfo.typePk
+			}).then(res=>{
+				if(res.code==1){
+					console.log(res);
+				}
+			})
 			uni.navigateTo({
 				url: '../discounts/discounts'
 			});
 		},
+		//添加个性化服务
 		addItem(item) {
 			item.state = !item.state;
 		},
+		//房型详情
 		gotoRoom() {
 			/* uni.navigateTo({
 				url: '../roomDetails/roomDetails'
 			}); */
 		},
+		//查看明细
 		gotoCost() {
-			uni.navigateTo({
-				url: '../costDetail/costDetail'
+			let that = this;
+			api.getOrderPrice({
+				beginDate: that.beginDate,
+				couponMemberPk: '',
+				endDate: that.endDate,
+				roomTypePk: that.roomTypeInfo.typePk,
+				userPk: allocation.USERPK
+			}).then(res => {
+				if (res.code == 1) {
+					console.log(res);
+					uni.navigateTo({
+						url: '../costDetail/costDetail'
+					});
+				}
 			});
 		}
 	}
