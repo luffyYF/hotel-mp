@@ -1,7 +1,7 @@
 <template>
 	<view class="fillorderPage">
 		<view class="orderContent">
-			<view class="room-info">
+			<view class="room-info" @tap="gotoRoom">
 				<h2>
 					豪华双人间
 					<span>
@@ -39,12 +39,12 @@
 						<p>预订人</p>
 						<p>
 							<image src="../../static/images/order/user.png" mode=""></image>
-							<span><input type="text" value="李白" /></span>
+							<span><input type="text"  placeholder="请填写姓名" /></span>
 						</p>
 					</view>
 					<view class="tellphone">
 						<p>手机号码</p>
-						<p><input type="text" value="15913570532" /></p>
+						<p><input type="number"   placeholder="请填写手机号码"/></p>
 					</view>
 				</view>
 			</view>
@@ -67,28 +67,16 @@
 				<view class="invoice2">
 					<p>个性化服务</p>
 					<p>
-						<span>无烟</span>
-						<span>宵夜</span>
-						<span>晨跑套装</span>
-						<span>有小孩</span>
-						<span>有老人</span>
-						<span>有孕妇</span>
-						<span>电影院</span>
+						<span v-for="(item, index) in selectAll" :key="index" v-if="item.state">{{ item.name }}</span>
 					</p>
 				</view>
 			</view>
 			<view class="ServiceOptions">
-				<button>无烟</button>
-				<button>宵夜</button>
-				<button>晨跑套装</button>
-				<button>有小孩</button>
-				<button>有老人</button>
-				<button>有孕妇</button>
-				<button>电影院</button>
+				<button :class="item.state == 1 ? 'selectBtn' : ''" v-for="(item, index) in selectAll" :key="index" @tap="addItem(item)">{{ item.name }}</button>
 			</view>
 			<view class="Specialtips">
 				<p>
-					特别提示
+					特别提示:
 					<span>
 						本订单预定成功后，根据“
 						<a href="#">取消订单规则</a>
@@ -98,27 +86,61 @@
 			</view>
 		</view>
 		<view class="operation">
-			<button class="orderPrice"><span>￥154.4</span><span>明细</span></button>
+			<button class="orderPrice" @tap="gotoCost">
+				<span>￥154.4</span>
+				<span style="font-size: 18.11594upx;text-decoration: line-through;margin-left: -36.23188upx;color: #ccc;">￥154.4</span>
+				<span @tap="gotoCost()">明细</span>
+			</button>
 			<button class="submitOrder" @click="gotoPayment()">提交订单</button>
 		</view>
 	</view>
 </template>
 
 <script>
+import roomDetails from '@/components/roomDetails/roomDetails';
 export default {
-	data() {
-		return {};
+	components:{
+		roomDetails
 	},
-	methods:{
-		gotoPayment(){
+	data() {
+		return {
+			selectAll: [
+				{ name: '无烟', state: false },
+				{ name: '宵夜', state: false },
+				{ name: '晨跑套装', state: false },
+				{ name: '有小孩', state: false },
+				{ name: '有老人', state: false },
+				{ name: '有孕妇', state: false },
+				{ name: '电影院', state: false }
+			]
+		};
+	},
+	onLoad(opt) {
+		console.log(opt.gotoRoomInfo)
+	},
+	methods: {
+		gotoPayment() {
 			uni.navigateTo({
-				url:'../payment/payment'
-			})
+				url: '../payment/payment'
+			});
 		},
-		gotoDiscounts(){
+		gotoDiscounts() {
 			uni.navigateTo({
-				url:'../user/discounts'
-			})
+				url: '../discounts/discounts'
+			});
+		},
+		addItem(item) {
+			item.state = !item.state;
+		},
+		gotoRoom() {
+			/* uni.navigateTo({
+				url: '../roomDetails/roomDetails'
+			}); */
+		},
+		gotoCost() {
+			uni.navigateTo({
+				url: '../costDetail/costDetail'
+			});
 		}
 	}
 };
@@ -129,7 +151,7 @@ export default {
 	background-color: #f5f9fc;
 	overflow: hidden;
 }
-.fillorderPage .orderContent{
+.fillorderPage .orderContent {
 	margin-bottom: 81.52173upx;
 }
 .fillorderPage .orderContent .room-info {
@@ -169,10 +191,14 @@ export default {
 .fillorderPage .orderContent .room-info > p {
 	font-size: 25.36231upx;
 }
+.fillorderPage .orderContent .room-info > .intime > .days {
+	margin: 18.11594upx;
+}
 .fillorderPage .reserve-msg,
 .fillorderPage .discounts {
 	background-color: white;
 	margin: 57.97101upx 0 28.9855upx 0;
+	position: relative;
 }
 .fillorderPage .reserve-msg .reserve-title {
 	background: #cda754;
@@ -184,7 +210,7 @@ export default {
 	border-radius: 10.86956upx 10.86956upx 0 0;
 	margin-left: 27.17391upx;
 	position: absolute;
-	top: 199.27536upx;
+	top: -36.23188upx;
 }
 .fillorderPage .reserve-msg .reserve-content > view,
 .fillorderPage .discounts > view,
@@ -234,11 +260,12 @@ export default {
 	border-radius: 10.86956upx 10.86956upx 0 0;
 	margin-left: 27.17391upx;
 	position: absolute;
-	top: 530.7971upx;
+	top: -36.23188upx;
 }
 .fillorderPage .discounts .discounts1 {
 	border-bottom: 1px solid #f7f9fb;
 	color: #cda754;
+	clear: both;
 }
 .fillorderPage .discounts .discounts2 {
 	display: flex;
@@ -276,11 +303,12 @@ export default {
 }
 
 .fillorderPage .invoice .invoice2 > p:nth-child(1) {
-	flex: 0.2;
+	flex: 0.3;
 }
 
 .fillorderPage .invoice .invoice2 > p:nth-child(2) {
 	flex: 0.8;
+	text-align: right;
 }
 .fillorderPage .invoice .invoice2 > p:nth-child(2) > span {
 	padding: 0 9.05797upx;
@@ -290,30 +318,36 @@ export default {
 	display: flex;
 	flex-wrap: wrap;
 }
-.fillorderPage .ServiceOptions > button {
-	flex: 0 0 20%;
-	margin: 0;
-	width: 22%;
-	margin: 18.11594upx;
-	max-width: 22%;
-	height: 54.34782upx;
-	line-height: 54.34782upx;
-	font-size: 23.55072upx;
+.fillorderPage .ServiceOptions > .selectBtn {
 	background: linear-gradient(to bottom, #cda754, #cbbe85) !important;
 	color: #fff !important;
 }
-.fillorderPage .Specialtips{
+.fillorderPage .ServiceOptions > button {
+	flex: 0 0 20%;
+	width: 22%;
+	margin: 18.11594upx;
+	max-width: 22%;
+	height: 30px;
+	line-height: 28px;
+	font-size: 23.55072upx;
+	color: #000 !important;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.fillorderPage .ServiceOptions > button::after {
+	border: none;
+}
+.fillorderPage .Specialtips {
 	font-size: 23.55072upx;
 	padding: 0 18.11594upx;
 }
-.fillorderPage .Specialtips>p>span{
+.fillorderPage .Specialtips > p > span {
 	color: #666666;
 }
-.fillorderPage .Specialtips>p>span>a{
+.fillorderPage .Specialtips > p > span > a {
 	color: #cda754;
 	display: inline;
 }
- .operation {
+.operation {
 	width: 100%;
 	height: 81.52173upx;
 	display: flex;
@@ -321,9 +355,8 @@ export default {
 	bottom: 0;
 	vertical-align: middle;
 	align-items: center;
-	
 }
- .operation > .orderPrice {
+.operation > .orderPrice {
 	flex: 1;
 	border: none;
 	height: 100%;
@@ -335,20 +368,20 @@ export default {
 	font-weight: bold;
 	color: #f72845;
 }
-.operation > .orderPrice>span:nth-child(1){
-	 color: #f72845;
-	 font-size: 32.60869upx;
-	 float: left;
- }
- .operation > .orderPrice>span:nth-child(2){
-	 color: #333333;
-	 font-size: 21.73913upx;
+.operation > .orderPrice > span:nth-child(1) {
+	color: #f72845;
+	font-size: 36.23188upx;
+	float: left;
+}
+.operation > .orderPrice > span:nth-child(3) {
+	color: #333333;
+	font-size: 21.73913upx;
 	float: right;
- }
- 
- .operation > .orderPrice:after{
-	 border: none;
- }
+}
+
+.operation > .orderPrice:after {
+	border: none;
+}
 
 .operation > .submitOrder {
 	flex: 1;
@@ -362,8 +395,7 @@ export default {
 	font-weight: bold;
 	color: #fff;
 }
- .operation > .submitOrder:after{
-	 border: none;
- }
-
+.operation > .submitOrder:after {
+	border: none;
+}
 </style>

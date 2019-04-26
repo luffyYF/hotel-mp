@@ -1,5 +1,9 @@
 <template>
 	<view class="page">
+		<view class="roomTop">
+			<h2>温馨浪漫房</h2>
+			<image src="../../static/images/room/error.png" mode=""></image>
+		</view>
 		<view class="roomPage">
 			<uniSwiperDot :info="info" :current="current" field="content" :mode="mode">
 				<swiper class="swiper-box" @change="change">
@@ -54,7 +58,7 @@
 						<span>5</span>
 						<span>超赞</span>
 					</view>
-					<view>
+					<view @tap="gotoComment">
 						<span>6</span>
 						<span>条评论</span>
 						<image src="../../static/images/order/icon/youjiantou.png" mode=""></image>
@@ -62,7 +66,7 @@
 				</view>
 				<view class="evaluate-info">
 					<view>
-						<image src="../../static/images/room/2018050104415703180921.jpg" mode=""></image>
+						<image src="../../static/images/user/user-img.jpg" mode=""></image>
 						<view>
 							<span>JieHao•Wang</span>
 							<p>2019-01-26</p>
@@ -78,7 +82,7 @@
 				</view>
 				<view class="evaluate-content"><p>环境卫生都比七天城市客栈好，而且便宜，能做到很不错了！！！</p></view>
 			</view>
-		
+
 			<view class="housing">
 				<h2>房屋信息</h2>
 				<view class="housing-content">
@@ -92,11 +96,10 @@
 						<image class="icon-down" src="../../static/images/room/down.png" mode=""></image>
 					</view>
 				</view>
-				<view class="housing-map"><image src="../../static/images/home/ad_pic1.png" mode=""></image></view>
 			</view>
 			<view class="configuration">
 				<h2>配置信息</h2>
-				<view class="configuration-items" :class="showConfig?'item-height':''">
+				<view class="configuration-items" :class="showConfig ? 'item-height' : ''">
 					<view class="configuration-item">
 						<image src="../../static/images/room/20170315200120274808045.png" mode=""></image>
 						<p>电梯</p>
@@ -170,7 +173,7 @@
 import uniSwiperDot from '../../components/uni-swiper-dot/uni-swiper-dot.vue';
 export default {
 	components: {
-		uniSwiperDot,
+		uniSwiperDot
 	},
 	data() {
 		return {
@@ -187,31 +190,52 @@ export default {
 			],
 			current: 0,
 			mode: 'long',
-			showConfig:false
+			showConfig: false
 		};
 	},
 	methods: {
 		change(e) {
 			this.current = e.detail.current;
 		},
-		gotoPrice(){
+		gotoPrice() {
 			uni.navigateTo({
-				url:'../payment/payment'
-			})
+				url: '../placeOrder/placeOrder'
+			});
 		},
-		showitems(){
-			this.showConfig=!this.showConfig;
+		showitems() {
+			this.showConfig = !this.showConfig;
+		},
+		gotoComment() {
+			uni.navigateTo({
+				url: 'comment/comment'
+			});
 		}
 	}
 };
 </script>
 
 <style>
+.page .roomTop {
+	display: flex;
+	padding: 18.11594upx;
+	vertical-align: middle;
+	align-items: center;
+}
+.page .roomTop h2 {
+	font-size: 28.9855upx;
+	font-weight: 500;
+	flex: 1;
+}
+.page .roomTop image {
+	width: 36.23188upx;
+	height: 36.23188upx;
+}
 .roomPage {
 	background-color: #f5f9fc;
 	overflow: hidden;
 	margin-bottom: 81.52173upx;
 }
+
 .roomPage > view {
 	background-color: #fff;
 }
@@ -221,29 +245,30 @@ export default {
 }
 
 .roomPage > .item-price {
-	position: absolute;
-	top: 398.55072upx;
+	float: left;
+	position: relative;
+	top: -90.57971upx;
 	left: 12px;
 	z-index: 1;
-	border-width: 0 ;
-	color: #fff ;
-	padding-bottom: 6px ;
+	border-width: 0;
+	color: #fff;
+	padding-bottom: 6px;
 	font-family: -apple-system, 'Helvetica Neue', Roboto, sans-serif;
 	font-weight: bold;
 }
 .roomPage > .item-price > span {
 	padding: 8px 12px;
 	border-radius: 3px;
-	background: rgba(0, 0, 0, 0.7) ;
-	font-size: 32.60869upx ;
+	background: rgba(0, 0, 0, 0.7);
+	font-size: 32.60869upx;
 	margin-bottom: 6px;
 }
-.roomPage > .item-price > span>span:nth-child(2){
-	font-size: 32.60869upx ;
+.roomPage > .item-price > span > span:nth-child(2) {
+	font-size: 32.60869upx;
 	margin: 0 5.43478upx;
 }
-.roomPage > .item-price > span>span:nth-child(1),
-.roomPage > .item-price > span>span:nth-child(3){
+.roomPage > .item-price > span > span:nth-child(1),
+.roomPage > .item-price > span > span:nth-child(3) {
 	font-size: 21.73913upx;
 	margin: 0 5.43478upx;
 }
@@ -261,6 +286,7 @@ export default {
 .roomPage > .roominfo .roomTitle > h2 {
 	font-size: 32.60869upx;
 	font-weight: 400;
+	clear: both;
 }
 .roomPage > .roominfo .roomTitle > view {
 	font-size: 21.73913upx;
@@ -288,6 +314,7 @@ export default {
 .roomPage > .roominfo .roomfullname > h2 {
 	font-size: 28.9855upx;
 	font-weight: 400;
+	margin-left: -72.46376upx;
 }
 .roomPage > .roominfo .roomsize {
 	display: flex;
@@ -444,9 +471,8 @@ export default {
 	flex-wrap: wrap;
 	align-self: flex-start;
 }
-.roomPage > .configuration > .item-height{
+.roomPage > .configuration > .item-height {
 	height: auto;
-	
 }
 .roomPage > .configuration > .configuration-items > .configuration-item {
 	width: 20%;
@@ -477,7 +503,7 @@ export default {
 	padding: 19.92753upx 0;
 	font-size: 25.36231upx;
 }
- .operation {
+.operation {
 	width: 100%;
 	height: 81.52173upx;
 	display: flex;
@@ -485,9 +511,8 @@ export default {
 	bottom: 0;
 	vertical-align: middle;
 	align-items: center;
-	
 }
- .operation > .contactBtn {
+.operation > .contactBtn {
 	flex: 0.3;
 	border: none;
 	height: 100%;
@@ -499,10 +524,10 @@ export default {
 	font-weight: bold;
 	color: #cda754;
 }
- 
- .operation > .contactBtn:after{
-	 border: none;
- }
+
+.operation > .contactBtn:after {
+	border: none;
+}
 
 .operation > .reserveBtn {
 	flex: 0.7;
@@ -516,8 +541,7 @@ export default {
 	font-weight: bold;
 	color: #fff;
 }
- .operation > .reserveBtn:after{
-	 border: none;
- }
-
+.operation > .reserveBtn:after {
+	border: none;
+}
 </style>

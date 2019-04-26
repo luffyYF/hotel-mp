@@ -1,1 +1,0 @@
-<view class="noPage" bind:__l="__l"><view class="center"><image src="../../static/images/order/np-result.png" mode></image><view class="_h2">暂无订单记录</view></view></view>

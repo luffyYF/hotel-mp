@@ -28,6 +28,9 @@ export default {
 	display: flex;
 	align-items: center;
 	background-color: #ffffff;
+	position: fixed;
+	width: 100%;
+	z-index: 999;
 	/* -webkit-box-ordinal-group: 4; */
 }
 .tabs .tabs-title {

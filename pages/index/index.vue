@@ -1,15 +1,19 @@
 <template>
-	<view class="roomReservation">
+	<view class="roomReservation" v-cloak>
 		<authorize v-if="isAuthorizeShow" @GetUserInfo="getUserInfo"></authorize>
 		<view class="room-info">
 			<view class="hotel-img">
-				<image class="img-bg" src="../../static/images/room/20181214172004933808032.jpg" mode="widthFix"></image>
-				<h2 class="info-title">香泉酒店</h2>
+				<image class="img-bg" :src="IMGURL + companyInfo.image" mode="widthFix"></image>
+				<h2 class="info-title" v-text="companyInfo.name">香泉酒店</h2>
+				<view class="evaluate" @tap="gotoComment">
+					<span class="b">4.3分</span>
+					<span class="c">1279评论&gt;</span>
+				</view>
 			</view>
 			<view class="locationMsg">
 				<view class="positionDetails">
 					<view class="locationTitle">
-						<p>珠海市香洲区香泉酒店</p>
+						<p v-text="companyInfo.name">珠海市香洲区香泉酒店</p>
 						<button>
 							<span>地图/周边</span>
 							<image src="../../static/images/order/icon/youjiantou.png" mode="widthFix"></image>
@@ -24,7 +28,9 @@
 						<p>距珠海火车站9.7公里，驾车约26分钟</p>
 					</view>
 				</view>
-				<view class="circum"><p>酒店位于香洲区凤凰北香埠路116号，坐拥香洲区繁华地带，毗邻尚都百货、香洲百货、扬名广场购中中心，周边美食丰盛。</p></view>
+				<view class="circum">
+					<p>酒店位于 :&nbsp;{{ companyInfo.address }}</p>
+				</view>
 			</view>
 			<view class="checkindate">
 				<view class="search-item" @tap="selectDate">
@@ -62,44 +68,43 @@
 					<p>{{globalData.checkIn.month}}月{{globalData.checkIn.day}}日</p>
 				</view> -->
 			</view>
-			<view class="room-list" v-for="item in count" :key="item">
-				<view class="room-cover" @click="gotoRoomInfo(item)">
-					<image style="width:100%;height: 362.31884upx;" src="../../static/images/room/20181214172004933808032.jpg" mode="widthFix"></image>
+			<view class="room-list" v-for="(item, index) in roomTypeList" :key="index">
+				<view class="room-cover" @click="gotoRoomInfo(item.roomTypePk)">
+					<image style="width:100%;height: 362.31884upx;" :src="IMGURL + item.coverImage" mode="aspectFill"></image>
 					<view class="span">
-						￥568.0
-						<text>起</text>
+						<span>￥{{ item.price }}</span>
+						<span class="original">￥{{ item.disPrice }}</span>
 					</view>
 				</view>
 				<view class="room-type">
-					<view><h2>豪华套房</h2></view>
-					<view><button @click="reservation()">预订房间</button></view>
+					<view>
+						<h2>{{ item.typeName }}</h2>
+					</view>
+					<view><button @click="reservation(item)">预订房间</button></view>
 				</view>
 			</view>
 		</view>
+		<roomDetails v-if="isRoomDetails" :roomData="roomData" @closeRoom="closeRoom"></roomDetails>
 	</view>
 </template>
 
 <script>
 import authorize from '@/components/authorize';
+import roomDetails from '@/components/roomDetails/roomDetails';
 import utils from '@/utils/utils.js';
+import api from '@/utils/api.js';
 var app = getApp();
 export default {
 	components: {
-		authorize
+		authorize,
+		roomDetails
 	},
 	data() {
 		return {
-			info: [
-				{
-					imgurl: '../../static/images/room/20181214161550000808031.jpg'
-				},
-				{
-					imgurl: '../../static/images/room/20181214172226515808034.jpg'
-				},
-				{
-					imgurl: '../../static/images/room/20181214175519996808036.jpg'
-				}
-			],
+			isRoomDetails: false,
+			roomTypeList: [],
+			companyInfo: {},
+			IMGURL: '',
 			globalData: {
 				code: '',
 				userInfo: null,
@@ -107,41 +112,169 @@ export default {
 				checkIn: '',
 				checkOut: ''
 			},
-			current: 0,
-			mode: 'long',
-			count: 10,
-			type: '',
-			msg: '大佬'
+			roomData: {},
+			beginDate: '',
+			endDate: ''
 		};
 	},
-	onShow() {
-		let that = this;
-		that.globalData = app.$vm.globalData;
-		console.log(this.globalData);
-		utils.checkSession()
-			.then(res => {
-				// that.goLogin();
-			})
-			.catch(res => {
-				that.isAuthorizeShow = true;
+	onLoad() {},
+
+	onShow: function(e) {
+		let pages = getCurrentPages();
+		let currPage = pages[pages.length - 1];
+		if (currPage.data.globalData.code == '') {
+			let that = this;
+
+			that.globalData = app.$vm.globalData;
+			/* console.log(that.globalData); */
+			utils
+				.checkSession()
+				.then(res => {
+					// that.goLogin();
+				})
+				.catch(res => {
+					that.isAuthorizeShow = true;
+				});
+
+			//将日期判断改为2019-04-25这种格式
+			if (typeof that.globalData.checkOut.month != 'string') {
+				if (that.globalData.checkOut.month < 10) {
+					that.globalData.checkOut.month = '0' + that.globalData.checkOut.month;
+				}
+			}
+
+			if (typeof that.globalData.checkOut.day != 'string') {
+				if (that.globalData.checkOut.day < 10) {
+					that.globalData.checkOut.day = '0' + that.globalData.checkOut.day;
+				}
+			}
+
+			if (typeof that.globalData.checkIn.month != 'string') {
+				if (that.globalData.checkIn.month < 10) {
+					that.globalData.checkIn.month = '0' + that.globalData.checkIn.month;
+				}
+			}
+
+			if (typeof that.globalData.checkIn.day != 'string') {
+				if (that.globalData.checkIn.day < 10) {
+					that.globalData.checkIn.day = '0' + that.globalData.checkIn.day;
+				}
+			}
+			
+
+			that.beginDate = that.globalData.checkIn.year + '-' + that.globalData.checkIn.month + '-' + that.globalData.checkIn.day;
+			that.endDate = that.globalData.checkOut.year + '-' + that.globalData.checkOut.month + '-' + that.globalData.checkOut.day;
+
+			//把图片路径中的“\”改为“/”
+			/* res.data[i].rentCoverImg = that.IMGURL+res.data[i].rentCoverImg.replace(/\\/g, '/'); */
+
+			api.getHome({
+				gradePk: '',
+				companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
+				beginDate: that.beginDate,
+				endDate: that.endDate
+			}).then(res => {
+				if (res.code == 1) {
+					that.roomTypeList = res.data.roomTypeList;
+					that.companyInfo = res.data.companyInfo;
+					that.IMGURL = api.config.IMGURL;
+					/* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
+				}
 			});
+		} else {
+			/*  this.hope_job = currPage.data.hope_job */
+			let that = this;
+			that.globalData = currPage.data.globalData;
+
+			/* console.log('返回后的' + that.globalData); */
+				
+			//将日期判断改为2019-04-25这种格式
+			if (typeof that.globalData.checkOut.month != 'string') {
+				if (that.globalData.checkOut.month < 10) {
+					that.globalData.checkOut.month = '0' + that.globalData.checkOut.month;
+				}
+			}
+			if (typeof that.globalData.checkOut.day != 'string') {
+				if (that.globalData.checkOut.day < 10) {
+					that.globalData.checkOut.day = '0' + that.globalData.checkOut.day;
+				}
+			}
+			if (typeof that.globalData.checkIn.month != 'string') {
+				if (that.globalData.checkIn.month < 10) {
+					that.globalData.checkIn.month = '0' + that.globalData.checkIn.month;
+				}
+			}
+			if (typeof that.globalData.checkIn.day != 'string') {
+				if (that.globalData.checkIn.day < 10) {
+					that.globalData.checkIn.day = '0' + that.globalData.checkIn.day;
+				}
+			}
+			
+			
+			
+			that.beginDate = that.globalData.checkIn.year + '-' + that.globalData.checkIn.month + '-' + that.globalData.checkIn.day;
+			that.endDate = that.globalData.checkOut.year + '-' + that.globalData.checkOut.month + '-' + that.globalData.checkOut.day;
+			//把图片路径中的“\”改为“/”
+			/* res.data[i].rentCoverImg = that.IMGURL+res.data[i].rentCoverImg.replace(/\\/g, '/'); */
+
+			api.getHome({
+				gradePk: '',
+				companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
+				beginDate: that.beginDate,
+				endDate: that.endDate
+			}).then(res => {
+				if (res.code == 1) {
+					that.roomTypeList = res.data.roomTypeList;
+					that.companyInfo = res.data.companyInfo;
+					that.IMGURL = api.config.IMGURL;
+					/* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
+				}
+			});
+		}
 	},
 	methods: {
-		change(e) {
-			this.current = e.detail.current;
+		//跳转到房间详情页
+		gotoRoomInfo(roomTypePk) {
+			let that = this;
+			api.getRoomType({
+				gradePk: '', //会员级别
+				companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55', //酒店主键
+				roomTypePk: roomTypePk, //房型主键
+				beginDate: that.beginDate, //开始日期
+				endDate: that.endDate //结束日期
+			}).then(res => {
+				if (res.code == 1) {
+					wx.hideTabBar();
+					that.isRoomDetails = true;
+					that.roomData = res;
+					
+				}
+			});
+
+			/* console.log(this.roomData); */
+
+			/* uni.navigateTo({
+				url: '../roomDetails/roomDetails?obj=' + JSON.stringify(obj)
+			}); */
 		},
-		gotoRoomInfo() {
+		//关闭房间详情页
+		closeRoom() {
+			this.isRoomDetails = false;
+			wx.showTabBar();
+			
+		},
+		//跳转到评论页
+		gotoComment() {
 			uni.navigateTo({
-				url: '../roominfo/roominfo2',
-				animationType: 'fade-in',
-				animationDuration: 1000
+				url: '../comment/comment'
 			});
 		},
+		//选择日期
 		selectDate() {
 			uni.navigateTo({
 				url: '../selectDate/selectDate?checkIn=' + JSON.stringify(this.globalData.checkIn) + '&checkOut=' + JSON.stringify(this.globalData.checkOut),
-				animationType: 'fade-in',
-				animationDuration: 1000
+				animationType: 'pop-in',
+				animationDuration: 200
 			});
 		},
 		// 获取个人信息
@@ -158,16 +291,25 @@ export default {
 				console.log(res);
 			});
 		},
-		reservation() {
+		//跳转到订单填写页
+		reservation(item) {
+			var obj = {
+				roomInfo: item,
+				beginDate: this.beginDate, //开始日期
+				endDate: this.endDate //结束日期
+			};
 			uni.navigateTo({
-				url:'../placeOrder/placeOrder'
-			})
+				url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
+			});
 		}
 	}
 };
 </script>
 
 <style lang="scss">
+[v-cloak] {
+	display: none !important;
+}
 .hotel-img {
 	position: relative;
 
@@ -184,6 +326,32 @@ export default {
 		bottom: 18.11594upx;
 		padding-left: 36.23188upx;
 		background-color: transparent;
+	}
+	.evaluate {
+		padding: 0 9.05797upx;
+		position: absolute;
+		right: 36.23188upx;
+		top: 172.10144upx;
+		width: 126.81159upx;
+		background-color: rgba(0, 0, 0, 0.6);
+		border-radius: 18.11594upx;
+
+		.b {
+			color: #e5c893;
+			font-size: 32.60869upx;
+			font-weight: 600;
+			padding: 9.05797upx 0;
+			display: block;
+			text-align: center;
+			border-bottom: 0.90579upx solid #8e9093;
+		}
+		.c {
+			font-size: 21.73913upx;
+			padding: 9.05797upx 0;
+			display: block;
+			text-align: center;
+			color: white;
+		}
 	}
 }
 
@@ -204,7 +372,6 @@ export default {
 			color: #ffffff;
 			position: absolute;
 			z-index: 1;
-			top: 416.66666upx;
 			padding-left: 36.23188upx;
 			background-color: transparent;
 		}
@@ -212,7 +379,7 @@ export default {
 		.locationMsg {
 			padding: 14.49275upx 14.49275upx 14.49275upx 28.9855upx;
 			margin-bottom: 28.9855upx;
-
+			clear: both;
 			.positionDetails {
 				border-bottom: 1px solid #f7f9fb;
 				padding: 9.05797upx 0;
@@ -324,7 +491,11 @@ export default {
 				background: rgba(0, 0, 0, 0.75);
 				color: #fff;
 				font-size: 36.23188upx;
-
+				.original {
+					font-size: 21.73913upx;
+					text-decoration: line-through;
+					color: #ccc;
+				}
 				text {
 					font-size: 27.17391upx;
 					margin-left: 9.05797upx;

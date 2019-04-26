@@ -2,7 +2,8 @@
 	"pages": [{
 			"path": "pages/index/index",
 			"style": {
-				"navigationStyle": "custom"
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/user/user",
@@ -29,29 +30,19 @@
 			"path": "pages/order/orderDetails",
 			"style": {
 				"navigationBarTitleText": "订单详情",
-				"navigationBarBackgroundColor": "#cda754",
-				"enablePullDownRefresh": true
-			}
-		}, {
-			"path": "pages/roominfo/roominfo",
-			"style": {
-				"navigationBarTitleText": "房间详情",
-				"navigationBarBackgroundColor": "#cda754",
-				"enablePullDownRefresh": true
+				"navigationBarBackgroundColor": "#cda754"
 			}
 		}, {
 			"path": "pages/placeOrder/placeOrder",
 			"style": {
 				"navigationBarTitleText": "填写订单",
-				"navigationBarBackgroundColor": "#cda754",
-				"enablePullDownRefresh": false
+				"navigationBarBackgroundColor": "#cda754"
 			}
 		}, {
 			"path": "pages/payment/payment",
 			"style": {
 				"navigationBarTitleText": "支付订单",
-				"navigationBarBackgroundColor": "#cda754",
-				"enablePullDownRefresh": false
+				"navigationBarBackgroundColor": "#cda754"
 			}
 		}, {
 			"path": "pages/selectDate/selectDate",
@@ -61,20 +52,56 @@
 			}
 		},
 		{
-			"path": "pages/user/discounts",
+			"path": "pages/discounts/discounts",
 			"style": {
 				"navigationBarTitleText": "优惠券",
 				"navigationBarBackgroundColor": "#cda754"
 			}
-		},
-		{
-			"path": "pages/roominfo/roominfo2",
+		}, {
+			"path": "pages/comment/comment",
 			"style": {
-				"navigationStyle": "custom"
+				"navigationBarTitleText": "评论列表",
+				"navigationBarBackgroundColor": "#cda754"
+			}
+		}, {
+			"path": "pages/aboutUs/aboutUs",
+			"style": {
+				"navigationBarTitleText": "关于我们",
+				"navigationBarBackgroundColor": "#cda754"
+			}
+		}, {
+			"path": "pages/collect/collect",
+			"style": {
+				"navigationBarTitleText": "我的收藏",
+				"navigationBarBackgroundColor": "#cda754"
+			}
+		}, {
+			"path": "pages/share/share",
+			"style": {
+				"navigationBarTitleText": "分享",
+				"navigationBarBackgroundColor": "#cda754"
+			}
+		},/* {
+			"path": "pages/roomDetails/roomDetails",
+			"style": {
+				"navigationBarTitleText": "房间详情",
+				"navigationBarBackgroundColor": "#cda754"
+			}
+		}, */ {
+			"path": "pages/member/member",
+			"style": {
+				"navigationBarTitleText": "会员与积分规则",
+				"navigationBarBackgroundColor": "#cda754"
 			}
 		}
-
-	],
+	    ,{
+            "path" : "pages/costDetail/costDetail",
+            "style" : {
+				"navigationBarTitleText":"费用明细",
+				"navigationBarBackgroundColor":"#cda754"
+			}
+        }
+    ],
 	"tabBar": {
 		"color": "#8c8c8c",
 		"selectedColor": "#cda754",

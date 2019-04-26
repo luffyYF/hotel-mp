@@ -1,1 +1,0 @@
-<view class="index" bind:__l="__l"><tab data-event-opts="{{[['^selectFunc',[['checked']]]]}}" bind:selectFunc="__e"></tab><orderlist></orderlist></view>
