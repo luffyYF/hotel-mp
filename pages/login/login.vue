@@ -17,14 +17,46 @@
 			</view>
 			<view class="loginRow"><button class="loginBtn">绑定</button></view>
 		</view>
+		<authorize v-if="isAuthorizeShow" @GetUserInfo="getUserInfo"></authorize>
 	</view>
 </template>
 <script>
+import authorize from '@/components/authorize';
+import gwx from '@/utils/wx';
 export default {
+	components: {
+		authorize
+		},
 	data() {
-		return {};
+		return {
+			isAuthorizeShow:false
+		};
 	},
-	methods: {}
+	onLoad() {
+		let that = this;
+		gwx.checkSession()
+		.then(res => {
+			// that.goLogin();
+		})
+		.catch(res => {
+			that.isAuthorizeShow = true;
+		});
+	},
+	methods: {
+		// 获取个人信息
+		getUserInfo(res) {
+			console.log(res);
+			this.globalData.userInfo = res.userInfo;
+			api.authorize({
+				appid: globalData.appid,
+				code: globalData.code,
+				encryptedData: res.encryptedData,
+				iv: res.iv
+			}).then(res => {
+				console.log(res);
+			});
+		}
+	}
 };
 </script>
 

@@ -1,6 +1,5 @@
 <template>
 	<view class="roomReservation" v-cloak>
-		<authorize v-if="isAuthorizeShow" @GetUserInfo="getUserInfo"></authorize>
 		<view class="room-info">
 			<view class="hotel-img">
 				<image class="img-bg" :src="IMGURL + companyInfo.image" mode="widthFix"></image>
@@ -89,14 +88,12 @@
 </template>
 
 <script>
-import authorize from '@/components/authorize';
 import roomDetails from '@/components/roomDetails/roomDetails';
-import utils from '@/utils/utils.js';
-import api from '@/utils/api.js';
+import utils from '@/utils/util';
+import api from '@/utils/api';
 var app = getApp();
 export default {
 	components: {
-		authorize,
 		roomDetails
 	},
 	data() {
@@ -124,17 +121,8 @@ export default {
 		let currPage = pages[pages.length - 1];
 		if (currPage.data.globalData.code == '') {
 			let that = this;
-
 			that.globalData = app.$vm.globalData;
 			/* console.log(that.globalData); */
-			utils
-				.checkSession()
-				.then(res => {
-					// that.goLogin();
-				})
-				.catch(res => {
-					that.isAuthorizeShow = true;
-				});
 
 			//将日期判断改为2019-04-25这种格式
 			if (typeof that.globalData.checkOut.month != 'string') {
@@ -182,7 +170,6 @@ export default {
 				}
 			});
 		} else {
-			/*  this.hope_job = currPage.data.hope_job */
 			let that = this;
 			that.globalData = currPage.data.globalData;
 
@@ -209,8 +196,6 @@ export default {
 					that.globalData.checkIn.day = '0' + that.globalData.checkIn.day;
 				}
 			}
-			
-			
 			
 			that.beginDate = that.globalData.checkIn.year + '-' + that.globalData.checkIn.month + '-' + that.globalData.checkIn.day;
 			that.endDate = that.globalData.checkOut.year + '-' + that.globalData.checkOut.month + '-' + that.globalData.checkOut.day;
@@ -250,18 +235,11 @@ export default {
 					
 				}
 			});
-
-			/* console.log(this.roomData); */
-
-			/* uni.navigateTo({
-				url: '../roomDetails/roomDetails?obj=' + JSON.stringify(obj)
-			}); */
 		},
 		//关闭房间详情页
 		closeRoom() {
 			this.isRoomDetails = false;
 			wx.showTabBar();
-			
 		},
 		//跳转到评论页
 		gotoComment() {
@@ -275,20 +253,6 @@ export default {
 				url: '../selectDate/selectDate?checkIn=' + JSON.stringify(this.globalData.checkIn) + '&checkOut=' + JSON.stringify(this.globalData.checkOut),
 				animationType: 'pop-in',
 				animationDuration: 200
-			});
-		},
-		// 获取个人信息
-		getUserInfo(res) {
-			console.log(res);
-			this.globalData.userInfo = res.userInfo;
-
-			api.authorize({
-				appid: globalData.appid,
-				code: globalData.code,
-				encryptedData: res.encryptedData,
-				iv: res.iv
-			}).then(res => {
-				console.log(res);
 			});
 		},
 		//跳转到订单填写页

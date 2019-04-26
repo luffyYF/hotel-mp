@@ -1,6 +1,6 @@
 <script>
-import api from './utils/api.js';
-import util from './utils/utils.js';
+import api from '@/utils/api';
+import util from '@/utils/util';
 export default {
 	data() {
 		return {

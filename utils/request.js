@@ -47,7 +47,7 @@ const request = {
 				'Authorization': token
 			},
 			success: function(res) {
-				if (res.data.code === 200) {
+				if (res.data.code === 1) {
 					//数据获取成功
 					resolve(res.data)
 				} else if (res.data.code === 20001) {
