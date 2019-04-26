@@ -4,7 +4,13 @@
 		<view class="room-info">
 			<view class="hotel-img">
 				<image class="img-bg" :src="IMGURL + companyInfo.image" mode="widthFix"></image>
-				<h2 class="info-title" v-text="companyInfo.name">香泉酒店</h2>
+				<h2 class="info-title">
+					<view class="title">{{ companyInfo.name }}</view>
+					<view class="imgCount">
+						<image src="../../static/images/index/photo.png" mode=""></image>
+						<span>16张</span>
+					</view>
+				</h2>
 				<view class="evaluate" @tap="gotoComment">
 					<span class="b">4.3分</span>
 					<span class="c">1279评论&gt;</span>
@@ -13,7 +19,7 @@
 			<view class="locationMsg">
 				<view class="positionDetails">
 					<view class="locationTitle">
-						<p v-text="companyInfo.name">珠海市香洲区香泉酒店</p>
+						<p>{{ companyInfo.name }}</p>
 						<button>
 							<span>地图/周边</span>
 							<image src="../../static/images/order/icon/youjiantou.png" mode="widthFix"></image>
@@ -72,15 +78,17 @@
 				<view class="room-cover" @click="gotoRoomInfo(item.roomTypePk)">
 					<image style="width:100%;height: 362.31884upx;" :src="IMGURL + item.coverImage" mode="aspectFill"></image>
 					<view class="span">
-						<span>￥{{ item.price }}</span>
-						<span class="original">￥{{ item.disPrice }}</span>
+						<span>￥{{ item.disPrice }}</span>
+						<span class="original">￥{{ item.price }}</span>
 					</view>
 				</view>
 				<view class="room-type">
 					<view>
 						<h2>{{ item.typeName }}</h2>
 					</view>
-					<view><button @click="reservation(item)">预订房间</button></view>
+					<view>
+						<button @click="reservation(item)" :disabled="item.isFull == 'Y' ? true : false">{{ item.isFull == 'Y' ? '今日已满' : '预定房间' }}</button>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -160,7 +168,6 @@ export default {
 					that.globalData.checkIn.day = '0' + that.globalData.checkIn.day;
 				}
 			}
-			
 
 			that.beginDate = that.globalData.checkIn.year + '-' + that.globalData.checkIn.month + '-' + that.globalData.checkIn.day;
 			that.endDate = that.globalData.checkOut.year + '-' + that.globalData.checkOut.month + '-' + that.globalData.checkOut.day;
@@ -187,7 +194,7 @@ export default {
 			that.globalData = currPage.data.globalData;
 
 			/* console.log('返回后的' + that.globalData); */
-				
+
 			//将日期判断改为2019-04-25这种格式
 			if (typeof that.globalData.checkOut.month != 'string') {
 				if (that.globalData.checkOut.month < 10) {
@@ -209,9 +216,7 @@ export default {
 					that.globalData.checkIn.day = '0' + that.globalData.checkIn.day;
 				}
 			}
-			
-			
-			
+
 			that.beginDate = that.globalData.checkIn.year + '-' + that.globalData.checkIn.month + '-' + that.globalData.checkIn.day;
 			that.endDate = that.globalData.checkOut.year + '-' + that.globalData.checkOut.month + '-' + that.globalData.checkOut.day;
 			//把图片路径中的“\”改为“/”
@@ -247,7 +252,6 @@ export default {
 					wx.hideTabBar();
 					that.isRoomDetails = true;
 					that.roomData = res;
-					
 				}
 			});
 
@@ -261,7 +265,6 @@ export default {
 		closeRoom() {
 			this.isRoomDetails = false;
 			wx.showTabBar();
-			
 		},
 		//跳转到评论页
 		gotoComment() {
@@ -293,10 +296,25 @@ export default {
 		},
 		//跳转到订单填写页
 		reservation(item) {
+			console.log(item);
+			let that=this;
+			api.getRoomType({
+				gradePk: '', //会员级别
+				companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55', //酒店主键
+				roomTypePk: item.roomTypePk, //房型主键
+				beginDate: that.beginDate, //开始日期
+				endDate: that.endDate //结束日期
+			}).then(res => {
+				if (res.code == 1) {
+					console.log(res);
+					console.log((that.globalData.checkOut.timeStamp - that.globalData.checkIn.timeStamp) / 86400000);
+					console.log();
+				}
+			});
 			var obj = {
 				roomInfo: item,
-				beginDate: this.beginDate, //开始日期
-				endDate: this.endDate //结束日期
+				beginDate: that.beginDate, //开始日期
+				endDate: that.endDate //结束日期
 			};
 			uni.navigateTo({
 				url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
@@ -317,16 +335,6 @@ export default {
 		width: 100%;
 	}
 
-	.info-title {
-		font-size: 36.23188upx;
-		font-weight: 500;
-		color: #ffffff;
-		position: absolute;
-		z-index: 99999;
-		bottom: 18.11594upx;
-		padding-left: 36.23188upx;
-		background-color: transparent;
-	}
 	.evaluate {
 		padding: 0 9.05797upx;
 		position: absolute;
@@ -350,7 +358,7 @@ export default {
 			padding: 9.05797upx 0;
 			display: block;
 			text-align: center;
-			color: white;
+			color: #e5c893;
 		}
 	}
 }
@@ -367,15 +375,38 @@ export default {
 
 	.room-info {
 		.info-title {
-			font-size: 36.23188upx;
+			width: 100%;
 			font-weight: 500;
 			color: #ffffff;
 			position: absolute;
-			z-index: 1;
-			padding-left: 36.23188upx;
+			z-index: 2;
+			bottom: 27.17391upx;
 			background-color: transparent;
+			display: flex;
+			.title {
+				flex: 1;
+				font-size: 36.23188upx;
+				justify-content: flex-start;
+				margin-left: 54.34782upx;
+			}
+			.imgCount {
+				margin-right: 50.72463upx;
+				padding: 0 9.05797upx;
+				color: white;
+				background: rgba(0, 0, 0, 0.6);
+				border-radius: 9.05797upx;
+			}
+			view {
+				display: flex;
+				vertical-align: middle;
+				align-items: center;
+				justify-content: flex-end;
+				image {
+					width: 45.28985upx;
+					height: 45.28985upx;
+				}
+			}
 		}
-
 		.locationMsg {
 			padding: 14.49275upx 14.49275upx 14.49275upx 28.9855upx;
 			margin-bottom: 28.9855upx;

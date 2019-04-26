@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "填写订单",
-  "navigationBarBackgroundColor": "#cda754",
-  "usingComponents": {
-    "room-details": "/components/roomDetails/roomDetails"
-  }
-}
