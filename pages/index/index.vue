@@ -118,8 +118,7 @@ export default {
 		let that = this;
 		that.globalData = app.$vm.globalData;
 		console.log(this.globalData);
-		utils
-			.checkSession()
+		utils.checkSession()
 			.then(res => {
 				// that.goLogin();
 			})

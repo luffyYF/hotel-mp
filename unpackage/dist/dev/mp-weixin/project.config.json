@@ -8,7 +8,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.6.4",
-  "appid": "wx6361c16979341fc9",
+  "appid": "touristappid",
   "projectname": "hotel-reservation",
   "condition": {
     "search": {
