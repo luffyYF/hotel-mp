@@ -74,7 +74,7 @@
 				</view> -->
 			</view>
 			<view class="room-list" v-for="(item, index) in roomTypeList" :key="index">
-				<view class="room-cover" @click="gotoRoomInfo(item.roomTypePk)">
+				<view class="room-cover" @tap="gotoRoomInfo(item.roomTypePk)">
 					<image style="width:100%;height: 362.31884upx;" :src="IMGURL + item.coverImage" mode="aspectFill"></image>
 					<view class="span">
 						<span>￥{{ item.disPrice }}</span>
@@ -86,7 +86,7 @@
 						<h2>{{ item.typeName }}</h2>
 					</view>
 					<view>
-						<button @click="reservation(item)" :disabled="item.isFull == 'Y' ? true : false">{{ item.isFull == 'Y' ? '今日已满' : '预定房间' }}</button>
+						<button @tap="reservation(item)" :disabled="item.isFull == 'Y' ? true : false">{{ item.isFull == 'Y' ? '今日已满' : '预定房间' }}</button>
 					</view>
 				</view>
 			</view>

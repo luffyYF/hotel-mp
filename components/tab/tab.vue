@@ -1,9 +1,9 @@
 <template>
 	<view class="tabs">
-		<view class="tabs-title" :class="num == 1 ? 'active' : ''" @click="checked(1)">待付款</view>
-		<view class="tabs-title" :class="num == 2 ? 'active' : ''" @click="checked(2)">已付款</view>
-		<view class="tabs-title" :class="num == 3 ? 'active' : ''" @click="checked(3)">已取消</view>
-		<view class="tabs-title" :class="num == 4 ? 'active' : ''" @click="checked(4)">已完成</view>
+		<view class="tabs-title" :class="num == 'OBLIGATION' ? 'active' : ''" @click="checked('OBLIGATION')">待付款</view>
+		<view class="tabs-title" :class="num == 'RESERVE' ? 'active' : ''" @click="checked('RESERVE')">已付款</view>
+		<view class="tabs-title" :class="num == 'CANCEL' ? 'active' : ''" @click="checked('CANCEL')">已取消</view>
+		<view class="tabs-title" :class="num == 'FINISH' ? 'active' : ''" @click="checked('FINISH')">已完成</view>
 	</view>
 </template>
 
@@ -11,7 +11,7 @@
 export default {
 	data() {
 		return {
-			num: 1
+			num: "OBLIGATION"
 		};
 	},
 	methods: {

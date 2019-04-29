@@ -16,8 +16,7 @@
 			"path": "pages/order/order",
 			"style": {
 				"navigationBarTitleText": "订单",
-				"navigationBarBackgroundColor": "#cda754",
-				"enablePullDownRefresh": true
+				"navigationBarBackgroundColor": "#cda754"
 			}
 		},
 		{

@@ -1,111 +1,160 @@
 <template>
 	<view class="index">
 		<tab @selectFunc="checked"></tab>
-		<view class="order-list">
-			<view class="list-item" @click="orderDetails()" v-for="(item, index) of count" :key="index">
+		<view v-if="isShow" class="order-list">
+			<view class="list-item" @click="orderDetails(item)" v-for="(item, index) of lists" :key="index">
 				<view class="text-item">
 					<view class="text-left">
-						<text class="roomname">双床房</text>
-						<text class="roomcount">预定1间</text>
+						<text class="roomname">{{ item.roomTypeName }}</text>
+						<text class="roomcount">预定{{ item.rentCount }}间</text>
 					</view>
-					<view class="text-right"><text>已入住</text></view>
+					<view class="text-right"><text>{{statusTitle}}</text></view>
 				</view>
 				<view class="item-img">
-					<image src="../../static/images/room/20181214172004933808032.jpg" mode="aspectFill" class="img"></image>
+					<image :src="IMGURL + item.coverImage" mode="aspectFill" class="img"></image>
 					<view class="msg">
 						<view class="msg-time">
 							<view class="in-time">
 								<text class="cl-y">入住</text>
-								<text class="cl-w">02月28日</text>
+								<text class="cl-w">{{ item.beginDate }}</text>
 							</view>
 							<view class="msg-img"><image src="../../static/images/order/arrow.png" mode=""></image></view>
 							<view class="out-time">
 								<text class="cl-y">离开</text>
-								<text class="cl-w">02月28日</text>
+								<text class="cl-w">{{ item.endDate }}</text>
 							</view>
 						</view>
 						<view class="all-time">
 							<text class="cl-y">共住</text>
-							<text class="cl-w">40晚</text>
+							<text class="cl-w">{{ item.nights }}晚</text>
 						</view>
 					</view>
 				</view>
 				<view class="item-price">
 					<text>
 						合计:
-						<text>￥228</text>
+						<text>￥{{ item.totalPrice }}</text>
 					</text>
 				</view>
 			</view>
 		</view>
+		<view class="uni-loadmore" style="position: relative;"  v-if="showLoadMore">{{loadMoreText}}</view>
+		<np v-if="!isShow"></np>
 	</view>
 </template>
 
 <script>
 import tab from '../../components/tab/tab.vue';
-import orderlist from '../../components/order/list-item.vue';
 import np from '../../components/order/no-order.vue';
+import api from '../../utils/api.js';
+import allocation from '../../utils/config.js';
+var app = getApp();
 export default {
 	components: {
 		tab,
-		orderlist,
 		np
 	},
 	data() {
 		return {
-			refreshing: false,
-			loadMoreText: '加载中...',
-			flag: true,
 			lists: [],
-			id: 0,
 			fetchPageNum: 0,
-			count:10
+			IMGURL: '',
+			orderStatus: 'OBLIGATION',
+			statusTitle: '待付款',
+			isShow: true,
+			loadMoreText: "加载中...",
+			showLoadMore: false,
+			max: 0
 		};
 	},
-	onLoad(e) {
-		this.id = e.id;
-	},
-	onPullDownRefresh() {
-		console.log('下拉刷新');
-		this.refreshing = true;
-		this.getData();
+	onShow() {
+		let that = this;
+		this.showList(that.orderStatus);
 	},
 	onReachBottom() {
-		console.log('上拉加载刷新');
-		if (this.fetchPageNum > 4) {
-			this.loadMoreText = '没有更多了';
+		console.log("onReachBottom");
+		if (this.max > 40) {
+			this.loadMoreText = "没有更多数据了!"
 			return;
 		}
-		this.getData();
+		this.showLoadMore = true;
+		setTimeout(() => {
+			this.setDate();
+		}, 300);
+	},
+	onPullDownRefresh() {
+		console.log('onPullDownRefresh');
+		this.initData();
 	},
 	methods: {
 		checked: function(e) {
+			this.orderStatus = e;
 			switch (e) {
-				case 1:
-					this.flag = true;
-					console.log(this.flag);
+				case 'OBLIGATION':
+					this.statusTitle = '待付款';
 					break;
-				case 2:
-					this.flag = false;
-					console.log(this.flag);
+				case 'RESERVE':
+					this.statusTitle = '已付款';
 					break;
-				case 3:
-					this.flag = false;
-					console.log(this.flag);
+				case 'CANCEL':
+					this.statusTitle = '已取消';
 					break;
-				case 4:
-					this.flag = true;
-					console.log(this.flag);
+				case 'FINISH':
+					this.statusTitle = '已完成';
 					break;
 				default:
-					console.log('出错了');
-					break;
 			}
+
+			let that = this;
+			this.showList(that.orderStatus);
 		},
-		orderDetails:function(){
+		orderDetails: function() {
 			uni.navigateTo({
-				url:'../../pages/order/orderDetails'
-			})
+				url: '../../pages/order/orderDetails'
+			});
+		},
+		getDays(strDateStart, strDateEnd) {
+			var strSeparator = '-'; //日期分隔符
+			var oDate1;
+			var oDate2;
+			var iDays;
+			oDate1 = strDateStart.split(strSeparator);
+			oDate2 = strDateEnd.split(strSeparator);
+			var strDateS = new Date(oDate1[0], oDate1[1] - 1, oDate1[2]);
+			var strDateE = new Date(oDate2[0], oDate2[1] - 1, oDate2[2]);
+			iDays = parseInt(Math.abs(strDateS - strDateE) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
+			return iDays;
+		},
+		showList(orderStatus) {
+			let that = this;
+			api.listOrder({
+				orderStatus: orderStatus,
+				pageNum: 1,
+				pageSize: 10,
+				userPk: allocation.USERPK
+			}).then(res => {
+				if (res.code == 1) {
+					this.lists = res.data;
+					for (var i = 0; i < this.lists.length; i++) {
+						var strDateStart = this.lists[i].beginDate;
+						var strDateEnd = this.lists[i].endDate;
+						this.lists[i].nights = this.getDays(strDateStart, strDateEnd);
+						switch (this.lists[i].order) {
+							case 1:
+								break;
+							case 2:
+								break;
+							default:
+						}
+					}
+					//0.待付款 1.待接单 2.已接单 3.已入住 4.取消中 5.已取消 6.已完成
+					this.IMGURL = api.config.IMGURL;
+					this.isShow = true;
+					if (res.data.length <= 0) {
+						this.isShow = false;
+					}
+				}
+			});
 		}
 	}
 };

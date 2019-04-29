@@ -2,7 +2,7 @@ import request from './request.js'
 import config from '@/utils/config.js'
 
 const apiHotel = config.APIROOTURL + 'miniapp/hotel/'
-const apiHotel2=config.APIROOTURL2+ 'miniapp/hotel/'
+const apiHotel2 = config.APIROOTURL2 + 'miniapp/hotel/'
 const IMGURL = config.IMGROOTURL
 
 const api = {
@@ -27,7 +27,7 @@ const api = {
 	 * @return BaseResult
 	 */
 	getHome: (data) => request.get('home/info', {
-		gradePk: data.gradePk,
+		gradePk: config.gradePk,
 		companyPk: data.companyPk,
 		beginDate: data.beginDate,
 		endDate: data.endDate
@@ -45,7 +45,7 @@ const api = {
 	 * @return BaseResult
 	 */
 	getRoomType: (data) => request.get('roomType/info', {
-		gradePk: data.gradePk,
+		gradePk: config.gradePk,
 		companyPk: data.companyPk,
 		roomTypePk: data.roomTypePk,
 		beginDate: data.beginDate,
@@ -61,14 +61,14 @@ const api = {
 	@param endDate 预定开始日期(必填)
 	@param beginDate 预定结束日期(必填)
 	@param roomTypePk 房间类型主键(必填)
-	@param userPk 会员主键(必填)
+	@param userPk 用户主键(必填)
 	 */
 	getOrderPrice: (data) => request.get('order/getOrderPrice', {
 		beginDate: data.beginDate,
 		couponMemberPk: data.couponMemberPk,
 		endDate: data.endDate,
 		roomTypePk: data.roomTypePk,
-		userPk: data.userPk
+		userPk: config.USERPK
 	}, apiHotel2),
 	/* 
 	查找当前房型用户可用的优惠劵
@@ -80,10 +80,113 @@ const api = {
 	@param userPk  用户主键(必填)
 	 */
 	lisCouponByUser: (data) => request.get('order/listCouponByUser', {
-		companyPk:config.COMPANYPK,
-		roomTypePk:data.roomTypePk,
-		userPk:config.USERPK
-	}, apiHotel2)
+		companyPk: config.COMPANYPK,
+		roomTypePk: data.roomTypePk,
+		userPk: config.USERPK
+	}, apiHotel2),
+
+	/* 
+	提交订单
+	url:/miniapp/hotel/order/createOrder
+	type:POST
+	
+	beginDate*	string($date)
+	抵店日期
+	companyPk*	string
+	公司主键
+	couponMemberPk	number($double)
+	会员优惠券主键
+	endDate*	string($date)
+	离店日期
+	invoiceAddress	string
+	发票寄送地址
+	invoiceCompanyAddress	string
+	单位地址
+	invoiceCompanyPhone	string
+	单位电话
+	invoiceFlag	integer($int32)
+	minimum: -128
+	maximum: 127
+	是否提供发票 0不提供 1提供
+	invoiceTitle	string
+	发票抬头
+	invoiceType	string
+	发票类型（个人：普通发票，电子发票 公司：专用发票）
+	Enum:
+	Array [ 3 ]
+	openingAccount	string
+	开户账号
+	openingBank	string
+	开户行
+	personalization	string
+	个性化服务，使用逗号拼接
+	recipientEmail	string
+	收票人邮箱
+	recipientName	string
+	收票人姓名
+	recipientPhone	string
+	收票人手机号
+	remark	string
+	订单备注
+	rentCount*	integer($int32)
+	预定房间数量
+	riseType	string
+	抬头类型(个人，公司)
+	Enum:
+	Array [ 2 ]
+	roomTypePk*	string
+	房型主键
+	taxpayerIdentificationNumber	string
+	纳税人识别号
+	userName	string
+	预定人姓名
+	userPhone	string
+	预定人手机
+	userPk*	string
+	会员主键
+	 */
+	createOrder: (data) => request.post('order/createOrder', {
+		beginDate: data.beginDate,
+		companyPk: config.COMPANYPK,
+		couponMemberPk: data.couponMemberPk,
+		endDate: data.endDate,
+		invoiceAddress: data.invoiceAddress,
+		invoiceCompanyAddress: data.invoiceCompanyAddress,
+		invoiceCompanyPhone: data.invoiceCompanyPhone,
+		invoiceFlag: data.invoiceFlag,
+		invoiceTitle: data.invoiceTitle,
+		invoiceType: data.invoiceType,
+		openingAccount: data.openingAccount,
+		openingBank: data.openingBank,
+		personalization: data.personalization,
+		recipientEmail: data.recipientEmail,
+		recipientName: data.recipientName,
+		recipientPhone: data.recipientPhone,
+		remark: data.remark,
+		rentCount: data.rentCount,
+		riseType: data.riseType,
+		roomTypePk: data.roomTypePk,
+		taxpayerIdentificationNumber: data.taxpayerIdentificationNumber,
+		userName: data.userName,
+		userPhone: data.userPhone,
+		userPk: config.USERPK
+	}, apiHotel2),
+
+	/* 
+	 获取用户订单列表
+	 @param orderStatus  订单状态，
+	 传空查全部,OBLIGATION(待付款),RESERVE(已付款),CANCEL(已取消),FINISH(已完成)
+	 @param pageNum   页码(必填)
+	 @param pageSize   每页显示条数(必填)
+	 @param userPk  用户主键(必填)
+	 */
+	listOrder: (data) => request.get('order/listOrder', {
+		orderStatus:data.orderStatus,
+		pageNum:data.pageNum,
+		pageSize:data.pageSize,
+		userPk:data.userPk
+	},apiHotel2),
+
 }
 
 export default api

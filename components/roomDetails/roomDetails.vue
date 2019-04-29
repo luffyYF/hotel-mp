@@ -104,7 +104,7 @@
 		</scroll-view>
 		<view class="operation">
 			<button class="contactBtn" @tap="makingCall('12345678910')">联系客服</button>
-			<button class="reserveBtn" style="" @click="gotoPrice()">
+			<button class="reserveBtn" style="" @click="gotoPrice()" :disabled="roomTypeInfo.isFull == 'Y' ? true : false">
 				<span v-if="roomTypeInfo.isFull == 'Y' ? false : true">￥{{ roomTypeInfo.disPrice }}</span>
 				<span style="font-size: 21.73913upx;text-decoration: line-through;margin-right: 18.11594upx;color: #ccc;" v-if="roomTypeInfo.isFull == 'Y' ? false : true">
 					￥{{ roomTypeInfo.price }}

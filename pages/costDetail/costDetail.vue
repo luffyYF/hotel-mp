@@ -3,28 +3,28 @@
 		<view class="costContent">
 			<view class="allPrice">
 				<h3>总房费:</h3>
-				<p>134.4元</p>
+				<p>{{details.totalPrice}}元</p>
 			</view>
 			<view class="time">
-				<span>2019-04-22</span>
-				<span>￥188.0</span>
+				<span>{{details.oldDailyPrice[0].date}}</span>
+				<span>{{'￥'+details.oldDailyPrice[0].price}}</span>
 			</view>
 			<view class="detail">
 				<view>
 					<h3>优惠劵:</h3>
-					<p>20元</p>
+					<p>{{details.couponPrice}}元</p>
 				</view>
 				<view>
 					<h3>会员折扣:</h3>
-					<p>8折</p>
+					<p>{{details.discount}}折</p>
 				</view>
 				<view>
 					<h3>押金:</h3>
-					<p>4元</p>
+					<p>无</p>
 				</view>
 				<view>
-					<h3>总价:</h3>
-					<p>138.4元</p>
+					<h3>房价:</h3>
+					<p>{{details.oldTotalPrice}}元</p>
 				</view>
 			</view>
 		</view>
@@ -34,7 +34,13 @@
 <script>
 export default {
 	data() {
-		return {};
+		return {
+			details:{}
+		};
+	},
+	onLoad(opt) {
+		console.log(opt.details)
+		this.details=JSON.parse(opt.details)
 	}
 };
 </script>
