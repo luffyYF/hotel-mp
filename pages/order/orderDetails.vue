@@ -10,11 +10,7 @@
 				<view class="warm-content">
 					<view class="warm-left"><text>入住说明</text></view>
 					<view class="warm-right">
-						<text>
-							请携带所有入住人的有效身份证，报预定人姓名，于{{ orderDetails.beginDate }}当天14:00后办理入住，于{{
-								orderDetails.endDate
-							}}当天12点前退房，如需提前入住或延迟退房请联系商家
-						</text>
+						<text>请携带所有入住人的有效身份证，报预定人姓名，于{{orderDetails.beginDate}}当天14:00后办理入住，于{{orderDetails.endDate}}当天12点前退房，如需提前入住或延迟退房请联系商家</text>
 					</view>
 				</view>
 			</view>
@@ -22,14 +18,12 @@
 				<view class="checkindate">
 					<view>
 						<p>入住</p>
-						<p>{{ orderDetails.beginDate }}</p>
+						<p>{{orderDetails.beginDate}}</p>
 					</view>
-					<view class="cy">
-						<text>{{ orderDetails.nights }}晚</text>
-					</view>
+					<view class="cy"><text>{{orderDetails.nights}}晚</text></view>
 					<view>
 						<p>离开</p>
-						<p>{{ orderDetails.endDate }}</p>
+						<p>{{orderDetails.endDate}}</p>
 					</view>
 				</view>
 				<view class="checkinCard">
@@ -39,7 +33,7 @@
 						<image src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</view>
 
-					<image class="houseImg" src="../../static/images/room/20181214172004933808032.jpg" mode=""></image>
+					<image class="houseImg" :src="IMGURL+orderDetails.coverImage" mode=""></image>
 					<view class="checkinAddress">
 						<view class="Address">
 							<text>地址:</text>
@@ -102,18 +96,20 @@
 </template>
 
 <script>
-import api from '@/utils/api.js';
+	import api from '@/utils/api.js'
 export default {
 	components: {},
 	data() {
 		return {
 			active: 1,
-			orderDetails: {}
+			orderDetails: {},
+			IMGURL:''
 		};
 	},
 	onLoad(opt) {
 		console.log(JSON.parse(opt.orderDetails));
 		this.orderDetails = JSON.parse(opt.orderDetails);
+		this.IMGURL=api.config.IMGURL
 		switch (this.orderDetails.orderStatus) {
 			case 0:
 				this.orderDetails.statusTitle = '待付款';

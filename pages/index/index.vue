@@ -2,7 +2,7 @@
 	<view class="roomReservation" v-cloak>
 		<view class="room-info">
 			<view class="hotel-img">
-				<image class="img-bg" :src="(IMGURL + companyInfo.image)" mode="widthFix"></image>
+				<image class="img-bg" :src="IMGURL + companyInfo.image" mode="widthFix"></image>
 				<h2 class="info-title">
 					<view class="title">{{ companyInfo.name }}</view>
 					<view class="imgCount">
@@ -86,7 +86,7 @@
 						<h2>{{ item.typeName }}</h2>
 					</view>
 					<view>
-						<button @tap="reservation(item)" :disabled="item.isFull == 'Y' ? true : false">{{ item.isFull == 'Y' ? '今日已满' : '预定房间' }}</button>
+						<button @tap="reservation(item)" style="border: none;" :disabled="item.isFull == 'Y' ? true : false">{{ item.isFull == 'Y' ? '今日已满' : '预定房间' }}</button>
 					</view>
 				</view>
 			</view>
@@ -100,6 +100,7 @@ import roomDetails from '@/components/roomDetails/roomDetails';
 import utils from '@/utils/util';
 import api from '@/utils/api';
 import allocation from '@/utils/config.js';
+import user from '@/services/user.js';
 var app = getApp();
 export default {
 	components: {
@@ -120,131 +121,104 @@ export default {
 			},
 			roomData: {},
 			beginDate: '',
-			endDate: ''
+			endDate: '',
+			userInfo: {}
 		};
 	},
-	onLoad() {},
 
 	onShow: function(e) {
 		let pages = getCurrentPages();
 		let currPage = pages[pages.length - 1];
-		if (currPage.data.globalData.code == '') {
-			let that = this;
-			that.globalData = app.$vm.globalData;
-			/* console.log(that.globalData); */
+		let that = this;
+		that.globalData = app.$vm.globalData;
+		/* console.log(that.globalData); */
+		//转换日期格式
+		that.convdate();
+		//把图片路径中的“\”改为“/”
+		/* res.data[i].rentCoverImg = that.IMGURL+res.data[i].rentCoverImg.replace(/\\/g, '/'); */
 
-			//将日期判断改为2019-04-25这种格式
-			if (typeof that.globalData.checkOut.month != 'string') {
-				if (that.globalData.checkOut.month < 10) {
-					that.globalData.checkOut.month = '0' + that.globalData.checkOut.month;
-				}
-			}
-
-			if (typeof that.globalData.checkOut.day != 'string') {
-				if (that.globalData.checkOut.day < 10) {
-					that.globalData.checkOut.day = '0' + that.globalData.checkOut.day;
-				}
-			}
-
-			if (typeof that.globalData.checkIn.month != 'string') {
-				if (that.globalData.checkIn.month < 10) {
-					that.globalData.checkIn.month = '0' + that.globalData.checkIn.month;
-				}
-			}
-
-			if (typeof that.globalData.checkIn.day != 'string') {
-				if (that.globalData.checkIn.day < 10) {
-					that.globalData.checkIn.day = '0' + that.globalData.checkIn.day;
-				}
-			}
-
-			that.beginDate = that.globalData.checkIn.year + '-' + that.globalData.checkIn.month + '-' + that.globalData.checkIn.day;
-			that.endDate = that.globalData.checkOut.year + '-' + that.globalData.checkOut.month + '-' + that.globalData.checkOut.day;
-
-			//把图片路径中的“\”改为“/”
-			/* res.data[i].rentCoverImg = that.IMGURL+res.data[i].rentCoverImg.replace(/\\/g, '/'); */
-
-			api.getHome({
-				gradePk: '',
-				companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
-				beginDate: that.beginDate,
-				endDate: that.endDate
-			}).then(res => {
-				if (res.code == 1) {
-					that.roomTypeList = res.data.roomTypeList;
-					that.companyInfo = res.data.companyInfo;
-					that.IMGURL = api.config.IMGURL;
-					/* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
-				}
+		user.isUserinfo()
+			.then(res => {
+				user.getUserInfo().then(res => {
+					console.log(res);
+					api.getHome({
+						gradePk: res.gradePk,
+						companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
+						beginDate: that.beginDate,
+						endDate: that.endDate,
+						userPk:res.memPk
+					}).then(res => {
+						if (res.code == 1) {
+							that.roomTypeList = res.data.roomTypeList;
+							that.companyInfo = res.data.companyInfo;
+							that.IMGURL = api.config.IMGURL;
+							/* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
+						}
+					});
+				});
+			})
+			.catch(res => {
+				console.log(res);
+				api.getHome({
+					gradePk: '',
+					companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
+					beginDate: that.beginDate,
+					endDate: that.endDate
+				}).then(res => {
+					if (res.code == 1) {
+						that.roomTypeList = res.data.roomTypeList;
+						that.companyInfo = res.data.companyInfo;
+						that.IMGURL = api.config.IMGURL;
+						/* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
+					}
+				});
 			});
-		} else {
-			let that = this;
-			that.globalData = currPage.data.globalData;
-
-			/* console.log('返回后的' + that.globalData); */
-
-			//将日期判断改为2019-04-25这种格式
-			if (typeof that.globalData.checkOut.month != 'string') {
-				if (that.globalData.checkOut.month < 10) {
-					that.globalData.checkOut.month = '0' + that.globalData.checkOut.month;
-				}
-			}
-			if (typeof that.globalData.checkOut.day != 'string') {
-				if (that.globalData.checkOut.day < 10) {
-					that.globalData.checkOut.day = '0' + that.globalData.checkOut.day;
-				}
-			}
-			if (typeof that.globalData.checkIn.month != 'string') {
-				if (that.globalData.checkIn.month < 10) {
-					that.globalData.checkIn.month = '0' + that.globalData.checkIn.month;
-				}
-			}
-			if (typeof that.globalData.checkIn.day != 'string') {
-				if (that.globalData.checkIn.day < 10) {
-					that.globalData.checkIn.day = '0' + that.globalData.checkIn.day;
-				}
-			}
-
-			that.beginDate = that.globalData.checkIn.year + '-' + that.globalData.checkIn.month + '-' + that.globalData.checkIn.day;
-			that.endDate = that.globalData.checkOut.year + '-' + that.globalData.checkOut.month + '-' + that.globalData.checkOut.day;
-			//把图片路径中的“\”改为“/”
-			/* res.data[i].rentCoverImg = that.IMGURL+res.data[i].rentCoverImg.replace(/\\/g, '/'); */
-
-			api.getHome({
-				gradePk: '',
-				companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
-				beginDate: that.beginDate,
-				endDate: that.endDate
-			}).then(res => {
-				if (res.code == 1) {
-					that.roomTypeList = res.data.roomTypeList;
-					that.companyInfo = res.data.companyInfo;
-					that.IMGURL = api.config.IMGURL;
-					/* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
-				}
-			});
-		}
 	},
 	methods: {
 		//跳转到房间详情页
 		gotoRoomInfo(roomTypePk) {
 			let that = this;
-			api.getRoomType({
-				gradePk: '', //会员级别
-				companyPk: allocation.COMPANYPK, //酒店主键
-				roomTypePk: roomTypePk, //房型主键
-				beginDate: that.beginDate, //开始日期
-				endDate: that.endDate //结束日期
-			}).then(res => {
-				if (res.code == 1) {
-					wx.hideTabBar();
-					that.isRoomDetails = true;
-					that.roomData = res;
-					that.roomData.globalData = that.globalData;
-					that.roomData.beginDate = that.beginDate;
-					that.roomData.endDate = that.endDate;
-				}
-			});
+			user.isUserinfo()
+				.then(res => {
+					user.getUserInfo().then(res => {
+						console.log(res);
+						api.getRoomType({
+							gradePk: res.gradePk, //会员级别
+							companyPk: allocation.COMPANYPK, //酒店主键
+							roomTypePk: roomTypePk, //房型主键
+							beginDate: that.beginDate, //开始日期
+							endDate: that.endDate //结束日期
+						}).then(res => {
+							if (res.code == 1) {
+								wx.hideTabBar();
+								that.isRoomDetails = true;
+								that.roomData = res;
+								that.roomData.globalData = that.globalData;
+								that.roomData.beginDate = that.beginDate;
+								that.roomData.endDate = that.endDate;
+							}
+						});
+					});
+				})
+				.catch(res => {
+					console.log(res);
+					api.getRoomType({
+						gradePk: '', //会员级别
+						companyPk: allocation.COMPANYPK, //酒店主键
+						roomTypePk: roomTypePk, //房型主键
+						beginDate: that.beginDate, //开始日期
+						endDate: that.endDate //结束日期
+					}).then(res => {
+						if (res.code == 1) {
+							wx.hideTabBar();
+							that.isRoomDetails = true;
+							that.roomData = res;
+							that.roomData.globalData = that.globalData;
+							that.roomData.beginDate = that.beginDate;
+							that.roomData.endDate = that.endDate;
+						}
+					});
+				});
 		},
 		//关闭房间详情页
 		closeRoom() {
@@ -265,29 +239,65 @@ export default {
 				animationDuration: 200
 			});
 		},
+		convdate() {
+			let that = this;
+			//将日期转换为2019-04-25这种格式
+			if (typeof that.globalData.checkOut.month != 'string') {
+				if (that.globalData.checkOut.month < 10) {
+					that.globalData.checkOut.month = '0' + that.globalData.checkOut.month;
+				}
+			}
+			if (typeof that.globalData.checkOut.day != 'string') {
+				if (that.globalData.checkOut.day < 10) {
+					that.globalData.checkOut.day = '0' + that.globalData.checkOut.day;
+				}
+			}
+			if (typeof that.globalData.checkIn.month != 'string') {
+				if (that.globalData.checkIn.month < 10) {
+					that.globalData.checkIn.month = '0' + that.globalData.checkIn.month;
+				}
+			}
+			if (typeof that.globalData.checkIn.day != 'string') {
+				if (that.globalData.checkIn.day < 10) {
+					that.globalData.checkIn.day = '0' + that.globalData.checkIn.day;
+				}
+			}
+			that.beginDate = that.globalData.checkIn.year + '-' + that.globalData.checkIn.month + '-' + that.globalData.checkIn.day;
+			that.endDate = that.globalData.checkOut.year + '-' + that.globalData.checkOut.month + '-' + that.globalData.checkOut.day;
+		},
 		//跳转到订单填写页
 		reservation(item) {
 			let that = this;
-			api.getRoomType({
-				gradePk: '', //会员级别
-				companyPk: allocation.COMPANYPK, //酒店主键
-				roomTypePk: item.roomTypePk, //房型主键
-				beginDate: that.beginDate, //开始日期
-				endDate: that.endDate //结束日期
-			}).then(res => {
-				if (res.code == 1) {
-					var obj = {
-						roomTypeInfo: res.data.roomTypeInfo, //房间信息
-						globalData: that.globalData ,//入住时间和退房时间
-						beginDate:that.beginDate,//入住日期
-						endDate:that.endDate//退房日期
-					};
+			user.isUserinfo()
+				.then(res => {
+					user.getUserInfo().then(res => {
+						api.getRoomType({
+							gradePk: res.gradePk, //会员级别
+							companyPk: allocation.COMPANYPK, //酒店主键
+							roomTypePk: item.roomTypePk, //房型主键
+							beginDate: that.beginDate, //开始日期
+							endDate: that.endDate //结束日期
+						}).then(res => {
+							if (res.code == 1) {
+								var obj = {
+									roomTypeInfo: res.data.roomTypeInfo, //房间信息
+									globalData: that.globalData, //入住时间和退房时间
+									beginDate: that.beginDate, //入住日期
+									endDate: that.endDate //退房日期
+								};
 
-					uni.navigateTo({
-						url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
+								uni.navigateTo({
+									url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
+								});
+							}
+						});
 					});
-				}
-			});
+				})
+				.catch(res => {
+					uni.navigateTo({
+						url: '../login/login'
+					});
+				});
 		}
 	}
 };
@@ -539,11 +549,11 @@ export default {
 					width: 126.81159upx;
 					height: 54.34782upx;
 					font-size: 23.55072upx;
-					background: -webkit-gradient(linear, left top, left bottom, from(#cda754), to(#e5c893)) !important;
-					background: linear-gradient(to bottom, #cda754, #e5c893) !important;
+					background: -webkit-gradient(linear, left top, left bottom, from(#edcc72), to(#8f7444)) !important;
+					background: linear-gradient(to bottom, #edcc72, #8f7444) !important;
 					padding: 0;
 					line-height: 54.34782upx;
-					color: white;
+					color: #614c26;
 				}
 			}
 		}

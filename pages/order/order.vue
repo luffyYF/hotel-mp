@@ -50,6 +50,7 @@ import tab from '../../components/tab/tab.vue';
 import np from '../../components/order/no-order.vue';
 import api from '../../utils/api.js';
 import allocation from '../../utils/config.js';
+import user from '@/services/user.js';
 var app = getApp();
 export default {
 	components: {
@@ -66,14 +67,26 @@ export default {
 			isShow: true,
 			loadMoreText: '加载中...',
 			showLoadMore: false,
-			max: 1
+			max: 1,
+			userInfo: {}
 		};
 	},
 	onShow() {
 		let that = this;
-		this.showList(that.orderStatus, that.max, 10);
+
+		user.isUserinfo()
+			.then(res => {
+				user.getUserInfo().then(res => {
+					this.showList(res, that.orderStatus, that.max, 10);
+				});
+			})
+			.catch(res => {
+				uni.navigateTo({
+					url: '../login/login'
+				});
+			});
 	},
-	onReachBottom() {	
+	onReachBottom() {
 		setTimeout(() => {
 			++this.max;
 			this.showList(this.orderStatus, this.max, 10);
@@ -97,16 +110,14 @@ export default {
 					break;
 				default:
 			}
-			this.showList(this.orderStatus, 1, 10);
+			this.showList(this.userInfo, this.orderStatus, 1, 10);
 		},
 		orderDetails(item) {
-			console.log(item);
 			api.getOrder({
 				orderPk: item.orderPk,
-				userPk: allocation.USERPK
+				userPk: this.userInfo.memPk
 			}).then(res => {
 				if (res.code == 1) {
-					console.log(res);
 					uni.navigateTo({
 						url: '../../pages/order/orderDetails?orderDetails=' + JSON.stringify(res.data)
 					});
@@ -125,36 +136,40 @@ export default {
 			iDays = parseInt(Math.abs(strDateS - strDateE) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
 			return iDays;
 		},
-		showList(orderStatus, pageNum, pageSize) {
+		showList(userInfo, orderStatus, pageNum, pageSize) {
 			let that = this;
+			this.userInfo = userInfo;
 			api.listOrder({
 				orderStatus: orderStatus,
 				pageNum: pageNum,
 				pageSize: pageSize,
-				userPk: allocation.USERPK
+				userPk: userInfo.memPk
 			}).then(res => {
 				if (res.code == 1) {
 					if (pageNum <= 1) {
-						if(res.data.length<pageSize){
+						if (res.data.length < pageSize) {
 							this.showLoadMore = false;
-						}else{
+						} else {
 							this.showLoadMore = true;
 						}
 						if (res.data.length <= 0) {
 							this.isShow = false;
+						} else {
+							this.isShow = true;
 						}
 						this.lists = res.data;
+
 						for (var i = 0; i < this.lists.length; i++) {
 							var strDateStart = this.lists[i].beginDate;
 							var strDateEnd = this.lists[i].endDate;
 							this.lists[i].nights = this.getDays(strDateStart, strDateEnd);
 						}
+
 						//0.待付款 1.待接单 2.已接单 3.已入住 4.取消中 5.已取消 6.已完成
 						this.IMGURL = api.config.IMGURL;
-						this.isShow = true;
-						
 					} else {
 						this.showLoadMore = true;
+						this.isShow = true;
 						this.lists = this.lists.concat(res.data);
 						for (var i = 0; i < this.lists.length; i++) {
 							var strDateStart = this.lists[i].beginDate;
@@ -163,7 +178,7 @@ export default {
 						}
 						//0.待付款 1.待接单 2.已接单 3.已入住 4.取消中 5.已取消 6.已完成
 						this.IMGURL = api.config.IMGURL;
-						this.isShow = true;
+
 						if (res.data.length <= 0) {
 							this.loadMoreText = '没有更多数据了!';
 						}

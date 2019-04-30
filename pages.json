@@ -10,100 +10,100 @@
 			"style": {
 				"navigationBarTitleText": "个人中心",
 				"navigationStyle": "custom",
-				"navigationBarBackgroundColor": "#cda754"
+				"navigationBarBackgroundColor": "#43403a"
 			}
 		}, {
-			"path": "pages/order/order",
-			"style": {
-				"navigationBarTitleText": "订单",
-				"navigationBarBackgroundColor": "#cda754"
-			}
-		},
-		{
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登录",
-				"navigationBarBackgroundColor": "#cda754"
+				"navigationBarBackgroundColor": "#43403a"
 			}
-		}, {
+		},{
+			"path": "pages/order/order",
+			"style": {
+				"navigationBarTitleText": "订单",
+				"navigationBarBackgroundColor": "#43403a"
+			}
+		},
+		 {
 			"path": "pages/order/orderDetails",
 			"style": {
 				"navigationBarTitleText": "订单详情",
-				"navigationBarBackgroundColor": "#cda754"
+				"navigationBarBackgroundColor": "#43403a"
 			}
 		}, {
 			"path": "pages/placeOrder/placeOrder",
 			"style": {
 				"navigationBarTitleText": "填写订单",
-				"navigationBarBackgroundColor": "#cda754"
+				"navigationBarBackgroundColor": "#43403a"
 			}
 		}, {
 			"path": "pages/payment/payment",
 			"style": {
 				"navigationBarTitleText": "支付订单",
-				"navigationBarBackgroundColor": "#cda754"
+				"navigationBarBackgroundColor": "#43403a"
 			}
 		}, {
 			"path": "pages/selectDate/selectDate",
 			"style": {
 				"navigationBarTitleText": "选择日期",
-				"navigationBarBackgroundColor": "#cda754"
+				"navigationBarBackgroundColor": "#43403a"
 			}
 		},
 		{
 			"path": "pages/discounts/discounts",
 			"style": {
 				"navigationBarTitleText": "优惠券",
-				"navigationBarBackgroundColor": "#cda754"
+				"navigationBarBackgroundColor": "#43403a"
 			}
 		}, {
 			"path": "pages/comment/comment",
 			"style": {
 				"navigationBarTitleText": "评论列表",
-				"navigationBarBackgroundColor": "#cda754"
+				"navigationBarBackgroundColor": "#43403a"
 			}
 		}, {
 			"path": "pages/aboutUs/aboutUs",
 			"style": {
 				"navigationBarTitleText": "关于我们",
-				"navigationBarBackgroundColor": "#cda754"
+				"navigationBarBackgroundColor": "#43403a"
 			}
 		}, {
 			"path": "pages/collect/collect",
 			"style": {
 				"navigationBarTitleText": "我的收藏",
-				"navigationBarBackgroundColor": "#cda754"
+				"navigationBarBackgroundColor": "#43403a"
 			}
 		}, {
 			"path": "pages/share/share",
 			"style": {
 				"navigationBarTitleText": "分享",
-				"navigationBarBackgroundColor": "#cda754"
+				"navigationBarBackgroundColor": "#43403a"
 			}
 		},/* {
 			"path": "pages/roomDetails/roomDetails",
 			"style": {
 				"navigationBarTitleText": "房间详情",
-				"navigationBarBackgroundColor": "#cda754"
+				"navigationBarBackgroundColor": "#43403a"
 			}
 		}, */ {
 			"path": "pages/member/member",
 			"style": {
 				"navigationBarTitleText": "会员与积分规则",
-				"navigationBarBackgroundColor": "#cda754"
+				"navigationBarBackgroundColor": "#43403a"
 			}
 		}
 	    ,{
             "path" : "pages/costDetail/costDetail",
             "style" : {
 				"navigationBarTitleText":"费用明细",
-				"navigationBarBackgroundColor":"#cda754"
+				"navigationBarBackgroundColor":"#43403a"
 			}
         }
     ],
 	"tabBar": {
 		"color": "#8c8c8c",
-		"selectedColor": "#cda754",
+		"selectedColor": "#43403a",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{

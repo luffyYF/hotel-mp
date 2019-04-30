@@ -2,8 +2,8 @@
 	<view class='block-p'>
 		<view class='block'>
 			<view class="logo">
-				<image bindtap="bindViewTap" class="logo-avatar" src="../../static/icon.jpg" mode="cover"></image>
-				<text class="logo-nickname">豪斯优选</text>
+				<image bindtap="bindViewTap" class="logo-avatar" src="../static/images/authorize/authorize.jpg" mode="cover"></image>
+				<text class="logo-nickname">{{name?name:"豪斯"}}</text>
 			</view>
 			<view class='comten'>
 				<view>需要您的授权才能正常使用哦！</view>
@@ -20,21 +20,17 @@
 
 <script>
 	export default {
-		properties: {},
-		data: () => {
-			return {
-
-			}
+		props:{
+			name: String
 		},
-		attached() {},
 		methods: {
 			//授权成功
 			bindGetUserInfo: function(res) {
 				if (res.detail.userInfo) {
-					wx.setStorage({
-						key: 'userInfo',
-						data: res.detail.userInfo,
-					});
+					var timestamp = Date.parse(new Date());
+					var expiration = timestamp + 60 * 60 * 1000;
+					uni.setStorageSync("userInfo_expiration", expiration);
+					uni.setStorageSync('userInfo', res.detail);
 					// this.isShow = false;
 					this.$emit('GetUserInfo', res.detail);
 				}

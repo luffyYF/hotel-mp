@@ -9,12 +9,49 @@ const api = {
 	config: {
 		IMGURL
 	},
-	authorize: (data) => request.post('applet/authorize', {
+	/**
+	 * 获取微信小程序token
+	 * appid: 小程序appid,
+	 * code: 小程序登录code,
+	 * encryptedData: 用户授权encryptedData,
+	 * iv: 用户授权iv
+	 */
+	authorize: (data) => request.post('wx/applet/authorize', {
 		appid: data.appid,
 		code: data.code,
 		encryptedData: data.encryptedData,
-		iv: data.encryptedData
-	}, config.ApiWxUrl),
+		iv: data.iv
+	}, config.APIWXURL),
+	/**
+	 * 获取授权用户的手机号
+	 * url: /wx/applet/authorize/phone
+	 * type: GET
+	 *
+	 * @param appid 小程序appid
+	 * @param code 微信授权返回的code
+	 * @param encryptedData 加密数据
+	 * @param iv 加密算法的初始向量
+	 * @return BaseResult
+	 */
+	authorizePhone: (data) => request.post('wx/applet/authorize/phone', {
+		appid: data.appid,
+		code: data.code,
+		encryptedData: data.encryptedData,
+		iv: data.iv
+	}, config.APIWXURL),
+	/**
+     * 绑定会员手机号码
+     * url: /miniapp/hotel/member/bindPhone
+     * type: POST
+     *
+     * @param token 令牌 (放在request头部Authorization中，组装成"Bearer "+token的格式)
+     * @param params 参数
+     *           memPhone 会员手机号
+     * @return BaseResult
+     */
+	bindPhone: (data) => request.post('member/bindPhone', {
+		memPhone: data.memPhone
+	}, apiHotel),
 	/**
 	 * 首页接口
 	 * url: /miniapp/hotel/home/info
@@ -27,10 +64,11 @@ const api = {
 	 * @return BaseResult
 	 */
 	getHome: (data) => request.get('home/info', {
-		gradePk: config.gradePk,
+		gradePk: data.gradePk,
 		companyPk: data.companyPk,
 		beginDate: data.beginDate,
-		endDate: data.endDate
+		endDate: data.endDate,
+		userPk:data.userPk
 	}, apiHotel),
 	/**
 	 * 查询房型信息
@@ -45,7 +83,7 @@ const api = {
 	 * @return BaseResult
 	 */
 	getRoomType: (data) => request.get('roomType/info', {
-		gradePk: config.gradePk,
+		gradePk: data.gradePk,
 		companyPk: data.companyPk,
 		roomTypePk: data.roomTypePk,
 		beginDate: data.beginDate,
@@ -70,7 +108,7 @@ const api = {
 		endDate: data.endDate,
 		rentCount:data.rentCount,
 		roomTypePk: data.roomTypePk,
-		userPk: config.USERPK
+		userPk: data.userPk
 	}, apiHotel2),
 	/* 
 	查找当前房型用户可用的优惠劵
@@ -84,7 +122,7 @@ const api = {
 	lisCouponByUser: (data) => request.get('order/listCouponByUser', {
 		companyPk: config.COMPANYPK,
 		roomTypePk: data.roomTypePk,
-		userPk: config.USERPK
+		userPk: data.userPk
 	}, apiHotel2),
 
 	/* 
@@ -173,7 +211,7 @@ const api = {
 		taxpayerIdentificationNumber: data.taxpayerIdentificationNumber,
 		userName: data.userName,
 		userPhone: data.userPhone,
-		userPk: config.USERPK,
+		userPk: data.userPk,
 		appid:config.APPID
 	}, apiHotel2),
 

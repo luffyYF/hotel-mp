@@ -17,20 +17,20 @@ function formatNumber(n) {
  * 日期格式
  */
 var dateFilter = {
-  getDateObject: function (str) {
-    return new Date(str)
-  },
-  formatDate(date) {
-    let _date = new Date(date);
-    let _week = ['日', '一', '二', '三', '四', '五', '六']
-    return {
-      year: _date.getFullYear() || '',
-      month: _date.getMonth() + 1 || '',
-      day: _date.getDate() || '',
-      week: _week[_date.getDay()] || '',
-      timeStamp: date || ''
-    }
-  },
+	getDateObject: function(str) {
+		return new Date(str)
+	},
+	formatDate(date) {
+		let _date = new Date(date);
+		let _week = ['日', '一', '二', '三', '四', '五', '六']
+		return {
+			year: _date.getFullYear() || '',
+			month: _date.getMonth() + 1 || '',
+			day: _date.getDate() || '',
+			week: _week[_date.getDay()] || '',
+			timeStamp: date || ''
+		}
+	},
 }
 
 //判断是否是微信浏览器的函数
@@ -56,7 +56,7 @@ function getStorage(key, success, fail) {
 	var timestamp = Date.parse(new Date());
 	var expiration = uni.getStorageSync(key + "_expiration");
 	var data = uni.getStorageSync(key);
-	console.log(key, data)
+	/* console.log(key, data) */
 	if (data && expiration > timestamp) {
 		success(data);
 	} else {
@@ -74,8 +74,8 @@ const util = {
 	getStorage,
 	setStorage,
 	removeStorage,
-	dateFilter,
-	isWeiXin
+	isWeiXin,
+	dateFilter
 }
 
 export default util
