@@ -1,125 +1,101 @@
 <template>
 	<view class="loginPage">
-		<image class="loginback" src="../../static/images/login/loginback.jpg" mode=""></image>
 		<view class="company-icon">
-			<image src="../../static/images/login/logo.png" mode=""></image>
-			<h3>豪斯格兰</h3>
-		</view>
-		<view class="form">
+			<image class="logo-avatar" :src="wxUserInfo.avatarUrl?wxUserInfo.avatarUrl:''" mode="cover"></image>
 			<view class="accountNo">
-				<image src="../../static/images/login/telphone.png" mode=""></image>
-				<input type="text" placeholder="请输入您的手机号码" value="" />
+				{{wxUserInfo.nickName?wxUserInfo.nickName:''}}
 			</view>
-			<view class="verification">
-				<image src="../../static/images/login/security.png" mode=""></image>
-				<input type="text" placeholder="请输入验证码" value="" />
-				<span>验证码</span>
-			</view>
-			<view class="loginRow"><button class="loginBtn">绑定</button></view>
+			<button class="loginRow" type='primary' open-type='getPhoneNumber' @getphonenumber='getPhoneNumber'>登录</button>
 		</view>
-		<authorize v-if="isAuthorizeShow" @GetUserInfo="getUserInfo"></authorize>
+		<authorize v-if="isAuthorizeShow" :name='appName' @GetUserInfo="getUserInfo"></authorize>
 	</view>
 </template>
 <script>
-import authorize from '@/components/authorize';
-import gwx from '@/utils/wx';
-export default {
-	components: {
-		authorize
-	},
-	data() {
-		return {
-			isAuthorizeShow:false
+	import authorize from '@/components/authorize'	
+	import gwx from '@/utils/wx'
+	import api from "@/utils/api"
+	import util from "@/utils/util"
+	import config from "@/utils/config"
+	import user from "@/services/user"
+	var app = getApp();
+	export default {
+		components: {
+			authorize
+		},
+		data() {
+			return {
+				isAuthorizeShow: false,
+				wxUserInfo: {},
+				appName: '',
+				userInfo: {
+					userName: '',
+					password: ''
+				}
+			}
+		},
+		onLoad: function(option) {
+			this.appName = config.appName
+			gwx.checkSession().then(()=>{
+				this.goLogin();
+			}).catch((err) => {
+				this.isAuthorizeShow = true;
+				this.goLogin();
+			})
+		},
+		methods: {
+			getUserInfo: function(res) {
+				this.isAuthorizeShow = false
+				this.wxUserInfo = res.userInfo
+				this.goLogin();
+			},
+			goLogin: function() {
+				gwx.loginUserInfo().then((res)=>{
+					console.log("============",res)
+					this.wxUserInfo = res.userInfo
+				}).catch((err) => {})
+			},
+			getPhoneNumber(res) {
+				console.log(res.detail)
+				if (res.detail.errMsg == 'getPhoneNumber:ok') {
+					user.authorizePhone(res.detail).then(()=>{
+						uni.navigateBack({
+							data:1
+						})
+					}).catch((err) => {
+						console.log("登录失败")
+					})
+				}else{
+					
+				}
+			}
 		}
-	},
-	onLoad() {
-		let that = this;
-		gwx.checkSession()
-		.then(res => {
-			// that.goLogin();
-		})
-		.catch(res => {
-			that.isAuthorizeShow = true;
-		});
-	},
-	methods: {
-		// 获取个人信息
-		getUserInfo(res) {
-			console.log(res);
-			this.globalData.userInfo = res.userInfo;
-			api.authorize({
-				appid: globalData.appid,
-				code: globalData.code,
-				encryptedData: res.encryptedData,
-				iv: res.iv
-			}).then(res => {
-				console.log(res);
-			});
-		}
-	}
-};
+	};
 </script>
 
 <style lang="scss">
-page {
-	height: 100%;
-}
-.loginPage {
-	.company-icon,.form{
-		position: relative;
-		bottom: -90.57971upx;
-	}
-	.loginback{
-		position: absolute;
-		width: 100%;
+	.loginPage {
+		background-color: #ffffff;
 		height: 100%;
-	}
-	.company-icon {
-		text-align: center;
-		image {
-			width: 181.15942upx;
-			height: 181.15942upx;
-		}
-		h3 {
-			color: #cda754;
-			font-size: 36.23188upx;
-			font-weight: 500;
-		}
-	}
-	.form {
-		margin: 0 72.46376upx;
-		margin-top: 90.57971upx;
-		.accountNo,
-		.verification {
-			display: flex;
-			vertical-align: middle;
-			align-items: center;
-			color: white;
-			padding: 9.05797upx;
-			border-bottom: 0.99637upx solid white;
-			margin-bottom: 45.28985upx;
-			image {
-				width: 45.28985upx;
-				height: 45.28985upx;
-				margin-right: 36.23188upx;
+		.company-icon {
+			width: 70%;
+			margin: auto;
+			text-align: center;
+			padding-top:50%;
+			.logo-avatar {
+				width: 128rpx;
+				height: 128rpx;
+				margin: 20rpx;
+				border-radius: 50%;
 			}
-			span {
-				flex: 1;
-				text-align: right;
-				font-size: 28.9855upx;
-				color: #cda754;
+			.accountNo {
+				text-align: center;
+				padding: 9.05797upx;
+				margin-bottom: 54.34782upx;
 			}
-			input {
-				color: white;
+			.loginRow {
+				
 			}
 		}
+		
 	}
-	.loginRow {
-		.loginBtn {
-			color: white;
-			background-color: rgba($color: #cda754, $alpha: 0.7);
-			margin: 90.57971upx 0;
-		}
-	}
-}
 </style>

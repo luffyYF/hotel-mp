@@ -13,26 +13,6 @@ function formatNumber(n) {
 	return n[1] ? n : '0' + n;
 }
 
-/**
- * 日期格式
- */
-var dateFilter = {
-  getDateObject: function (str) {
-    return new Date(str)
-  },
-  formatDate(date) {
-    let _date = new Date(date);
-    let _week = ['日', '一', '二', '三', '四', '五', '六']
-    return {
-      year: _date.getFullYear() || '',
-      month: _date.getMonth() + 1 || '',
-      day: _date.getDate() || '',
-      week: _week[_date.getDay()] || '',
-      timeStamp: date || ''
-    }
-  },
-}
-
 //判断是否是微信浏览器的函数
 function isWeiXin() {
 	//window.navigator.userAgent属性包含了浏览器类型、版本、操作系统类型、浏览器引擎类型等信息，这个属性可以用来判断浏览器类型
@@ -74,7 +54,6 @@ const util = {
 	getStorage,
 	setStorage,
 	removeStorage,
-	dateFilter,
 	isWeiXin
 }
 
