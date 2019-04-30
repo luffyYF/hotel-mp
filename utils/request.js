@@ -1,7 +1,7 @@
 import config from '@/utils/config.js'
 
 const request = {
-	get: function(url, param, baseURL = config.ApiRootUrl) {
+	get: function(url, param, baseURL = config.APIROOTURL) {
 		let token = "bearer " + wx.getStorageSync('token');
 		let that = this;
 		return new Promise(function(resolve, reject) {
@@ -12,7 +12,7 @@ const request = {
 			}, resolve, reject)
 		})
 	},
-	post: function(url, param, baseURL = config.ApiRootUrl) {
+	post: function(url, param, baseURL = config.APIROOTURL) {
 		let token = "bearer " + wx.getStorageSync('token');
 		let that = this;
 		return new Promise(function(resolve, reject) {

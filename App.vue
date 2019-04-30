@@ -5,7 +5,6 @@ export default {
 	data() {
 		return {
 			globalData: {
-				appid: 'wx8da6ebf3721af9a4',
 				code: '',
 				userInfo: null,
 				today: '',

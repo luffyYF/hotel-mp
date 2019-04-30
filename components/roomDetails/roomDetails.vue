@@ -1,5 +1,5 @@
 <template>
-	<view class="page" >
+	<view class="page">
 		<view class="masklayer"></view>
 		<view class="roomTop">
 			<h2>{{ roomTypeInfo.typeName }}[人气精选预付价]</h2>
@@ -10,7 +10,7 @@
 				<swiper class="swiper-box" @change="change">
 					<swiper-item v-for="(item, index) in info" :key="index" style="width: 100%;height: 100%;">
 						<view class="swiper-item" style="width: 100%;height: 100%;">
-							<image style="width: 100%;height: 100%;" :src="IMGURL+item.imgUrl" mode="" class="swiper-item-img"></image>
+							<image style="width: 100%;height: 100%;" :src="IMGURL + item.imgUrl" mode="" class="swiper-item-img"></image>
 						</view>
 					</swiper-item>
 				</swiper>
@@ -81,35 +81,35 @@
 				<view class="des">
 					<h2>不可取消</h2>
 					<ul>
-						<li>
-							<p>{{ roomTypeInfo.description }}</p>
-						</li>
+						<li><p>订单确认后不可变更/取消，如未入住，酒店将扣除全额房费</p></li>
 					</ul>
 				</view>
 				<view class="des">
 					<h2>预定说明</h2>
 					<ul>
-						<li>
-							<p>{{ roomTypeInfo.reserveDesc }}</p>
-						</li>
+						<li><p>请在15分钟内确认订单</p></li>
+						<li><p>发票有代理商开具，如需发票，请在下单时填写发票信息</p></li>
 					</ul>
 				</view>
 				<view class="des">
 					<h2>使用规则</h2>
 					<ul>
-						<li>
-							<p>{{ roomTypeInfo.usageRuleDesc }}</p>
-						</li>
+						<li><p>直接消费，无需美团劵，携带所有入住人的有效身份证件办理入住，入住必须按照一人一证</p></li>
+						<li><p>请于14:00之后入住并与次日13:00之前退房；</p></li>
+						<li><p>如需提前入住或延时退房，请咨询商家</p></li>
+						<li><p>入住需要押金，金额以前台为准</p></li>
 					</ul>
 				</view>
 			</view>
 		</scroll-view>
 		<view class="operation">
 			<button class="contactBtn" @tap="makingCall('12345678910')">联系客服</button>
-			<button class="reserveBtn" style="" @click="gotoPrice()">
-				<span>￥{{ roomTypeInfo.price }}</span>
-				<span style="font-size: 21.73913upx;text-decoration: line-through;margin-right: 18.11594upx;color: #ccc;">￥{{ roomTypeInfo.disPrice }}</span>
-				<span style="font-size: 36.23188upx;">预订</span>
+			<button class="reserveBtn" style="" @click="gotoPrice()" :disabled="roomTypeInfo.isFull == 'Y' ? true : false">
+				<span v-if="roomTypeInfo.isFull == 'Y' ? false : true">￥{{ roomTypeInfo.disPrice }}</span>
+				<span style="font-size: 21.73913upx;text-decoration: line-through;margin-right: 18.11594upx;color: #ccc;" v-if="roomTypeInfo.isFull == 'Y' ? false : true">
+					￥{{ roomTypeInfo.price }}
+				</span>
+				<span style="font-size: 36.23188upx;">{{ roomTypeInfo.isFull == 'Y' ? '今日已满' : '预定' }}</span>
 			</button>
 		</view>
 	</view>
@@ -118,6 +118,7 @@
 <script>
 import uniSwiperDot from '../../components/uni-swiper-dot/uni-swiper-dot.vue';
 import api from '@/utils/api.js';
+import allocation from '@/utils/config.js'
 export default {
 	props: {
 		roomData: {}
@@ -131,28 +132,40 @@ export default {
 		if (that.roomData.code == 1) {
 			uni.showLoading({
 				title: '加载中',
-				mask:true
+				mask: true
 			});
-			
+
 			setTimeout(function() {
 				uni.hideLoading();
 			}, 1000);
+			//房间信息
 			that.roomTypeInfo = that.roomData.data.roomTypeInfo;
+			//图片数组
 			that.info = that.roomData.data.images;
-			this.IMGURL=api.config.IMGURL;
+			//入住时间
+			that.globalData= that.roomData.globalData;
+			
+			//开始入住时间
+			that.beginDate= that.roomData.beginDate;
+			//开始退房时间
+			that.endDate = that.roomData.endDate;
+			
+			//图片站点
+			this.IMGURL = allocation.IMGROOTURL;
 		}
 	},
-	mounted() {
-		
-		
-	},
+	mounted() {},
 	data() {
 		return {
 			info: [],
 			current: 0,
 			mode: 'long',
 			IMGURL: '',
-			roomTypeInfo: {}
+			roomTypeInfo: {},
+			globalData:{},
+			beginDate:'',
+			endDate:''
+			
 		};
 	},
 	methods: {
@@ -160,8 +173,16 @@ export default {
 			this.current = e.detail.current;
 		},
 		gotoPrice() {
+			//跳转到订单填写页
+			let that = this;
+			var obj = {
+				roomTypeInfo: that.roomTypeInfo, //房间信息
+				globalData: that.globalData ,//入住时间和退房时间
+				beginDate:that.beginDate,//入住日期
+				endDate:that.endDate//退房日期
+			};
 			uni.navigateTo({
-				url: '../placeOrder/placeOrder'
+				url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
 			});
 		},
 		closePage() {
@@ -177,7 +198,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 .masklayer {
 	background-color: rgba(0, 0, 0, 0.5);
 	width: 100%;

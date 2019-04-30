@@ -34,7 +34,7 @@
 			}
 		},
 		onLoad: function(option) {
-			this.appName = config.appName
+			this.appName = config.APPNAME
 			gwx.checkSession().then(()=>{
 				this.goLogin();
 			}).catch((err) => {

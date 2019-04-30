@@ -1,25 +1,25 @@
 <template>
 	<view class="discountsPage">
 		<view class="tabs">
-			<view class="tabs-title" :class="num == 0 ? 'active' : ''" @click="checked(0)">
+			<view class="tabs-title" :class="num == 0 ? 'active' : ''" @tap="checked(0)">
 				可使用(
-				<span>12</span>
+				<span>{{effectiveList.length}}</span>
 				)
 			</view>
-			<view class="tabs-title" :class="num == 1 ? 'active' : ''" @click="checked(1)">
+			<view class="tabs-title" :class="num == 1 ? 'active' : ''" @tap="checked(1)">
 				已失效(
-				<span>12</span>
+				<span>{{invalidList.length}}</span>
 				)
 			</view>
 		</view>
 		<swiper class="swiper" duration="500" :current="num" @change="change">
 			<swiper-item>
 				<view class="card-list">
-					<view class="card-item" v-for="(item, index) in count" :key="index">
-						<view class="card-img">￥100</view>
+					<view class="card-item" v-for="(item, index) in effectiveList" :key="index" @tap="selCoupons(item)">
+						<view class="card-img">￥{{item.value}}</view>
 						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
+							<h2>{{item.couponName}}</h2>
+							<span>有效期：{{item.beginDate}} ~ {{item.endDate}}</span>
 							<p>可使用</p>
 						</view>
 					</view>
@@ -27,21 +27,12 @@
 			</swiper-item>
 			<swiper-item>
 				<view class="card-list">
-					<view class="card-item" style="opacity: .6;">
-						<view class="card-img">￥100</view>
+					<view class="card-item" style="opacity: .6;" v-for="(item, index) in invalidList" :key="index">
+						<view class="card-img">￥{{item.value}}</view>
 						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
-							<p>{{ num == 1 ? '已失效' : '可使用' }}</p>
-						</view>
-						<view class="card-lose"><image src="../../static/images/user/invalid.png" mode=""></image></view>
-					</view>
-					<view class="card-item" style="opacity: .6;">
-						<view class="card-img">￥100</view>
-						<view class="card-content">
-							<h2>住房代金卷</h2>
-							<span>有效期：2018-12-21 ~ 2019-12-21</span>
-							<p>{{ num == 1 ? '已失效' : '可使用' }}</p>
+							<h2>{{item.couponName}}</h2>
+							<span>有效期：{{item.beginDate}} ~ {{item.endDate}}</span>
+							<p>已失效</p>
 						</view>
 						<view class="card-lose"><image src="../../static/images/user/invalid.png" mode=""></image></view>
 					</view>
@@ -56,8 +47,16 @@ export default {
 	data() {
 		return {
 			num: 0,
-			count: 50
+			invalidList:[],
+			effectiveList:[]
 		};
+	},
+	onLoad(opt){
+		var obj = JSON.parse(opt.obj);
+		console.log(obj)
+		this.invalidList=obj.invalidList;
+		this.effectiveList=obj.effectiveList;
+			
 	},
 	methods: {
 		change(e) {
@@ -66,6 +65,16 @@ export default {
 		checked: function(e) {
 			this.num = e;
 			this.$emit('selectFunc', e);
+		},
+		selCoupons(item){
+			var pages = getCurrentPages();
+			var currPage = pages[pages.length - 1]; //当前页面
+			var prevPage = pages[pages.length - 2]; //上一个页面
+			//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+			prevPage.setData({
+				selCoupons: item
+			});
+			uni.navigateBack();
 		}
 	}
 };

@@ -57,10 +57,10 @@ function authorizePhone(data) {
 	return new Promise((resolve, reject) => {
 		gwx.authorizePhone(data).then((res) => {
 			if (res.code == 1) {
-				api.wxLogin({
-					phone: res.data
+				api.bindPhone({
+					memPhone: res.data
 				}).then(res => {
-					if(res.code == 200){
+					if(res.code == 1){
 							setUserInfo(res.data)
 							setToken(res.data.token)
 							resolve(res)

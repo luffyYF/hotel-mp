@@ -20,7 +20,7 @@
             "urlCheck" : false
         },
         "usingComponents" : true,
-        "appid" : ""
+        "appid" : "wx75e063dc08949f90"
     },
     "h5" : {
         "template" : "template.h5.html",

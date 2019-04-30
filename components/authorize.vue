@@ -2,7 +2,7 @@
 	<view class='block-p'>
 		<view class='block'>
 			<view class="logo">
-				<image bindtap="bindViewTap" class="logo-avatar" src="../../static/authorize.jpg" mode="cover"></image>
+				<image bindtap="bindViewTap" class="logo-avatar" src="../static/images/authorize/authorize.jpg" mode="cover"></image>
 				<text class="logo-nickname">{{name?name:"豪斯"}}</text>
 			</view>
 			<view class='comten'>
@@ -22,14 +22,6 @@
 	export default {
 		props:{
 			name: String
-		},
-		data: {
-			// isShow: Boolean,
-			than: null
-		},
-		attached() {},
-		onLoad: function(){
-			console.log(this.name)
 		},
 		methods: {
 			//授权成功

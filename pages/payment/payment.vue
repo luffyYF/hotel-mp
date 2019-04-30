@@ -35,6 +35,9 @@
 export default {
 	data() {
 		return {};
+	},
+	onLoad(opt) {
+		console.log(JSON.stringify(opt.keyValue));
 	}
 };
 </script>
@@ -80,7 +83,7 @@ uni-page-body {
 	line-height:20px;
 }
 .PayPage .reminder .re-details{
-	padding: 9.05797upx 28.9855upx;
+	padding: 27.17391upx 28.9855upx;
 }
 .PayPage .reminder .re-details>p{
 	color: #333333;
