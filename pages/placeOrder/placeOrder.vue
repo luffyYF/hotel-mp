@@ -2,10 +2,7 @@
 	<view class="fillorderPage">
 		<view class="orderContent">
 			<view class="room-info" @tap="gotoRoom">
-				<h2>
-					{{ roomTypeInfo.typeName }}
-					
-				</h2>
+				<h2>{{ roomTypeInfo.typeName }}</h2>
 				<p class="tags">
 					<span>{{ roomTypeInfo.area }}</span>
 					<span>{{ roomTypeInfo.bathroomDesc }}</span>
@@ -52,7 +49,7 @@
 				<view class="discounts1"><p>已享用：会员优惠</p></view>
 				<view class="discounts2" @tap="gotoDiscounts">
 					<p>优惠卷</p>
-					<p>{{selCoupons.hasOwnProperty('couponMemberPk')?selCoupons.couponName:'请选择优惠卷'}}</p>
+					<p>{{ selCoupons.hasOwnProperty('couponMemberPk') ? selCoupons.couponName : '请选择优惠卷' }}</p>
 				</view>
 			</view>
 			<view class="invoice">
@@ -129,9 +126,9 @@ export default {
 			//房间数量
 			rentCount: 1,
 			//选择优惠劵
-			selCoupons:{},
+			selCoupons: {},
 			//总价
-			totalPrice:{}
+			totalPrice: {}
 		};
 	},
 	onLoad(opt) {
@@ -145,32 +142,34 @@ export default {
 	onShow(e) {
 		let pages = getCurrentPages();
 		let currPage = pages[pages.length - 1];
-		this.selCoupons=currPage.data.selCoupons;
+		this.selCoupons = currPage.data.selCoupons;
 
-		if(this.selCoupons.hasOwnProperty('couponMemberPk')){
+		if (this.selCoupons.hasOwnProperty('couponMemberPk')) {
 			api.getOrderPrice({
 				beginDate: this.beginDate,
 				couponMemberPk: this.selCoupons.couponMemberPk,
 				endDate: this.endDate,
+				rentCount: this.rentCount,
 				roomTypePk: this.roomTypeInfo.typePk,
 				userPk: allocation.USERPK
 			}).then(res => {
 				if (res.code == 1) {
-					console.log(res)
-					this.totalPrice=res.data;
+					console.log(res);
+					this.totalPrice = res.data;
 				}
 			});
-		}else{
+		} else {
 			api.getOrderPrice({
 				beginDate: this.beginDate,
 				couponMemberPk: '',
 				endDate: this.endDate,
+				rentCount: this.rentCount,
 				roomTypePk: this.roomTypeInfo.typePk,
 				userPk: allocation.USERPK
 			}).then(res => {
 				if (res.code == 1) {
-					console.log(res)
-					this.totalPrice=res.data;
+					console.log(res);
+					this.totalPrice = res.data;
 				}
 			});
 		}
@@ -182,8 +181,8 @@ export default {
 			if (this.userInfo.name == '' || this.userInfo.tellphone == '') {
 				uni.showToast({
 					title: '请填写个人信息',
-					image:'../../static/images/order/icon/shibai.png',
-					mask:true,
+					image: '../../static/images/order/icon/shibai.png',
+					mask: true,
 					duration: 1000
 				});
 			} else {
@@ -208,7 +207,7 @@ export default {
 					if (res.code == 1) {
 						console.log(res);
 						uni.navigateTo({
-							url: '../payment/payment?keyValue='+res
+							url: '../payment/payment?keyValue=' + res
 						});
 					}
 				});
@@ -237,23 +236,25 @@ export default {
 				if (this.rentCount >= 6) {
 					uni.showToast({
 						title: '已经是最大房间限额',
-						image:'../../static/images/order/icon/shibai.png',
-						mask:true,
+						image: '../../static/images/order/icon/shibai.png',
+						mask: true,
 						duration: 1500
 					});
 				} else {
 					this.rentCount++;
+					this.setTotalPrice();
 				}
 			} else {
 				if (this.rentCount <= 1) {
 					uni.showToast({
 						title: '已经是最小房间限额',
-						image:'../../static/images/order/icon/shibai.png',
-						mask:true,
+						image: '../../static/images/order/icon/shibai.png',
+						mask: true,
 						duration: 1500
 					});
 				} else {
 					this.rentCount--;
+					this.setTotalPrice();
 				}
 			}
 		},
@@ -263,40 +264,73 @@ export default {
 				url: '../roomDetails/roomDetails'
 			}); */
 		},
-		//查看明细
-		gotoCost() {
-			let that = this;
-			console.log(that.selCoupons)
-			if(this.selCoupons.hasOwnProperty('couponMemberPk')){
+		//设置总价
+		setTotalPrice() {
+			if (this.selCoupons.hasOwnProperty('couponMemberPk')) {
 				api.getOrderPrice({
 					beginDate: this.beginDate,
 					couponMemberPk: this.selCoupons.couponMemberPk,
 					endDate: this.endDate,
+					rentCount: this.rentCount,
 					roomTypePk: this.roomTypeInfo.typePk,
 					userPk: allocation.USERPK
 				}).then(res => {
 					if (res.code == 1) {
-						uni.navigateTo({
-							url:"../costDetail/costDetail?details="+JSON.stringify(res.data)
-						})
+						console.log(res);
+						this.totalPrice = res.data;
 					}
 				});
-			}else{
+			} else {
 				api.getOrderPrice({
 					beginDate: this.beginDate,
-					couponMemberPk:'',
+					couponMemberPk: '',
 					endDate: this.endDate,
+					rentCount: this.rentCount,
 					roomTypePk: this.roomTypeInfo.typePk,
 					userPk: allocation.USERPK
 				}).then(res => {
 					if (res.code == 1) {
-						uni.navigateTo({
-							url:"../costDetail/costDetail?details="+JSON.stringify(res.data)
-						})
+						console.log(res);
+						this.totalPrice = res.data;
 					}
 				});
 			}
-			
+		},
+		//查看明细
+		gotoCost() {
+			let that = this;
+			console.log(that.selCoupons);
+			if (this.selCoupons.hasOwnProperty('couponMemberPk')) {
+				api.getOrderPrice({
+					beginDate: this.beginDate,
+					couponMemberPk: this.selCoupons.couponMemberPk,
+					endDate: this.endDate,
+					rentCount: this.rentCount,
+					roomTypePk: this.roomTypeInfo.typePk,
+					userPk: allocation.USERPK
+				}).then(res => {
+					if (res.code == 1) {
+						uni.navigateTo({
+							url: '../costDetail/costDetail?details=' + JSON.stringify(res.data)
+						});
+					}
+				});
+			} else {
+				api.getOrderPrice({
+					beginDate: this.beginDate,
+					couponMemberPk: '',
+					endDate: this.endDate,
+					rentCount: this.rentCount,
+					roomTypePk: this.roomTypeInfo.typePk,
+					userPk: allocation.USERPK
+				}).then(res => {
+					if (res.code == 1) {
+						uni.navigateTo({
+							url: '../costDetail/costDetail?details=' + JSON.stringify(res.data)
+						});
+					}
+				});
+			}
 		}
 	}
 };

@@ -28,6 +28,11 @@
 			<image src="../../static/images/room/wx.jpg" mode=""></image>
 			<p>微信支付</p>
 		</view>
+		<view class="footer">
+			<a @tap="backHomepage">返回首页</a>
+			|
+			<a @tap="gotoBack">返回订单页面</a>
+		</view>
 	</view>
 </template>
 
@@ -38,6 +43,18 @@ export default {
 	},
 	onLoad(opt) {
 		console.log(JSON.stringify(opt.keyValue));
+	},
+	methods: {
+		backHomepage() {
+			uni.navigateTo({
+				url: '../index/index'
+			});
+		},
+		gotoBack() {
+			uni.navigateBack({
+				delta:1
+			})
+		}
 	}
 };
 </script>
@@ -50,7 +67,7 @@ export default {
 uni-page-body {
 	height: 100%;
 }
-.PayPage .reminder{
+.PayPage .reminder {
 	background-color: white;
 	border-bottom: 1px solid #eee;
 }
@@ -79,32 +96,32 @@ uni-page-body {
 }
 .PayPage .reminder-title > .re-content > p {
 	font-size: 25.36231upx;
-	color: #999999;	
-	line-height:20px;
+	color: #999999;
+	line-height: 20px;
 }
-.PayPage .reminder .re-details{
+.PayPage .reminder .re-details {
 	padding: 27.17391upx 28.9855upx;
 }
-.PayPage .reminder .re-details>p{
+.PayPage .reminder .re-details > p {
 	color: #333333;
 	background-color: white;
 	font-size: 25.36231upx;
 	margin: 14.49275upx;
 	line-height: normal;
 }
-.PayPage .reminder .re-details>p>span{
-	color:#f72845;
+.PayPage .reminder .re-details > p > span {
+	color: #f72845;
 	font-size: 27.17391upx;
 }
-.PayPage .sel-title{
-	padding:9.05797upx 28.9855upx;
+.PayPage .sel-title {
+	padding: 9.05797upx 28.9855upx;
 }
-.PayPage .sel-title p{
+.PayPage .sel-title p {
 	font-size: 21.73913upx;
 	color: #666666;
 	margin: 19.92753upx 0;
 }
-.PayPage .select-mode{
+.PayPage .select-mode {
 	background-color: white;
 	padding: 21.73913upx 28.9855upx;
 	display: flex;
@@ -113,12 +130,24 @@ uni-page-body {
 	border-top: 1px solid #eee;
 	border-bottom: 1px solid #eee;
 }
-.PayPage .select-mode>image{
+.PayPage .select-mode > image {
 	width: 72.46376upx;
 	height: 72.46376upx;
 }
-.PayPage .select-mode>p{
+.PayPage .select-mode > p {
 	font-size: 25.36231upx;
 	margin-left: 18.11594upx;
+}
+.footer {
+	display: flex;
+	padding-top: 181.15942upx;
+	vertical-align: middle;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+}
+.footer > a {
+	color: #007aff;
+	margin: 18.11594upx;
 }
 </style>

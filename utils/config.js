@@ -10,5 +10,5 @@ export default {
 	//会员PK
 	gradePk:'752b3b9b-2775-4f08-ac56-770f908ba166',
 	//小程序APPID
-	APPID: 'wx8da6ebf3721af9a4'
+	APPID: 'wx75e063dc08949f90'
 }

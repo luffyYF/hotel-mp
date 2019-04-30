@@ -8,7 +8,9 @@
 						<text class="roomname">{{ item.roomTypeName }}</text>
 						<text class="roomcount">预定{{ item.rentCount }}间</text>
 					</view>
-					<view class="text-right"><text>{{statusTitle}}</text></view>
+					<view class="text-right">
+						<text>{{ statusTitle }}</text>
+					</view>
 				</view>
 				<view class="item-img">
 					<image :src="IMGURL + item.coverImage" mode="aspectFill" class="img"></image>
@@ -38,7 +40,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="uni-loadmore" style="position: relative;"  v-if="showLoadMore">{{loadMoreText}}</view>
+		<view class="uni-loadmore" style="position: relative;" v-if="showLoadMore">{{ loadMoreText }}</view>
 		<np v-if="!isShow"></np>
 	</view>
 </template>
@@ -62,29 +64,20 @@ export default {
 			orderStatus: 'OBLIGATION',
 			statusTitle: '待付款',
 			isShow: true,
-			loadMoreText: "加载中...",
+			loadMoreText: '加载中...',
 			showLoadMore: false,
-			max: 0
+			max: 1
 		};
 	},
 	onShow() {
 		let that = this;
-		this.showList(that.orderStatus);
+		this.showList(that.orderStatus, that.max, 10);
 	},
-	onReachBottom() {
-		console.log("onReachBottom");
-		if (this.max > 40) {
-			this.loadMoreText = "没有更多数据了!"
-			return;
-		}
-		this.showLoadMore = true;
+	onReachBottom() {	
 		setTimeout(() => {
-			this.setDate();
+			++this.max;
+			this.showList(this.orderStatus, this.max, 10);
 		}, 300);
-	},
-	onPullDownRefresh() {
-		console.log('onPullDownRefresh');
-		this.initData();
 	},
 	methods: {
 		checked: function(e) {
@@ -104,13 +97,20 @@ export default {
 					break;
 				default:
 			}
-
-			let that = this;
-			this.showList(that.orderStatus);
+			this.showList(this.orderStatus, 1, 10);
 		},
-		orderDetails: function() {
-			uni.navigateTo({
-				url: '../../pages/order/orderDetails'
+		orderDetails(item) {
+			console.log(item);
+			api.getOrder({
+				orderPk: item.orderPk,
+				userPk: allocation.USERPK
+			}).then(res => {
+				if (res.code == 1) {
+					console.log(res);
+					uni.navigateTo({
+						url: '../../pages/order/orderDetails?orderDetails=' + JSON.stringify(res.data)
+					});
+				}
 			});
 		},
 		getDays(strDateStart, strDateEnd) {
@@ -125,33 +125,48 @@ export default {
 			iDays = parseInt(Math.abs(strDateS - strDateE) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
 			return iDays;
 		},
-		showList(orderStatus) {
+		showList(orderStatus, pageNum, pageSize) {
 			let that = this;
 			api.listOrder({
 				orderStatus: orderStatus,
-				pageNum: 1,
-				pageSize: 10,
+				pageNum: pageNum,
+				pageSize: pageSize,
 				userPk: allocation.USERPK
 			}).then(res => {
 				if (res.code == 1) {
-					this.lists = res.data;
-					for (var i = 0; i < this.lists.length; i++) {
-						var strDateStart = this.lists[i].beginDate;
-						var strDateEnd = this.lists[i].endDate;
-						this.lists[i].nights = this.getDays(strDateStart, strDateEnd);
-						switch (this.lists[i].order) {
-							case 1:
-								break;
-							case 2:
-								break;
-							default:
+					if (pageNum <= 1) {
+						if(res.data.length<pageSize){
+							this.showLoadMore = false;
+						}else{
+							this.showLoadMore = true;
 						}
-					}
-					//0.待付款 1.待接单 2.已接单 3.已入住 4.取消中 5.已取消 6.已完成
-					this.IMGURL = api.config.IMGURL;
-					this.isShow = true;
-					if (res.data.length <= 0) {
-						this.isShow = false;
+						if (res.data.length <= 0) {
+							this.isShow = false;
+						}
+						this.lists = res.data;
+						for (var i = 0; i < this.lists.length; i++) {
+							var strDateStart = this.lists[i].beginDate;
+							var strDateEnd = this.lists[i].endDate;
+							this.lists[i].nights = this.getDays(strDateStart, strDateEnd);
+						}
+						//0.待付款 1.待接单 2.已接单 3.已入住 4.取消中 5.已取消 6.已完成
+						this.IMGURL = api.config.IMGURL;
+						this.isShow = true;
+						
+					} else {
+						this.showLoadMore = true;
+						this.lists = this.lists.concat(res.data);
+						for (var i = 0; i < this.lists.length; i++) {
+							var strDateStart = this.lists[i].beginDate;
+							var strDateEnd = this.lists[i].endDate;
+							this.lists[i].nights = this.getDays(strDateStart, strDateEnd);
+						}
+						//0.待付款 1.待接单 2.已接单 3.已入住 4.取消中 5.已取消 6.已完成
+						this.IMGURL = api.config.IMGURL;
+						this.isShow = true;
+						if (res.data.length <= 0) {
+							this.loadMoreText = '没有更多数据了!';
+						}
 					}
 				}
 			});

@@ -59,6 +59,7 @@ const api = {
 	@param beginDate 预定开始日期(必填)
 	@param couponMemberPk 优惠券主键
 	@param endDate 预定开始日期(必填)
+	@param rentCount 预定房间数量(必填)
 	@param beginDate 预定结束日期(必填)
 	@param roomTypePk 房间类型主键(必填)
 	@param userPk 用户主键(必填)
@@ -67,6 +68,7 @@ const api = {
 		beginDate: data.beginDate,
 		couponMemberPk: data.couponMemberPk,
 		endDate: data.endDate,
+		rentCount:data.rentCount,
 		roomTypePk: data.roomTypePk,
 		userPk: config.USERPK
 	}, apiHotel2),
@@ -144,6 +146,8 @@ const api = {
 	预定人手机
 	userPk*	string
 	会员主键
+	appid* string
+	微信appid
 	 */
 	createOrder: (data) => request.post('order/createOrder', {
 		beginDate: data.beginDate,
@@ -169,7 +173,8 @@ const api = {
 		taxpayerIdentificationNumber: data.taxpayerIdentificationNumber,
 		userName: data.userName,
 		userPhone: data.userPhone,
-		userPk: config.USERPK
+		userPk: config.USERPK,
+		appid:config.APPID
 	}, apiHotel2),
 
 	/* 
@@ -186,6 +191,15 @@ const api = {
 		pageSize:data.pageSize,
 		userPk:data.userPk
 	},apiHotel2),
+	/* 
+	查看用户订单详情
+	@param orderPk  订单主键（必填）
+	@param userPk   用户主键（必填）
+	 */
+	getOrder:(data)=>request.get('order/getOrder',{
+		orderPk:data.orderPk,
+		userPk:data.userPk
+	},apiHotel2)
 
 }
 

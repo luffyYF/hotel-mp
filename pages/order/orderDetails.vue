@@ -2,15 +2,19 @@
 	<view class="orderPage">
 		<view class="orderDetails">
 			<view class="markedwords">
-				<text>已入住</text>
-				<text>已办理入住成功，请尽情享受</text>
+				<text>{{ orderDetails.statusTitle }}</text>
+				<text>{{ orderDetails.statusMsg }}</text>
 			</view>
 			<view class="warmPrompt">
 				<view class="warm-title"><text>温馨提示</text></view>
 				<view class="warm-content">
 					<view class="warm-left"><text>入住说明</text></view>
 					<view class="warm-right">
-						<text>请携带所有入住人的有效身份证，报预定人姓名，于2月28日14:00后办理入住，于4月09日前退房，如需提前入住或延迟退房请联系商家</text>
+						<text>
+							请携带所有入住人的有效身份证，报预定人姓名，于{{ orderDetails.beginDate }}当天14:00后办理入住，于{{
+								orderDetails.endDate
+							}}当天12点前退房，如需提前入住或延迟退房请联系商家
+						</text>
 					</view>
 				</view>
 			</view>
@@ -18,12 +22,14 @@
 				<view class="checkindate">
 					<view>
 						<p>入住</p>
-						<p>2月28日</p>
+						<p>{{ orderDetails.beginDate }}</p>
 					</view>
-					<view class="cy"><text>41晚</text></view>
+					<view class="cy">
+						<text>{{ orderDetails.nights }}晚</text>
+					</view>
 					<view>
 						<p>离开</p>
-						<p>4月10日</p>
+						<p>{{ orderDetails.endDate }}</p>
 					</view>
 				</view>
 				<view class="checkinCard">
@@ -96,21 +102,48 @@
 </template>
 
 <script>
+import api from '@/utils/api.js';
 export default {
-	components: {
-	},
+	components: {},
 	data() {
 		return {
-			active: 1
+			active: 1,
+			orderDetails: {}
 		};
 	},
-	onPageScroll(Object) {},
+	onLoad(opt) {
+		console.log(JSON.parse(opt.orderDetails));
+		this.orderDetails = JSON.parse(opt.orderDetails);
+		switch (this.orderDetails.orderStatus) {
+			case 0:
+				this.orderDetails.statusTitle = '待付款';
+				this.orderDetails.statusMsg = '订单已下单，请尽快付款';
+				break;
+			case 1:
+				this.orderDetails.statusTitle = '已付款';
+				this.orderDetails.statusMsg = '订单已付款，请尽快到达相应酒店入住';
+				break;
+			case 5:
+				this.orderDetails.statusTitle = '已取消';
+				this.orderDetails.statusMsg = '订单已取消，我还能为您做点什么';
+				break;
+			case 6:
+				this.orderDetails.statusTitle = '已完成';
+				this.orderDetails.statusMsg = '订单已完成，欢迎您的下次光临';
+				break;
+			default:
+				break;
+		}
+		var strDateStart = this.orderDetails.beginDate;
+		var strDateEnd = this.orderDetails.endDate;
+		this.orderDetails.nights = this.getDays(strDateStart, strDateEnd);
+	},
 	methods: {
 		changeActive: function(e) {
 			if (e == 1) {
 				this.active = 1;
 				uni.navigateTo({
-					url:'../payment/payment'
+					url: '../payment/payment'
 				});
 			} else {
 				this.active = 2;
@@ -121,17 +154,28 @@ export default {
 				url: '../roomDetails/roomDetails'
 			});
 		},
-		gotoCost(){
+		getDays(strDateStart, strDateEnd) {
+			var strSeparator = '-'; //日期分隔符
+			var oDate1;
+			var oDate2;
+			var iDays;
+			oDate1 = strDateStart.split(strSeparator);
+			oDate2 = strDateEnd.split(strSeparator);
+			var strDateS = new Date(oDate1[0], oDate1[1] - 1, oDate1[2]);
+			var strDateE = new Date(oDate2[0], oDate2[1] - 1, oDate2[2]);
+			iDays = parseInt(Math.abs(strDateS - strDateE) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
+			return iDays;
+		},
+		gotoCost() {
 			uni.navigateTo({
-				url:"../costDetail/costDetail"
-			})
+				url: '../costDetail/costDetail'
+			});
 		}
 	}
 };
 </script>
 
 <style>
-
 .orderPage .orderDetails {
 	width: 100%;
 	height: 100%;
