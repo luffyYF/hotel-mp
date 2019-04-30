@@ -26,11 +26,11 @@ import gwx from '@/utils/wx';
 export default {
 	components: {
 		authorize
-		},
+	},
 	data() {
 		return {
 			isAuthorizeShow:false
-		};
+		}
 	},
 	onLoad() {
 		let that = this;
