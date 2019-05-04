@@ -17,7 +17,7 @@
 			</view>
 			<view class="locationMsg">
 				<view class="positionDetails">
-					<view class="locationTitle">
+					<view class="locationTitle" @tap="gotoMap">
 						<p>{{ companyInfo.name }}</p>
 						<button>
 							<span>地图/周边</span>
@@ -140,7 +140,7 @@ export default {
 		user.isUserinfo()
 			.then(res => {
 				user.getUserInfo().then(res => {
-					console.log(res);
+					/* console.log(res); */
 					api.getHome({
 						gradePk: res.gradePk,
 						companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
@@ -181,7 +181,7 @@ export default {
 			user.isUserinfo()
 				.then(res => {
 					user.getUserInfo().then(res => {
-						console.log(res);
+						/* console.log(res); */
 						api.getRoomType({
 							gradePk: res.gradePk, //会员级别
 							companyPk: allocation.COMPANYPK, //酒店主键
@@ -298,6 +298,12 @@ export default {
 						url: '../login/login'
 					});
 				});
+		},
+		//跳到地图详情页
+		gotoMap(){
+			uni.navigateTo({
+				url:'../map/map'
+			})
 		}
 	}
 };

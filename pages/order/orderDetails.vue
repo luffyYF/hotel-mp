@@ -10,7 +10,11 @@
 				<view class="warm-content">
 					<view class="warm-left"><text>入住说明</text></view>
 					<view class="warm-right">
-						<text>请携带所有入住人的有效身份证，报预定人姓名，于{{orderDetails.beginDate}}当天14:00后办理入住，于{{orderDetails.endDate}}当天12点前退房，如需提前入住或延迟退房请联系商家</text>
+						<text>
+							请携带所有入住人的有效身份证，报预定人姓名，于{{ orderDetails.beginDate }}当天14:00后办理入住，于{{
+								orderDetails.endDate
+							}}当天12点前退房，如需提前入住或延迟退房请联系商家
+						</text>
 					</view>
 				</view>
 			</view>
@@ -18,29 +22,33 @@
 				<view class="checkindate">
 					<view>
 						<p>入住</p>
-						<p>{{orderDetails.beginDate}}</p>
+						<p>{{ orderDetails.beginDate }}</p>
 					</view>
-					<view class="cy"><text>{{orderDetails.nights}}晚</text></view>
+					<view class="cy">
+						<text>{{ orderDetails.nights }}晚</text>
+					</view>
 					<view>
 						<p>离开</p>
-						<p>{{orderDetails.endDate}}</p>
+						<p>{{ orderDetails.endDate }}</p>
 					</view>
 				</view>
 				<view class="checkinCard">
-					<view class="checkinName" @click="goRoom()">
-						<h3>豪斯菲尔公寓(华发世纪城店)</h3>
-						<text class="cc">双床房 (1间)</text>
+					<view class="checkinName" >
+						<h3>{{ orderDetails.companyName }}</h3>
+						<text class="cc">{{ orderDetails.roomTypeName }}{{ '(' + orderDetails.rentCount + '间)' }}</text>
 						<image src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</view>
 
-					<image class="houseImg" :src="IMGURL+orderDetails.coverImage" mode=""></image>
+					<image class="houseImg" :src="IMGURL + orderDetails.coverImage" mode=""></image>
 					<view class="checkinAddress">
 						<view class="Address">
-							<text>地址:</text>
-							<text>拱北昌盛路376号华发世纪城三期157栋1单元</text>
-							<image class="icons" src="../../static/images/order/icon/dingwei.png" mode=""></image>
+							<view class="title">
+								<text>地址:</text>
+								<text>{{ orderDetails.companyAddress }}</text>
+							</view>
+							<view class="addressIcon"><image class="icons" src="../../static/images/order/icon/dingwei.png" mode=""></image></view>
 						</view>
-						<view class="tell">
+						<view class="tell" @tap="makingCall('13318969277')">
 							<text>电话:</text>
 							<text>13318969277</text>
 							<image class="icons" src="../../static/images/order/icon/tell.png" mode=""></image>
@@ -51,7 +59,7 @@
 			<view class="checkinCost">
 				<view class="details" @tap="gotoCost">
 					<text>线上支付</text>
-					<text>￥228</text>
+					<text>￥{{ orderDetails.totalPrice }}</text>
 					<text>费用明细</text>
 					<image class="icons" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 				</view>
@@ -69,63 +77,69 @@
 				<view><text>预订人信息</text></view>
 				<view>
 					<text>预订人</text>
-					<text>张飞</text>
+					<text>{{ orderDetails.userName }}</text>
 				</view>
 				<view>
 					<text>联系人手机</text>
-					<text>15913570532</text>
+					<text>{{ orderDetails.userPhone }}</text>
 				</view>
 			</view>
 			<view class="orderDate">
 				<view><text>订单信息</text></view>
 				<view>
 					<text>订单编号</text>
-					<text>7955630702</text>
+					<text>{{ orderDetails.orderNo }}</text>
 				</view>
 				<view>
 					<text>下单时间</text>
-					<text>2019-02-28 17:31:10</text>
+					<text>{{ orderDetails.createTime }}</text>
 				</view>
 			</view>
 		</view>
-		<view class="bottomBtn">
-			<button :class="active == 1 ? 'active' : ''" @click="changeActive(1)">一键续房</button>
-			<button :class="active == 2 ? 'active' : ''" @click="changeActive(2)">退房</button>
+		<view class="bottomBtn" v-if="orderDetails.showBtn">
+			<button :class="active == 1 ? 'active' : ''" @click="changeActive(1)">{{ orderDetails.btnTitle[0] }}</button>
+			<button :class="active == 2 ? 'active' : ''" @click="changeActive(2)">{{ orderDetails.btnTitle[1] }}</button>
 		</view>
 	</view>
 </template>
 
 <script>
-	import api from '@/utils/api.js'
+import api from '@/utils/api.js';
 export default {
 	components: {},
 	data() {
 		return {
 			active: 1,
 			orderDetails: {},
-			IMGURL:''
+			IMGURL: ''
 		};
 	},
 	onLoad(opt) {
-		console.log(JSON.parse(opt.orderDetails));
+		/* console.log(JSON.parse(opt.orderDetails)); */
 		this.orderDetails = JSON.parse(opt.orderDetails);
-		this.IMGURL=api.config.IMGURL
+		this.IMGURL = api.config.IMGURL;
 		switch (this.orderDetails.orderStatus) {
 			case 0:
 				this.orderDetails.statusTitle = '待付款';
 				this.orderDetails.statusMsg = '订单已下单，请尽快付款';
+				this.orderDetails.btnTitle = ['一键付款', '取消'];
+				this.orderDetails.showBtn = true;
 				break;
 			case 1:
 				this.orderDetails.statusTitle = '已付款';
 				this.orderDetails.statusMsg = '订单已付款，请尽快到达相应酒店入住';
+				this.orderDetails.btnTitle = ['一键续房', '退房'];
+				this.orderDetails.showBtn = true;
 				break;
 			case 5:
 				this.orderDetails.statusTitle = '已取消';
 				this.orderDetails.statusMsg = '订单已取消，我还能为您做点什么';
+				this.orderDetails.showBtn = false;
 				break;
 			case 6:
 				this.orderDetails.statusTitle = '已完成';
 				this.orderDetails.statusMsg = '订单已完成，欢迎您的下次光临';
+				this.orderDetails.showBtn = false;
 				break;
 			default:
 				break;
@@ -163,8 +177,24 @@ export default {
 			return iDays;
 		},
 		gotoCost() {
-			uni.navigateTo({
-				url: '../costDetail/costDetail'
+			api.getOrderPrice({
+				beginDate: this.orderDetails.beginDate,
+				couponMemberPk: this.orderDetails.couponMemberPk == null ? '' : this.orderDetails.couponMemberPk,
+				endDate: this.orderDetails.endDate,
+				rentCount: this.orderDetails.rentCount,
+				roomTypePk: this.orderDetails.roomTypePk,
+				userPk: this.orderDetails.userPk
+			}).then(res => {
+				if (res.code == 1) {
+					uni.navigateTo({
+						url: '../costDetail/costDetail?details=' + JSON.stringify(res.data)
+					});
+				}
+			});
+		},
+		makingCall(phoneNumber) {
+			uni.makePhoneCall({
+				phoneNumber: phoneNumber
 			});
 		}
 	}
@@ -283,6 +313,9 @@ export default {
 }
 .orderPage .orderDetails .checkin .checkinCard .checkinAddress {
 	color: #8e9093;
+}
+.orderPage .orderDetails .checkin .checkinCard .checkinAddress > .Address {
+	display: flex;
 }
 .orderPage .orderDetails .checkin .checkinCard .checkinAddress > view {
 	line-height: 63.40579upx;

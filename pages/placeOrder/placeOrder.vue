@@ -127,7 +127,7 @@ export default {
 			//总价
 			totalPrice: {},
 			//用户信息
-			userInfo:{}
+			userInfo: {}
 		};
 	},
 	onLoad(opt) {
@@ -141,12 +141,12 @@ export default {
 	onShow(e) {
 		let pages = getCurrentPages();
 		let currPage = pages[pages.length - 1];
-		let that=this
+		let that = this;
 		that.selCoupons = currPage.data.selCoupons;
 
 		user.isUserinfo().then(res => {
 			user.getUserInfo().then(res => {
-				that.setTotalPrice(res)
+				that.setTotalPrice(res);
 			});
 		});
 	},
@@ -179,10 +179,9 @@ export default {
 					userName: this.userInfo.memName,
 					userPhone: this.userInfo.memPhone,
 					personalization: personalization,
-					userPk:this.userInfo.memPk
+					userPk: this.userInfo.memPk
 				}).then(res => {
 					if (res.code == 1) {
-						console.log(res);
 						uni.navigateTo({
 							url: '../payment/payment?keyValue=' + res
 						});
@@ -193,17 +192,17 @@ export default {
 		//选择优惠卷
 		gotoDiscounts() {
 			api.lisCouponByUser({
-				roomTypePk: this.roomTypeInfo.typePk
+				roomTypePk: this.roomTypeInfo.typePk,
+				userPk: this.userInfo.memPk
 			}).then(res => {
 				if (res.code == 1) {
-					console.log(res);
 					uni.navigateTo({
 						url: '../discounts/discounts?obj=' + JSON.stringify(res.data)
 					});
 				}
 			});
 		},
-		
+
 		//添加个性化服务
 		addItem(item) {
 			item.state = !item.state;
@@ -211,7 +210,7 @@ export default {
 		//设置房间数
 		roomNumber(flag) {
 			if (flag == 'add') {
-				if (this.rentCount >= 6) {
+				if (this.rentCount >= 4) {
 					uni.showToast({
 						title: '已经是最大房间限额',
 						image: '../../static/images/order/icon/shibai.png',
@@ -244,7 +243,7 @@ export default {
 		},
 		//设置总价
 		setTotalPrice(userInfo) {
-			this.userInfo=userInfo
+			this.userInfo = userInfo;
 			if (this.selCoupons.hasOwnProperty('couponMemberPk')) {
 				api.getOrderPrice({
 					beginDate: this.beginDate,
@@ -255,7 +254,6 @@ export default {
 					userPk: userInfo.memPk
 				}).then(res => {
 					if (res.code == 1) {
-					
 						this.totalPrice = res.data;
 					}
 				});
@@ -269,7 +267,6 @@ export default {
 					userPk: userInfo.memPk
 				}).then(res => {
 					if (res.code == 1) {
-					
 						this.totalPrice = res.data;
 					}
 				});
@@ -278,7 +275,7 @@ export default {
 		//查看明细
 		gotoCost() {
 			let that = this;
-			
+
 			if (this.selCoupons.hasOwnProperty('couponMemberPk')) {
 				api.getOrderPrice({
 					beginDate: this.beginDate,

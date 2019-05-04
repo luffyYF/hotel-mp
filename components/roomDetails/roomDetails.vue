@@ -1,5 +1,5 @@
 <template>
-	<view class="page">
+	<view class="page" v-cloak>
 		<view class="masklayer"></view>
 		<view class="roomTop">
 			<h2>{{ roomTypeInfo.typeName }}[人气精选预付价]</h2>
@@ -103,14 +103,14 @@
 			</view>
 		</scroll-view>
 		<view class="operation">
-			<button class="contactBtn" @tap="makingCall('12345678910')">联系客服</button>
 			<button class="reserveBtn" style="" @click="gotoPrice()" :disabled="roomTypeInfo.isFull == 'Y' ? true : false">
 				<span v-if="roomTypeInfo.isFull == 'Y' ? false : true">￥{{ roomTypeInfo.disPrice }}</span>
 				<span style="font-size: 21.73913upx;text-decoration: line-through;margin-right: 18.11594upx;color: #ccc;" v-if="roomTypeInfo.isFull == 'Y' ? false : true">
 					￥{{ roomTypeInfo.price }}
 				</span>
-				<span style="font-size: 36.23188upx;">{{ roomTypeInfo.isFull == 'Y' ? '今日已满' : '预定' }}</span>
+				<span style="font-size: 36.23188upx;flex: 1;text-align: right;">{{ roomTypeInfo.isFull == 'Y' ? '今日已满' : '预定' }}</span>
 			</button>
+			<button class="contactBtn" @tap="makingCall('12345678910')">联系客服</button>
 		</view>
 	</view>
 </template>
@@ -118,7 +118,7 @@
 <script>
 import uniSwiperDot from '../../components/uni-swiper-dot/uni-swiper-dot.vue';
 import api from '@/utils/api.js';
-import allocation from '@/utils/config.js'
+import allocation from '@/utils/config.js';
 export default {
 	props: {
 		roomData: {}
@@ -143,13 +143,13 @@ export default {
 			//图片数组
 			that.info = that.roomData.data.images;
 			//入住时间
-			that.globalData= that.roomData.globalData;
-			
+			that.globalData = that.roomData.globalData;
+
 			//开始入住时间
-			that.beginDate= that.roomData.beginDate;
+			that.beginDate = that.roomData.beginDate;
 			//开始退房时间
 			that.endDate = that.roomData.endDate;
-			
+
 			//图片站点
 			this.IMGURL = allocation.IMGROOTURL;
 		}
@@ -162,10 +162,9 @@ export default {
 			mode: 'long',
 			IMGURL: '',
 			roomTypeInfo: {},
-			globalData:{},
-			beginDate:'',
-			endDate:''
-			
+			globalData: {},
+			beginDate: '',
+			endDate: ''
 		};
 	},
 	methods: {
@@ -173,13 +172,15 @@ export default {
 			this.current = e.detail.current;
 		},
 		gotoPrice() {
-			//跳转到订单填写页
 			let that = this;
+			//先关闭页面
+			that.closePage();
+			//跳转到订单填写页
 			var obj = {
 				roomTypeInfo: that.roomTypeInfo, //房间信息
-				globalData: that.globalData ,//入住时间和退房时间
-				beginDate:that.beginDate,//入住日期
-				endDate:that.endDate//退房日期
+				globalData: that.globalData, //入住时间和退房时间
+				beginDate: that.beginDate, //入住日期
+				endDate: that.endDate //退房日期
 			};
 			uni.navigateTo({
 				url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
@@ -241,7 +242,7 @@ export default {
 	.roomPage {
 		background-color: #f5f9fc;
 		overflow: hidden;
-		height: calc(100% - 195upx);
+		height: calc(100% - 210upx);
 		background-color: white;
 		.swiper-box {
 			width: 100%;
@@ -341,7 +342,7 @@ export default {
 
 .operation {
 	width: 100%;
-	height: 81.52173upx;
+	height: 108.69565upx;
 	display: flex;
 	position: fixed;
 	bottom: 0;
@@ -349,6 +350,10 @@ export default {
 	align-items: center;
 }
 .operation > .contactBtn {
+	display: flex;
+	vertical-align: middle;
+	align-items: center;
+	justify-content: center;
 	flex: 1;
 	border: none;
 	height: 100%;
@@ -366,19 +371,22 @@ export default {
 }
 
 .operation > .reserveBtn {
+	display: flex;
+	vertical-align: middle;
+	align-items: center;
+	justify-content: center;
 	flex: 1;
 	height: 100%;
-	justify-content: center;
 	line-height: 81.52173upx;
 	border: none;
-	background-color: #cda754;
+	background-color: #43403a;
 	border-radius: inherit;
 	font-size: 28.9855upx;
 	font-weight: bold;
 	color: #fff;
 }
 .operation > .reserveBtn > span:nth-child(1) {
-	font-size: 36.23188upx;
+	font-size: 45.28985upx;
 }
 .operation > .reserveBtn > span:nth-child(2) {
 	font-size: 27.17391upx;

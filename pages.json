@@ -100,6 +100,13 @@
 				"navigationBarBackgroundColor":"#43403a"
 			}
         }
+        ,{
+            "path" : "pages/map/map",
+             "style" : {
+            	"navigationBarTitleText":"酒店地图",
+            	"navigationBarBackgroundColor":"#43403a"
+            }
+        }
     ],
 	"tabBar": {
 		"color": "#8c8c8c",

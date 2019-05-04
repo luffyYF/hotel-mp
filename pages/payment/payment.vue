@@ -46,9 +46,9 @@ export default {
 	},
 	methods: {
 		backHomepage() {
-			uni.navigateTo({
-				url: '../index/index'
-			});
+			uni.reLaunch({
+				url:'../index/index'
+			})
 		},
 		gotoBack() {
 			uni.navigateBack({

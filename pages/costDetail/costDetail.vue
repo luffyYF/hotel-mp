@@ -39,7 +39,7 @@ export default {
 		};
 	},
 	onLoad(opt) {
-		console.log(opt.details)
+	/* 	console.log(opt.details) */
 		this.details=JSON.parse(opt.details)
 	}
 };

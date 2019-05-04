@@ -53,10 +53,9 @@ export default {
 	},
 	onLoad(opt){
 		var obj = JSON.parse(opt.obj);
-		console.log(obj)
+		/* console.log(obj) */
 		this.invalidList=obj.invalidList;
-		this.effectiveList=obj.effectiveList;
-			
+		this.effectiveList=obj.effectiveList;		
 	},
 	methods: {
 		change(e) {

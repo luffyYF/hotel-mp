@@ -8,7 +8,7 @@
 			</view>
 			<view>
 				<image src="../../static/images/user/moments.png" mode=""></image>
-				<p>微信好友</p>
+				<p>朋友圈</p>
 			</view>
 		</view>
 	</view>

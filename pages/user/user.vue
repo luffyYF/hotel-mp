@@ -2,9 +2,9 @@
 	<view class="center">
 		<view class="logo" :hover-class="!login ? 'logo-hover' : ''">
 			<view class="logo-header">
-				<view class="portrait" @click="goLogin"><image :src="login ? uerInfo.avatarUrl : avatarUrl" mode="aspectFill"></image></view>
+				<view class="portrait" @click="goLogin"><image :src="login ? userInfo.avatarUrl : avatarUrl" mode="aspectFill"></image></view>
 				<view class="uer-name">
-					<text>Hi，{{ login ? uerInfo.name : '您未登录' }}</text>
+					<text>{{ login ? userInfo.name : '您未登录' }}</text>
 				</view>
 				<view class="row">
 					<view class="row-dock" @tap="goDiscounts">
@@ -46,13 +46,34 @@
 </template>
 
 <script>
+import user from '@/services/user.js';
 export default {
 	data() {
 		return {
 			login: false,
 			avatarUrl: '../../static/images/user/user-img.jpg',
-			uerInfo: {}
+			userInfo: {}
 		};
+	},
+	onShow() {
+		var that = this;
+		user.isUserinfo()
+			.then(res => {
+				user.getUserInfo().then(res => {
+					wx.getUserInfo({
+						success(res) {
+							that.login = true;
+							that.userInfo.avatarUrl = res.userInfo.avatarUrl;
+							that.userInfo.name = res.userInfo.nickName;
+						}
+					});
+				});
+			})
+			.catch(res => {
+				uni.navigateTo({
+					url: '../login/login'
+				});
+			});
 	},
 	methods: {
 		goLogin() {
@@ -61,14 +82,22 @@ export default {
 					url: '../login/login'
 				});
 			} */
-			uni.navigateTo({
-				url: '../login/login'
-			});
+			if (!this.login) {
+				uni.navigateTo({
+					url: '../login/login'
+				});
+			}
 		},
 		goDiscounts() {
-			uni.navigateTo({
-				url: '../discounts/discounts'
-			});
+			if (this.login) {
+				uni.navigateTo({
+					url: '../discounts/discounts'
+				});
+			} else {
+				uni.showToast({
+					title: '请先登录！'
+				});
+			}
 		},
 		gotoUs() {
 			uni.navigateTo({
@@ -76,24 +105,30 @@ export default {
 			});
 		},
 		gotoCollect() {
-			uni.navigateTo({
-				url: '../collect/collect'
-			});
+			if (this.login) {
+				uni.navigateTo({
+					url: '../collect/collect'
+				});
+			} else {
+				uni.showToast({
+					title: '请先登录！'
+				});
+			}
 		},
-		gotoShare(){
+		gotoShare() {
 			uni.navigateTo({
-				url:'../share/share'
-			})
+				url: '../share/share'
+			});
 		},
 		makingCall(phoneNumber) {
 			uni.makePhoneCall({
 				phoneNumber: phoneNumber
 			});
 		},
-		gotoMember(){
+		gotoMember() {
 			uni.navigateTo({
-				url:'../member/member'
-			})
+				url: '../member/member'
+			});
 		}
 	}
 };
@@ -179,7 +214,7 @@ page {
 	text-align: center;
 	display: flex;
 	vertical-align: middle;
-    align-items: center;
+	align-items: center;
 }
 .logo-header .member .row-dock image {
 	width: 16px;

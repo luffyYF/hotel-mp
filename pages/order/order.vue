@@ -77,7 +77,7 @@ export default {
 		user.isUserinfo()
 			.then(res => {
 				user.getUserInfo().then(res => {
-					this.showList(res, that.orderStatus, that.max, 10);
+					this.showList(res, that.max, 10);
 				});
 			})
 			.catch(res => {
@@ -89,7 +89,7 @@ export default {
 	onReachBottom() {
 		setTimeout(() => {
 			++this.max;
-			this.showList(this.orderStatus, this.max, 10);
+			this.showList(this.userInfo, this.max, 10);
 		}, 300);
 	},
 	methods: {
@@ -110,7 +110,7 @@ export default {
 					break;
 				default:
 			}
-			this.showList(this.userInfo, this.orderStatus, 1, 10);
+			this.showList(this.userInfo, 1, 10);
 		},
 		orderDetails(item) {
 			api.getOrder({
@@ -136,11 +136,11 @@ export default {
 			iDays = parseInt(Math.abs(strDateS - strDateE) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
 			return iDays;
 		},
-		showList(userInfo, orderStatus, pageNum, pageSize) {
+		showList(userInfo, pageNum, pageSize) {
 			let that = this;
 			this.userInfo = userInfo;
 			api.listOrder({
-				orderStatus: orderStatus,
+				orderStatus: this.orderStatus,
 				pageNum: pageNum,
 				pageSize: pageSize,
 				userPk: userInfo.memPk
@@ -296,7 +296,7 @@ export default {
 	color: #fff;
 }
 .order-list .list-item .item-img .msg .all-time {
-	flex: 0.2;
+	flex: 0.3;
 	text-align: center;
 	background-color: rgba(0, 0, 0, 0.3);
 	display: box;
