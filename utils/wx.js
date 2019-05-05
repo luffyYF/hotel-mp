@@ -68,7 +68,7 @@ function authorize(code, userInfo) {
 	return new Promise(function(resolve, reject) {
 		// 登录远程服务器
 		api.authorize({
-			appid: config.appid,
+			appid: config.APPID,
 			code: code,
 			encryptedData: userInfo.encryptedData,
 			iv: userInfo.iv
@@ -121,7 +121,7 @@ function authorizePhone(data) {
 		wxlogin().then((res) => {
 			
 			api.authorizePhone({
-				appid: config.appid,
+				appid: config.APPID,
 				code: res,
 				encryptedData: data.encryptedData,
 				iv: data.iv

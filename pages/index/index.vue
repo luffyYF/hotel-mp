@@ -557,15 +557,16 @@ export default {
 				justify-content: center;
 
 				button {
-					width: 126.81159upx;
-					height: 54.34782upx;
+					width:144.92753upx;
+					height: 52upx;
 					font-size: 23.55072upx;
-					background: -webkit-gradient(linear, left top, left bottom, from(#edcc72), to(#8f7444)) !important;
-					background: linear-gradient(to bottom, #edcc72, #8f7444) !important;
+					background-color: #e0c475;
+					border-radius: 90.57971upx;
 					padding: 0;
-					line-height: 54.34782upx;
-					color: #614c26;
+					line-height: 52upx;
+					color: #fff;
 				}
+				button::after{ border: none;}
 			}
 		}
 	}

@@ -106,7 +106,14 @@
             	"navigationBarTitleText":"酒店地图",
             	"navigationBarBackgroundColor":"#43403a"
             }
-        }
+        },
+		{
+		    "path" : "pages/payment/payFinish",
+		     "style" : {
+		    	"navigationBarTitleText":"支付完成",
+		    	"navigationBarBackgroundColor":"#43403a"
+		    }
+		}
     ],
 	"tabBar": {
 		"color": "#8c8c8c",

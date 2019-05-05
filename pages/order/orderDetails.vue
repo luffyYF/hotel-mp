@@ -130,6 +130,7 @@ export default {
 				this.orderDetails.statusTitle = '已付款';
 				this.orderDetails.statusMsg = '订单已付款，请尽快到达相应酒店入住';
 				this.orderDetails.btnTitle = ['一键续房', '退房'];
+				this.orderDetails.OperationMethod=[this.cancelOrder,this.cancelOrder]
 				this.orderDetails.showBtn = true;
 				break;
 			case 5:

@@ -126,6 +126,22 @@ const api = {
 	}, apiHotel2),
 
 	/* 
+	 获取房型，优惠卷，可预订数量等下单信息
+	 @param beginDate   开始日期
+	 @param companyPk   公司主键
+	 @param endDate   结束日期
+	  @param roomTypePk    房间类型主键
+	 @param userPk    用户主键
+	 */
+	createOrderInfo: (data) => request.get('order/createOrderInfo', {
+		beginDate: data.beginDate,
+		companyPk: data.companyPk,
+		endDate: data.endDate,
+		roomTypePk: data.roomTypePk,
+		userPk: data.userPk
+	}, apiHotel2),
+
+	/* 
 	提交订单
 	url:/miniapp/hotel/order/createOrder
 	type:POST
@@ -248,7 +264,7 @@ const api = {
 		orderPk: data.orderPk,
 		userPk: data.userPk
 	}, apiHotel2),
-	
+
 	/* 
 	发起支付
 	@param appid  支付宝、微信appid
@@ -257,8 +273,8 @@ const api = {
 	@param payType   支付方式
 	 */
 	payment: (data) => request.post('order/payment', {
-		appid:data.appid,
-		openid:data.openid,
+		appid: data.appid,
+		openid: data.openid,
 		orderPk: data.orderPk,
 		payType: data.payType
 	}, apiHotel2),

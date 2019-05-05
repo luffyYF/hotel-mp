@@ -49,7 +49,8 @@
 				<view class="discounts1"><p>已享用：会员优惠</p></view>
 				<view class="discounts2" @tap="gotoDiscounts">
 					<p>优惠卷</p>
-					<p>{{ selCoupons.hasOwnProperty('couponMemberPk') ? selCoupons.couponName : '请选择优惠卷' }}</p>
+
+					<p>{{ selCoupons.hasOwnProperty('couponMemberPk') ? selCoupons.couponName : couponCount > 0 ? '有' + couponCount + '张优惠劵可用' : '无优惠劵可用' }}</p>
 				</view>
 			</view>
 			<view class="invoice">
@@ -84,7 +85,7 @@
 		<view class="operation">
 			<button class="orderPrice" @tap="gotoCost">
 				<span>￥{{ totalPrice.totalPrice }}</span>
-				<span style="font-size: 18.11594upx;text-decoration: line-through;margin-left: -36.23188upx;color: #ccc;">￥{{ totalPrice.oldTotalPrice }}</span>
+				<span style="font-size: 18.11594upx;text-decoration: line-through;margin-left: -90.57971upx;color: #ccc;">￥{{ totalPrice.oldTotalPrice }}</span>
 				<span @tap="gotoCost()">明细</span>
 			</button>
 			<button class="submitOrder" @tap="gotoPayment()">提交订单</button>
@@ -93,14 +94,10 @@
 </template>
 
 <script>
-import roomDetails from '@/components/roomDetails/roomDetails';
 import api from '@/utils/api';
 import allocation from '@/utils/config';
 import user from '@/services/user.js';
 export default {
-	components: {
-		roomDetails
-	},
 	data() {
 		return {
 			selectAll: [
@@ -124,6 +121,10 @@ export default {
 			rentCount: 1,
 			//选择优惠劵
 			selCoupons: {},
+			//优惠卷数量
+			couponCount: '',
+			//可预订房间数
+			bookableCount: '',
 			//总价
 			totalPrice: {},
 			//用户信息
@@ -148,6 +149,19 @@ export default {
 			user.getUserInfo().then(res => {
 				that.setTotalPrice(res);
 			});
+		});
+		api.createOrderInfo({
+			beginDate: that.beginDate,
+			companyPk: allocation.COMPANYPK,
+			endDate: that.endDate,
+			roomTypePk: that.roomTypeInfo.typePk,
+			userPk: that.userInfo.userPk
+		}).then(res => {
+			console.log(res);
+			//优惠卷数量
+			that.couponCount = res.data.couponCount;
+			//可预订房间数
+			that.bookableCount = res.data.bookableCount;
 		});
 	},
 	methods: {
@@ -185,7 +199,8 @@ export default {
 						console.log(res.data);
 						var obj = {
 							orderPk: res.data,
-							totalPrice: that.totalPrice.totalPrice
+							totalPrice: that.totalPrice.totalPrice,
+							userPk:that.userInfo.memPk
 						};
 						uni.navigateTo({
 							url: '../payment/payment?obj=' + JSON.stringify(obj)
@@ -215,7 +230,8 @@ export default {
 		//设置房间数
 		roomNumber(flag) {
 			if (flag == 'add') {
-				if (this.rentCount >= 4) {
+				if (this.rentCount >= this.bookableCount) {
+					console.log(this.bookableCount)
 					uni.showToast({
 						title: '已经是最大房间限额',
 						image: '../../static/images/order/icon/shibai.png',

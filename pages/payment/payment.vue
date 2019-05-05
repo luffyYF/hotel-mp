@@ -31,7 +31,7 @@
 		<view class="footer">
 			<a @tap="backHomepage">返回首页</a>
 			|
-			<a @tap="gotoBack">返回订单页面</a>
+			<a @tap="gotoBack">返回填写订单页面</a>
 		</view>
 	</view>
 </template>
@@ -40,6 +40,7 @@
 import api from '@/utils/api.js';
 import allocation from '@/utils/config.js';
 import user from '@/services/user.js';
+import wxUser from '@/services/wxUser.js';
 export default {
 	data() {
 		return {
@@ -47,8 +48,13 @@ export default {
 		};
 	},
 	onLoad(opt) {
+		var that = this;
 		console.log(JSON.parse(opt.obj));
 		this.orderInfo = JSON.parse(opt.obj);
+		wxUser.getUserInfo().then(res => {
+			console.log(res);
+			that.orderInfo.openId = res.openId;
+		});
 	},
 	methods: {
 		backHomepage() {
@@ -65,10 +71,29 @@ export default {
 			var that = this;
 			api.payment({
 				appid: allocation.APPID,
+				openid: that.orderInfo.openId,
 				orderPk: that.orderInfo.orderPk,
 				payType: 'WX_APPLET'
 			}).then(res => {
-				console.log(res);
+				if (res.code == 1) {
+					console.log(res);
+					
+					wx.requestPayment({
+						appId: res.data.appId,
+						timeStamp: res.data.timeStamp,
+						nonceStr: res.data.nonceStr,
+						package: res.data.package,
+						signType: res.data.signType,
+						paySign: res.data.paySign,
+						success: function(res) {
+							uni.navigateTo({
+								url:'payFinish?orderPk='+that.orderInfo.orderPk+'&userPk='+that.orderInfo.userPk
+							})
+						},
+						fail: function(res) {},
+						complete: function(res) {}
+					});
+				}
 			});
 		}
 	}

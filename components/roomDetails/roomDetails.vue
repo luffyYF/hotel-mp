@@ -108,9 +108,10 @@
 				<span style="font-size: 21.73913upx;text-decoration: line-through;margin-right: 18.11594upx;color: #ccc;" v-if="roomTypeInfo.isFull == 'Y' ? false : true">
 					￥{{ roomTypeInfo.price }}
 				</span>
-				<span style="font-size: 36.23188upx;flex: 1;text-align: right;">{{ roomTypeInfo.isFull == 'Y' ? '今日已满' : '预定' }}</span>
+				<!-- <span style="font-size: 36.23188upx;flex: 1;text-align: right;">{{ roomTypeInfo.isFull == 'Y' ? '今日已满' : '预定' }}</span> -->
 			</button>
 			<button class="contactBtn" @tap="makingCall('12345678910')">联系客服</button>
+			<button class="contactBtn" style="font-size: 36.23188upx;">{{ roomTypeInfo.isFull == 'Y' ? '今日已满' : '预定' }}</button>
 		</view>
 	</view>
 </template>
@@ -354,7 +355,7 @@ export default {
 	vertical-align: middle;
 	align-items: center;
 	justify-content: center;
-	flex: 1;
+	flex: 0.25;
 	border: none;
 	height: 100%;
 	line-height: 81.52173upx;
@@ -375,7 +376,7 @@ export default {
 	vertical-align: middle;
 	align-items: center;
 	justify-content: center;
-	flex: 1;
+	flex: 0.5;
 	height: 100%;
 	line-height: 81.52173upx;
 	border: none;
