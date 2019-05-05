@@ -7,7 +7,7 @@ import util from '@/utils/util';
 import config from '@/utils/config';
 import api from '@/utils/api'
 
-let wxUserKey = 'wxUserInfo'
+const wxUserKey = 'wxUserInfo'
 
 /**
  * 检查微信会话是否过期
@@ -68,15 +68,16 @@ function authorize(code, userInfo) {
 	return new Promise(function(resolve, reject) {
 		// 登录远程服务器
 		api.authorize({
-			appid: config.APPID,
+			appid: config.appid,
 			code: code,
 			encryptedData: userInfo.encryptedData,
 			iv: userInfo.iv
 		}).then(res => {
 			if (res.code === 1) {
 				// 存储用户信息
+				userInfo['openId'] = res.data['openId']
 				util.setStorage(wxUserKey, userInfo)
-				util.setStorage('token', res.data)
+				util.setStorage('token', res.data['token'])
 				resolve(res);
 			} else {
 				reject(res);
@@ -120,7 +121,7 @@ function authorizePhone(data) {
 		wxlogin().then((res) => {
 			
 			api.authorizePhone({
-				appid: config.APPID,
+				appid: config.appid,
 				code: res,
 				encryptedData: data.encryptedData,
 				iv: data.iv
@@ -154,7 +155,8 @@ const gwx = {
 	authorizePhone,
 	loginUserInfo,
 	wxlogin,
-	getUserInfo
+	getUserInfo,
+	wxUserKey
 }
 
 export default gwx
