@@ -40,15 +40,15 @@ const api = {
 		iv: data.iv
 	}, config.APIWXURL),
 	/**
-     * 绑定会员手机号码
-     * url: /miniapp/hotel/member/bindPhone
-     * type: POST
-     *
-     * @param token 令牌 (放在request头部Authorization中，组装成"Bearer "+token的格式)
-     * @param params 参数
-     *           memPhone 会员手机号
-     * @return BaseResult
-     */
+	 * 绑定会员手机号码
+	 * url: /miniapp/hotel/member/bindPhone
+	 * type: POST
+	 *
+	 * @param token 令牌 (放在request头部Authorization中，组装成"Bearer "+token的格式)
+	 * @param params 参数
+	 *           memPhone 会员手机号
+	 * @return BaseResult
+	 */
 	bindPhone: (data) => request.post('member/bindPhone', {
 		memPhone: data.memPhone
 	}, apiHotel),
@@ -68,7 +68,7 @@ const api = {
 		companyPk: data.companyPk,
 		beginDate: data.beginDate,
 		endDate: data.endDate,
-		userPk:data.userPk
+		userPk: data.userPk
 	}, apiHotel),
 	/**
 	 * 查询房型信息
@@ -106,7 +106,7 @@ const api = {
 		beginDate: data.beginDate,
 		couponMemberPk: data.couponMemberPk,
 		endDate: data.endDate,
-		rentCount:data.rentCount,
+		rentCount: data.rentCount,
 		roomTypePk: data.roomTypePk,
 		userPk: data.userPk
 	}, apiHotel2),
@@ -212,7 +212,7 @@ const api = {
 		userName: data.userName,
 		userPhone: data.userPhone,
 		userPk: data.userPk,
-		appid:config.APPID
+		appid: config.APPID
 	}, apiHotel2),
 
 	/* 
@@ -224,20 +224,44 @@ const api = {
 	 @param userPk  用户主键(必填)
 	 */
 	listOrder: (data) => request.get('order/listOrder', {
-		orderStatus:data.orderStatus,
-		pageNum:data.pageNum,
-		pageSize:data.pageSize,
-		userPk:data.userPk
-	},apiHotel2),
+		orderStatus: data.orderStatus,
+		pageNum: data.pageNum,
+		pageSize: data.pageSize,
+		userPk: data.userPk
+	}, apiHotel2),
 	/* 
 	查看用户订单详情
 	@param orderPk  订单主键（必填）
 	@param userPk   用户主键（必填）
 	 */
-	getOrder:(data)=>request.get('order/getOrder',{
-		orderPk:data.orderPk,
-		userPk:data.userPk
-	},apiHotel2)
+	getOrder: (data) => request.get('order/getOrder', {
+		orderPk: data.orderPk,
+		userPk: data.userPk
+	}, apiHotel2),
+
+	/* 
+	取消订单
+	@param orderPk  订单主键（必填）
+	@param userPk   用户主键（必填）
+	 */
+	cancelOrder: (data) => request.post('order/cancelOrder', {
+		orderPk: data.orderPk,
+		userPk: data.userPk
+	}, apiHotel2),
+	
+	/* 
+	发起支付
+	@param appid  支付宝、微信appid
+	@param openid   openid
+	@param orderPk  订单主键
+	@param payType   支付方式
+	 */
+	payment: (data) => request.post('order/payment', {
+		appid:data.appid,
+		openid:data.openid,
+		orderPk: data.orderPk,
+		payType: data.payType
+	}, apiHotel2),
 
 }
 

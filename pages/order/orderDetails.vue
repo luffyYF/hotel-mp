@@ -33,7 +33,7 @@
 					</view>
 				</view>
 				<view class="checkinCard">
-					<view class="checkinName" >
+					<view class="checkinName">
 						<h3>{{ orderDetails.companyName }}</h3>
 						<text class="cc">{{ orderDetails.roomTypeName }}{{ '(' + orderDetails.rentCount + '间)' }}</text>
 						<image src="../../static/images/order/icon/youjiantou.png" mode=""></image>
@@ -97,8 +97,8 @@
 			</view>
 		</view>
 		<view class="bottomBtn" v-if="orderDetails.showBtn">
-			<button :class="active == 1 ? 'active' : ''" @click="changeActive(1)">{{ orderDetails.btnTitle[0] }}</button>
-			<button :class="active == 2 ? 'active' : ''" @click="changeActive(2)">{{ orderDetails.btnTitle[1] }}</button>
+			<button :class="active == 1 ? 'active' : ''" @click="orderDetails.OperationMethod[1]()">{{ orderDetails.btnTitle[0] }}</button>
+			<button :class="active == 2 ? 'active' : ''" @click="orderDetails.OperationMethod[0]()">{{ orderDetails.btnTitle[1] }}</button>
 		</view>
 	</view>
 </template>
@@ -123,6 +123,7 @@ export default {
 				this.orderDetails.statusTitle = '待付款';
 				this.orderDetails.statusMsg = '订单已下单，请尽快付款';
 				this.orderDetails.btnTitle = ['一键付款', '取消'];
+				this.orderDetails.OperationMethod=[this.cancelOrder,this.cancelOrder]
 				this.orderDetails.showBtn = true;
 				break;
 			case 1:
@@ -149,16 +150,6 @@ export default {
 		this.orderDetails.nights = this.getDays(strDateStart, strDateEnd);
 	},
 	methods: {
-		changeActive: function(e) {
-			if (e == 1) {
-				this.active = 1;
-				uni.navigateTo({
-					url: '../payment/payment'
-				});
-			} else {
-				this.active = 2;
-			}
-		},
 		goRoom: function() {
 			uni.navigateTo({
 				url: '../roomDetails/roomDetails'
@@ -195,6 +186,35 @@ export default {
 		makingCall(phoneNumber) {
 			uni.makePhoneCall({
 				phoneNumber: phoneNumber
+			});
+		},
+		//取消订单
+		cancelOrder() {
+			var that=this
+			uni.showModal({
+				title: '提示',
+				content: '是否取消订单',
+				success: function(res) {
+					if (res.confirm) {
+						api.cancelOrder({
+							orderPk:that.orderDetails.orderPk,
+							userPk:that.orderDetails.userPk
+						}).then(res=>{
+							if(res.success){
+								
+								uni.navigateBack({
+									delta:1
+								})
+								uni.showToast({
+									title:'订单已取消',
+									duration:1500
+								})
+							}
+						})
+					} else if (res.cancel) {
+						console.log('用户点击取消');
+					}
+				}
 			});
 		}
 	}

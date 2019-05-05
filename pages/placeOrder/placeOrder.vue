@@ -182,8 +182,13 @@ export default {
 					userPk: this.userInfo.memPk
 				}).then(res => {
 					if (res.code == 1) {
+						console.log(res.data);
+						var obj = {
+							orderPk: res.data,
+							totalPrice: that.totalPrice.totalPrice
+						};
 						uni.navigateTo({
-							url: '../payment/payment?keyValue=' + res
+							url: '../payment/payment?obj=' + JSON.stringify(obj)
 						});
 					}
 				});

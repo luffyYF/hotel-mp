@@ -301,8 +301,13 @@ export default {
 		},
 		//跳到地图详情页
 		gotoMap(){
+			var obj={
+				latitude:this.companyInfo.latitude,
+				longitude: this.companyInfo.longitude,
+				title:this.companyInfo.name
+			}
 			uni.navigateTo({
-				url:'../map/map'
+				url:'../map/map?mapInfo='+JSON.stringify(obj)
 			})
 		}
 	}

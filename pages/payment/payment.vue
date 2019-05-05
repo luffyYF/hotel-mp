@@ -11,7 +11,7 @@
 			<view class="re-details">
 				<p>
 					房费：
-					<span>￥166.4</span>
+					<span>￥{{ orderInfo.totalPrice }}</span>
 				</p>
 				<p>
 					住房押金：
@@ -19,12 +19,12 @@
 				</p>
 				<p>
 					待付总金额：
-					<span>￥166.4</span>
+					<span>￥{{ orderInfo.totalPrice }}</span>
 				</p>
 			</view>
 		</view>
 		<view class="sel-title"><p>选择支付方式</p></view>
-		<view class="select-mode">
+		<view class="select-mode" @tap="pay">
 			<image src="../../static/images/room/wx.jpg" mode=""></image>
 			<p>微信支付</p>
 		</view>
@@ -37,23 +37,39 @@
 </template>
 
 <script>
+import api from '@/utils/api.js';
+import allocation from '@/utils/config.js';
+import user from '@/services/user.js';
 export default {
 	data() {
-		return {};
+		return {
+			orderInfo: {}
+		};
 	},
 	onLoad(opt) {
-		console.log(JSON.stringify(opt.keyValue));
+		console.log(JSON.parse(opt.obj));
+		this.orderInfo = JSON.parse(opt.obj);
 	},
 	methods: {
 		backHomepage() {
 			uni.reLaunch({
-				url:'../index/index'
-			})
+				url: '../index/index'
+			});
 		},
 		gotoBack() {
 			uni.navigateBack({
-				delta:1
-			})
+				delta: 1
+			});
+		},
+		pay() {
+			var that = this;
+			api.payment({
+				appid: allocation.APPID,
+				orderPk: that.orderInfo.orderPk,
+				payType: 'WX_APPLET'
+			}).then(res => {
+				console.log(res);
+			});
 		}
 	}
 };

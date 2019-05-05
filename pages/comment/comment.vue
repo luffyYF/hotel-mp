@@ -19,9 +19,9 @@
 					</view>
 					<view class="uni-comment-content">
 						很酷的HBuilderX和uni-app，开发一次既能生成小程序，又能生成App
-						<view class="commentImg"><image @tap="showImg" src="../../static/images/room/20181214161550000808031.jpg" mode=""></image></view>
-						<view class="commentImg"><image @tap="showImg" src="../../static/images/room/20181214172004933808032.jpg" mode=""></image></view>
-						<view class="commentImg"><image @tap="showImg" src="../../static/images/room/20181214172226515808034.jpg" mode=""></image></view>
+						<view class="commentImg"><image @tap="showImg" src="http://img.zx123.cn/Resources/zx123cn/uploadfile/2017/0222/20170222165608_36883.jpg" mode=""></image></view>
+						<view class="commentImg"><image @tap="showImg" src="http://img.zx123.cn/Resources/zx123cn/uploadfile/2017/0222/20170222165608_36883.jpg" mode=""></image></view>
+						<view class="commentImg"><image @tap="showImg" src="http://img.zx123.cn/Resources/zx123cn/uploadfile/2017/0222/20170222165608_36883.jpg" mode=""></image></view>
 					</view>
 				</view>
 			</view>
