@@ -75,8 +75,9 @@ function authorize(code, userInfo) {
 		}).then(res => {
 			if (res.code === 1) {
 				// 存储用户信息
+				userInfo['openId'] = res.data['openId']
 				util.setStorage(wxUserKey, userInfo)
-				util.setStorage('token', res.data)
+				util.setStorage('token', res.data['token'])
 				resolve(res);
 			} else {
 				reject(res);
