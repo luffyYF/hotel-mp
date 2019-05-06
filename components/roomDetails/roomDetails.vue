@@ -103,15 +103,20 @@
 			</view>
 		</scroll-view>
 		<view class="operation">
-			<button class="reserveBtn" style="" @click="gotoPrice()" :disabled="roomTypeInfo.isFull == 'Y' ? true : false">
-				<span v-if="roomTypeInfo.isFull == 'Y' ? false : true">￥{{ roomTypeInfo.disPrice }}</span>
-				<span style="font-size: 21.73913upx;text-decoration: line-through;margin-right: 18.11594upx;color: #ccc;" v-if="roomTypeInfo.isFull == 'Y' ? false : true">
-					￥{{ roomTypeInfo.price }}
-				</span>
+			<button class="reserveBtn" style="" @tap="gotoPrice()" :disabled="roomTypeInfo.isFull == 'Y' ? true : false">
+				<span>￥{{ roomTypeInfo.disPrice }}</span>
+				<span style="font-size: 21.73913upx;text-decoration: line-through;margin-right: 18.11594upx;color: #ccc;">￥{{ roomTypeInfo.price }}</span>
 				<!-- <span style="font-size: 36.23188upx;flex: 1;text-align: right;">{{ roomTypeInfo.isFull == 'Y' ? '今日已满' : '预定' }}</span> -->
 			</button>
-			<button class="contactBtn" @tap="makingCall('12345678910')">联系客服</button>
-			<button class="contactBtn" style="font-size: 36.23188upx;">{{ roomTypeInfo.isFull == 'Y' ? '今日已满' : '预定' }}</button>
+			<button class="contactBtn" @tap="makingCall('12345678910')" style="background-color: #baa785;color: #333;">联系客服</button>
+			<button
+				class="contactBtn"
+				@tap="gotoPrice()"
+				:disabled="roomTypeInfo.isFull == 'Y' ? true : false"
+				style="font-size: 36.23188upx;background-color: #43403a;color: #e0c475;"
+			>
+				{{ roomTypeInfo.isFull == 'Y' ? '今日已满' : '预定' }}
+			</button>
 		</view>
 	</view>
 </template>
@@ -174,18 +179,26 @@ export default {
 		},
 		gotoPrice() {
 			let that = this;
-			//先关闭页面
-			that.closePage();
-			//跳转到订单填写页
-			var obj = {
-				roomTypeInfo: that.roomTypeInfo, //房间信息
-				globalData: that.globalData, //入住时间和退房时间
-				beginDate: that.beginDate, //入住日期
-				endDate: that.endDate //退房日期
-			};
-			uni.navigateTo({
-				url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
-			});
+			user.isUserinfo()
+				.then(res => {
+					//先关闭页面
+					that.closePage();
+					//跳转到订单填写页
+					var obj = {
+						roomTypeInfo: that.roomTypeInfo, //房间信息
+						globalData: that.globalData, //入住时间和退房时间
+						beginDate: that.beginDate, //入住日期
+						endDate: that.endDate //退房日期
+					};
+					uni.navigateTo({
+						url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
+					});
+				})
+				.catch(res => {
+					uni.navigateTo({
+						url: '../login/login'
+					});
+				});
 		},
 		closePage() {
 			this.$emit('closeRoom');
@@ -364,7 +377,8 @@ export default {
 	background-color: white;
 	font-size: 25.36231upx;
 	font-weight: bold;
-	color: #cda754;
+	background-color: #baa785;
+	color: #333;
 }
 
 .operation > .contactBtn:after {
@@ -380,11 +394,11 @@ export default {
 	height: 100%;
 	line-height: 81.52173upx;
 	border: none;
-	background-color: #43403a;
+	background-color: white;
 	border-radius: inherit;
 	font-size: 28.9855upx;
 	font-weight: bold;
-	color: #fff;
+	color: #000;
 }
 .operation > .reserveBtn > span:nth-child(1) {
 	font-size: 45.28985upx;

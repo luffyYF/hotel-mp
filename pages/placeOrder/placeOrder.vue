@@ -54,7 +54,7 @@
 				</view>
 			</view>
 			<view class="invoice">
-				<view class="invoice1">
+				<view class="invoice1" @tap="gotoInvoice">
 					<p>发票</p>
 					<p>
 						<span>不需要发票</span>
@@ -328,6 +328,12 @@ export default {
 					}
 				});
 			}
+		},
+		//申请发票
+		gotoInvoice(){
+			uni.navigateTo({
+				url:'../invoice/invoice'
+			})
 		}
 	}
 };

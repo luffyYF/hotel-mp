@@ -97,8 +97,8 @@
 			</view>
 		</view>
 		<view class="bottomBtn" v-if="orderDetails.showBtn">
-			<button :class="active == 1 ? 'active' : ''" @click="orderDetails.OperationMethod[1]()">{{ orderDetails.btnTitle[0] }}</button>
-			<button :class="active == 2 ? 'active' : ''" @click="orderDetails.OperationMethod[0]()">{{ orderDetails.btnTitle[1] }}</button>
+			<button :class="active == 1 ? 'active' : ''" @click="orderDetails.OperationMethod[0]()">{{ orderDetails.btnTitle[0] }}</button>
+			<button :class="active == 2 ? 'active' : ''" @click="orderDetails.OperationMethod[1]()">{{ orderDetails.btnTitle[1] }}</button>
 		</view>
 	</view>
 </template>
@@ -123,7 +123,7 @@ export default {
 				this.orderDetails.statusTitle = '待付款';
 				this.orderDetails.statusMsg = '订单已下单，请尽快付款';
 				this.orderDetails.btnTitle = ['一键付款', '取消'];
-				this.orderDetails.OperationMethod=[this.cancelOrder,this.cancelOrder]
+				this.orderDetails.OperationMethod=[this.AkeyPayment,this.cancelOrder]
 				this.orderDetails.showBtn = true;
 				break;
 			case 1:
@@ -216,6 +216,18 @@ export default {
 						console.log('用户点击取消');
 					}
 				}
+			});
+		},
+		//一键付款
+		AkeyPayment(){
+			console.log(this.orderDetails)
+			var obj = {
+				orderPk:this.orderDetails.orderPk,
+				totalPrice:this.orderDetails.totalPrice,
+				userPk:this.orderDetails.userPk
+			};
+			uni.navigateTo({
+				url: '../payment/payment?obj=' + JSON.stringify(obj)
 			});
 		}
 	}

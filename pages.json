@@ -1,5 +1,12 @@
 {
 	"pages": [{
+			"path": "pages/invoice/invoice",
+			"style": {
+				"navigationBarTitleText": "申请发票",
+				"navigationBarBackgroundColor": "#43403a"
+			}
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationStyle": "custom",
@@ -18,14 +25,14 @@
 				"navigationBarTitleText": "登录",
 				"navigationBarBackgroundColor": "#43403a"
 			}
-		},{
+		}, {
 			"path": "pages/order/order",
 			"style": {
 				"navigationBarTitleText": "订单",
 				"navigationBarBackgroundColor": "#43403a"
 			}
 		},
-		 {
+		{
 			"path": "pages/order/orderDetails",
 			"style": {
 				"navigationBarTitleText": "订单详情",
@@ -80,41 +87,42 @@
 				"navigationBarTitleText": "分享",
 				"navigationBarBackgroundColor": "#43403a"
 			}
-		},/* {
-			"path": "pages/roomDetails/roomDetails",
-			"style": {
-				"navigationBarTitleText": "房间详情",
-				"navigationBarBackgroundColor": "#43403a"
-			}
-		}, */ {
+		},
+		/* {
+					"path": "pages/roomDetails/roomDetails",
+					"style": {
+						"navigationBarTitleText": "房间详情",
+						"navigationBarBackgroundColor": "#43403a"
+					}
+				}, */
+		{
 			"path": "pages/member/member",
 			"style": {
 				"navigationBarTitleText": "会员与积分规则",
 				"navigationBarBackgroundColor": "#43403a"
 			}
-		}
-	    ,{
-            "path" : "pages/costDetail/costDetail",
-            "style" : {
-				"navigationBarTitleText":"费用明细",
-				"navigationBarBackgroundColor":"#43403a"
+		}, {
+			"path": "pages/costDetail/costDetail",
+			"style": {
+				"navigationBarTitleText": "费用明细",
+				"navigationBarBackgroundColor": "#43403a"
 			}
-        }
-        ,{
-            "path" : "pages/map/map",
-             "style" : {
-            	"navigationBarTitleText":"酒店地图",
-            	"navigationBarBackgroundColor":"#43403a"
-            }
-        },
+		}, {
+			"path": "pages/map/map",
+			"style": {
+				"navigationBarTitleText": "酒店地图",
+				"navigationBarBackgroundColor": "#43403a"
+			}
+		},
 		{
-		    "path" : "pages/payment/payFinish",
-		     "style" : {
-		    	"navigationBarTitleText":"支付完成",
-		    	"navigationBarBackgroundColor":"#43403a"
-		    }
+			"path": "pages/payment/payFinish",
+			"style": {
+				"navigationBarTitleText": "支付完成",
+				"navigationBarBackgroundColor": "#43403a"
+			}
 		}
-    ],
+
+	],
 	"tabBar": {
 		"color": "#8c8c8c",
 		"selectedColor": "#43403a",

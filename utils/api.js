@@ -25,7 +25,7 @@ const api = {
 	/**
 	 * 获取授权用户的手机号
 	 * url: /wx/applet/authorize/phone
-	 * type: GET
+	 * type: post
 	 *
 	 * @param appid 小程序appid
 	 * @param code 微信授权返回的code
@@ -46,7 +46,7 @@ const api = {
 	 *
 	 * @param token 令牌 (放在request头部Authorization中，组装成"Bearer "+token的格式)
 	 * @param params 参数
-	 *           memPhone 会员手机号
+	 *  memPhone 会员手机号
 	 * @return BaseResult
 	 */
 	bindPhone: (data) => request.post('member/bindPhone', {

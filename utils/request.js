@@ -37,6 +37,7 @@ const request = {
 		let token = "";
 		if (option.token) {
 			token = option.token;
+			console.log(token);
 		}
 		uni.request({
 			url: option.baseURL + url,
@@ -53,7 +54,7 @@ const request = {
 				} else if (res.data.code === 20001) {
 					//授权失效
 					uni.navigateTo({
-						url: 'login/login'
+						url: 'login'
 					})
 					// reject(res.errMsg, res.code);
 				} else {
