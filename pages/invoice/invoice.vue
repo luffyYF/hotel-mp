@@ -1,89 +1,249 @@
 <template>
-	<scroll-view class="invoicePage">
-		<view class="invoiceType">
-			<view class="options">
-				<view class="single" :class="options == 1 ? 'active' : ''" @tap="selType(1)"><p>不需要发票</p></view>
-				<view class="single" :class="options == 2 ? 'active' : ''" @tap="selType(2)"><p>(个人)普通发票</p></view>
-				<view class="single" :class="options == 3 ? 'active' : ''" @tap="selType(3)">
-					<p>
-						电子发票
-						<span style="display: block; font-size: 21.73913upx;">发至您的邮箱</span>
-					</p>
+	<view>
+		<scroll-view class="invoicePage">
+			<view class="whetherNeed">
+				<p style="font-size: 32.60869upx;">需要发票</p>
+				<switch :checked="whetherNeed" @change="Need" />
+			</view>
+			<view class="invoiceContent" v-if="whetherNeed">
+				<view class="invoiceType">
+					<view class="options">
+						<!-- <view class="single" :class="options == 1 ? 'active' : ''" @tap="selType(1)"><p>不需要发票</p></view> -->
+						<view class="single" :class="options == 1 ? 'active' : ''" @tap="selType(1)">
+							<p>
+								普通发票（电子）
+								<span style="display: block; font-size: 21.73913upx;">发至您的邮箱</span>
+							</p>
+						</view>
+						<view class="single" :class="options == 2 ? 'active' : ''" @tap="selType(2)">
+							<p>
+								专用发票（纸质）
+								<span style="display: block; font-size: 21.73913upx;">注：如需邮寄，邮费到付</span>
+							</p>
+						</view>
+					</view>
 				</view>
-				<view class="single" :class="options == 4 ? 'active' : ''" @tap="selType(4)"><p>(公司)专用发票</p></view>
+				<view class="invoiceDetails">
+					<view class="invoiceExplain">
+						<p class="explainTitle">开票说明</p>
+						<ul class="explain-ul">
+							<li class="e-li">
+								<p>
+									<span style="color:#DD524D;">代理商开票,离开后4个工作日</span>
+									内发送至邮箱
+								</p>
+							</li>
+							<li class="e-li">
+								<p>
+									开票城市为
+									<span style="color:#DD524D;">珠海市</span>
+									,可能与您入住酒店城市不一致,您可选择在发票上备注酒店名称及入离日期
+								</p>
+							</li>
+						</ul>
+					</view>
+					<view class="invoiceTitle" v-if="options == 1 ? true : false" @tap="gotoAddUp">
+						<p>发票抬头</p>
+						<p style="flex: 1;font-size:28.9855upx;color: #000000;">请添加抬头信息</p>
+						<image style="width: 36.23188upx;height: 36.23188upx;" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
+					</view>
+					<view class="invoiceTitle" @tap="selProject()">
+						<p>发票项目</p>
+						<p style="flex: 1;font-size: 28.9855upx;color: #000000;">{{ projectItem }}</p>
+						<image style="width: 36.23188upx;height: 36.23188upx;" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
+					</view>
+					<view class="invoiceTitle">
+						<p>收票人姓名</p>
+						<input type="text" placeholder="填写收票人姓名" placeholder-style="font-size: 32.60869upx;" />
+					</view>
+					<view class="invoiceTitle">
+						<p>收票人手机</p>
+						<input type="text" placeholder="填写收票人手机" placeholder-style="font-size: 32.60869upx;" />
+					</view>
+					<view class="invoiceTitle">
+						<p>收票人邮箱</p>
+						<input type="text" placeholder="用来接收电子发票" placeholder-style="font-size: 32.60869upx;" />
+					</view>
+					<view class="invoiceTitle" v-if="options == 2 ? true : false" @tap="gotoAddUp">
+						<p>公司信息</p>
+						<p style="flex: 1;font-size:28.9855upx;color: #000000;">请添加公司信息</p>
+						<image style="width: 36.23188upx;height: 36.23188upx;" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
+					</view>
+					<view class="invoiceTitle" v-if="options == 2 ? true : false" @tap="gotoAddress">
+						<p>配送地址</p>
+						<p style="flex: 1;font-size:28.9855upx;color: #000000;">请填写配送地址（无需邮寄则不填）</p>
+						<image style="width: 36.23188upx;height: 36.23188upx;" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
+					</view>
+					<view class="invoiceTitle">
+						<p style="flex: 1;color: #000000;">需要备注酒店名称及日期</p>
+						<label class="checkbox"><checkbox value="" checked="" /></label>
+					</view>
+				</view>
+				<view class="submit">
+					<button type="primary" style="background-color:rgb(253,151,0) ;">提交</button>
+					<ul class="s-ul">
+						<li class="s-li">
+							<p>
+								发票金额:
+								<span>￥340（房费￥340）</span>
+							</p>
+						</li>
+						<li class="s-li"><p>您可在“订单页-查看发票”获取发票开具状态等信息</p></li>
+					</ul>
+				</view>
+			</view>
+			<p style="padding: 27.17391upx 18.11594upx" v-if="!whetherNeed">发票由酒店开具，您可以现在预约发票，退房时，在酒店前台领取。如需预约，请选择需要发票</p>
+		</scroll-view>
+		<view class="selAddress" v-if="isShowAddress">
+			<view class="model">
+				<view class="titleRow">
+					<view class="title"><h2>选择地址</h2></view>
+					<image src="../../static/images/room/error.png" style="width: 54.34782upx;height: 54.34782upx;" mode="" @tap="closeWindows"></image>
+				</view>
+				<scroll-view scroll-y class="content">
+					<view class="c-item">
+						<view style="width: 10%;text-align: center;">
+							<image src="../../static/images/order/icon/gouxuan.png" style="width: 27.17391upx;height: 27.17391upx;" mode=""></image>
+						</view>
+						<view>
+							<p style="font-size: 25.36231upx;color: red;">
+								<span style="margin-right: 18.11594upx;">尹帆</span>
+								<span>15770634606</span>
+							</p>
+							<p style="font-size: 25.36231upx;color: red;">广东省珠海市香洲区拱北联安路192号豪斯菲尔信息科技公司</p>
+						</view>
+						<view style="width: 10%;text-align: center;">
+							<image src="../../static/images/user/feedback.png" style="width: 36.23188upx;height:36.23188upx;" mode=""></image>
+						</view>
+					</view>
+					<view class="c-item">
+						<view style="width: 10%;text-align: center;">
+							<image src="../../static/images/order/icon/gouxuan.png" style="width: 27.17391upx;height: 27.17391upx;" mode=""></image>
+						</view>
+						<view>
+							<p style="font-size: 25.36231upx;color: red;">
+								<span style="margin-right: 18.11594upx;">尹帆</span>
+								<span>15770634606</span>
+							</p>
+							<p style="font-size: 25.36231upx;color: red;">广东省珠海市香洲区拱北联安路192号豪斯菲尔信息科技公司</p>
+						</view>
+						<view style="width: 10%;text-align: center;">
+							<image src="../../static/images/user/feedback.png" style="width: 36.23188upx;height:36.23188upx;" mode=""></image>
+						</view>
+					</view>
+					<view class="c-item">
+						<view style="width: 10%;text-align: center;">
+							<image src="../../static/images/order/icon/gouxuan.png" style="width: 27.17391upx;height: 27.17391upx;" mode=""></image>
+						</view>
+						<view>
+							<p style="font-size: 25.36231upx;color: red;">
+								<span style="margin-right: 18.11594upx;">尹帆</span>
+								<span>15770634606</span>
+							</p>
+							<p style="font-size: 25.36231upx;color: red;">广东省珠海市香洲区拱北联安路192号豪斯菲尔信息科技公司</p>
+						</view>
+						<view style="width: 10%;text-align: center;">
+							<image src="../../static/images/user/feedback.png" style="width: 36.23188upx;height:36.23188upx;" mode=""></image>
+						</view>
+					</view>
+					<view class="c-item">
+						<view style="width: 10%;text-align: center;">
+							<image src="../../static/images/order/icon/gouxuan.png" style="width: 27.17391upx;height: 27.17391upx;" mode=""></image>
+						</view>
+						<view>
+							<p style="font-size: 25.36231upx;color: red;">
+								<span style="margin-right: 18.11594upx;">尹帆</span>
+								<span>15770634606</span>
+							</p>
+							<p style="font-size: 25.36231upx;color: red;">广东省珠海市香洲区拱北联安路192号豪斯菲尔信息科技公司</p>
+						</view>
+						<view style="width: 10%;text-align: center;">
+							<image src="../../static/images/user/feedback.png" style="width: 36.23188upx;height:36.23188upx;" mode=""></image>
+						</view>
+					</view>
+					<view class="c-item">
+						<view style="width: 10%;text-align: center;">
+							<image src="../../static/images/order/icon/gouxuan.png" style="width: 27.17391upx;height: 27.17391upx;" mode=""></image>
+						</view>
+						<view>
+							<p style="font-size: 25.36231upx;color: red;">
+								<span style="margin-right: 18.11594upx;">尹帆</span>
+								<span>15770634606</span>
+							</p>
+							<p style="font-size: 25.36231upx;color: red;">广东省珠海市香洲区拱北联安路192号豪斯菲尔信息科技公司</p>
+						</view>
+						<view style="width: 10%;text-align: center;">
+							<image src="../../static/images/user/feedback.png" style="width: 36.23188upx;height:36.23188upx;" mode=""></image>
+						</view>
+					</view>
+				</scroll-view>
+				<view style="margin-top:36.23188upx;">
+					<button style="font-size:25.36231upx;background-color: white;border: 1px solid red;color: red;margin: 0 18.11594upx;">新增地址</button>
+				</view>
 			</view>
 		</view>
-		<view class="invoiceDetails">
-			<view class="invoiceExplain">
-				<p class="explainTitle">开票说明</p>
-				<ul class="explain-ul">
-					<li class="e-li">
-						<p>
-							<span style="color:#DD524D;">代理商开票,离开后4个工作日</span>
-							内发送至邮箱
-						</p>
-					</li>
-					<li class="e-li">
-						<p>
-							开票城市为
-							<span style="color:#DD524D;">珠海市</span>
-							,可能与您入住酒店城市不一致,您可选择在发票上备注酒店名称及入离日期
-						</p>
-					</li>
-				</ul>
-			</view>
-			<view class="invoiceTitle">
-				<p>发票抬头</p>
-				<input type="text" placeholder="请添加抬头信息" placeholder-style="font-size: 32.60869upx;" />
-				<image style="width: 36.23188upx;height: 36.23188upx;" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
-			</view>
-			<view class="invoiceTitle">
-				<p>发票项目</p>
-				<input type="text" placeholder="*旅游服务*代订房费" placeholder-style="font-size: 32.60869upx;color:#000" />
-				<image style="width: 36.23188upx;height: 36.23188upx;" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
-			</view>
-			<view class="invoiceTitle">
-				<p>收票人姓名</p>
-				<input type="text" placeholder="填写收票人姓名" placeholder-style="font-size: 32.60869upx;" />
-			</view>
-			<view class="invoiceTitle">
-				<p>收票人手机</p>
-				<input type="text" placeholder="填写收票人手机" placeholder-style="font-size: 32.60869upx;" />
-			</view>
-			<view class="invoiceTitle">
-				<p>收票人邮箱</p>
-				<input type="text" placeholder="用来接收电子发票" placeholder-style="font-size: 32.60869upx;" />
-			</view>
-			<view class="invoiceTitle">
-				<p style="flex: 1;color: #000000;">需要备注酒店名称及日期</p>
-				<label class="checkbox"><checkbox value="" checked="" /></label>
-			</view>
-		</view>
-		<view class="submit">
-			<button type="primary" style="background-color:rgb(253,151,0) ;">提交</button>
-			<ul class="s-ul">
-				<li class="s-li">
-					<p>
-						发票金额:
-						<span>￥340（房费￥340）</span>
-					</p>
-				</li>
-				<li class="s-li"><p>您可在“订单页-查看发票”获取发票开具状态等信息</p></li>
-			</ul>
-		</view>
-	</scroll-view>
+	</view>
 </template>
 
 <script>
 export default {
 	data() {
 		return {
-			options: 1
+			options: 1,
+			whetherNeed: true,
+			itemList: ['代订房费', '代订住宿费'],
+			projectItem: '代订房费',
+			isShowAddress: false
 		};
 	},
 	methods: {
+		//是否需要发票
+		Need() {
+			this.whetherNeed = !this.whetherNeed;
+		},
+		//选择发票类型
 		selType(options) {
 			this.options = options;
+		},
+		//选择发票项目
+		selProject() {
+			var that = this;
+			uni.showActionSheet({
+				itemList: that.itemList,
+				success: function(res) {
+					console.log(that.itemList[res.tapIndex]);
+					that.projectItem = that.itemList[res.tapIndex];
+				},
+				fail: function(res) {
+					console.log(res.errMsg);
+				}
+			});
+		},
+		//发票抬头
+		gotoAddUp() {
+			var typeName;
+			if (this.options == 1) {
+				typeName = 'plainInvoice';
+			} else if (this.options == 2) {
+				typeName = 'specialInvoice';
+			} else {
+				return;
+			}
+			uni.navigateTo({
+				url: 'addUp?showType=' + typeName
+			});
+		},
+		//配送地址
+		gotoAddress() {
+			this.openWindows();
+		},
+		//关闭弹窗
+		closeWindows() {
+			this.isShowAddress = !this.isShowAddress;
+		},
+		//打开弹窗
+		openWindows() {
+			this.isShowAddress = !this.isShowAddress;
 		}
 	}
 };
@@ -92,8 +252,65 @@ export default {
 <style lang="scss">
 page {
 	background-color: #f5f9fc;
+	height: 100%;
+}
+.selAddress {
+	position: absolute;
+	top: 0;
+	z-index: 2;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	.model {
+		width: 100%;
+		height: 50%;
+		background-color: white;
+		position: absolute;
+		bottom: 0;
+		border-top-left-radius: 18.11594upx;
+		border-top-right-radius: 18.11594upx;
+		.titleRow {
+			display: flex;
+			padding: 18.11594upx;
+			border-bottom: 1px solid #f5f9fc;
+			.title {
+				flex: 1;
+				text-align: center;
+			}
+			image {
+				position: absolute;
+				right: 18.11594upx;
+			}
+		}
+		.content {
+			height: 70%;
+			border-bottom: 1px solid #f5f9fc;
+			.c-item {
+				display: flex;
+				vertical-align: middle;
+				align-items: center;
+				padding: 18.11594upx 0;
+				border-bottom: 1px solid #f5f9fc;
+				view {
+					p-font {
+						font-size: 21.73913upx;
+						color: red;
+					}
+				}
+			}
+		}
+	}
 }
 .invoicePage {
+	.whetherNeed {
+		display: flex;
+		background-color: white;
+		margin-bottom: 18.11594upx;
+		padding: 27.17391upx;
+		p {
+			flex: 1;
+		}
+	}
 	.invoiceType {
 		padding-left: 18.11594upx;
 		padding-top: 18.11594upx;
@@ -145,7 +362,7 @@ page {
 					align-items: center;
 					padding-left: 18.11594upx;
 					margin-bottom: 18.11594upx;
-					p{
+					p {
 						line-height: normal;
 					}
 				}
@@ -170,7 +387,7 @@ page {
 			p {
 				color: #666;
 				font-size: 25.36231upx;
-				flex: 0.4;
+				width: 181.15942upx;
 			}
 			input {
 				flex: 1;

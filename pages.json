@@ -122,6 +122,13 @@
 			}
 		}
 
+		, {
+			"path": "pages/invoice/addUp",
+			"style": {
+				"navigationBarTitleText": "添加抬头",
+				"navigationBarBackgroundColor": "#43403a"
+			}
+		}
 	],
 	"tabBar": {
 		"color": "#8c8c8c",

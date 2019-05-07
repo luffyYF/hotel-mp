@@ -37,7 +37,6 @@ const request = {
 		let token = "";
 		if (option.token) {
 			token = option.token;
-			console.log(token);
 		}
 		uni.request({
 			url: option.baseURL + url,

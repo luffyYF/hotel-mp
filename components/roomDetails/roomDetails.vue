@@ -125,6 +125,7 @@
 import uniSwiperDot from '../../components/uni-swiper-dot/uni-swiper-dot.vue';
 import api from '@/utils/api.js';
 import allocation from '@/utils/config.js';
+import user from '@/services/user.js'
 export default {
 	props: {
 		roomData: {}

@@ -97,8 +97,8 @@
 			</view>
 		</view>
 		<view class="bottomBtn" v-if="orderDetails.showBtn">
-			<button :class="active == 1 ? 'active' : ''" @click="orderDetails.OperationMethod[0]()">{{ orderDetails.btnTitle[0] }}</button>
-			<button :class="active == 2 ? 'active' : ''" @click="orderDetails.OperationMethod[1]()">{{ orderDetails.btnTitle[1] }}</button>
+			<button  v-if="orderDetails.btnTitle[0].isShow" :class="active == 1 ? 'active' : ''" @click="orderDetails.OperationMethod[0]()">{{ orderDetails.btnTitle[0].title }}</button>
+			<button  v-if="orderDetails.btnTitle[1].isShow" :class="active == 2 ? 'active' : ''" @click="orderDetails.OperationMethod[1]()">{{ orderDetails.btnTitle[1].title}}</button>
 		</view>
 	</view>
 </template>
@@ -122,20 +122,39 @@ export default {
 			case 0:
 				this.orderDetails.statusTitle = '待付款';
 				this.orderDetails.statusMsg = '订单已下单，请尽快付款';
-				this.orderDetails.btnTitle = ['一键付款', '取消'];
-				this.orderDetails.OperationMethod=[this.AkeyPayment,this.cancelOrder]
+				this.orderDetails.btnTitle = [{title:'一键付款',isShow:true}, {title:'取消订单',isShow:true}];
+				this.orderDetails.OperationMethod = [this.AkeyPayment, this.cancelOrder];
 				this.orderDetails.showBtn = true;
 				break;
 			case 1:
-				this.orderDetails.statusTitle = '已付款';
-				this.orderDetails.statusMsg = '订单已付款，请尽快到达相应酒店入住';
-				this.orderDetails.btnTitle = ['一键续房', '退房'];
-				this.orderDetails.OperationMethod=[this.cancelOrder,this.cancelOrder]
+				this.orderDetails.statusTitle = '待接单';
+				this.orderDetails.statusMsg = '订单已付款，请等待接单';
+				this.orderDetails.btnTitle = [{title:'一键付款',isShow:false}, {title:'取消订单',isShow:true}];
+				this.orderDetails.OperationMethod = [this.cancelOrder, this.cancelOrder];
 				this.orderDetails.showBtn = true;
+				break;
+			case 2:
+				this.orderDetails.statusTitle = '已接单';
+				this.orderDetails.statusMsg = '订单已接单，请尽快到达酒店入住';
+				this.orderDetails.btnTitle = [{title:'一键付款',isShow:false}, {title:'取消订单',isShow:true}];
+				this.orderDetails.OperationMethod = [this.cancelOrder, this.cancelOrder];
+				this.orderDetails.showBtn = true;
+				break;
+			case 3:
+				this.orderDetails.statusTitle = '已入住';
+				this.orderDetails.statusMsg = '您已入住，请好好享用';
+				this.orderDetails.btnTitle = [{title:'一键付款',isShow:false}, {title:'取消订单',isShow:true}];
+				this.orderDetails.OperationMethod = [this.cancelOrder, this.cancelOrder];
+				this.orderDetails.showBtn = true;
+				break;
+			case 4:
+				this.orderDetails.statusTitle = '取消中';
+				this.orderDetails.statusMsg = '订单正取消中，请稍等片刻';
+				this.orderDetails.showBtn = false;
 				break;
 			case 5:
 				this.orderDetails.statusTitle = '已取消';
-				this.orderDetails.statusMsg = '订单已取消，我还能为您做点什么';
+				this.orderDetails.statusMsg = '订单已取消，欢迎您的下次光临';
 				this.orderDetails.showBtn = false;
 				break;
 			case 6:
@@ -191,27 +210,26 @@ export default {
 		},
 		//取消订单
 		cancelOrder() {
-			var that=this
+			var that = this;
 			uni.showModal({
 				title: '提示',
 				content: '是否取消订单',
 				success: function(res) {
 					if (res.confirm) {
 						api.cancelOrder({
-							orderPk:that.orderDetails.orderPk,
-							userPk:that.orderDetails.userPk
-						}).then(res=>{
-							if(res.success){
-								
+							orderPk: that.orderDetails.orderPk,
+							userPk: that.orderDetails.userPk
+						}).then(res => {
+							if (res.success) {
 								uni.navigateBack({
-									delta:1
-								})
+									delta: 1
+								});
 								uni.showToast({
-									title:'订单已取消',
-									duration:1500
-								})
+									title: '订单已取消',
+									duration: 1500
+								});
 							}
-						})
+						});
 					} else if (res.cancel) {
 						console.log('用户点击取消');
 					}
@@ -219,12 +237,12 @@ export default {
 			});
 		},
 		//一键付款
-		AkeyPayment(){
-			console.log(this.orderDetails)
+		AkeyPayment() {
+			console.log(this.orderDetails);
 			var obj = {
-				orderPk:this.orderDetails.orderPk,
-				totalPrice:this.orderDetails.totalPrice,
-				userPk:this.orderDetails.userPk
+				orderPk: this.orderDetails.orderPk,
+				totalPrice: this.orderDetails.totalPrice,
+				userPk: this.orderDetails.userPk
 			};
 			uni.navigateTo({
 				url: '../payment/payment?obj=' + JSON.stringify(obj)

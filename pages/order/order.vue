@@ -9,7 +9,7 @@
 						<text class="roomcount">预定{{ item.rentCount }}间</text>
 					</view>
 					<view class="text-right">
-						<text>{{ statusTitle }}</text>
+						<text>{{ item.orderStatus==0?'待付款':item.orderStatus==1?'待接单':item.orderStatus==2?'已接单':item.orderStatus==3?'已入住':item.orderStatus==4?'取消中':item.orderStatus==5?'已取消':item.orderStatus==6?'已完成':'错误'}}</text>
 					</view>
 				</view>
 				<view class="item-img">
