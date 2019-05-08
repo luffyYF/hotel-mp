@@ -279,6 +279,66 @@ const api = {
 		payType: data.payType
 	}, apiHotel2),
 
+	/* 
+	保存发票信息
+	addressNumber	string
+	门牌号/详情
+	companyTaxNo	string
+	公司税号
+	invoiceCompanyAddress	string
+	单位地址
+	invoiceCompanyPhone	string
+	单位电话
+	invoicePk	string
+	主键
+	invoiceTitle	string
+	发票抬头
+	memPk	string(必填)
+	用户主键
+	memSex	string
+	性别： M男 W女
+	openingAccount	string
+	单位银行账号
+	openingBank	string
+	单位开户银行名称
+	receiveAddress	string
+	发票寄送地址
+	receiveName	string
+	收货人姓名
+	receivePhone	string
+	收票人手机号
+	saveType	string(必填)
+	发票保存类型 PERSON个人 UNIT单位 SPECIAL专用 ADDRESS配送地址
+	sortNum	integer($int32)
+	排序(建议填写小于10000)
+	 */
+	invoiceSave: (data) => request.post('order/invoice/save', {
+		addressNumber: data.addressNumber,
+		companyTaxNo:data.companyTaxNo,
+		invoiceCompanyAddress: data.invoiceCompanyAddress,
+		invoiceCompanyPhone: data.invoiceCompanyPhone,
+		invoicePk: data.invoicePk,
+		invoiceTitle: data.invoiceTitle,
+		memPk: data.memPk,
+		memSex: data.memSex,
+		openingAccount: data.openingAccount,
+		openingBank: data.openingBank,
+		receiveAddress: data.receiveAddress,
+		receiveName: data.receiveName,
+		receivePhone: data.receivePhone,
+		saveType: data.saveType,
+		sortNum: data.sortNum
+	}, apiHotel2),
+
+	/*
+	 查找发票，配送地址信息
+	 memPk 用户主键(必填)
+	 saveType  查看类型(必填)	
+	 发票保存类型 PERSON个人 UNIT单位 SPECIAL专用 ADDRESS配送地址
+	 */
+	invoiceList:(data)=>request.get('order/invoice/list',{
+		memPk:data.memPk
+	}, apiHotel2)
 }
 
 export default api

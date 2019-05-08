@@ -221,9 +221,7 @@ export default {
 							userPk: that.orderDetails.userPk
 						}).then(res => {
 							if (res.success) {
-								uni.navigateBack({
-									delta: 1
-								});
+								uni.navigateBack();
 								uni.showToast({
 									title: '订单已取消',
 									duration: 1500

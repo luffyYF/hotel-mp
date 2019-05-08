@@ -73,11 +73,11 @@ export default {
 	},
 	onShow() {
 		let that = this;
-
+		
 		user.isUserinfo()
 			.then(res => {
 				user.getUserInfo().then(res => {
-					this.showList(res, that.max, 10);
+					this.showList(res, 1, 10);
 				});
 			})
 			.catch(res => {

@@ -9,13 +9,13 @@
 				<view class="invoiceType">
 					<view class="options">
 						<!-- <view class="single" :class="options == 1 ? 'active' : ''" @tap="selType(1)"><p>不需要发票</p></view> -->
-						<view class="single" :class="options == 1 ? 'active' : ''" @tap="selType(1)">
+						<view class="single" :class="options == 1 ? 'active' : ''" @tap="selType(1)" :disabled="invoiceTypes[0] == 1 ? true : false">
 							<p>
 								普通发票（电子）
 								<span style="display: block; font-size: 21.73913upx;">发至您的邮箱</span>
 							</p>
 						</view>
-						<view class="single" :class="options == 2 ? 'active' : ''" @tap="selType(2)">
+						<view class="single" :class="options == 2 ? 'active' : ''" @tap="selType(2)" :disabled="invoiceTypes[2] == 2 ? true : false">
 							<p>
 								专用发票（纸质）
 								<span style="display: block; font-size: 21.73913upx;">注：如需邮寄，邮费到付</span>
@@ -42,30 +42,30 @@
 							</li>
 						</ul>
 					</view>
-					<view class="invoiceTitle" v-if="options == 1 ? true : false" @tap="gotoAddUp">
-						<p>发票抬头</p>
+					<view class="invoiceTitle" v-if="options == 1 ? true : false" @tap="gotoAddUp(['PERSON', 'UNIT'])">
+						<p>*发票抬头</p>
 						<p style="flex: 1;font-size:28.9855upx;color: #000000;">请添加抬头信息</p>
 						<image style="width: 36.23188upx;height: 36.23188upx;" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</view>
 					<view class="invoiceTitle" @tap="selProject()">
-						<p>发票项目</p>
+						<p>*发票项目</p>
 						<p style="flex: 1;font-size: 28.9855upx;color: #000000;">{{ projectItem }}</p>
 						<image style="width: 36.23188upx;height: 36.23188upx;" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</view>
 					<view class="invoiceTitle">
-						<p>收票人姓名</p>
+						<p>*收票人姓名</p>
 						<input type="text" placeholder="填写收票人姓名" placeholder-style="font-size: 32.60869upx;" />
 					</view>
 					<view class="invoiceTitle">
-						<p>收票人手机</p>
+						<p>*收票人手机</p>
 						<input type="text" placeholder="填写收票人手机" placeholder-style="font-size: 32.60869upx;" />
 					</view>
 					<view class="invoiceTitle">
-						<p>收票人邮箱</p>
+						<p>*收票人邮箱</p>
 						<input type="text" placeholder="用来接收电子发票" placeholder-style="font-size: 32.60869upx;" />
 					</view>
-					<view class="invoiceTitle" v-if="options == 2 ? true : false" @tap="gotoAddUp">
-						<p>公司信息</p>
+					<view class="invoiceTitle" v-if="options == 2 ? true : false" @tap="gotoAddUp(['SPECIAL'])">
+						<p>*公司信息</p>
 						<p style="flex: 1;font-size:28.9855upx;color: #000000;">请添加公司信息</p>
 						<image style="width: 36.23188upx;height: 36.23188upx;" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</view>
@@ -80,7 +80,7 @@
 					</view>
 				</view>
 				<view class="submit">
-					<button type="primary" style="background-color:rgb(253,151,0) ;">提交</button>
+					<button type="primary" style="background-color:rgb(253,151,0) ;" @tap="submitInvoice">提交</button>
 					<ul class="s-ul">
 						<li class="s-li">
 							<p>
@@ -101,7 +101,7 @@
 					<image src="../../static/images/room/error.png" style="width: 54.34782upx;height: 54.34782upx;" mode="" @tap="closeWindows"></image>
 				</view>
 				<scroll-view scroll-y class="content">
-					<view class="c-item">
+					<view class="address-item" v-if="false">
 						<view style="width: 10%;text-align: center;">
 							<image src="../../static/images/order/icon/gouxuan.png" style="width: 27.17391upx;height: 27.17391upx;" mode=""></image>
 						</view>
@@ -112,72 +112,22 @@
 							</p>
 							<p style="font-size: 25.36231upx;color: red;">广东省珠海市香洲区拱北联安路192号豪斯菲尔信息科技公司</p>
 						</view>
-						<view style="width: 10%;text-align: center;">
+						<view style="width: 10%;text-align: center;" @tap="addAddress">
 							<image src="../../static/images/user/feedback.png" style="width: 36.23188upx;height:36.23188upx;" mode=""></image>
 						</view>
 					</view>
-					<view class="c-item">
-						<view style="width: 10%;text-align: center;">
-							<image src="../../static/images/order/icon/gouxuan.png" style="width: 27.17391upx;height: 27.17391upx;" mode=""></image>
+					<view class="up-item" >
+						<view style="flex: 0.8;">
+							<p>新源县吐尔根乡哈那哈提养殖专业合作社</p>
+							<p style="color: #666666;">税号：098098098098098900098</p>
 						</view>
-						<view>
-							<p style="font-size: 25.36231upx;color: red;">
-								<span style="margin-right: 18.11594upx;">尹帆</span>
-								<span>15770634606</span>
-							</p>
-							<p style="font-size: 25.36231upx;color: red;">广东省珠海市香洲区拱北联安路192号豪斯菲尔信息科技公司</p>
-						</view>
-						<view style="width: 10%;text-align: center;">
-							<image src="../../static/images/user/feedback.png" style="width: 36.23188upx;height:36.23188upx;" mode=""></image>
-						</view>
-					</view>
-					<view class="c-item">
-						<view style="width: 10%;text-align: center;">
-							<image src="../../static/images/order/icon/gouxuan.png" style="width: 27.17391upx;height: 27.17391upx;" mode=""></image>
-						</view>
-						<view>
-							<p style="font-size: 25.36231upx;color: red;">
-								<span style="margin-right: 18.11594upx;">尹帆</span>
-								<span>15770634606</span>
-							</p>
-							<p style="font-size: 25.36231upx;color: red;">广东省珠海市香洲区拱北联安路192号豪斯菲尔信息科技公司</p>
-						</view>
-						<view style="width: 10%;text-align: center;">
-							<image src="../../static/images/user/feedback.png" style="width: 36.23188upx;height:36.23188upx;" mode=""></image>
-						</view>
-					</view>
-					<view class="c-item">
-						<view style="width: 10%;text-align: center;">
-							<image src="../../static/images/order/icon/gouxuan.png" style="width: 27.17391upx;height: 27.17391upx;" mode=""></image>
-						</view>
-						<view>
-							<p style="font-size: 25.36231upx;color: red;">
-								<span style="margin-right: 18.11594upx;">尹帆</span>
-								<span>15770634606</span>
-							</p>
-							<p style="font-size: 25.36231upx;color: red;">广东省珠海市香洲区拱北联安路192号豪斯菲尔信息科技公司</p>
-						</view>
-						<view style="width: 10%;text-align: center;">
-							<image src="../../static/images/user/feedback.png" style="width: 36.23188upx;height:36.23188upx;" mode=""></image>
-						</view>
-					</view>
-					<view class="c-item">
-						<view style="width: 10%;text-align: center;">
-							<image src="../../static/images/order/icon/gouxuan.png" style="width: 27.17391upx;height: 27.17391upx;" mode=""></image>
-						</view>
-						<view>
-							<p style="font-size: 25.36231upx;color: red;">
-								<span style="margin-right: 18.11594upx;">尹帆</span>
-								<span>15770634606</span>
-							</p>
-							<p style="font-size: 25.36231upx;color: red;">广东省珠海市香洲区拱北联安路192号豪斯菲尔信息科技公司</p>
-						</view>
-						<view style="width: 10%;text-align: center;">
-							<image src="../../static/images/user/feedback.png" style="width: 36.23188upx;height:36.23188upx;" mode=""></image>
-						</view>
+						<p style="color: #0A98D5;flex: 0.2;text-align: center;">
+							<span style="margin-right: 9.05797upx;">使用</span>
+							<span>编辑</span>
+						</p>
 					</view>
 				</scroll-view>
-				<view style="margin-top:36.23188upx;">
+				<view style="margin-top:36.23188upx;" @tap="addAddress">
 					<button style="font-size:25.36231upx;background-color: white;border: 1px solid red;color: red;margin: 0 18.11594upx;">新增地址</button>
 				</view>
 			</view>
@@ -186,6 +136,8 @@
 </template>
 
 <script>
+import api from '@/utils/api.js';
+import user from '@/services/user.js';
 export default {
 	data() {
 		return {
@@ -193,9 +145,41 @@ export default {
 			whetherNeed: true,
 			itemList: ['代订房费', '代订住宿费'],
 			projectItem: '代订房费',
-			isShowAddress: false
+			//用户信息
+			userInfo: {},
+			//是否显示新增窗口
+			isShowAddress: false,
+			//查询抬头，地址数据
+			upAddress: {},
+			//可用发票类型
+			invoiceTypes: '',
+			//发票全部信息
+			invoiceInfo: {
+				companyTaxNo: '',
+				invoiceCompanyAddress: '',
+				invoiceCompanyPhone: '',
+				invoiceTitle: '',
+				invoiceType: '',
+				openingAccount: '',
+				openingBank: '',
+				receiveAddress: '',
+				receiveName: '',
+				receivePhone: '',
+				recipientEmail: '',
+				recipientName: '',
+				recipientPhone: '',
+				riseType: ''
+			}
 		};
 	},
+	onLoad(opt) {
+		console.log(opt.invoiceTypes);
+		this.invoiceTypes = opt.invoiceTypes;
+		user.getUserInfo().then(res => {
+			this.userInfo = res;
+		});
+	},
+	onShow() {},
 	methods: {
 		//是否需要发票
 		Need() {
@@ -215,23 +199,37 @@ export default {
 					that.projectItem = that.itemList[res.tapIndex];
 				},
 				fail: function(res) {
-					console.log(res.errMsg);
+					/* console.log(res.errMsg); */
 				}
 			});
 		},
 		//发票抬头
-		gotoAddUp() {
-			var typeName;
-			if (this.options == 1) {
+		gotoAddUp(flag) {
+			let typeName;
+			let that = this;
+
+			if (that.options == 1) {
 				typeName = 'plainInvoice';
-			} else if (this.options == 2) {
+			} else if (that.options == 2) {
 				typeName = 'specialInvoice';
 			} else {
 				return;
 			}
-			uni.navigateTo({
-				url: 'addUp?showType=' + typeName
+			api.invoiceList({
+				memPk: that.userInfo.memPk
+			}).then(res => {
+				that.upAddress = res;
 			});
+			if (flag.length == 2) {
+				if (res.code == 1) {
+					if (res.hasOwnProperty(selFlag)) {
+					} else {
+						uni.navigateTo({
+							url: 'addUp?showType=' + typeName
+						});
+					}
+				}
+			}
 		},
 		//配送地址
 		gotoAddress() {
@@ -244,6 +242,32 @@ export default {
 		//打开弹窗
 		openWindows() {
 			this.isShowAddress = !this.isShowAddress;
+		},
+		//新增收货地址
+		addAddress() {
+			uni.navigateTo({
+				url: 'addAddress'
+			});
+		},
+		//提交发票
+		submitInvoice() {
+			/* for (var i in that.UNIT) {
+				if (that.UNIT[i] != '') {
+					continue;
+				} else {
+					uni.showToast({
+						title: '带*号的为必填项 ',
+						image: '../../static/images/order/icon/shibai.png'
+					});
+					return;
+				}
+			} */
+			let that = this;
+			if (that.options == 1) {
+				console.log('普通发票');
+			} else if (that.options == 2) {
+				console.log('专用发票');
+			}
 		}
 	}
 };
@@ -285,7 +309,7 @@ page {
 		.content {
 			height: 70%;
 			border-bottom: 1px solid #f5f9fc;
-			.c-item {
+			.address-item {
 				display: flex;
 				vertical-align: middle;
 				align-items: center;
@@ -297,6 +321,13 @@ page {
 						color: red;
 					}
 				}
+			}
+			.up-item {
+				display: flex;
+				vertical-align: middle;
+				align-items: center;
+				padding: 27.17391upx 18.11594upx;
+				border-bottom: 1px solid #f5f9fc;
 			}
 		}
 	}

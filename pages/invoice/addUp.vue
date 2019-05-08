@@ -18,41 +18,41 @@
 			</view>
 			<view class="companyName" v-if="upTypeName == 'personage' ? true : false">
 				<p>*抬头名称</p>
-				<input type="text" placeholder="建议填写个人姓名/店名" placeholder-style="color:#999;font-size:27.17391upx" value="" />
+				<input type="text" placeholder="建议填写个人姓名/店名" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="PERSON.invoiceTitle" />
 			</view>
 			<view class="companyName" v-if="upTypeName == 'enterprise' ? true : false">
 				<p>*公司抬头</p>
-				<input type="text" placeholder="请输入准确的抬头名称" placeholder-style="color:#999;font-size:27.17391upx" value="" />
+				<input type="text" placeholder="请输入准确的抬头名称" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="UNIT.invoiceTitle" />
 			</view>
 			<view class="companyNumber" v-if="upTypeName == 'enterprise' ? true : false">
 				<p>*公司税号</p>
-				<input type="text" placeholder="请输入税号" placeholder-style="color:#999;font-size:27.17391upx" value="" />
+				<input type="text" placeholder="请输入税号" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="UNIT.companyTaxNo" />
 			</view>
 		</view>
 		<view class="specialInvoice" v-if="showType == 'specialInvoice' ? true : false">
 			<view class="row">
 				<p>*公司抬头</p>
-				<input type="text" placeholder="请输入准确的抬头名称" placeholder-style="color:#999;font-size:27.17391upx" value="" />
+				<input type="text" placeholder="请输入准确的抬头名称" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.invoiceTitle" />
 			</view>
 			<view class="row">
 				<p>*公司税号</p>
-				<input type="text" placeholder="请输入税号" placeholder-style="color:#999;font-size:27.17391upx" value="" />
+				<input type="text" placeholder="请输入税号" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.companyTaxNo" />
 			</view>
 			<view class="row">
-				<p>电话号码</p>
-				<input type="text" placeholder="请输入单位电话号码" placeholder-style="color:#999;font-size:27.17391upx" value="" />
+				<p>*电话号码</p>
+				<input type="text" placeholder="请输入单位电话号码" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.invoiceCompanyPhone" />
 			</view>
 			<view class="row">
-				<p>单位地址</p>
-				<input type="text" placeholder="单位注册地址信息" placeholder-style="color:#999;font-size:27.17391upx" value="" />
+				<p>*单位地址</p>
+				<input type="text" placeholder="单位注册地址信息" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.invoiceCompanyAddress" />
 			</view>
 			<view class="row">
-				<p>开户银行</p>
-				<input type="text" placeholder="单位的开户行名称" placeholder-style="color:#999;font-size:27.17391upx" value="" />
+				<p>*开户银行</p>
+				<input type="text" placeholder="单位的开户行名称" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.openingBank" />
 			</view>
 			<view class="row">
-				<p>银行账号</p>
-				<input type="text" placeholder="单位的银行账号" placeholder-style="color:#999;font-size:27.17391upx" value="" />
+				<p>*银行账号</p>
+				<input type="text" placeholder="单位的银行账号" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.openingAccount" />
 			</view>
 		</view>
 
@@ -64,20 +64,44 @@
 </template>
 
 <script>
+import api from '@/utils/api.js';
+import user from '@/services/user.js';
 export default {
 	data() {
 		return {
 			upTypeName: 'personage',
-			showType: ''
+			showType: '',
+			userInfo: {},
+			//个人抬头
+			PERSON: {
+				invoiceTitle: ''
+			},
+			//企业抬头
+			UNIT: {
+				invoiceTitle: '',
+				companyTaxNo: ''
+			},
+			//专用抬头
+			SPECIAL: {
+				invoiceTitle: '',
+				companyTaxNo: '',
+				invoiceCompanyPhone: '',
+				invoiceCompanyAddress: '',
+				openingBank: '',
+				openingAccount: ''
+			}
 		};
 	},
 	onLoad(opt) {
+		let that = this;
 		if (opt.showType == 'plainInvoice') {
-			this.showType = 'plainInvoice';
+			that.showType = 'plainInvoice';
+		} else if (opt.showType == 'specialInvoice') {
+			that.showType = 'specialInvoice';
 		}
-		if (opt.showType == 'specialInvoice') {
-			this.showType = 'specialInvoice';
-		}
+		user.getUserInfo().then(res => {
+			that.userInfo = res;
+		});
 	},
 	methods: {
 		//选择抬头类型
@@ -85,13 +109,106 @@ export default {
 			this.upTypeName = e.target.value;
 		},
 		//保存信息
-		save(){
-			
+		save() {
+			let that = this;
+
+			if (that.showType == 'plainInvoice') {
+				if (that.upTypeName == 'enterprise') {
+					for (var i in that.UNIT) {
+						if (that.UNIT[i] != '') {
+							continue;
+						} else {
+							uni.showToast({
+								title: '带*号的为必填项 ',
+								image: '../../static/images/order/icon/shibai.png'
+							});
+							return;
+						}
+					}
+					api.invoiceSave({
+						saveType: 'UNIT',
+						invoiceTitle: that.UNIT.invoiceTitle,
+						companyTaxNo: that.UNIT.companyTaxNo,
+						memPk: that.userInfo.memPk
+					}).then(res => {
+						if (res.code == 1) {
+							console.log(that.UNIT);
+							uni.showToast({
+								title: '保存成功'
+							});
+						} else {
+							uni.showToast({
+								title: '保存失败',
+								image: '../../static/images/order/icon/shibai.png'
+							});
+						}
+					});
+				} else if (that.upTypeName == 'personage') {
+					for (var i in that.PERSON) {
+						if (that.PERSON[i] != '') {
+							continue;
+						} else {
+							uni.showToast({
+								title: '带*号的为必填项 ',
+								image: '../../static/images/order/icon/shibai.png'
+							});
+							return;
+						}
+					}
+					api.invoiceSave({
+						saveType: 'PERSON',
+						invoiceTitle: that.PERSON.invoiceTitle,
+						memPk: that.userInfo.memPk
+					}).then(res => {
+						if (res.code == 1) {
+							uni.showToast({
+								title: '保存成功'
+							});
+						} else {
+							uni.showToast({
+								title: '保存失败',
+								image: '../../static/images/order/icon/shibai.png'
+							});
+						}
+					});
+				}
+			} else if (that.showType == 'specialInvoice') {
+				for (var i in that.SPECIAL) {
+					if (that.SPECIAL[i] != '') {
+						continue;
+					} else {
+						uni.showToast({
+							title: '带*号的为必填项 ',
+							image: '../../static/images/order/icon/shibai.png'
+						});
+						return;
+					}
+				}
+				api.invoiceSave({
+					saveType: 'SPECIAL',
+					invoiceTitle: that.SPECIAL.invoiceTitle,
+					companyTaxNo: that.SPECIAL.companyTaxNo,
+					invoiceCompanyPhone: that.SPECIAL.invoiceCompanyPhone,
+					invoiceCompanyAddress: that.SPECIAL.invoiceCompanyAddress,
+					openingBank: that.SPECIAL.openingBank,
+					openingAccount: that.SPECIAL.openingAccount,
+					memPk: that.userInfo.memPk
+				}).then(res => {
+					if (res.code == 1) {
+						uni.showToast({
+							title: '保存成功'
+						});
+					} else {
+						uni.showToast({
+							title: '保存失败',
+							image: '../../static/images/order/icon/shibai.png'
+						});
+					}
+				});
+			}
 		},
 		//保存并使用
-		saveUse(){
-			
-		}
+		saveUse() {}
 	}
 };
 </script>

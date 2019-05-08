@@ -54,10 +54,10 @@
 				</view>
 			</view>
 			<view class="invoice">
-				<view class="invoice1" @tap="gotoInvoice">
+				<view class="invoice1" @tap="gotoInvoice(invoiceTypes)" :disabled='invoiceTypes==0?true:false'>
 					<p>发票</p>
 					<p>
-						<span>不需要发票</span>
+						<span>{{invoiceTypes==0?'不提供发票':'提供发票'}}</span>
 						<image src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</p>
 				</view>
@@ -128,7 +128,9 @@ export default {
 			//总价
 			totalPrice: {},
 			//用户信息
-			userInfo: {}
+			userInfo: {},
+			//是否提供发票
+			invoiceTypes:''
 		};
 	},
 	onLoad(opt) {
@@ -157,11 +159,12 @@ export default {
 			roomTypePk: that.roomTypeInfo.typePk,
 			userPk: that.userInfo.userPk
 		}).then(res => {
-			console.log(res);
 			//优惠卷数量
 			that.couponCount = res.data.couponCount;
 			//可预订房间数
 			that.bookableCount = res.data.bookableCount;
+			//是否提供发票
+			that.invoiceTypes=res.data.invoiceTypes;
 		});
 	},
 	methods: {
@@ -330,9 +333,9 @@ export default {
 			}
 		},
 		//申请发票
-		gotoInvoice(){
+		gotoInvoice(invoiceTypes){
 			uni.navigateTo({
-				url:'../invoice/invoice'
+				url:'../invoice/invoice?invoiceTypes='+invoiceTypes
 			})
 		}
 	}
