@@ -130,7 +130,7 @@ export default {
 			//用户信息
 			userInfo: {},
 			//是否提供发票
-			invoiceTypes:''
+			invoiceTypes:[]
 		};
 	},
 	onLoad(opt) {

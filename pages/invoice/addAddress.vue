@@ -35,9 +35,12 @@
 </template>
 
 <script>
+import api from '@/utils/api.js';
+import user from '@/services/user.js';
 export default {
 	data() {
 		return {
+			userInfo:{},
 			addressDetails: {
 				receiveAddress: '',
 				addressNumber: '',
@@ -46,6 +49,18 @@ export default {
 				receivePhone: ''
 			}
 		};
+	},
+	onLoad(opt) {
+		let that=this
+		if (JSON.parse(opt.obj).saveType == 'ADDRESS') {
+			that.addressDetails.receiveAddress = JSON.parse(opt.obj).receiveAddress ;
+			that.addressDetails.addressNumber = JSON.parse(opt.obj).addressNumber;
+			that.addressDetails.receiveName = JSON.parse(opt.obj).receiveName;
+			that.addressDetails.receivePhone = JSON.parse(opt.obj).receivePhone;
+		}
+		user.getUserInfo().then(res=>{
+			that.userInfo=res
+		})
 	},
 	methods: {
 		//选择性别
@@ -70,7 +85,9 @@ export default {
 				addressNumber: that.addressDetails.addressNumber,
 				receiveName: that.addressDetails.receiveName,
 				memSex: that.addressDetails.memSex,
-				receivePhone: that.addressDetails.receivePhone
+				receivePhone: that.addressDetails.receivePhone,
+				memPk:that.userInfo.memPk,
+				saveType: 'ADDRESS'
 			}).then(res => {
 				if (res.code == 1) {
 					uni.showToast({

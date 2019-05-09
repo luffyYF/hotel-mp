@@ -96,13 +96,37 @@ export default {
 		let that = this;
 		if (opt.showType == 'plainInvoice') {
 			that.showType = 'plainInvoice';
+			if (opt.hasOwnProperty('obj')) {
+				if (JSON.parse(opt.obj).saveType == 'PERSON') {
+					that.upTypeName = 'personage';
+					that.PERSON.invoiceTitle = JSON.parse(opt.obj).invoiceTitle;
+				}
+				if (JSON.parse(opt.obj).saveType == 'UNIT') {
+					that.upTypeName = 'enterprise';
+					that.UNIT.invoiceTitle = JSON.parse(opt.obj).invoiceTitle;
+					that.UNIT.companyTaxNo = JSON.parse(opt.obj).companyTaxNo;
+				}
+			}
 		} else if (opt.showType == 'specialInvoice') {
 			that.showType = 'specialInvoice';
+			if (opt.hasOwnProperty('obj')) {
+				if (JSON.parse(opt.obj).saveType == 'SPECIAL') {
+					that.SPECIAL.invoiceTitle = JSON.parse(opt.obj).invoiceTitle;
+					that.SPECIAL.companyTaxNo = JSON.parse(opt.obj).companyTaxNo;
+					that.SPECIAL.invoiceCompanyPhone = JSON.parse(opt.obj).invoiceCompanyPhone;
+					that.SPECIAL.invoiceCompanyAddress = JSON.parse(opt.obj).invoiceCompanyAddress;
+					that.SPECIAL.openingBank = JSON.parse(opt.obj).openingBank;
+					that.SPECIAL.openingAccount = JSON.parse(opt.obj).openingAccount;
+				}
+			}
 		}
+		/* console.log(opt);
+		console.log(JSON.parse(opt.obj)); */
 		user.getUserInfo().then(res => {
 			that.userInfo = res;
 		});
 	},
+	onShow() {},
 	methods: {
 		//选择抬头类型
 		radioChange(e) {
@@ -111,7 +135,6 @@ export default {
 		//保存信息
 		save() {
 			let that = this;
-
 			if (that.showType == 'plainInvoice') {
 				if (that.upTypeName == 'enterprise') {
 					for (var i in that.UNIT) {
@@ -208,7 +231,144 @@ export default {
 			}
 		},
 		//保存并使用
-		saveUse() {}
+		saveUse() {
+			let that = this;
+			if (that.showType == 'plainInvoice') {
+				if (that.upTypeName == 'enterprise') {
+					for (var i in that.UNIT) {
+						if (that.UNIT[i] != '') {
+							continue;
+						} else {
+							uni.showToast({
+								title: '带*号的为必填项 ',
+								image: '../../static/images/order/icon/shibai.png'
+							});
+							return;
+						}
+					}
+					api.invoiceSave({
+						saveType: 'UNIT',
+						invoiceTitle: that.UNIT.invoiceTitle,
+						companyTaxNo: that.UNIT.companyTaxNo,
+						memPk: that.userInfo.memPk
+					}).then(res => {
+						if (res.code == 1) {
+							uni.showToast({
+								title: '保存成功'
+							});
+							var pages = getCurrentPages();
+							var currPage = pages[pages.length - 1]; //当前页面
+							var prevPage = pages[pages.length - 2]; //上一个页面
+							var obj = {
+								saveType: 'UNIT',
+								invoiceTitle: that.UNIT.invoiceTitle,
+								companyTaxNo: that.UNIT.companyTaxNo
+							};
+							//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+							prevPage.setData({
+								saveUp: obj
+							});
+							uni.navigateBack();
+						} else {
+							uni.showToast({
+								title: '保存失败',
+								image: '../../static/images/order/icon/shibai.png'
+							});
+						}
+					});
+				} else if (that.upTypeName == 'personage') {
+					for (var i in that.PERSON) {
+						if (that.PERSON[i] != '') {
+							continue;
+						} else {
+							uni.showToast({
+								title: '带*号的为必填项 ',
+								image: '../../static/images/order/icon/shibai.png'
+							});
+							return;
+						}
+					}
+					api.invoiceSave({
+						saveType: 'PERSON',
+						invoiceTitle: that.PERSON.invoiceTitle,
+						memPk: that.userInfo.memPk
+					}).then(res => {
+						if (res.code == 1) {
+							uni.showToast({
+								title: '保存成功'
+							});
+							var pages = getCurrentPages();
+							var currPage = pages[pages.length - 1]; //当前页面
+							var prevPage = pages[pages.length - 2]; //上一个页面
+							var obj = {
+								saveType: 'PERSON',
+								invoiceTitle: that.PERSON.invoiceTitle
+							};
+							//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+							prevPage.setData({
+								saveUp: obj
+							});
+							uni.navigateBack();
+						} else {
+							uni.showToast({
+								title: '保存失败',
+								image: '../../static/images/order/icon/shibai.png'
+							});
+						}
+					});
+				}
+			} else if (that.showType == 'specialInvoice') {
+				for (var i in that.SPECIAL) {
+					if (that.SPECIAL[i] != '') {
+						continue;
+					} else {
+						uni.showToast({
+							title: '带*号的为必填项 ',
+							image: '../../static/images/order/icon/shibai.png'
+						});
+						return;
+					}
+				}
+				api.invoiceSave({
+					saveType: 'SPECIAL',
+					invoiceTitle: that.SPECIAL.invoiceTitle,
+					companyTaxNo: that.SPECIAL.companyTaxNo,
+					invoiceCompanyPhone: that.SPECIAL.invoiceCompanyPhone,
+					invoiceCompanyAddress: that.SPECIAL.invoiceCompanyAddress,
+					openingBank: that.SPECIAL.openingBank,
+					openingAccount: that.SPECIAL.openingAccount,
+					memPk: that.userInfo.memPk
+				}).then(res => {
+					if (res.code == 1) {
+						uni.showToast({
+							title: '保存成功'
+						});
+						var pages = getCurrentPages();
+						var currPage = pages[pages.length - 1]; //当前页面
+						var prevPage = pages[pages.length - 2]; //上一个页面
+						var obj = {
+							saveType: 'SPECIAL',
+							invoiceTitle: that.SPECIAL.invoiceTitle,
+							companyTaxNo: that.SPECIAL.companyTaxNo,
+							invoiceCompanyPhone: that.SPECIAL.invoiceCompanyPhone,
+							invoiceCompanyAddress: that.SPECIAL.invoiceCompanyAddress,
+							openingBank: that.SPECIAL.openingBank,
+							openingAccount: that.SPECIAL.openingAccount
+						};
+						//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+						prevPage.setData({
+							saveUp: obj
+						});
+						uni.navigateBack();
+					} else {
+						uni.showToast({
+							title: '保存失败',
+							image: '../../static/images/order/icon/shibai.png'
+						});
+					}
+				});
+			}
+		}
 	}
 };
 </script>

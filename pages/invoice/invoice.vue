@@ -9,13 +9,13 @@
 				<view class="invoiceType">
 					<view class="options">
 						<!-- <view class="single" :class="options == 1 ? 'active' : ''" @tap="selType(1)"><p>不需要发票</p></view> -->
-						<view class="single" :class="options == 1 ? 'active' : ''" @tap="selType(1)" :disabled="invoiceTypes[0] == 1 ? true : false">
+						<view class="single" :class="invoiceTypes[0] == 1 ? (options == 1 ? 'active' : '') : 'no-active'" @tap="invoiceTypes[0] == 1 ? selType(1) : ''">
 							<p>
 								普通发票（电子）
 								<span style="display: block; font-size: 21.73913upx;">发至您的邮箱</span>
 							</p>
 						</view>
-						<view class="single" :class="options == 2 ? 'active' : ''" @tap="selType(2)" :disabled="invoiceTypes[2] == 2 ? true : false">
+						<view class="single" :class="invoiceTypes[2] == 2 ? (options == 2 ? 'active' : '') : 'no-active'" @tap="invoiceTypes[2] == 2 ? selType(2) : ''">
 							<p>
 								专用发票（纸质）
 								<span style="display: block; font-size: 21.73913upx;">注：如需邮寄，邮费到付</span>
@@ -42,9 +42,14 @@
 							</li>
 						</ul>
 					</view>
-					<view class="invoiceTitle" v-if="options == 1 ? true : false" @tap="gotoAddUp(['PERSON', 'UNIT'])">
+					<view class="invoiceTitle" v-if="options == 1 ? true : false" @tap="gotoAddUp('UNIT')">
 						<p>*发票抬头</p>
-						<p style="flex: 1;font-size:28.9855upx;color: #000000;">请添加抬头信息</p>
+						<p style="flex: 1;font-size:28.9855upx;color: #000000;">
+							{{ invoiceInfo.invoiceTitle == '' ? '请添加抬头信息' : invoiceInfo.invoiceTitle }}
+							<br />
+							{{ invoiceInfo.companyTaxNo == '' ? '' : '税号:' + invoiceInfo.companyTaxNo }}
+						</p>
+
 						<image style="width: 36.23188upx;height: 36.23188upx;" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</view>
 					<view class="invoiceTitle" @tap="selProject()">
@@ -54,24 +59,42 @@
 					</view>
 					<view class="invoiceTitle">
 						<p>*收票人姓名</p>
-						<input type="text" placeholder="填写收票人姓名" placeholder-style="font-size: 32.60869upx;" />
+						<input type="text" placeholder="填写收票人姓名" placeholder-style="font-size: 32.60869upx;" v-model="invoiceInfo.recipientName" />
 					</view>
 					<view class="invoiceTitle">
 						<p>*收票人手机</p>
-						<input type="text" placeholder="填写收票人手机" placeholder-style="font-size: 32.60869upx;" />
+						<input type="text" placeholder="填写收票人手机" placeholder-style="font-size: 32.60869upx;" v-model="invoiceInfo.recipientPhone" />
 					</view>
 					<view class="invoiceTitle">
 						<p>*收票人邮箱</p>
-						<input type="text" placeholder="用来接收电子发票" placeholder-style="font-size: 32.60869upx;" />
+						<input type="text" placeholder="用来接收电子发票" placeholder-style="font-size: 32.60869upx;" v-model="invoiceInfo.recipientEmail" />
 					</view>
-					<view class="invoiceTitle" v-if="options == 2 ? true : false" @tap="gotoAddUp(['SPECIAL'])">
+					<view class="invoiceTitle" v-if="options == 2 ? true : false" @tap="gotoAddUp('SPECIAL')">
 						<p>*公司信息</p>
-						<p style="flex: 1;font-size:28.9855upx;color: #000000;">请添加公司信息</p>
+						<p style="flex: 1;font-size:28.9855upx;color: #000000;">
+							{{ invoiceInfo.invoiceTitle == '' ? '请添加公司信息' : invoiceInfo.invoiceTitle }}
+							<br />
+							{{ invoiceInfo.companyTaxNo == '' ? '' : '税号:' + invoiceInfo.companyTaxNo }}
+							<br />
+							{{ invoiceInfo.invoiceCompanyAddress == '' ? '' : '地址:' + invoiceInfo.invoiceCompanyAddress }}
+							<br />
+							{{ invoiceInfo.invoiceCompanyPhone == '' ? '' : '电话:' + invoiceInfo.invoiceCompanyPhone }}
+							<br />
+							{{ invoiceInfo.openingBank == '' ? '' : '银行:' + invoiceInfo.openingBank }}
+							<br />
+							{{ invoiceInfo.openingAccount == '' ? '' : '卡号:' + invoiceInfo.openingAccount }}
+						</p>
 						<image style="width: 36.23188upx;height: 36.23188upx;" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</view>
-					<view class="invoiceTitle" v-if="options == 2 ? true : false" @tap="gotoAddress">
+					<view class="invoiceTitle" v-if="options == 2 ? true : false" @tap="gotoAddUp('ADDRESS')">
 						<p>配送地址</p>
-						<p style="flex: 1;font-size:28.9855upx;color: #000000;">请填写配送地址（无需邮寄则不填）</p>
+						<p style="flex: 1;font-size:28.9855upx;color: #000000;">
+							{{ invoiceInfo.receiveName == '' ? '请填写配送地址（无需邮寄则不填）' : '姓名：' + invoiceInfo.receiveName }}
+							<br />
+							{{ invoiceInfo.receivePhone == '' ? '' : '手机号：' + invoiceInfo.receivePhone }}
+							<br />
+							{{ invoiceInfo.receiveAddress == '' ? '' : '地址：' + invoiceInfo.receiveAddress }}
+						</p>
 						<image style="width: 36.23188upx;height: 36.23188upx;" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</view>
 					<view class="invoiceTitle">
@@ -97,38 +120,73 @@
 		<view class="selAddress" v-if="isShowAddress">
 			<view class="model">
 				<view class="titleRow">
-					<view class="title"><h2>选择地址</h2></view>
+					<view class="title">
+						<h2>{{ showType == 'ADDRESS' ? '选择地址' : '选择抬头' }}</h2>
+					</view>
 					<image src="../../static/images/room/error.png" style="width: 54.34782upx;height: 54.34782upx;" mode="" @tap="closeWindows"></image>
 				</view>
 				<scroll-view scroll-y class="content">
-					<view class="address-item" v-if="false">
-						<view style="width: 10%;text-align: center;">
-							<image src="../../static/images/order/icon/gouxuan.png" style="width: 27.17391upx;height: 27.17391upx;" mode=""></image>
+					<view class="address-item" v-for="(item, index) in upAddress.ADDRESS" v-if="showType == 'ADDRESS'" :key="index">
+						<!-- <view style="width: 10%;text-align: center;">
+							<image src="../../static/images/order/icon/gouxuan.png" style="width: 27.17391upx;height: 27.17391upx;" mode="" v-if="false"></image>
+							<image src="../../static/images/order/icon/meixuanzhon.png" style="width: 27.17391upx;height: 27.17391upx;" mode=""></image>
 						</view>
-						<view>
+						<view style="flex:1;">
 							<p style="font-size: 25.36231upx;color: red;">
-								<span style="margin-right: 18.11594upx;">尹帆</span>
-								<span>15770634606</span>
+								<span style="margin-right: 18.11594upx;">{{ item.receiveName }}</span>
+								<span>{{ item.receivePhone }}</span>
 							</p>
-							<p style="font-size: 25.36231upx;color: red;">广东省珠海市香洲区拱北联安路192号豪斯菲尔信息科技公司</p>
+							<p style="font-size: 25.36231upx;color: red;">{{ item.receiveAddress + item.addressNumber }}</p>
 						</view>
 						<view style="width: 10%;text-align: center;" @tap="addAddress">
 							<image src="../../static/images/user/feedback.png" style="width: 36.23188upx;height:36.23188upx;" mode=""></image>
-						</view>
-					</view>
-					<view class="up-item" >
-						<view style="flex: 0.8;">
-							<p>新源县吐尔根乡哈那哈提养殖专业合作社</p>
-							<p style="color: #666666;">税号：098098098098098900098</p>
+						</view> -->
+						<view style="flex:0.8;">
+							<p style="font-size: 25.36231upx;">
+								<span style="margin-right: 18.11594upx;">{{ item.receiveName }}</span>
+								<span>{{ item.receivePhone }}</span>
+							</p>
+							<p style="font-size: 25.36231upx;">{{ item.receiveAddress + item.addressNumber }}</p>
 						</view>
 						<p style="color: #0A98D5;flex: 0.2;text-align: center;">
-							<span style="margin-right: 9.05797upx;">使用</span>
-							<span>编辑</span>
+							<span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span>
+							<span @tap="updUp(item.saveType, item)">编辑</span>
+						</p>
+					</view>
+					<view class="up-item" v-for="(item, index) in upAddress.PERSON" :key="index" v-if="showType == 'PERSON' || showType == 'UNIT'">
+						<view style="flex: 0.8;">
+							<p>个人:{{ item.invoiceTitle }}</p>
+						</view>
+						<p style="color: #0A98D5;flex: 0.2;text-align: center;">
+							<span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span>
+							<span @tap="updUp(item.saveType, item)">编辑</span>
+						</p>
+					</view>
+					<view class="up-item" v-for="(item, index) in upAddress.UNIT" :key="index" v-if="showType == 'PERSON' || showType == 'UNIT'">
+						<view style="flex: 0.8;">
+							<p>企业:{{ item.invoiceTitle }}</p>
+							<p style="color: #666666;">税号：{{ item.companyTaxNo }}</p>
+						</view>
+						<p style="color: #0A98D5;flex: 0.2;text-align: center;">
+							<span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span>
+							<span @tap="updUp(item.saveType, item)">编辑</span>
+						</p>
+					</view>
+					<view class="up-item" v-for="(item, index) in upAddress.SPECIAL" :key="index" v-if="showType == 'SPECIAL'">
+						<view style="flex: 0.8;">
+							<p>专用:{{ item.invoiceTitle }}</p>
+							<p style="color: #666666;">税号：{{ item.companyTaxNo }}</p>
+						</view>
+						<p style="color: #0A98D5;flex: 0.2;text-align: center;">
+							<span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span>
+							<span @tap="updUp(item.saveType, item)">编辑</span>
 						</p>
 					</view>
 				</scroll-view>
-				<view style="margin-top:36.23188upx;" @tap="addAddress">
-					<button style="font-size:25.36231upx;background-color: white;border: 1px solid red;color: red;margin: 0 18.11594upx;">新增地址</button>
+				<view style="margin-top:36.23188upx;" @tap="addPage(showType)">
+					<button style="font-size:25.36231upx;background-color: white;border: 1px solid #666666;color: #666666;margin: 0 18.11594upx;">
+						{{ showType == 'ADDRESS' ? '新增地址' : '添加抬头' }}
+					</button>
 				</view>
 			</view>
 		</view>
@@ -151,8 +209,10 @@ export default {
 			isShowAddress: false,
 			//查询抬头，地址数据
 			upAddress: {},
+			//当前要查的类型
+			showType: 'UNIT',
 			//可用发票类型
-			invoiceTypes: '',
+			invoiceTypes: [],
 			//发票全部信息
 			invoiceInfo: {
 				companyTaxNo: '',
@@ -173,13 +233,45 @@ export default {
 		};
 	},
 	onLoad(opt) {
-		console.log(opt.invoiceTypes);
+		/* console.log(opt.invoiceTypes[1]); */
 		this.invoiceTypes = opt.invoiceTypes;
+		this.invoiceInfo.invoiceType = this.options;
 		user.getUserInfo().then(res => {
 			this.userInfo = res;
 		});
 	},
-	onShow() {},
+	onShow(e) {
+		let that = this;
+		let pages = getCurrentPages();
+		let currPage = pages[pages.length - 1];
+		if (currPage.data.saveUp != undefined) {
+			let flag = currPage.data.saveUp;
+			if (flag.saveType == 'UNIT') {
+				that.invoiceInfo.invoiceTitle = flag.invoiceTitle;
+				that.invoiceInfo.companyTaxNo = flag.companyTaxNo;
+				that.invoiceInfo.riseType = 2;
+				that.invoiceInfo.invoiceCompanyPhone = '';
+				that.invoiceInfo.invoiceCompanyAddress = '';
+				that.invoiceInfo.openingBank = '';
+				that.invoiceInfo.openingAccount = '';
+			} else if (flag.saveType == 'PERSON') {
+				that.invoiceInfo.invoiceTitle = flag.invoiceTitle;
+				that.invoiceInfo.riseType = 1;
+				that.invoiceInfo.companyTaxNo = '';
+				that.invoiceInfo.invoiceCompanyPhone = '';
+				that.invoiceInfo.invoiceCompanyAddress = '';
+				that.invoiceInfo.openingBank = '';
+				that.invoiceInfo.openingAccount = '';
+			} else if (flag.saveType == 'SPECIAL') {
+				that.invoiceInfo.invoiceTitle = flag.invoiceTitle;
+				that.invoiceInfo.companyTaxNo = flag.companyTaxNo;
+				that.invoiceInfo.invoiceCompanyPhone = flag.invoiceCompanyPhone;
+				that.invoiceInfo.invoiceCompanyAddress = flag.invoiceCompanyAddress;
+				that.invoiceInfo.openingBank = flag.openingBank;
+				that.invoiceInfo.openingAccount = flag.openingAccount;
+			}
+		}
+	},
 	methods: {
 		//是否需要发票
 		Need() {
@@ -188,6 +280,14 @@ export default {
 		//选择发票类型
 		selType(options) {
 			this.options = options;
+			this.invoiceInfo.invoiceType = this.options;
+			for (var i in this.invoiceInfo) {
+				if (i == 'invoiceType') {
+					continue;
+				} else {
+					this.invoiceInfo[i] = '';
+				}
+			}
 		},
 		//选择发票项目
 		selProject() {
@@ -215,25 +315,34 @@ export default {
 			} else {
 				return;
 			}
+
 			api.invoiceList({
 				memPk: that.userInfo.memPk
 			}).then(res => {
-				that.upAddress = res;
-			});
-			if (flag.length == 2) {
-				if (res.code == 1) {
-					if (res.hasOwnProperty(selFlag)) {
+				that.upAddress = res.data;
+				/* if (!that.upAddress.hasOwnProperty('UNIT')) {
+					if (!that.upAddress.hasOwnProperty('PERSON')) { */
+				if (!that.upAddress.hasOwnProperty(flag)) {
+					if (flag == 'UNIT' || flag == 'PERSON') {
 					} else {
-						uni.navigateTo({
-							url: 'addUp?showType=' + typeName
-						});
+						console.log(that.upAddress);
+						if (flag == 'ADDRESS') {
+							uni.navigateTo({
+								url: 'addAddress'
+							});
+							that.closeWindows();
+						} else {
+							uni.navigateTo({
+								url: 'addUp?showType=' + typeName
+							});
+							that.closeWindows();
+						}
 					}
 				}
-			}
-		},
-		//配送地址
-		gotoAddress() {
-			this.openWindows();
+			});
+			that.showType = flag;
+
+			that.openWindows();
 		},
 		//关闭弹窗
 		closeWindows() {
@@ -243,11 +352,94 @@ export default {
 		openWindows() {
 			this.isShowAddress = !this.isShowAddress;
 		},
-		//新增收货地址
-		addAddress() {
-			uni.navigateTo({
-				url: 'addAddress'
-			});
+		//跳转到添加页面
+		addPage(flag) {
+			let that = this;
+			let typeName;
+			if (that.options == 1) {
+				typeName = 'plainInvoice';
+			} else if (that.options == 2) {
+				typeName = 'specialInvoice';
+			} else {
+				return;
+			}
+
+			if (flag == 'ADDRESS') {
+				console.log(flag);
+				uni.navigateTo({
+					url: 'addAddress'
+				});
+			} else {
+				console.log(typeName);
+				uni.navigateTo({
+					url: 'addUp?showType=' + typeName
+				});
+			}
+			that.closeWindows();
+		},
+		//使用抬头
+		useUp(flag, obj) {
+			let that = this;
+			if (flag == 'UNIT') {
+				that.invoiceInfo.invoiceTitle = obj.invoiceTitle;
+				that.invoiceInfo.companyTaxNo = obj.companyTaxNo;
+				that.invoiceInfo.riseType = 2;
+				that.invoiceInfo.invoiceCompanyPhone = '';
+				that.invoiceInfo.invoiceCompanyAddress = '';
+				that.invoiceInfo.openingBank = '';
+				that.invoiceInfo.openingAccount = '';
+			} else if (flag == 'PERSON') {
+				that.invoiceInfo.riseType = 1;
+				that.invoiceInfo.invoiceTitle = obj.invoiceTitle;
+				that.invoiceInfo.companyTaxNo = '';
+				that.invoiceInfo.invoiceCompanyPhone = '';
+				that.invoiceInfo.invoiceCompanyAddress = '';
+				that.invoiceInfo.openingBank = '';
+				that.invoiceInfo.openingAccount = '';
+			} else if (flag == 'SPECIAL') {
+				that.invoiceInfo.invoiceTitle = obj.invoiceTitle;
+				that.invoiceInfo.companyTaxNo = obj.companyTaxNo;
+				that.invoiceInfo.invoiceCompanyPhone = obj.invoiceCompanyPhone;
+				that.invoiceInfo.invoiceCompanyAddress = obj.invoiceCompanyAddress;
+				that.invoiceInfo.openingBank = obj.openingBank;
+				that.invoiceInfo.openingAccount = obj.openingAccount;
+			} else if (flag == 'ADDRESS') {
+				that.invoiceInfo.receiveAddress = obj.receiveAddress + obj.addressNumber;
+				that.invoiceInfo.receiveName = obj.receiveName;
+				that.invoiceInfo.receivePhone = obj.receivePhone;
+			}
+			console.log(that.invoiceInfo);
+			that.closeWindows();
+		},
+		//编辑抬头
+		updUp(flag, obj) {
+			let that = this;
+			let typeName;
+			if (that.options == 1) {
+				typeName = 'plainInvoice';
+			} else if (that.options == 2) {
+				typeName = 'specialInvoice';
+			} else {
+				return;
+			}
+			if (flag == 'UNIT') {
+				uni.navigateTo({
+					url: 'addUp?showType=' + typeName + '&obj=' + JSON.stringify(obj)
+				});
+			} else if (flag == 'PERSON') {
+				uni.navigateTo({
+					url: 'addUp?showType=' + typeName + '&obj=' + JSON.stringify(obj)
+				});
+			} else if (flag == 'SPECIAL') {
+				uni.navigateTo({
+					url: 'addUp?showType=' + typeName + '&obj=' + JSON.stringify(obj)
+				});
+			} else if (flag == 'ADDRESS') {
+				uni.navigateTo({
+					url: 'addAddress?obj=' + JSON.stringify(obj)
+				});
+			}
+			that.closeWindows();
 		},
 		//提交发票
 		submitInvoice() {
@@ -262,11 +454,83 @@ export default {
 					return;
 				}
 			} */
+
 			let that = this;
-			if (that.options == 1) {
+			if (that.invoiceInfo.invoiceType == 1) {
 				console.log('普通发票');
-			} else if (that.options == 2) {
+				/* if (that.invoiceInfo.riseType == 1) {
+					for (var i in that.invoiceInfo) {
+						if (that.invoiceInfo.invoiceTitle != '') {
+							continue;
+						}
+						if (that.invoiceInfo.recipientEmail != '') {
+							continue;
+						}
+						if (that.invoiceInfo.recipientName != '') {
+							continue;
+						}
+						if (that.invoiceInfo.recipientPhone != '') {
+							continue;
+						}
+						if (that.invoiceInfo[i] == '') {
+							uni.showToast({
+								title: '带*号的为必填项 ',
+								image: '../../static/images/order/icon/shibai.png'
+							});
+							return;
+						}
+					}
+					console.log('提交成功');
+					console.log(that.invoiceInfo);
+					return;
+				}
+				if (that.invoiceInfo.riseType == 2) {
+					for (var i in that.invoiceInfo) {
+						if (that.invoiceInfo.companyTaxNo != '') continue;
+						if (that.invoiceInfo.invoiceTitle != '') continue;
+						if (that.invoiceInfo.recipientEmail != '') continue;
+						if (that.invoiceInfo.recipientName != '') continue;
+						if (that.invoiceInfo.recipientPhone != '') continue;
+						if (that.invoiceInfo[i] == '') {
+							console.log('为空');
+							uni.showToast({
+								title: '带*号的为必填项 ',
+								image: '../../static/images/order/icon/shibai.png'
+							});
+							return;
+						}
+					}
+					console.log('提交成功');
+					console.log(that.invoiceInfo);
+					return;
+				}
+				uni.showToast({
+					title: '带*号的为必填项 ',
+					image: '../../static/images/order/icon/shibai.png'
+				}); */
+			} else if (that.invoiceInfo.invoiceType == 2) {
 				console.log('专用发票');
+				var flag=false;
+				for (let i in that.invoiceInfo) {
+					if (that.invoiceInfo[i] == '') {
+						if (i == 'receiveAddress') continue;
+						if (i == 'receivePhone') continue;
+						if (i == 'receiveName') continue;
+						if (i == 'riseType') continue;
+						uni.showToast({
+							title: '带*号的为必填项 ',
+							image: '../../static/images/order/icon/shibai.png'
+						});
+						flag=false
+					}else{
+						flag=true
+					}
+					
+				}
+				if(flag){
+					console.log('提交成功');
+					console.log(that.invoiceInfo);
+				}				
 			}
 		}
 	}
@@ -279,8 +543,9 @@ page {
 	height: 100%;
 }
 .selAddress {
-	position: absolute;
+	position: fixed;
 	top: 0;
+	bottom: 0;
 	z-index: 2;
 	width: 100%;
 	height: 100%;
@@ -313,7 +578,7 @@ page {
 				display: flex;
 				vertical-align: middle;
 				align-items: center;
-				padding: 18.11594upx 0;
+				padding: 18.11594upx;
 				border-bottom: 1px solid #f5f9fc;
 				view {
 					p-font {
@@ -368,6 +633,9 @@ page {
 			.active {
 				color: white;
 				background-color: rgb(0, 196, 176);
+			}
+			.no-active {
+				background-color: #333;
 			}
 		}
 	}
