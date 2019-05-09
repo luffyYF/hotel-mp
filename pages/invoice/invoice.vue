@@ -458,59 +458,73 @@ export default {
 			let that = this;
 			if (that.invoiceInfo.invoiceType == 1) {
 				console.log('普通发票');
-				/* if (that.invoiceInfo.riseType == 1) {
-					for (var i in that.invoiceInfo) {
-						if (that.invoiceInfo.invoiceTitle != '') {
-							continue;
-						}
-						if (that.invoiceInfo.recipientEmail != '') {
-							continue;
-						}
-						if (that.invoiceInfo.recipientName != '') {
-							continue;
-						}
-						if (that.invoiceInfo.recipientPhone != '') {
-							continue;
-						}
+				if (that.invoiceInfo.riseType == 1) {
+					var count = 6;
+					for (let i in that.invoiceInfo) {
 						if (that.invoiceInfo[i] == '') {
+							if (i == 'companyTaxNo') continue;
+							if (i == 'invoiceCompanyAddress') continue;
+							if (i == 'invoiceCompanyPhone') continue;
+							if (i == 'openingAccount') continue;
+							if (i == 'openingBank') continue;
+							if (i == 'receiveAddress') continue;
+							if (i == 'receiveName') continue;
+							if (i == 'receivePhone') continue;
 							uni.showToast({
 								title: '带*号的为必填项 ',
 								image: '../../static/images/order/icon/shibai.png'
 							});
-							return;
+							var num = 0;
+							for (let i in that.invoiceInfo) {
+								if (that.invoiceInfo[i] == '') {
+									num++;
+								}
+							}
+							count = num - 8;
 						}
 					}
-					console.log('提交成功');
-					console.log(that.invoiceInfo);
-					return;
-				}
-				if (that.invoiceInfo.riseType == 2) {
-					for (var i in that.invoiceInfo) {
-						if (that.invoiceInfo.companyTaxNo != '') continue;
-						if (that.invoiceInfo.invoiceTitle != '') continue;
-						if (that.invoiceInfo.recipientEmail != '') continue;
-						if (that.invoiceInfo.recipientName != '') continue;
-						if (that.invoiceInfo.recipientPhone != '') continue;
+					if (count == 6) {
+						console.log('提交成功');
+						console.log(that.invoiceInfo);
+					}
+				} else if (that.invoiceInfo.riseType == 2) {
+					var count = 7;
+					for (let i in that.invoiceInfo) {
 						if (that.invoiceInfo[i] == '') {
-							console.log('为空');
+							if (i == 'invoiceCompanyAddress') continue;
+							if (i == 'invoiceCompanyPhone') continue;
+							if (i == 'openingAccount') continue;
+							if (i == 'openingBank') continue;
+							if (i == 'receiveAddress') continue;
+							if (i == 'receiveName') continue;
+							if (i == 'receivePhone') continue;
+
 							uni.showToast({
 								title: '带*号的为必填项 ',
 								image: '../../static/images/order/icon/shibai.png'
 							});
-							return;
+							var num = 0;
+							for (let i in that.invoiceInfo) {
+								if (that.invoiceInfo[i] == '') {
+									num++;
+								}
+							}
+							count = num - 7;
 						}
 					}
-					console.log('提交成功');
-					console.log(that.invoiceInfo);
-					return;
+					if (count == 7) {
+						console.log('提交成功');
+						console.log(that.invoiceInfo);
+					}
+				} else {
+					uni.showToast({
+						title: '带*号的为必填项 ',
+						image: '../../static/images/order/icon/shibai.png'
+					});
 				}
-				uni.showToast({
-					title: '带*号的为必填项 ',
-					image: '../../static/images/order/icon/shibai.png'
-				}); */
 			} else if (that.invoiceInfo.invoiceType == 2) {
 				console.log('专用发票');
-				var flag=false;
+				var count = 10;
 				for (let i in that.invoiceInfo) {
 					if (that.invoiceInfo[i] == '') {
 						if (i == 'receiveAddress') continue;
@@ -521,16 +535,19 @@ export default {
 							title: '带*号的为必填项 ',
 							image: '../../static/images/order/icon/shibai.png'
 						});
-						flag=false
-					}else{
-						flag=true
+						var num = 0;
+						for (let i in that.invoiceInfo) {
+							if (that.invoiceInfo[i] == '') {
+								num++;
+							}
+						}
+						count = num - 4;
 					}
-					
 				}
-				if(flag){
+				if (count == 10) {
 					console.log('提交成功');
 					console.log(that.invoiceInfo);
-				}				
+				}
 			}
 		}
 	}
