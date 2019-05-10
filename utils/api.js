@@ -176,6 +176,9 @@ const api = {
 	开户行
 	personalization	string
 	个性化服务，使用逗号拼接
+	receiveAddress	string
+receiveName	string
+receivePhone
 	recipientEmail	string
 	收票人邮箱
 	recipientName	string
@@ -217,6 +220,12 @@ const api = {
 		openingAccount: data.openingAccount,
 		openingBank: data.openingBank,
 		personalization: data.personalization,
+		receiveAddress: data.receiveAddress,
+		receiveName: data.receiveName,
+		receivePhone: data.receivePhone,
+		recipientEmail: data.recipientEmail,
+		recipientName: data.recipientName,
+		recipientPhone: data.recipientPhone,
 		recipientEmail: data.recipientEmail,
 		recipientName: data.recipientName,
 		recipientPhone: data.recipientPhone,
@@ -314,7 +323,7 @@ const api = {
 	 */
 	invoiceSave: (data) => request.post('order/invoice/save', {
 		addressNumber: data.addressNumber,
-		companyTaxNo:data.companyTaxNo,
+		companyTaxNo: data.companyTaxNo,
 		invoiceCompanyAddress: data.invoiceCompanyAddress,
 		invoiceCompanyPhone: data.invoiceCompanyPhone,
 		invoicePk: data.invoicePk,
@@ -336,8 +345,8 @@ const api = {
 	 saveType  查看类型(必填)	
 	 发票保存类型 PERSON个人 UNIT单位 SPECIAL专用 ADDRESS配送地址
 	 */
-	invoiceList:(data)=>request.get('order/invoice/list',{
-		memPk:data.memPk
+	invoiceList: (data) => request.get('order/invoice/list', {
+		memPk: data.memPk
 	}, apiHotel2)
 }
 

@@ -1,5 +1,5 @@
 <template>
-	<view class="orderPage">
+	<view class="orderPage" v-cloak>
 		<view class="orderDetails">
 			<view class="markedwords">
 				<text>{{ orderDetails.statusTitle }}</text>
@@ -67,9 +67,9 @@
 					<text>押金</text>
 					<text>免押金</text>
 				</view>
-				<view class="invoice">
+				<view class="invoice" @tap="orderDetails.invoiceType != 0 ? checkInvoice() : ''">
 					<text>发票</text>
-					<text>不需开具发票</text>
+					<text>{{ orderDetails.invoiceType == 0 ? '无需开具发票' : '查看发票' }}</text>
 					<image class="icons" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 				</view>
 			</view>
@@ -97,8 +97,12 @@
 			</view>
 		</view>
 		<view class="bottomBtn" v-if="orderDetails.showBtn">
-			<button  v-if="orderDetails.btnTitle[0].isShow" :class="active == 1 ? 'active' : ''" @click="orderDetails.OperationMethod[0]()">{{ orderDetails.btnTitle[0].title }}</button>
-			<button  v-if="orderDetails.btnTitle[1].isShow" :class="active == 2 ? 'active' : ''" @click="orderDetails.OperationMethod[1]()">{{ orderDetails.btnTitle[1].title}}</button>
+			<button v-if="orderDetails.btnTitle[0].isShow" :class="active == 1 ? 'active' : ''" @click="orderDetails.OperationMethod[0]()">
+				{{ orderDetails.btnTitle[0].title }}
+			</button>
+			<button v-if="orderDetails.btnTitle[1].isShow" :class="active == 2 ? 'active' : ''" @click="orderDetails.OperationMethod[1]()">
+				{{ orderDetails.btnTitle[1].title }}
+			</button>
 		</view>
 	</view>
 </template>
@@ -122,28 +126,28 @@ export default {
 			case 0:
 				this.orderDetails.statusTitle = '待付款';
 				this.orderDetails.statusMsg = '订单已下单，请尽快付款';
-				this.orderDetails.btnTitle = [{title:'一键付款',isShow:true}, {title:'取消订单',isShow:true}];
+				this.orderDetails.btnTitle = [{ title: '一键付款', isShow: true }, { title: '取消订单', isShow: true }];
 				this.orderDetails.OperationMethod = [this.AkeyPayment, this.cancelOrder];
 				this.orderDetails.showBtn = true;
 				break;
 			case 1:
 				this.orderDetails.statusTitle = '待接单';
 				this.orderDetails.statusMsg = '订单已付款，请等待接单';
-				this.orderDetails.btnTitle = [{title:'一键付款',isShow:false}, {title:'取消订单',isShow:true}];
+				this.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '取消订单', isShow: true }];
 				this.orderDetails.OperationMethod = [this.cancelOrder, this.cancelOrder];
 				this.orderDetails.showBtn = true;
 				break;
 			case 2:
 				this.orderDetails.statusTitle = '已接单';
 				this.orderDetails.statusMsg = '订单已接单，请尽快到达酒店入住';
-				this.orderDetails.btnTitle = [{title:'一键付款',isShow:false}, {title:'取消订单',isShow:true}];
+				this.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '取消订单', isShow: true }];
 				this.orderDetails.OperationMethod = [this.cancelOrder, this.cancelOrder];
 				this.orderDetails.showBtn = true;
 				break;
 			case 3:
 				this.orderDetails.statusTitle = '已入住';
 				this.orderDetails.statusMsg = '您已入住，请好好享用';
-				this.orderDetails.btnTitle = [{title:'一键付款',isShow:false}, {title:'取消订单',isShow:true}];
+				this.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '取消订单', isShow: true }];
 				this.orderDetails.OperationMethod = [this.cancelOrder, this.cancelOrder];
 				this.orderDetails.showBtn = true;
 				break;
@@ -245,12 +249,39 @@ export default {
 			uni.navigateTo({
 				url: '../payment/payment?obj=' + JSON.stringify(obj)
 			});
+		},
+		//查看发票
+		checkInvoice() {
+			var orderDetails = this.orderDetails;
+			var obj = {
+				companyTaxNo: orderDetails.companyTaxNo,
+				invoiceCompanyAddress: orderDetails.invoiceCompanyAddress,
+				invoiceCompanyPhone: orderDetails.invoiceCompanyPhone,
+				invoiceTitle: orderDetails.invoiceTitle,
+				invoiceType: orderDetails.invoiceType,
+				openingAccount: orderDetails.openingAccount,
+				openingBank: orderDetails.openingBank,
+				receiveAddress: orderDetails.receiveAddress,
+				receiveName: orderDetails.receiveName,
+				receivePhone: orderDetails.receivePhone,
+				recipientEmail: orderDetails.recipientEmail,
+				recipientName: orderDetails.recipientName,
+				recipientPhone: orderDetails.recipientPhone,
+				riseType: orderDetails.riseType,
+				totalPrice: orderDetails.totalPrice
+			};
+			uni.navigateTo({
+				url: '../invoice/selInvoice?invoiceInfo=' + JSON.stringify(obj)
+			});
 		}
 	}
 };
 </script>
 
 <style>
+[v-cloak] {
+	display: none;
+}
 .orderPage .orderDetails {
 	width: 100%;
 	height: 100%;

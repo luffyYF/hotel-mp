@@ -132,7 +132,14 @@
 				"navigationBarBackgroundColor": "#43403a"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/invoice/selInvoice",
+            "style": {
+            	"navigationBarTitleText": "查看发票",
+            	"navigationBarBackgroundColor": "#43403a"
+            }
+        }
+    ],
 	"tabBar": {
 		"color": "#8c8c8c",
 		"selectedColor": "#43403a",

@@ -54,10 +54,10 @@
 				</view>
 			</view>
 			<view class="invoice">
-				<view class="invoice1" @tap="gotoInvoice(invoiceTypes)" :disabled='invoiceTypes==0?true:false'>
+				<view class="invoice1" @tap="gotoInvoice(invoiceTypes)" :disabled="invoiceTypes == 0 ? true : false">
 					<p>发票</p>
 					<p>
-						<span>{{invoiceTypes==0?'不提供发票':'提供发票'}}</span>
+						<span>{{ invoiceTypes == 0 ? '不提供发票' : '提供发票' }}</span>
 						<image src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</p>
 				</view>
@@ -130,7 +130,9 @@ export default {
 			//用户信息
 			userInfo: {},
 			//是否提供发票
-			invoiceTypes:[]
+			invoiceTypes: [],
+			//发票信息
+			invoiceInfo: {}
 		};
 	},
 	onLoad(opt) {
@@ -146,6 +148,17 @@ export default {
 		let currPage = pages[pages.length - 1];
 		let that = this;
 		that.selCoupons = currPage.data.selCoupons;
+
+		var b = function() {
+			for (var key in currPage.data.invoice) {
+				return true;
+			}
+			return false;
+		};
+
+		if (b()) {
+			that.invoiceInfo = currPage.data.invoice;
+		}
 
 		user.isUserinfo().then(res => {
 			user.getUserInfo().then(res => {
@@ -164,7 +177,7 @@ export default {
 			//可预订房间数
 			that.bookableCount = res.data.bookableCount;
 			//是否提供发票
-			that.invoiceTypes=res.data.invoiceTypes;
+			that.invoiceTypes = res.data.invoiceTypes;
 		});
 	},
 	methods: {
@@ -187,29 +200,74 @@ export default {
 				}
 				/* console.log(personalization);
 				console.log(this.userInfo); */
-
-				api.createOrder({
-					beginDate: this.beginDate,
-					endDate: this.endDate,
-					rentCount: this.rentCount,
-					roomTypePk: this.roomTypeInfo.typePk,
-					userName: this.userInfo.memName,
-					userPhone: this.userInfo.memPhone,
-					personalization: personalization,
-					userPk: this.userInfo.memPk
-				}).then(res => {
-					if (res.code == 1) {
-						console.log(res.data);
-						var obj = {
-							orderPk: res.data,
-							totalPrice: that.totalPrice.totalPrice,
-							userPk:that.userInfo.memPk
-						};
-						uni.navigateTo({
-							url: '../payment/payment?obj=' + JSON.stringify(obj)
-						});
+				var b = function() {
+					for (var key in that.invoiceInfo) {
+						return true;
 					}
-				});
+					return false;
+				};
+				if (b()) {
+					console.log(that.invoiceInfo.receiveAddress);
+					api.createOrder({
+						beginDate: that.beginDate,
+						endDate: that.endDate,
+						rentCount: that.rentCount,
+						roomTypePk: that.roomTypeInfo.typePk,
+						userName: that.userInfo.memName,
+						userPhone: that.userInfo.memPhone,
+						personalization: personalization,
+						userPk: that.userInfo.memPk,
+						companyTaxNo: that.invoiceInfo.companyTaxNo,
+						invoiceCompanyAddress: that.invoiceInfo.invoiceCompanyAddress,
+						invoiceCompanyPhone: that.invoiceInfo.invoiceCompanyPhone,
+						invoiceTitle: that.invoiceInfo.invoiceTitle,
+						invoiceType: that.invoiceInfo.invoiceType,
+						openingAccount: that.invoiceInfo.openingAccount,
+						openingBank: that.invoiceInfo.openingBank,
+						receiveAddress: that.invoiceInfo.receiveAddress,
+						receiveName: that.invoiceInfo.receiveName,
+						receivePhone: that.invoiceInfo.receivePhone,
+						recipientEmail: that.invoiceInfo.recipientEmail,
+						recipientName: that.invoiceInfo.recipientName,
+						recipientPhone: that.invoiceInfo.recipientPhone,
+						riseType: that.invoiceInfo.riseType
+					}).then(res => {
+						if (res.code == 1) {
+							console.log(res.data);
+							var obj = {
+								orderPk: res.data,
+								totalPrice: that.totalPrice.totalPrice,
+								userPk: that.userInfo.memPk
+							};
+							uni.navigateTo({
+								url: '../payment/payment?obj=' + JSON.stringify(obj)
+							});
+						}
+					});
+				} else {
+					api.createOrder({
+						beginDate: that.beginDate,
+						endDate: that.endDate,
+						rentCount: that.rentCount,
+						roomTypePk: that.roomTypeInfo.typePk,
+						userName: that.userInfo.memName,
+						userPhone: that.userInfo.memPhone,
+						personalization: personalization,
+						userPk: that.userInfo.memPk
+					}).then(res => {
+						if (res.code == 1) {
+							console.log(res.data);
+							var obj = {
+								orderPk: res.data,
+								totalPrice: that.totalPrice.totalPrice,
+								userPk: that.userInfo.memPk
+							};
+							uni.navigateTo({
+								url: '../payment/payment?obj=' + JSON.stringify(obj)
+							});
+						}
+					});
+				}
 			}
 		},
 		//选择优惠卷
@@ -234,7 +292,7 @@ export default {
 		roomNumber(flag) {
 			if (flag == 'add') {
 				if (this.rentCount >= this.bookableCount) {
-					console.log(this.bookableCount)
+					console.log(this.bookableCount);
 					uni.showToast({
 						title: '已经是最大房间限额',
 						image: '../../static/images/order/icon/shibai.png',
@@ -333,10 +391,10 @@ export default {
 			}
 		},
 		//申请发票
-		gotoInvoice(invoiceTypes){
+		gotoInvoice(invoiceTypes) {
 			uni.navigateTo({
-				url:'../invoice/invoice?invoiceTypes='+invoiceTypes
-			})
+				url: '../invoice/invoice?invoiceTypes=' + invoiceTypes
+			});
 		}
 	}
 };

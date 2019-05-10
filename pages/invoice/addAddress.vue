@@ -40,7 +40,7 @@ import user from '@/services/user.js';
 export default {
 	data() {
 		return {
-			userInfo:{},
+			userInfo: {},
 			addressDetails: {
 				receiveAddress: '',
 				addressNumber: '',
@@ -51,16 +51,16 @@ export default {
 		};
 	},
 	onLoad(opt) {
-		let that=this
+		let that = this;
 		if (JSON.parse(opt.obj).saveType == 'ADDRESS') {
-			that.addressDetails.receiveAddress = JSON.parse(opt.obj).receiveAddress ;
+			that.addressDetails.receiveAddress = JSON.parse(opt.obj).receiveAddress;
 			that.addressDetails.addressNumber = JSON.parse(opt.obj).addressNumber;
 			that.addressDetails.receiveName = JSON.parse(opt.obj).receiveName;
 			that.addressDetails.receivePhone = JSON.parse(opt.obj).receivePhone;
 		}
-		user.getUserInfo().then(res=>{
-			that.userInfo=res
-		})
+		user.getUserInfo().then(res => {
+			that.userInfo = res;
+		});
 	},
 	methods: {
 		//选择性别
@@ -86,7 +86,7 @@ export default {
 				receiveName: that.addressDetails.receiveName,
 				memSex: that.addressDetails.memSex,
 				receivePhone: that.addressDetails.receivePhone,
-				memPk:that.userInfo.memPk,
+				memPk: that.userInfo.memPk,
 				saveType: 'ADDRESS'
 			}).then(res => {
 				if (res.code == 1) {

@@ -105,7 +105,7 @@
 		<view class="operation">
 			<button class="reserveBtn" style="" @tap="gotoPrice()" :disabled="roomTypeInfo.isFull == 'Y' ? true : false">
 				<span>￥{{ roomTypeInfo.disPrice }}</span>
-				<span style="font-size: 21.73913upx;text-decoration: line-through;margin-right: 18.11594upx;color: #ccc;">￥{{ roomTypeInfo.price }}</span>
+				<span style="font-size:28.9855upx;text-decoration: line-through;margin-left: 18.11594upx;color: #ccc;">￥{{ roomTypeInfo.price }}</span>
 				<!-- <span style="font-size: 36.23188upx;flex: 1;text-align: right;">{{ roomTypeInfo.isFull == 'Y' ? '今日已满' : '预定' }}</span> -->
 			</button>
 			<button class="contactBtn" @tap="makingCall('12345678910')" style="background-color: #baa785;color: #333;">联系客服</button>
@@ -372,7 +372,6 @@ export default {
 	flex: 0.25;
 	border: none;
 	height: 100%;
-	line-height: 81.52173upx;
 	justify-content: center;
 	border-radius: inherit;
 	background-color: white;
@@ -387,13 +386,9 @@ export default {
 }
 
 .operation > .reserveBtn {
-	display: flex;
-	vertical-align: middle;
-	align-items: center;
-	justify-content: center;
 	flex: 0.5;
 	height: 100%;
-	line-height: 81.52173upx;
+	
 	border: none;
 	background-color: white;
 	border-radius: inherit;

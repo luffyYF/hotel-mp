@@ -2,7 +2,7 @@
 	<view class="roomReservation" v-cloak>
 		<view class="room-info">
 			<view class="hotel-img">
-				<image class="img-bg" :src="IMGURL + companyInfo.image" mode="widthFix"></image>
+				<image class="img-bg" :src="IMGURL + companyInfo.image" mode="aspectFit"></image>
 				<h2 class="info-title">
 					<view class="title">{{ companyInfo.name }}</view>
 					<view class="imgCount">

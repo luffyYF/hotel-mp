@@ -295,7 +295,6 @@ export default {
 			uni.showActionSheet({
 				itemList: that.itemList,
 				success: function(res) {
-					console.log(that.itemList[res.tapIndex]);
 					that.projectItem = that.itemList[res.tapIndex];
 				},
 				fail: function(res) {
@@ -325,7 +324,6 @@ export default {
 				if (!that.upAddress.hasOwnProperty(flag)) {
 					if (flag == 'UNIT' || flag == 'PERSON') {
 					} else {
-						console.log(that.upAddress);
 						if (flag == 'ADDRESS') {
 							uni.navigateTo({
 								url: 'addAddress'
@@ -365,12 +363,10 @@ export default {
 			}
 
 			if (flag == 'ADDRESS') {
-				console.log(flag);
 				uni.navigateTo({
 					url: 'addAddress'
 				});
 			} else {
-				console.log(typeName);
 				uni.navigateTo({
 					url: 'addUp?showType=' + typeName
 				});
@@ -408,7 +404,7 @@ export default {
 				that.invoiceInfo.receiveName = obj.receiveName;
 				that.invoiceInfo.receivePhone = obj.receivePhone;
 			}
-			console.log(that.invoiceInfo);
+
 			that.closeWindows();
 		},
 		//编辑抬头
@@ -457,7 +453,7 @@ export default {
 
 			let that = this;
 			if (that.invoiceInfo.invoiceType == 1) {
-				console.log('普通发票');
+				/* console.log('普通发票'); */
 				if (that.invoiceInfo.riseType == 1) {
 					var count = 6;
 					for (let i in that.invoiceInfo) {
@@ -484,8 +480,17 @@ export default {
 						}
 					}
 					if (count == 6) {
-						console.log('提交成功');
-						console.log(that.invoiceInfo);
+						/* console.log('提交成功');
+						console.log(that.invoiceInfo); */
+						var pages = getCurrentPages();
+						var currPage = pages[pages.length - 1]; //当前页面
+						var prevPage = pages[pages.length - 2]; //上一个页面
+
+						//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+						prevPage.setData({
+							invoice: that.invoiceInfo
+						});
+						uni.navigateBack();
 					}
 				} else if (that.invoiceInfo.riseType == 2) {
 					var count = 7;
@@ -513,8 +518,17 @@ export default {
 						}
 					}
 					if (count == 7) {
-						console.log('提交成功');
-						console.log(that.invoiceInfo);
+						/* console.log('提交成功');
+						console.log(that.invoiceInfo); */
+						var pages = getCurrentPages();
+						var currPage = pages[pages.length - 1]; //当前页面
+						var prevPage = pages[pages.length - 2]; //上一个页面
+
+						//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+						prevPage.setData({
+							invoice: that.invoiceInfo
+						});
+						uni.navigateBack();
 					}
 				} else {
 					uni.showToast({
@@ -523,7 +537,7 @@ export default {
 					});
 				}
 			} else if (that.invoiceInfo.invoiceType == 2) {
-				console.log('专用发票');
+				/* console.log('专用发票'); */
 				var count = 10;
 				for (let i in that.invoiceInfo) {
 					if (that.invoiceInfo[i] == '') {
@@ -545,8 +559,17 @@ export default {
 					}
 				}
 				if (count == 10) {
-					console.log('提交成功');
-					console.log(that.invoiceInfo);
+					/* 	console.log('提交成功');
+					console.log(that.invoiceInfo); */
+					var pages = getCurrentPages();
+					var currPage = pages[pages.length - 1]; //当前页面
+					var prevPage = pages[pages.length - 2]; //上一个页面
+
+					//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+					prevPage.setData({
+						invoice: that.invoiceInfo
+					});
+					uni.navigateBack();
 				}
 			}
 		}
