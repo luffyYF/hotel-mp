@@ -86,12 +86,14 @@
 						<h2>{{ item.typeName }}</h2>
 					</view>
 					<view>
-						<button @tap="reservation(item)" style="border: none;" :disabled="item.isFull == 'Y' ? true : false">{{ item.isFull == 'Y' ? '今日已满' : '预定房间' }}</button>
+						<button @tap="reservation(item)" style="border: none;" :disabled="item.isFull == 'Y' ? true : false">
+							{{ item.isFull == 'Y' ? '今日已满' : '预定房间' }}
+						</button>
 					</view>
 				</view>
 			</view>
 		</view>
-		<roomDetails v-if="isRoomDetails" :roomData="roomData" @closeRoom="closeRoom"></roomDetails>
+		<roomDetails v-if='isRoomDetails' :roomData="roomData" @closeRoom="closeRoom"></roomDetails>
 	</view>
 </template>
 
@@ -140,13 +142,14 @@ export default {
 		user.isUserinfo()
 			.then(res => {
 				user.getUserInfo().then(res => {
+					
 					/* console.log(res); */
 					api.getHome({
 						gradePk: res.gradePk,
 						companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
 						beginDate: that.beginDate,
 						endDate: that.endDate,
-						userPk:res.memPk
+						userPk: res.memPk
 					}).then(res => {
 						if (res.code == 1) {
 							that.roomTypeList = res.data.roomTypeList;
@@ -163,7 +166,8 @@ export default {
 					gradePk: '',
 					companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
 					beginDate: that.beginDate,
-					endDate: that.endDate
+					endDate: that.endDate,
+					userPk:''
 				}).then(res => {
 					if (res.code == 1) {
 						that.roomTypeList = res.data.roomTypeList;
@@ -192,6 +196,7 @@ export default {
 							if (res.code == 1) {
 								wx.hideTabBar();
 								that.isRoomDetails = true;
+								that.roomData.isRoomDetails = true;
 								that.roomData = res;
 								that.roomData.globalData = that.globalData;
 								that.roomData.beginDate = that.beginDate;
@@ -300,15 +305,15 @@ export default {
 				});
 		},
 		//跳到地图详情页
-		gotoMap(){
-			var obj={
-				latitude:this.companyInfo.latitude,
+		gotoMap() {
+			var obj = {
+				latitude: this.companyInfo.latitude,
 				longitude: this.companyInfo.longitude,
-				title:this.companyInfo.name
-			}
+				title: this.companyInfo.name
+			};
 			uni.navigateTo({
-				url:'../map/map?mapInfo='+JSON.stringify(obj)
-			})
+				url: '../map/map?mapInfo=' + JSON.stringify(obj)
+			});
 		}
 	}
 };
@@ -362,7 +367,7 @@ export default {
 	.checkindate {
 		background-color: #fff;
 	}
-
+	
 	.room-info {
 		.info-title {
 			width: 100%;
@@ -557,7 +562,7 @@ export default {
 				justify-content: center;
 
 				button {
-					width:144.92753upx;
+					width: 144.92753upx;
 					height: 52upx;
 					font-size: 23.55072upx;
 					background-color: #e0c475;
@@ -566,7 +571,9 @@ export default {
 					line-height: 52upx;
 					color: #fff;
 				}
-				button::after{ border: none;}
+				button::after {
+					border: none;
+				}
 			}
 		}
 	}

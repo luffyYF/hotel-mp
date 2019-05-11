@@ -108,7 +108,7 @@
 						<li class="s-li">
 							<p>
 								发票金额:
-								<span>￥340（房费￥340）</span>
+								<span>￥{{ invoicePrice }}</span>
 							</p>
 						</li>
 						<li class="s-li"><p>您可在“订单页-查看发票”获取发票开具状态等信息</p></li>
@@ -213,6 +213,8 @@ export default {
 			showType: 'UNIT',
 			//可用发票类型
 			invoiceTypes: [],
+			//发票数额
+			invoicePrice: '',
 			//发票全部信息
 			invoiceInfo: {
 				companyTaxNo: '',
@@ -236,6 +238,7 @@ export default {
 		/* console.log(opt.invoiceTypes[1]); */
 		this.invoiceTypes = opt.invoiceTypes;
 		this.invoiceInfo.invoiceType = this.options;
+		this.invoicePrice = opt.invoicePrice;
 		user.getUserInfo().then(res => {
 			this.userInfo = res;
 		});
@@ -675,7 +678,7 @@ page {
 				background-color: rgb(0, 196, 176);
 			}
 			.no-active {
-				background-color: #333;
+				background-color: #999999;
 			}
 		}
 	}

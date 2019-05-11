@@ -125,7 +125,7 @@
 import uniSwiperDot from '../../components/uni-swiper-dot/uni-swiper-dot.vue';
 import api from '@/utils/api.js';
 import allocation from '@/utils/config.js';
-import user from '@/services/user.js'
+import user from '@/services/user.js';
 export default {
 	props: {
 		roomData: {}
@@ -168,7 +168,22 @@ export default {
 			current: 0,
 			mode: 'long',
 			IMGURL: '',
-			roomTypeInfo: {},
+			roomTypeInfo: {
+				typeName:'',
+				area:'',
+				disPrice:'',
+				customerNum:'',
+				bathroomDesc:'',
+				breakfastDesc:'',
+				windowDesc:'',
+				broadbandDesc:'',
+				airConditionerDesc:'',
+				bathroomMatchingDesc:'',
+				disPrice:'',
+				price:'',
+				isFull:''
+
+			},
 			globalData: {},
 			beginDate: '',
 			endDate: ''
@@ -388,7 +403,7 @@ export default {
 .operation > .reserveBtn {
 	flex: 0.5;
 	height: 100%;
-	
+
 	border: none;
 	background-color: white;
 	border-radius: inherit;

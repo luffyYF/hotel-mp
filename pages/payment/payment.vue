@@ -77,7 +77,7 @@ export default {
 			}).then(res => {
 				if (res.code == 1) {
 					console.log(res);
-					
+
 					wx.requestPayment({
 						appId: res.data.appId,
 						timeStamp: res.data.timeStamp,
@@ -86,9 +86,9 @@ export default {
 						signType: res.data.signType,
 						paySign: res.data.paySign,
 						success: function(res) {
-							uni.navigateTo({
-								url:'payFinish?orderPk='+that.orderInfo.orderPk+'&userPk='+that.orderInfo.userPk
-							})
+							uni.reLaunch({
+								url: 'payFinish?orderPk=' + that.orderInfo.orderPk + '&userPk=' + that.orderInfo.userPk
+							});
 						},
 						fail: function(res) {},
 						complete: function(res) {}

@@ -57,7 +57,7 @@
 				<view class="invoice1" @tap="gotoInvoice(invoiceTypes)" :disabled="invoiceTypes == 0 ? true : false">
 					<p>发票</p>
 					<p>
-						<span>{{ invoiceTypes == 0 ? '不提供发票' : '提供发票' }}</span>
+						<span>{{ typeInvoice == 1 ? '普通发票' : typeInvoice == 2 ? '专用发票' : invoiceTypes == 0 ? '不提供发票' : '提供发票' }}</span>
 						<image src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</p>
 				</view>
@@ -126,7 +126,12 @@ export default {
 			//可预订房间数
 			bookableCount: '',
 			//总价
-			totalPrice: {},
+			totalPrice: {
+				totalPrice:'',
+				oldTotalPrice:''
+			},
+			//选择的发票类型
+			typeInvoice: '',
 			//用户信息
 			userInfo: {},
 			//是否提供发票
@@ -142,6 +147,7 @@ export default {
 		this.globalData = obj.globalData;
 		this.beginDate = obj.beginDate;
 		this.endDate = obj.endDate;
+		console.log(this.typeInvoice);
 	},
 	onShow(e) {
 		let pages = getCurrentPages();
@@ -158,6 +164,8 @@ export default {
 
 		if (b()) {
 			that.invoiceInfo = currPage.data.invoice;
+			that.typeInvoice = currPage.data.invoice.invoiceType;
+			console.log(this.typeInvoice);
 		}
 
 		user.isUserinfo().then(res => {
@@ -393,7 +401,7 @@ export default {
 		//申请发票
 		gotoInvoice(invoiceTypes) {
 			uni.navigateTo({
-				url: '../invoice/invoice?invoiceTypes=' + invoiceTypes
+				url: '../invoice/invoice?invoiceTypes=' + invoiceTypes + '&invoicePrice=' + this.totalPrice.totalPrice
 			});
 		}
 	}
@@ -401,12 +409,16 @@ export default {
 </script>
 
 <style>
+page {
+	height: 100%;
+}
 .fillorderPage {
 	background-color: #f5f9fc;
-	overflow: hidden;
+	height: 100%;
 }
 .fillorderPage .orderContent {
 	margin-bottom: 81.52173upx;
+	height: 100%;
 }
 .fillorderPage .orderContent .room-info {
 	background-color: white;

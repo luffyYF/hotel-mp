@@ -139,6 +139,27 @@
             	"navigationBarBackgroundColor": "#43403a"
             }
         }
+        ,{
+            "path" : "pages/updInformation/updInformation",
+            "style": {
+            	"navigationBarTitleText": "修改信息",
+            	"navigationBarBackgroundColor": "#43403a"
+            }
+        },
+		{
+		    "path" : "pages/updInformation/updUp",
+		    "style": {
+		    	"navigationBarTitleText": "修改抬头",
+		    	"navigationBarBackgroundColor": "#43403a"
+		    }
+		}
+        ,{
+            "path" : "pages/updInformation/updList",
+            "style": {
+            	"navigationBarTitleText": "选择修改",
+            	"navigationBarBackgroundColor": "#43403a"
+            }
+        }
     ],
 	"tabBar": {
 		"color": "#8c8c8c",

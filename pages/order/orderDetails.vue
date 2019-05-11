@@ -120,7 +120,9 @@ export default {
 	},
 	onLoad(opt) {
 		/* console.log(JSON.parse(opt.orderDetails)); */
+		console.log(JSON.parse(opt.orderDetails));
 		this.orderDetails = JSON.parse(opt.orderDetails);
+
 		this.IMGURL = api.config.IMGURL;
 		switch (this.orderDetails.orderStatus) {
 			case 0:

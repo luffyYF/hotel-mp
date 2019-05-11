@@ -9,7 +9,25 @@
 						<text class="roomcount">预定{{ item.rentCount }}间</text>
 					</view>
 					<view class="text-right">
-						<text>{{ item.orderStatus==0?'待付款':item.orderStatus==1?'待接单':item.orderStatus==2?'已接单':item.orderStatus==3?'已入住':item.orderStatus==4?'取消中':item.orderStatus==5?'已取消':item.orderStatus==6?'已完成':'错误'}}</text>
+						<text>
+							{{
+								item.orderStatus == 0
+									? '待付款'
+									: item.orderStatus == 1
+									? '待接单'
+									: item.orderStatus == 2
+									? '已接单'
+									: item.orderStatus == 3
+									? '已入住'
+									: item.orderStatus == 4
+									? '取消中'
+									: item.orderStatus == 5
+									? '已取消'
+									: item.orderStatus == 6
+									? '已完成'
+									: '错误'
+							}}
+						</text>
 					</view>
 				</view>
 				<view class="item-img">
@@ -73,7 +91,7 @@ export default {
 	},
 	onShow() {
 		let that = this;
-		
+
 		user.isUserinfo()
 			.then(res => {
 				user.getUserInfo().then(res => {
@@ -98,19 +116,22 @@ export default {
 			switch (e) {
 				case 'OBLIGATION':
 					this.statusTitle = '待付款';
+					this.showList(this.userInfo, 1, 10);
 					break;
 				case 'RESERVE':
 					this.statusTitle = '已付款';
+					this.showList(this.userInfo, 1, 10);
 					break;
 				case 'CANCEL':
 					this.statusTitle = '已取消';
+					this.showList(this.userInfo, 1, 10);
 					break;
 				case 'FINISH':
 					this.statusTitle = '已完成';
+					this.showList(this.userInfo, 1, 10);
 					break;
 				default:
 			}
-			this.showList(this.userInfo, 1, 10);
 		},
 		orderDetails(item) {
 			api.getOrder({
@@ -118,6 +139,7 @@ export default {
 				userPk: this.userInfo.memPk
 			}).then(res => {
 				if (res.code == 1) {
+					/* 	var obj = JSON.stringify(res.data); */
 					uni.navigateTo({
 						url: '../../pages/order/orderDetails?orderDetails=' + JSON.stringify(res.data)
 					});

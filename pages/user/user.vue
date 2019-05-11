@@ -31,12 +31,17 @@
 		</view>
 
 		<view class="center-list">
-			<view @tap="makingCall('12345678910')">
+			<view @tap="gotoUpd" hover-class="color-hover">
+				<image src="../../static/images/user/feedback.png" mode=""></image>
+				<span>修改信息</span>
+				<image src="../../static/images/index/right.png" mode=""></image>
+			</view>
+			<view @tap="makingCall('12345678910')" hover-class="color-hover">
 				<image src="../../static/images/user/phone.png" mode=""></image>
 				<span>联系客服</span>
 				<image src="../../static/images/index/right.png" mode=""></image>
 			</view>
-			<view @tap="gotoUs">
+			<view @tap="gotoUs" hover-class="color-hover">
 				<image src="../../static/images/user/about.png" mode=""></image>
 				<span>关于我们</span>
 				<image src="../../static/images/index/right.png" mode=""></image>
@@ -129,6 +134,12 @@ export default {
 			uni.navigateTo({
 				url: '../member/member'
 			});
+		},
+		//修改信息
+		gotoUpd() {
+			uni.navigateTo({
+				url: '../updInformation/updInformation'
+			});
 		}
 	}
 };
@@ -220,6 +231,9 @@ page {
 	width: 16px;
 	height: 16px;
 	vertical-align: middle;
+}
+.center-list .color-hover {
+	background-color: #f7f9fb;
 }
 .center-list view {
 	display: flex;
