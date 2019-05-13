@@ -81,6 +81,7 @@
 						<span class="original">￥{{ item.price }}</span>
 					</view>
 				</view>
+				<image src="../../static/images/user/redHeart.png" mode="" class="collect-icon" @tap="onCollect(item)"></image>
 				<view class="room-type">
 					<view>
 						<h2>{{ item.typeName }}</h2>
@@ -93,7 +94,7 @@
 				</view>
 			</view>
 		</view>
-		<roomDetails v-if='isRoomDetails' :roomData="roomData" @closeRoom="closeRoom"></roomDetails>
+		<roomDetails v-if="isRoomDetails" :roomData="roomData" @closeRoom="closeRoom"></roomDetails>
 	</view>
 </template>
 
@@ -142,7 +143,6 @@ export default {
 		user.isUserinfo()
 			.then(res => {
 				user.getUserInfo().then(res => {
-					
 					/* console.log(res); */
 					api.getHome({
 						gradePk: res.gradePk,
@@ -167,7 +167,7 @@ export default {
 					companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
 					beginDate: that.beginDate,
 					endDate: that.endDate,
-					userPk:''
+					userPk: ''
 				}).then(res => {
 					if (res.code == 1) {
 						that.roomTypeList = res.data.roomTypeList;
@@ -314,6 +314,19 @@ export default {
 			uni.navigateTo({
 				url: '../map/map?mapInfo=' + JSON.stringify(obj)
 			});
+		},
+		//点击收藏
+		onCollect(item) {
+			api.collectionCollect({
+				collectPrice: item.disPrice,
+				coverImage: item.coverImage,
+				roomTypeName: item.typeName,
+				roomTypePk: item.roomTypePk
+			}).then(res => {
+				if(res.code==1){
+					
+				}
+			});
 		}
 	}
 };
@@ -367,7 +380,7 @@ export default {
 	.checkindate {
 		background-color: #fff;
 	}
-	
+
 	.room-info {
 		.info-title {
 			width: 100%;
@@ -505,6 +518,7 @@ export default {
 	// 		}
 
 	.room-list {
+		position: relative;
 		.room-cover {
 			position: relative;
 
@@ -528,7 +542,14 @@ export default {
 				}
 			}
 		}
-
+		.collect-icon {
+			width: 47.10144upx;
+			height: 45.28985upx;
+			position: absolute;
+			z-index: 4;
+			right: 36.23188upx;
+			top: 36.23188upx;
+		}
 		.room-type {
 			display: flex;
 			width: 100%;

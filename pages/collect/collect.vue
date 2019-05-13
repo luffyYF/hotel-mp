@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<view class="collect-item" v-for="(item,index) in count" :key="index" @tap="gotoRoom">
-			<image class="collect-icon" src="../../static/images/user/heart.png" mode=""></image>
+		<view class="collect-item" v-for="(item, index) in count" :key="index" @tap="gotoRoom">
+			<image class="collect-icon" src="../../static/images/user/redHeart.png" mode=""></image>
 			<image class="collect-img" src="../../static/images/room/20181214161550000808031.jpg" mode=""></image>
 			<view class="collect-title">
 				<h2>豪斯菲尔温馨浪漫双床房</h2>
@@ -15,14 +15,19 @@
 export default {
 	data() {
 		return {
-			count:10
+			count: 10
 		};
 	},
+	onLoad() {
+		api.collectionList().then(res => {
+			console.log(res);
+		});
+	},
 	methods: {
-		gotoRoom(){
-			uni.navigateTo({
+		gotoRoom() {
+			/* uni.navigateTo({
 				url:"../roomDetails/roomDetails"
-			})
+			}) */
 		}
 	}
 };
@@ -34,9 +39,9 @@ export default {
 	margin: 27.17391upx;
 	border-radius: 18.11594upx;
 	overflow: hidden;
-	box-shadow: 0 1px 2px #f1f1f1!important;
-    border: 1px solid #f1f1f1!important;
-	.collect-icon{
+	box-shadow: 0 1px 2px #f1f1f1 !important;
+	border: 1px solid #f1f1f1 !important;
+	.collect-icon {
 		width: 47.10144upx;
 		height: 45.28985upx;
 		position: absolute;
@@ -61,11 +66,10 @@ export default {
 			font-weight: 500;
 			margin: 11px 8px 11px 0;
 		}
-		p{
+		p {
 			color: red;
 			font-size: 16px;
-		};
-		
+		}
 	}
 }
 </style>

@@ -52,6 +52,7 @@
 
 <script>
 import user from '@/services/user.js';
+import api from '@/utils/api.js';
 export default {
 	data() {
 		return {
@@ -109,11 +110,13 @@ export default {
 				url: '../aboutUs/aboutUs'
 			});
 		},
+		//跳转收藏
 		gotoCollect() {
 			if (this.login) {
 				uni.navigateTo({
 					url: '../collect/collect'
 				});
+				
 			} else {
 				uni.showToast({
 					title: '请先登录！'

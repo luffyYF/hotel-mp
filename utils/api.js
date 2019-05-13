@@ -347,6 +347,27 @@ receivePhone
 	 */
 	invoiceList: (data) => request.get('order/invoice/list', {
 		memPk: data.memPk
+	}, apiHotel2),
+
+	/* 
+	收藏房型
+	collectPrice 收藏价格
+	coverImage 封面图片
+	roomTypeName 房型名称
+	roomTypePk 房间类型主键
+	 */
+	collectionCollect: (data) => request.post('collection/collect', {
+		collectPrice: data.collectPrice,
+		coverImage: data.coverImage,
+		roomTypeName: data.roomTypeName,
+		roomTypePk: data.roomTypePk
+	}, apiHotel2),
+
+	/* 
+	查询用户收藏房型列表
+	 */
+	collectionList: (data) => request.get('collection/list', {
+
 	}, apiHotel2)
 }
 

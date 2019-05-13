@@ -15,6 +15,7 @@
 					</swiper-item>
 				</swiper>
 			</uniSwiperDot>
+			<image src="../../static/images/user/redHeart.png" mode="" class="collect-icon"></image>
 			<view class="roominfo">
 				<view class="infoRow">
 					<view class="info-left">
@@ -169,20 +170,19 @@ export default {
 			mode: 'long',
 			IMGURL: '',
 			roomTypeInfo: {
-				typeName:'',
-				area:'',
-				disPrice:'',
-				customerNum:'',
-				bathroomDesc:'',
-				breakfastDesc:'',
-				windowDesc:'',
-				broadbandDesc:'',
-				airConditionerDesc:'',
-				bathroomMatchingDesc:'',
-				disPrice:'',
-				price:'',
-				isFull:''
-
+				typeName: '',
+				area: '',
+				disPrice: '',
+				customerNum: '',
+				bathroomDesc: '',
+				breakfastDesc: '',
+				windowDesc: '',
+				broadbandDesc: '',
+				airConditionerDesc: '',
+				bathroomMatchingDesc: '',
+				disPrice: '',
+				price: '',
+				isFull: ''
 			},
 			globalData: {},
 			beginDate: '',
@@ -277,6 +277,14 @@ export default {
 		.swiper-box {
 			width: 100%;
 			height: 498.1884upx;
+		}
+		.collect-icon {
+			width: 47.10144upx;
+			height: 45.28985upx;
+			position: absolute;
+			z-index: 4;
+			right: 36.23188upx;
+			top: 36.23188upx;
 		}
 		.roominfo {
 			padding: 18.11594upx;
