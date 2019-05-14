@@ -15,7 +15,7 @@
 					</swiper-item>
 				</swiper>
 			</uniSwiperDot>
-			<image src="../../static/images/user/redHeart.png" mode="" class="collect-icon"></image>
+			<image :src="ifCollect ? '../../static/images/user/onChose.png' : '../../static/images/user/outChose.png'" mode="" class="collect-icon" @tap="onCollect()"></image>
 			<view class="roominfo">
 				<view class="infoRow">
 					<view class="info-left">
@@ -136,7 +136,7 @@ export default {
 	},
 	created() {
 		let that = this;
-
+		/* console.log(that.roomData); */
 		if (that.roomData.code == 1) {
 			uni.showLoading({
 				title: '加载中',
@@ -148,6 +148,13 @@ export default {
 			}, 1000);
 			//房间信息
 			that.roomTypeInfo = that.roomData.data.roomTypeInfo;
+			//是否收藏
+			if (that.roomTypeInfo.collectPk == null) {
+				that.ifCollect = false;
+			} else {
+				that.ifCollect = true;
+			}
+
 			//图片数组
 			that.info = that.roomData.data.images;
 			//入住时间
@@ -186,7 +193,9 @@ export default {
 			},
 			globalData: {},
 			beginDate: '',
-			endDate: ''
+			endDate: '',
+			//是否收藏
+			ifCollect: ''
 		};
 	},
 	methods: {
@@ -223,6 +232,31 @@ export default {
 			uni.makePhoneCall({
 				phoneNumber: phoneNumber
 			});
+		},
+		//是否收藏
+		onCollect() {
+			let that = this;
+			if (that.ifCollect) {
+				api.collectCancel({
+					roomTypePk: that.roomTypeInfo.typePk
+				}).then(res => {
+					if (res.code == 1) {
+						that.ifCollect = false;
+					}
+				});
+			} else {
+				api.collectionCollect({
+					collectPrice: that.roomTypeInfo.disPrice,
+					roomTypePk: that.roomTypeInfo.typePk
+				}).then(res => {
+					if (res.code == 1) {
+						uni.showToast({
+							title: '已收藏'
+						});
+						that.ifCollect = true;
+					}
+				});
+			}
 		}
 	}
 };
@@ -279,8 +313,8 @@ export default {
 			height: 498.1884upx;
 		}
 		.collect-icon {
-			width: 47.10144upx;
-			height: 45.28985upx;
+			width: 63.40579upx;
+			height: 63.40579upx;
 			position: absolute;
 			z-index: 4;
 			right: 36.23188upx;

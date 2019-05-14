@@ -109,18 +109,20 @@
 
 <script>
 import api from '@/utils/api.js';
+import wxUser from '@/services/wxUser.js';
+import allocation from '@/utils/config.js';
 export default {
 	components: {},
 	data() {
 		return {
 			active: 1,
 			orderDetails: {},
-			IMGURL: ''
+			IMGURL: '',
+			orderInfo: {}
 		};
 	},
 	onLoad(opt) {
 		/* console.log(JSON.parse(opt.orderDetails)); */
-		console.log(JSON.parse(opt.orderDetails));
 		this.orderDetails = JSON.parse(opt.orderDetails);
 
 		this.IMGURL = api.config.IMGURL;
@@ -166,7 +168,9 @@ export default {
 			case 6:
 				this.orderDetails.statusTitle = '已完成';
 				this.orderDetails.statusMsg = '订单已完成，欢迎您的下次光临';
-				this.orderDetails.showBtn = false;
+				this.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '评价', isShow: true }];
+				this.orderDetails.OperationMethod = [this.cancelOrder, this.cancelOrder];
+				this.orderDetails.showBtn = true;
 				break;
 			default:
 				break;
@@ -235,21 +239,46 @@ export default {
 							}
 						});
 					} else if (res.cancel) {
-						console.log('用户点击取消');
 					}
 				}
 			});
 		},
 		//一键付款
 		AkeyPayment() {
-			console.log(this.orderDetails);
-			var obj = {
-				orderPk: this.orderDetails.orderPk,
-				totalPrice: this.orderDetails.totalPrice,
-				userPk: this.orderDetails.userPk
+			let that = this;
+			that.orderInfo = {
+				orderPk: that.orderDetails.orderPk,
+				totalPrice: that.orderDetails.totalPrice,
+				userPk: that.orderDetails.userPk
 			};
-			uni.navigateTo({
-				url: '../payment/payment?obj=' + JSON.stringify(obj)
+			wxUser.getUserInfo().then(res => {
+				that.orderInfo.openId = res.openId;
+				api.payment({
+					appid: allocation.APPID,
+					openid: that.orderInfo.openId,
+					orderPk: that.orderInfo.orderPk,
+					payType: 'WX_APPLET'
+				}).then(res => {
+					if (res.code == 1) {
+						console.log(res);
+
+						wx.requestPayment({
+							appId: res.data.appId,
+							timeStamp: res.data.timeStamp,
+							nonceStr: res.data.nonceStr,
+							package: res.data.package,
+							signType: res.data.signType,
+							paySign: res.data.paySign,
+							success: function(res) {
+								uni.reLaunch({
+									url: 'payFinish?orderPk=' + that.orderInfo.orderPk + '&userPk=' + that.orderInfo.userPk
+								});
+							},
+							fail: function(res) {},
+							complete: function(res) {}
+						});
+					}
+				});
 			});
 		},
 		//查看发票

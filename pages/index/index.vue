@@ -2,7 +2,7 @@
 	<view class="roomReservation" v-cloak>
 		<view class="room-info">
 			<view class="hotel-img">
-				<image class="img-bg" :src="IMGURL + companyInfo.image" mode="aspectFit"></image>
+				<image class="img-bg" src="../../static/images/index/1.jpg" mode="widthFix"></image>
 				<h2 class="info-title">
 					<view class="title">{{ companyInfo.name }}</view>
 					<view class="imgCount">
@@ -74,14 +74,19 @@
 				</view> -->
 			</view>
 			<view class="room-list" v-for="(item, index) in roomTypeList" :key="index">
-				<view class="room-cover" @tap="gotoRoomInfo(item.roomTypePk)">
+				<view class="room-cover" @tap="gotoRoomInfo(item)">
 					<image style="width:100%;height: 362.31884upx;" :src="IMGURL + item.coverImage" mode="aspectFill"></image>
 					<view class="span">
 						<span>￥{{ item.disPrice }}</span>
 						<span class="original">￥{{ item.price }}</span>
 					</view>
 				</view>
-				<image src="../../static/images/user/redHeart.png" mode="" class="collect-icon" @tap="onCollect(item)"></image>
+				<image
+					:src="item.collectPk == null ? '../../static/images/user/outChose.png' : '../../static/images/user/onChose.png'"
+					mode=""
+					class="collect-icon"
+					@tap="onCollect(item)"
+				></image>
 				<view class="room-type">
 					<view>
 						<h2>{{ item.typeName }}</h2>
@@ -125,7 +130,9 @@ export default {
 			roomData: {},
 			beginDate: '',
 			endDate: '',
-			userInfo: {}
+			userInfo: {},
+			//是否收藏
+			collectFlag: true
 		};
 	},
 
@@ -143,7 +150,8 @@ export default {
 		user.isUserinfo()
 			.then(res => {
 				user.getUserInfo().then(res => {
-					/* console.log(res); */
+					that.userInfo = res;
+
 					api.getHome({
 						gradePk: res.gradePk,
 						companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
@@ -180,7 +188,7 @@ export default {
 	},
 	methods: {
 		//跳转到房间详情页
-		gotoRoomInfo(roomTypePk) {
+		gotoRoomInfo(item) {
 			let that = this;
 			user.isUserinfo()
 				.then(res => {
@@ -189,15 +197,16 @@ export default {
 						api.getRoomType({
 							gradePk: res.gradePk, //会员级别
 							companyPk: allocation.COMPANYPK, //酒店主键
-							roomTypePk: roomTypePk, //房型主键
+							roomTypePk: item.roomTypePk, //房型主键
 							beginDate: that.beginDate, //开始日期
-							endDate: that.endDate //结束日期
+							endDate: that.endDate, //结束日期
+							memPk: that.userInfo.memPk //用户主键
 						}).then(res => {
 							if (res.code == 1) {
 								wx.hideTabBar();
 								that.isRoomDetails = true;
-								that.roomData.isRoomDetails = true;
 								that.roomData = res;
+								that.roomData.item = item;
 								that.roomData.globalData = that.globalData;
 								that.roomData.beginDate = that.beginDate;
 								that.roomData.endDate = that.endDate;
@@ -212,7 +221,8 @@ export default {
 						companyPk: allocation.COMPANYPK, //酒店主键
 						roomTypePk: roomTypePk, //房型主键
 						beginDate: that.beginDate, //开始日期
-						endDate: that.endDate //结束日期
+						endDate: that.endDate, //结束日期
+						memPk: that.userInfo.memPk //用户主键
 					}).then(res => {
 						if (res.code == 1) {
 							wx.hideTabBar();
@@ -225,9 +235,23 @@ export default {
 					});
 				});
 		},
+
 		//关闭房间详情页
 		closeRoom() {
+			let that = this;
 			this.isRoomDetails = false;
+			api.getHome({
+				gradePk: that.userInfo.gradePk,
+				companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
+				beginDate: that.beginDate,
+				endDate: that.endDate,
+				userPk: that.userInfo.memPk
+			}).then(res => {
+				if (res.code == 1) {
+					that.roomTypeList = res.data.roomTypeList;
+					/* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
+				}
+			});
 			wx.showTabBar();
 		},
 		//跳转到评论页
@@ -317,16 +341,51 @@ export default {
 		},
 		//点击收藏
 		onCollect(item) {
-			api.collectionCollect({
-				collectPrice: item.disPrice,
-				coverImage: item.coverImage,
-				roomTypeName: item.typeName,
-				roomTypePk: item.roomTypePk
-			}).then(res => {
-				if(res.code==1){
-					
-				}
-			});
+			let that = this;
+			if (item.collectPk == null) {
+				api.collectionCollect({
+					collectPrice: item.disPrice,
+					roomTypePk: item.roomTypePk
+				}).then(res => {
+					if (res.code == 1) {
+						uni.showToast({
+							title: '已收藏'
+						});
+
+						api.getHome({
+							gradePk: that.userInfo.gradePk,
+							companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
+							beginDate: that.beginDate,
+							endDate: that.endDate,
+							userPk: that.userInfo.memPk
+						}).then(res => {
+							if (res.code == 1) {
+								that.roomTypeList = res.data.roomTypeList;
+								/* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
+							}
+						});
+					}
+				});
+			} else {
+				api.collectCancel({
+					roomTypePk: item.roomTypePk
+				}).then(res => {
+					if (res.code == 1) {
+						api.getHome({
+							gradePk: that.userInfo.gradePk,
+							companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
+							beginDate: that.beginDate,
+							endDate: that.endDate,
+							userPk: that.userInfo.memPk
+						}).then(res => {
+							if (res.code == 1) {
+								that.roomTypeList = res.data.roomTypeList;
+								/* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
+							}
+						});
+					}
+				});
+			}
 		}
 	}
 };
@@ -543,8 +602,8 @@ export default {
 			}
 		}
 		.collect-icon {
-			width: 47.10144upx;
-			height: 45.28985upx;
+			width: 63.40579upx;
+			height: 63.40579upx;
 			position: absolute;
 			z-index: 4;
 			right: 36.23188upx;

@@ -68,7 +68,7 @@ const api = {
 		companyPk: data.companyPk,
 		beginDate: data.beginDate,
 		endDate: data.endDate,
-		userPk: data.userPk
+		memPk: data.userPk
 	}, apiHotel),
 	/**
 	 * 查询房型信息
@@ -87,7 +87,8 @@ const api = {
 		companyPk: data.companyPk,
 		roomTypePk: data.roomTypePk,
 		beginDate: data.beginDate,
-		endDate: data.endDate
+		endDate: data.endDate,
+		memPk: data.memPk
 	}, apiHotel),
 	/* 
 	获取订单价格
@@ -358,8 +359,6 @@ receivePhone
 	 */
 	collectionCollect: (data) => request.post('collection/collect', {
 		collectPrice: data.collectPrice,
-		coverImage: data.coverImage,
-		roomTypeName: data.roomTypeName,
 		roomTypePk: data.roomTypePk
 	}, apiHotel2),
 
@@ -368,7 +367,12 @@ receivePhone
 	 */
 	collectionList: (data) => request.get('collection/list', {
 
-	}, apiHotel2)
+	}, apiHotel2),
+
+	/* 
+	 取消收藏房型
+	 */
+	collectCancel: (data) => request.post('collection/cancel?roomTypePk=' + data.roomTypePk, {}, apiHotel2)
 }
 
 export default api

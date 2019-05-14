@@ -86,7 +86,7 @@ export default {
 						signType: res.data.signType,
 						paySign: res.data.paySign,
 						success: function(res) {
-							uni.reLaunch({
+							uni.navigateTo({
 								url: 'payFinish?orderPk=' + that.orderInfo.orderPk + '&userPk=' + that.orderInfo.userPk
 							});
 						},

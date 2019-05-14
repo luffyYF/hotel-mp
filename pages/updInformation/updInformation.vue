@@ -16,7 +16,6 @@
 				<span>修改收件地址</span>
 				<image src="../../static/images/index/right.png" mode="" class="item-icon"></image>
 			</view>
-			<view></view>
 		</scroll-view>
 	</view>
 </template>

@@ -28,11 +28,7 @@
 					<p>{{ orderInfo.createTime }}</p>
 				</view>
 			</view>
-			<view class="footer">
-				<a @tap="backHomepage">返回首页</a>
-				|
-				<a @tap="gotoBack">返回填写订单页面</a>
-			</view>
+			<view class="footer"><a @tap="backHomepage">返回首页</a></view>
 		</view>
 	</view>
 </template>
@@ -61,15 +57,15 @@ export default {
 	},
 	methods: {
 		backHomepage() {
-			uni.reLaunch({
+			uni.switchTab({
 				url: '../index/index'
 			});
-		},
-		gotoBack() {
+		}
+		/* 		gotoBack() {
 			uni.navigateBack({
 				delta: 2
 			});
-		}
+		} */
 	}
 };
 </script>
