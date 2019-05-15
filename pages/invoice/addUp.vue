@@ -6,11 +6,11 @@
 				<view class="selType">
 					<radio-group @change="radioChange">
 						<label class="radio">
-							<radio value="enterprise" color="rgb(6,193,174)" checked="" />
+							<radio value="enterprise" color="rgb(6,193,174)" :checked="upTypeName == 'enterprise' ? true : false" />
 							企业
 						</label>
 						<label class="radio">
-							<radio value="personage" color="rgb(6,193,174)" checked="" />
+							<radio value="personage" color="rgb(6,193,174)" :checked="upTypeName == 'personage' ? true : false" />
 							个人
 						</label>
 					</radio-group>
@@ -39,19 +39,19 @@
 				<input type="text" placeholder="请输入税号" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.companyTaxNo" />
 			</view>
 			<view class="row">
-				<p>*电话号码</p>
+				<p>电话号码</p>
 				<input type="text" placeholder="请输入单位电话号码" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.invoiceCompanyPhone" />
 			</view>
 			<view class="row">
-				<p>*单位地址</p>
+				<p>单位地址</p>
 				<input type="text" placeholder="单位注册地址信息" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.invoiceCompanyAddress" />
 			</view>
 			<view class="row">
-				<p>*开户银行</p>
+				<p>开户银行</p>
 				<input type="text" placeholder="单位的开户行名称" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.openingBank" />
 			</view>
 			<view class="row">
-				<p>*银行账号</p>
+				<p>银行账号</p>
 				<input type="text" placeholder="单位的银行账号" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.openingAccount" />
 			</view>
 		</view>

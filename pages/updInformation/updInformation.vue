@@ -29,19 +29,19 @@ export default {
 		updUp(flag) {
 			if (flag == 'UNIT') {
 				uni.navigateTo({
-					url: 'updUp?showType=' + 'plainInvoice' + '&obj=' + JSON.stringify(obj)
+					url: 'updList?showType=' + 'UNIT'
 				});
 			} else if (flag == 'PERSON') {
 				uni.navigateTo({
-					url: 'updUp?showType=' + 'plainInvoice' + '&obj=' + JSON.stringify(obj)
+					url: 'updList?showType=' + 'PERSON'
 				});
 			} else if (flag == 'SPECIAL') {
 				uni.navigateTo({
-					url: 'updUp?showType=' + 'specialInvoice' + '&obj=' + JSON.stringify(obj)
+					url: 'updList?showType=' + 'SPECIAL'
 				});
 			} else if (flag == 'ADDRESS') {
 				uni.navigateTo({
-					url: 'addAddress?obj=' + JSON.stringify(obj)
+					url: 'updList?showType=' + 'ADDRESS'
 				});
 			}
 		}

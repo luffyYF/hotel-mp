@@ -367,6 +367,7 @@ export default {
 					}
 				});
 			} else {
+				//取消收藏
 				api.collectCancel({
 					roomTypePk: item.roomTypePk
 				}).then(res => {

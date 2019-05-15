@@ -33,7 +33,12 @@
 		<view class="center-list">
 			<view @tap="gotoUpd" hover-class="color-hover">
 				<image src="../../static/images/user/feedback.png" mode=""></image>
-				<span>修改信息</span>
+				<span>发票抬头</span>
+				<image src="../../static/images/index/right.png" mode=""></image>
+			</view>
+			<view @tap="gotoUpd" hover-class="color-hover">
+				<image src="../../static/images/user/feedback.png" mode=""></image>
+				<span>收件地址</span>
 				<image src="../../static/images/index/right.png" mode=""></image>
 			</view>
 			<view @tap="makingCall('12345678910')" hover-class="color-hover">
@@ -116,7 +121,6 @@ export default {
 				uni.navigateTo({
 					url: '../collect/collect'
 				});
-				
 			} else {
 				uni.showToast({
 					title: '请先登录！'

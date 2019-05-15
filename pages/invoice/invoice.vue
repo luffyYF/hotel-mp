@@ -120,11 +120,13 @@
 		<view class="selAddress" v-if="isShowAddress">
 			<view class="model">
 				<view class="titleRow">
+					<span style="color:#0A98D5;" @tap="gotoUpd(showType)">编辑</span>
 					<view class="title">
 						<h2>{{ showType == 'ADDRESS' ? '选择地址' : '选择抬头' }}</h2>
 					</view>
 					<image src="../../static/images/room/error.png" style="width: 54.34782upx;height: 54.34782upx;" mode="" @tap="closeWindows"></image>
 				</view>
+
 				<scroll-view scroll-y class="content">
 					<view class="address-item" v-for="(item, index) in upAddress.ADDRESS" v-if="showType == 'ADDRESS'" :key="index">
 						<!-- <view style="width: 10%;text-align: center;">
@@ -157,30 +159,21 @@
 						<view style="flex: 0.8;">
 							<p>个人:{{ item.invoiceTitle }}</p>
 						</view>
-						<p style="color: #0A98D5;flex: 0.2;text-align: center;">
-							<span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span>
-							<span @tap="updUp(item.saveType, item)">编辑</span>
-						</p>
+						<p style="color: #0A98D5;flex: 0.2;text-align: center;"><span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span></p>
 					</view>
 					<view class="up-item" v-for="(item, index) in upAddress.UNIT" :key="index" v-if="showType == 'PERSON' || showType == 'UNIT'">
 						<view style="flex: 0.8;">
 							<p>企业:{{ item.invoiceTitle }}</p>
 							<p style="color: #666666;">税号：{{ item.companyTaxNo }}</p>
 						</view>
-						<p style="color: #0A98D5;flex: 0.2;text-align: center;">
-							<span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span>
-							<span @tap="updUp(item.saveType, item)">编辑</span>
-						</p>
+						<p style="color: #0A98D5;flex: 0.2;text-align: center;"><span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span></p>
 					</view>
 					<view class="up-item" v-for="(item, index) in upAddress.SPECIAL" :key="index" v-if="showType == 'SPECIAL'">
 						<view style="flex: 0.8;">
 							<p>专用:{{ item.invoiceTitle }}</p>
 							<p style="color: #666666;">税号：{{ item.companyTaxNo }}</p>
 						</view>
-						<p style="color: #0A98D5;flex: 0.2;text-align: center;">
-							<span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span>
-							<span @tap="updUp(item.saveType, item)">编辑</span>
-						</p>
+						<p style="color: #0A98D5;flex: 0.2;text-align: center;"><span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span></p>
 					</view>
 				</scroll-view>
 				<view style="margin-top:36.23188upx;" @tap="addPage(showType)">
@@ -319,7 +312,7 @@ export default {
 			}
 
 			api.invoiceList({
-				memPk: that.userInfo.memPk
+				saveType: flag
 			}).then(res => {
 				that.upAddress = res.data;
 				/* if (!that.upAddress.hasOwnProperty('UNIT')) {
@@ -410,35 +403,26 @@ export default {
 
 			that.closeWindows();
 		},
-		//编辑抬头
-		updUp(flag, obj) {
-			let that = this;
-			let typeName;
-			if (that.options == 1) {
-				typeName = 'plainInvoice';
-			} else if (that.options == 2) {
-				typeName = 'specialInvoice';
-			} else {
-				return;
-			}
+		//跳到修改
+		gotoUpd(flag) {
 			if (flag == 'UNIT') {
 				uni.navigateTo({
-					url: 'addUp?showType=' + typeName + '&obj=' + JSON.stringify(obj)
+					url: '../updInformation/updList?showType=' + 'UNIT'
 				});
 			} else if (flag == 'PERSON') {
 				uni.navigateTo({
-					url: 'addUp?showType=' + typeName + '&obj=' + JSON.stringify(obj)
+					url: '../updInformation/updList?showType=' + 'PERSON'
 				});
 			} else if (flag == 'SPECIAL') {
 				uni.navigateTo({
-					url: 'addUp?showType=' + typeName + '&obj=' + JSON.stringify(obj)
+					url: '../updInformation/updList?showType=' + 'SPECIAL'
 				});
 			} else if (flag == 'ADDRESS') {
 				uni.navigateTo({
-					url: 'addAddress?obj=' + JSON.stringify(obj)
+					url: '../updInformation/updList?showType=' + 'ADDRESS'
 				});
 			}
-			that.closeWindows();
+			this.closeWindows();
 		},
 		//提交发票
 		submitInvoice() {

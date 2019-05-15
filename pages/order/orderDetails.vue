@@ -427,6 +427,7 @@ export default {
 }
 .orderPage .orderDetails .checkin .checkinCard .checkinAddress > .Address {
 	display: flex;
+	margin-right: 18.11594upx;
 }
 .orderPage .orderDetails .checkin .checkinCard .checkinAddress > view {
 	line-height: 63.40579upx;
@@ -437,7 +438,8 @@ export default {
 	width: 39.85507upx;
 	height: 39.85507upx;
 	margin-top: 9.05797upx;
-	position: none;
+	position: absolute;
+	right: 18.11594upx;
 }
 
 .orderPage .orderDetails .checkinCost,
