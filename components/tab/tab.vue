@@ -31,6 +31,8 @@ export default {
 	position: fixed;
 	width: 100%;
 	z-index: 999;
+	border-bottom:1px solid #f7f9fb;
+
 	/* -webkit-box-ordinal-group: 4; */
 }
 .tabs .tabs-title {

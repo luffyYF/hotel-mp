@@ -1,8 +1,12 @@
 {
 	"pages": [{
+			"path": "pages/index/fdd/fdd",
+			"style": {}
+		},
+
+		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "个人中心",
 				"navigationStyle": "custom",
 				"navigationBarBackgroundColor": "#43403a",
 				"enablePullDownRefresh": true
@@ -139,10 +143,11 @@
 				"navigationBarTitleText": "查看发票",
 				"navigationBarBackgroundColor": "#43403a"
 			}
-		}, {
-			"path": "pages/updInformation/updInformation",
+		},
+		{
+			"path": "pages/invoice/updUp",
 			"style": {
-				"navigationBarTitleText": "修改信息",
+				"navigationBarTitleText": "修改抬头",
 				"navigationBarBackgroundColor": "#43403a"
 			}
 		},
@@ -160,6 +165,13 @@
 			}
 		},
 		{
+			"path": "pages/updInformation/addUp",
+			"style": {
+				"navigationBarTitleText": "添加抬头",
+				"navigationBarBackgroundColor": "#43403a"
+			}
+		},
+		{
 			"path": "pages/updInformation/addAddress",
 			"style": {
 				"navigationBarTitleText": "修改地址",
@@ -172,6 +184,8 @@
 				"navigationBarBackgroundColor": "#43403a"
 			}
 		}
+
+
 	],
 	"tabBar": {
 		"color": "#8c8c8c",

@@ -39,27 +39,24 @@
 				<input type="text" placeholder="请输入税号" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.companyTaxNo" />
 			</view>
 			<view class="row">
-				<p>电话号码</p>
+				<p>*电话号码</p>
 				<input type="text" placeholder="请输入单位电话号码" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.invoiceCompanyPhone" />
 			</view>
 			<view class="row">
-				<p>单位地址</p>
+				<p>*单位地址</p>
 				<input type="text" placeholder="单位注册地址信息" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.invoiceCompanyAddress" />
 			</view>
 			<view class="row">
-				<p>开户银行</p>
+				<p>*开户银行</p>
 				<input type="text" placeholder="单位的开户行名称" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.openingBank" />
 			</view>
 			<view class="row">
-				<p>银行账号</p>
+				<p>*银行账号</p>
 				<input type="text" placeholder="单位的银行账号" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="SPECIAL.openingAccount" />
 			</view>
 		</view>
 
-		<view class="operationBtn">
-			<button @tap="saveUse">保存并使用</button>
-			<button @tap="save">保存</button>
-		</view>
+		<view class="operationBtn"><button @tap="upd">修改</button></view>
 	</view>
 </template>
 
@@ -89,7 +86,9 @@ export default {
 				invoiceCompanyAddress: '',
 				openingBank: '',
 				openingAccount: ''
-			}
+			},
+			//发票主键
+			invoicePk: ''
 		};
 	},
 	onLoad(opt) {
@@ -97,6 +96,7 @@ export default {
 		if (opt.showType == 'plainInvoice') {
 			that.showType = 'plainInvoice';
 			if (opt.hasOwnProperty('obj')) {
+				that.invoicePk = JSON.parse(opt.obj).invoicePk;
 				if (JSON.parse(opt.obj).saveType == 'PERSON') {
 					that.upTypeName = 'personage';
 					that.PERSON.invoiceTitle = JSON.parse(opt.obj).invoiceTitle;
@@ -110,7 +110,9 @@ export default {
 		} else if (opt.showType == 'specialInvoice') {
 			that.showType = 'specialInvoice';
 			if (opt.hasOwnProperty('obj')) {
-				if (JSON.parse(opt.obj).saveType == 'SPECIAL') {
+				that.invoicePk = JSON.parse(opt.obj).invoicePk;
+				if (JSON.parse(opt.obj).saveType == 'UNIT') {
+					console.log(that.SPECIAL);
 					that.SPECIAL.invoiceTitle = JSON.parse(opt.obj).invoiceTitle;
 					that.SPECIAL.companyTaxNo = JSON.parse(opt.obj).companyTaxNo;
 					that.SPECIAL.invoiceCompanyPhone = JSON.parse(opt.obj).invoiceCompanyPhone;
@@ -132,8 +134,8 @@ export default {
 		radioChange(e) {
 			this.upTypeName = e.target.value;
 		},
-		//保存信息
-		save() {
+		//修改信息
+		upd() {
 			let that = this;
 			if (that.showType == 'plainInvoice') {
 				if (that.upTypeName == 'enterprise') {
@@ -148,20 +150,23 @@ export default {
 							return;
 						}
 					}
-					api.invoiceSave({
+					api.invoiceUpd({
+						invoicePk: that.invoicePk,
 						saveType: 'UNIT',
 						invoiceTitle: that.UNIT.invoiceTitle,
-						companyTaxNo: that.UNIT.companyTaxNo,
-						memPk: that.userInfo.memPk
+						companyTaxNo: that.UNIT.companyTaxNo
 					}).then(res => {
 						if (res.code == 1) {
 							console.log(that.UNIT);
+							uni.navigateBack({
+								delta: 1
+							});
 							uni.showToast({
-								title: '保存成功'
+								title: '修改成功'
 							});
 						} else {
 							uni.showToast({
-								title: '保存失败',
+								title: '修改失败',
 								image: '../../static/images/order/icon/shibai.png'
 							});
 						}
@@ -178,146 +183,22 @@ export default {
 							return;
 						}
 					}
-					api.invoiceSave({
-						saveType: 'PERSON',
+					api.invoiceUpd({
+						invoicePk: that.invoicePk,
 						invoiceTitle: that.PERSON.invoiceTitle,
-						memPk: that.userInfo.memPk
+						companyTaxNo: '',
+						saveType: 'PERSON'
 					}).then(res => {
 						if (res.code == 1) {
+							uni.navigateBack({
+								delta: 1
+							});
 							uni.showToast({
-								title: '保存成功'
+								title: '修改成功'
 							});
 						} else {
 							uni.showToast({
-								title: '保存失败',
-								image: '../../static/images/order/icon/shibai.png'
-							});
-						}
-					});
-				}
-			} else if (that.showType == 'specialInvoice') {
-				for (var i in that.SPECIAL) {
-					if (that.SPECIAL['invoiceTitle'] == '') {
-						uni.showToast({
-							title: '带*号的为必填项 ',
-							image: '../../static/images/order/icon/shibai.png'
-						});
-						return;
-					} else if (that.SPECIAL['companyTaxNo'] == '') {
-						uni.showToast({
-							title: '带*号的为必填项 ',
-							image: '../../static/images/order/icon/shibai.png'
-						});
-						return;
-					} else {
-						continue;
-					}
-				}
-				api.invoiceSave({
-					saveType: 'UNIT',
-					invoiceTitle: that.SPECIAL.invoiceTitle,
-					companyTaxNo: that.SPECIAL.companyTaxNo,
-					invoiceCompanyPhone: that.SPECIAL.invoiceCompanyPhone,
-					invoiceCompanyAddress: that.SPECIAL.invoiceCompanyAddress,
-					openingBank: that.SPECIAL.openingBank,
-					openingAccount: that.SPECIAL.openingAccount,
-					memPk: that.userInfo.memPk
-				}).then(res => {
-					if (res.code == 1) {
-						uni.showToast({
-							title: '保存成功'
-						});
-					} else {
-						uni.showToast({
-							title: '保存失败',
-							image: '../../static/images/order/icon/shibai.png'
-						});
-					}
-				});
-			}
-		},
-		//保存并使用
-		saveUse() {
-			let that = this;
-			if (that.showType == 'plainInvoice') {
-				if (that.upTypeName == 'enterprise') {
-					for (var i in that.UNIT) {
-						if (that.UNIT[i] != '') {
-							continue;
-						} else {
-							uni.showToast({
-								title: '带*号的为必填项 ',
-								image: '../../static/images/order/icon/shibai.png'
-							});
-							return;
-						}
-					}
-					api.invoiceSave({
-						saveType: 'UNIT',
-						invoiceTitle: that.UNIT.invoiceTitle,
-						companyTaxNo: that.UNIT.companyTaxNo,
-						memPk: that.userInfo.memPk
-					}).then(res => {
-						if (res.code == 1) {
-							uni.showToast({
-								title: '保存成功'
-							});
-							var pages = getCurrentPages();
-							var currPage = pages[pages.length - 1]; //当前页面
-							var prevPage = pages[pages.length - 2]; //上一个页面
-							var obj = {
-								saveType: 'UNIT',
-								invoiceTitle: that.UNIT.invoiceTitle,
-								companyTaxNo: that.UNIT.companyTaxNo
-							};
-							//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-							prevPage.setData({
-								saveUp: obj
-							});
-							uni.navigateBack();
-						} else {
-							uni.showToast({
-								title: '保存失败',
-								image: '../../static/images/order/icon/shibai.png'
-							});
-						}
-					});
-				} else if (that.upTypeName == 'personage') {
-					for (var i in that.PERSON) {
-						if (that.PERSON[i] != '') {
-							continue;
-						} else {
-							uni.showToast({
-								title: '带*号的为必填项 ',
-								image: '../../static/images/order/icon/shibai.png'
-							});
-							return;
-						}
-					}
-					api.invoiceSave({
-						saveType: 'PERSON',
-						invoiceTitle: that.PERSON.invoiceTitle,
-						memPk: that.userInfo.memPk
-					}).then(res => {
-						if (res.code == 1) {
-							uni.showToast({
-								title: '保存成功'
-							});
-							var pages = getCurrentPages();
-							var currPage = pages[pages.length - 1]; //当前页面
-							var prevPage = pages[pages.length - 2]; //上一个页面
-							var obj = {
-								saveType: 'PERSON',
-								invoiceTitle: that.PERSON.invoiceTitle
-							};
-							//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-							prevPage.setData({
-								saveUp: obj
-							});
-							uni.navigateBack();
-						} else {
-							uni.showToast({
-								title: '保存失败',
+								title: '修改失败',
 								image: '../../static/images/order/icon/shibai.png'
 							});
 						}
@@ -335,40 +216,26 @@ export default {
 						return;
 					}
 				}
-				api.invoiceSave({
+				api.invoiceUpd({
+					invoicePk: that.invoicePk,
 					saveType: 'UNIT',
 					invoiceTitle: that.SPECIAL.invoiceTitle,
 					companyTaxNo: that.SPECIAL.companyTaxNo,
 					invoiceCompanyPhone: that.SPECIAL.invoiceCompanyPhone,
 					invoiceCompanyAddress: that.SPECIAL.invoiceCompanyAddress,
 					openingBank: that.SPECIAL.openingBank,
-					openingAccount: that.SPECIAL.openingAccount,
-					memPk: that.userInfo.memPk
+					openingAccount: that.SPECIAL.openingAccount
 				}).then(res => {
 					if (res.code == 1) {
+						uni.navigateBack({
+							delta: 1
+						});
 						uni.showToast({
-							title: '保存成功'
+							title: '修改成功'
 						});
-						var pages = getCurrentPages();
-						var currPage = pages[pages.length - 1]; //当前页面
-						var prevPage = pages[pages.length - 2]; //上一个页面
-						var obj = {
-							saveType: 'UNIT',
-							invoiceTitle: that.SPECIAL.invoiceTitle,
-							companyTaxNo: that.SPECIAL.companyTaxNo,
-							invoiceCompanyPhone: that.SPECIAL.invoiceCompanyPhone,
-							invoiceCompanyAddress: that.SPECIAL.invoiceCompanyAddress,
-							openingBank: that.SPECIAL.openingBank,
-							openingAccount: that.SPECIAL.openingAccount
-						};
-						//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-						prevPage.setData({
-							saveUp: obj
-						});
-						uni.navigateBack();
 					} else {
 						uni.showToast({
-							title: '保存失败',
+							title: '修改失败',
 							image: '../../static/images/order/icon/shibai.png'
 						});
 					}

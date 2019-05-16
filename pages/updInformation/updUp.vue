@@ -111,7 +111,7 @@ export default {
 			that.showType = 'specialInvoice';
 			if (opt.hasOwnProperty('obj')) {
 				that.invoicePk = JSON.parse(opt.obj).invoicePk;
-				if (JSON.parse(opt.obj).saveType == 'SPECIAL') {
+				if (JSON.parse(opt.obj).saveType == 'UNIT') {
 					that.SPECIAL.invoiceTitle = JSON.parse(opt.obj).invoiceTitle;
 					that.SPECIAL.companyTaxNo = JSON.parse(opt.obj).companyTaxNo;
 					that.SPECIAL.invoiceCompanyPhone = JSON.parse(opt.obj).invoiceCompanyPhone;
@@ -158,12 +158,11 @@ export default {
 						if (res.code == 1) {
 							console.log(that.UNIT);
 							uni.navigateBack({
-								delta:1
-							})
+								delta: 1
+							});
 							uni.showToast({
 								title: '修改成功'
 							});
-							
 						} else {
 							uni.showToast({
 								title: '修改失败',
@@ -191,12 +190,11 @@ export default {
 					}).then(res => {
 						if (res.code == 1) {
 							uni.navigateBack({
-								delta:1
-							})
+								delta: 1
+							});
 							uni.showToast({
 								title: '修改成功'
 							});
-							
 						} else {
 							uni.showToast({
 								title: '修改失败',
@@ -219,7 +217,7 @@ export default {
 				}
 				api.invoiceUpd({
 					invoicePk: that.invoicePk,
-					saveType: 'SPECIAL',
+					saveType: 'UNIT',
 					invoiceTitle: that.SPECIAL.invoiceTitle,
 					companyTaxNo: that.SPECIAL.companyTaxNo,
 					invoiceCompanyPhone: that.SPECIAL.invoiceCompanyPhone,
@@ -229,12 +227,11 @@ export default {
 				}).then(res => {
 					if (res.code == 1) {
 						uni.navigateBack({
-							delta:1
-						})
+							delta: 1
+						});
 						uni.showToast({
 							title: '修改成功'
 						});
-						
 					} else {
 						uni.showToast({
 							title: '修改失败',

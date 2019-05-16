@@ -400,6 +400,15 @@ receivePhone
 	}, apiHotel2),
 
 	/* 
+	删除用户发票配送信息
+	invoicePk 发票主键
+	*/
+	delInvoice: (data) => request.post('order/invoice/del?invoicePk='+data.invoicePk, {
+	
+	}, apiHotel2),
+
+
+	/* 
 	收藏房型
 	collectPrice 收藏价格
 	coverImage 封面图片
@@ -436,7 +445,20 @@ receivePhone
 		pageNum: data.pageNum,
 		pageSize: data.pageSize,
 		roomTypePk: data.roomTypePk
-	}, apiHotel2)
+	}, apiHotel2),
+
+	/**
+	 * 查询房型，外观，公共区域，周边景点等图片
+	 * url: /miniapp/hotel/roomType/imagesList
+	 * type: GET
+	 *
+	 * @param companyPk 酒店主键
+	 * @return BaseResult
+	 */
+	imagesList: (data) => request.get('roomType/imagesList', {
+		companyPk: data.companyPk,
+	}, apiHotel)
+
 }
 
 export default api

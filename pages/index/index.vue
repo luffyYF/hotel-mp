@@ -73,6 +73,9 @@
 					<p>{{globalData.checkIn.month}}月{{globalData.checkIn.day}}日</p>
 				</view> -->
 			</view>
+			<view>
+				
+			</view>
 			<view class="room-list" v-for="(item, index) in roomTypeList" :key="index">
 				<view class="room-cover" @tap="gotoRoomInfo(item)">
 					<image style="width:100%;height: 362.31884upx;" :src="IMGURL + item.coverImage" mode="aspectFill"></image>

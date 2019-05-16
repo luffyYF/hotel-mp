@@ -52,15 +52,17 @@ export default {
 	},
 	onLoad(opt) {
 		let that = this;
-		if (JSON.parse(opt.obj).saveType == 'ADDRESS') {
-			that.addressDetails.receiveAddress = JSON.parse(opt.obj).receiveAddress;
-			that.addressDetails.addressNumber = JSON.parse(opt.obj).addressNumber;
-			that.addressDetails.receiveName = JSON.parse(opt.obj).receiveName;
-			that.addressDetails.receivePhone = JSON.parse(opt.obj).receivePhone;
+		if (opt.hasOwnProperty('obj')) {
+			if (JSON.parse(opt.obj).saveType == 'ADDRESS') {
+				that.addressDetails.receiveAddress = JSON.parse(opt.obj).receiveAddress;
+				that.addressDetails.addressNumber = JSON.parse(opt.obj).addressNumber;
+				that.addressDetails.receiveName = JSON.parse(opt.obj).receiveName;
+				that.addressDetails.receivePhone = JSON.parse(opt.obj).receivePhone;
+			}
+			user.getUserInfo().then(res => {
+				that.userInfo = res;
+			});
 		}
-		user.getUserInfo().then(res => {
-			that.userInfo = res;
-		});
 	},
 	methods: {
 		//选择性别
@@ -118,6 +120,7 @@ export default {
 			flex: 0.4;
 		}
 		input {
+			flex: 1
 		}
 	}
 }

@@ -147,7 +147,6 @@ export default {
 		this.globalData = obj.globalData;
 		this.beginDate = obj.beginDate;
 		this.endDate = obj.endDate;
-		console.log(this.typeInvoice);
 	},
 	onShow(e) {
 		let pages = getCurrentPages();

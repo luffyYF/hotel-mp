@@ -56,10 +56,7 @@
 			</view>
 		</view>
 
-		<view class="operationBtn">
-			<button @tap="saveUse">保存并使用</button>
-			<button @tap="save">保存</button>
-		</view>
+		<view class="operationBtn"><button @tap="save">保存</button></view>
 	</view>
 </template>
 
@@ -156,6 +153,7 @@ export default {
 					}).then(res => {
 						if (res.code == 1) {
 							console.log(that.UNIT);
+							uni.navigateBack();
 							uni.showToast({
 								title: '保存成功'
 							});
@@ -184,6 +182,7 @@ export default {
 						memPk: that.userInfo.memPk
 					}).then(res => {
 						if (res.code == 1) {
+							uni.navigateBack();
 							uni.showToast({
 								title: '保存成功'
 							});
@@ -224,148 +223,10 @@ export default {
 					memPk: that.userInfo.memPk
 				}).then(res => {
 					if (res.code == 1) {
-						uni.showToast({
-							title: '保存成功'
-						});
-					} else {
-						uni.showToast({
-							title: '保存失败',
-							image: '../../static/images/order/icon/shibai.png'
-						});
-					}
-				});
-			}
-		},
-		//保存并使用
-		saveUse() {
-			let that = this;
-			if (that.showType == 'plainInvoice') {
-				if (that.upTypeName == 'enterprise') {
-					for (var i in that.UNIT) {
-						if (that.UNIT[i] != '') {
-							continue;
-						} else {
-							uni.showToast({
-								title: '带*号的为必填项 ',
-								image: '../../static/images/order/icon/shibai.png'
-							});
-							return;
-						}
-					}
-					api.invoiceSave({
-						saveType: 'UNIT',
-						invoiceTitle: that.UNIT.invoiceTitle,
-						companyTaxNo: that.UNIT.companyTaxNo,
-						memPk: that.userInfo.memPk
-					}).then(res => {
-						if (res.code == 1) {
-							uni.showToast({
-								title: '保存成功'
-							});
-							var pages = getCurrentPages();
-							var currPage = pages[pages.length - 1]; //当前页面
-							var prevPage = pages[pages.length - 2]; //上一个页面
-							var obj = {
-								saveType: 'UNIT',
-								invoiceTitle: that.UNIT.invoiceTitle,
-								companyTaxNo: that.UNIT.companyTaxNo
-							};
-							//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-							prevPage.setData({
-								saveUp: obj
-							});
-							uni.navigateBack();
-						} else {
-							uni.showToast({
-								title: '保存失败',
-								image: '../../static/images/order/icon/shibai.png'
-							});
-						}
-					});
-				} else if (that.upTypeName == 'personage') {
-					for (var i in that.PERSON) {
-						if (that.PERSON[i] != '') {
-							continue;
-						} else {
-							uni.showToast({
-								title: '带*号的为必填项 ',
-								image: '../../static/images/order/icon/shibai.png'
-							});
-							return;
-						}
-					}
-					api.invoiceSave({
-						saveType: 'PERSON',
-						invoiceTitle: that.PERSON.invoiceTitle,
-						memPk: that.userInfo.memPk
-					}).then(res => {
-						if (res.code == 1) {
-							uni.showToast({
-								title: '保存成功'
-							});
-							var pages = getCurrentPages();
-							var currPage = pages[pages.length - 1]; //当前页面
-							var prevPage = pages[pages.length - 2]; //上一个页面
-							var obj = {
-								saveType: 'PERSON',
-								invoiceTitle: that.PERSON.invoiceTitle
-							};
-							//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-							prevPage.setData({
-								saveUp: obj
-							});
-							uni.navigateBack();
-						} else {
-							uni.showToast({
-								title: '保存失败',
-								image: '../../static/images/order/icon/shibai.png'
-							});
-						}
-					});
-				}
-			} else if (that.showType == 'specialInvoice') {
-				for (var i in that.SPECIAL) {
-					if (that.SPECIAL[i] != '') {
-						continue;
-					} else {
-						uni.showToast({
-							title: '带*号的为必填项 ',
-							image: '../../static/images/order/icon/shibai.png'
-						});
-						return;
-					}
-				}
-				api.invoiceSave({
-					saveType: 'UNIT',
-					invoiceTitle: that.SPECIAL.invoiceTitle,
-					companyTaxNo: that.SPECIAL.companyTaxNo,
-					invoiceCompanyPhone: that.SPECIAL.invoiceCompanyPhone,
-					invoiceCompanyAddress: that.SPECIAL.invoiceCompanyAddress,
-					openingBank: that.SPECIAL.openingBank,
-					openingAccount: that.SPECIAL.openingAccount,
-					memPk: that.userInfo.memPk
-				}).then(res => {
-					if (res.code == 1) {
-						uni.showToast({
-							title: '保存成功'
-						});
-						var pages = getCurrentPages();
-						var currPage = pages[pages.length - 1]; //当前页面
-						var prevPage = pages[pages.length - 2]; //上一个页面
-						var obj = {
-							saveType: 'UNIT',
-							invoiceTitle: that.SPECIAL.invoiceTitle,
-							companyTaxNo: that.SPECIAL.companyTaxNo,
-							invoiceCompanyPhone: that.SPECIAL.invoiceCompanyPhone,
-							invoiceCompanyAddress: that.SPECIAL.invoiceCompanyAddress,
-							openingBank: that.SPECIAL.openingBank,
-							openingAccount: that.SPECIAL.openingAccount
-						};
-						//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-						prevPage.setData({
-							saveUp: obj
-						});
 						uni.navigateBack();
+						uni.showToast({
+							title: '保存成功'
+						});
 					} else {
 						uni.showToast({
 							title: '保存失败',
