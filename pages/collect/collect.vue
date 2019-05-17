@@ -155,6 +155,7 @@ export default {
 							if (res.code == 1) {
 								that.getCollectList();
 								uni.showToast({
+									icon:'none',
 									title: '已取消'
 								});
 							}

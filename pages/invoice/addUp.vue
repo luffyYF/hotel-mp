@@ -6,11 +6,11 @@
 				<view class="selType">
 					<radio-group @change="radioChange">
 						<label class="radio">
-							<radio value="enterprise" color="rgb(6,193,174)" :checked="upTypeName == 'enterprise' ? true : false" />
+							<radio value="enterprise" color="#cda754" :checked="upTypeName == 'enterprise' ? true : false" />
 							企业
 						</label>
 						<label class="radio">
-							<radio value="personage" color="rgb(6,193,174)" :checked="upTypeName == 'personage' ? true : false" />
+							<radio value="personage" color="#cda754" :checked="upTypeName == 'personage' ? true : false" />
 							个人
 						</label>
 					</radio-group>
@@ -157,6 +157,7 @@ export default {
 						if (res.code == 1) {
 							console.log(that.UNIT);
 							uni.showToast({
+								icon: 'none',
 								title: '保存成功'
 							});
 						} else {
@@ -185,6 +186,7 @@ export default {
 					}).then(res => {
 						if (res.code == 1) {
 							uni.showToast({
+								icon: 'none',
 								title: '保存成功'
 							});
 						} else {
@@ -225,6 +227,7 @@ export default {
 				}).then(res => {
 					if (res.code == 1) {
 						uni.showToast({
+							icon: 'none',
 							title: '保存成功'
 						});
 					} else {
@@ -260,6 +263,7 @@ export default {
 					}).then(res => {
 						if (res.code == 1) {
 							uni.showToast({
+								icon: 'none',
 								title: '保存成功'
 							});
 							var pages = getCurrentPages();
@@ -301,6 +305,7 @@ export default {
 					}).then(res => {
 						if (res.code == 1) {
 							uni.showToast({
+								icon: 'none',
 								title: '保存成功'
 							});
 							var pages = getCurrentPages();
@@ -347,6 +352,7 @@ export default {
 				}).then(res => {
 					if (res.code == 1) {
 						uni.showToast({
+							icon: 'none',
 							title: '保存成功'
 						});
 						var pages = getCurrentPages();
@@ -415,7 +421,7 @@ export default {
 			margin: 0 27.17391upx;
 			border-bottom: 1px solid #f5f9fc;
 			p {
-				flex: 1;
+				flex: 0.4;
 				font-size: 27.17391upx;
 			}
 			.selType {
@@ -430,10 +436,11 @@ export default {
 		}
 	}
 	.operationBtn {
+		
 		button {
 			font-size: 27.17391upx;
 			color: white;
-			background-color: rgb(6, 193, 174);
+			background-color:#cda754;
 			margin: 36.23188upx;
 		}
 	}

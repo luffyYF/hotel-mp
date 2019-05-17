@@ -31,12 +31,12 @@
 		</view>
 
 		<view class="center-list">
-			<view @tap="gotoUpd" hover-class="color-hover">
+			<view @tap="invoiceTitle()" hover-class="color-hover">
 				<image src="../../static/images/user/feedback.png" mode=""></image>
 				<span>发票抬头</span>
 				<image src="../../static/images/index/right.png" mode=""></image>
 			</view>
-			<view @tap="gotoUpd" hover-class="color-hover">
+			<view @tap="gotoAddress()" hover-class="color-hover">
 				<image src="../../static/images/user/feedback.png" mode=""></image>
 				<span>收件地址</span>
 				<image src="../../static/images/index/right.png" mode=""></image>
@@ -142,10 +142,15 @@ export default {
 				url: '../member/member'
 			});
 		},
-		//修改信息
-		gotoUpd() {
+		//发票抬头
+		invoiceTitle() {
 			uni.navigateTo({
-				url: '../updInformation/updInformation'
+				url: '../invoice/updList?showType=UP'
+			});
+		},
+		gotoAddress() {
+			uni.navigateTo({
+				url: '../invoice/updList?showType=ADDRESS'
 			});
 		}
 	}

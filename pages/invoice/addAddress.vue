@@ -15,11 +15,11 @@
 		<view style="text-align: center;" class="row">
 			<radio-group @change="radioChange">
 				<label class="radio">
-					<radio value="M" checked="" color="#DD524D" />
+					<radio value="M" :checked="addressDetails.memSex == 'M' ? true : false" color="#cda754" />
 					先生
 				</label>
 				<label class="radio">
-					<radio value="W" checked="" color="#DD524D" />
+					<radio value="W" :checked="addressDetails.memSex == 'W' ? true : false" color="#cda754" />
 					女士
 				</label>
 			</radio-group>
@@ -28,8 +28,8 @@
 			<p>*手机号：</p>
 			<input type="text" placeholder="请填写收货手机号" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="addressDetails.receivePhone" />
 		</view>
-		<button @tap="saveAddress" style="margin:90.57971upx 36.23188upx 0 36.23188upx;font-size: 27.17391upx;padding: 18.11594upx 0;background-color: #DD524D;color: white;">
-			保存地址
+		<button @tap="saveAddress()" style="margin:90.57971upx 36.23188upx 0 36.23188upx;font-size: 27.17391upx;background-color: #cda754;color: white;">
+			{{ showType == 'add' ? '保存地址' : '修改地址' }}
 		</button>
 	</view>
 </template>
@@ -41,27 +41,37 @@ export default {
 	data() {
 		return {
 			userInfo: {},
+			invoicePk: '',
 			addressDetails: {
 				receiveAddress: '',
 				addressNumber: '',
 				receiveName: '',
-				memSex: 'W',
+				memSex: '',
 				receivePhone: ''
-			}
+			},
+			//是否修改
+			showType: ''
 		};
 	},
 	onLoad(opt) {
 		let that = this;
-		if (opt.hasOwnProperty('obj')) {
-			if (JSON.parse(opt.obj).saveType == 'ADDRESS') {
-				that.addressDetails.receiveAddress = JSON.parse(opt.obj).receiveAddress;
-				that.addressDetails.addressNumber = JSON.parse(opt.obj).addressNumber;
-				that.addressDetails.receiveName = JSON.parse(opt.obj).receiveName;
-				that.addressDetails.receivePhone = JSON.parse(opt.obj).receivePhone;
+		if (opt.hasOwnProperty('showType')) {
+			if (opt.showType == 'upd') {
+				that.showType = 'upd';
+				if (opt.hasOwnProperty('obj')) {
+					if (JSON.parse(opt.obj).saveType == 'ADDRESS') {
+						that.invoicePk = JSON.parse(opt.obj).invoicePk;
+						that.addressDetails.receiveAddress = JSON.parse(opt.obj).receiveAddress;
+						that.addressDetails.addressNumber = JSON.parse(opt.obj).addressNumber;
+						that.addressDetails.receiveName = JSON.parse(opt.obj).receiveName;
+						that.addressDetails.receivePhone = JSON.parse(opt.obj).receivePhone;
+						that.addressDetails.memSex = JSON.parse(opt.obj).memSex;
+					}
+				}
 			}
-			user.getUserInfo().then(res => {
-				that.userInfo = res;
-			});
+			if (opt.showType == 'add') {
+				that.showType = 'add';
+			}
 		}
 	},
 	methods: {
@@ -71,6 +81,7 @@ export default {
 		},
 		saveAddress() {
 			let that = this;
+
 			for (var i in that.addressDetails) {
 				if (that.addressDetails[i] != '') {
 					continue;
@@ -82,26 +93,58 @@ export default {
 					return;
 				}
 			}
-			api.invoiceSave({
-				receiveAddress: that.addressDetails.receiveAddress,
-				addressNumber: that.addressDetails.addressNumber,
-				receiveName: that.addressDetails.receiveName,
-				memSex: that.addressDetails.memSex,
-				receivePhone: that.addressDetails.receivePhone,
-				memPk: that.userInfo.memPk,
-				saveType: 'ADDRESS'
-			}).then(res => {
-				if (res.code == 1) {
-					uni.showToast({
-						title: '保存成功'
-					});
-				} else {
-					uni.showToast({
-						title: '保存失败',
-						image: '../../static/images/order/icon/shibai.png'
-					});
-				}
-			});
+
+			if (that.showType == 'add') {
+				api.invoiceSave({
+					receiveAddress: that.addressDetails.receiveAddress,
+					addressNumber: that.addressDetails.addressNumber,
+					receiveName: that.addressDetails.receiveName,
+					memSex: that.addressDetails.memSex,
+					receivePhone: that.addressDetails.receivePhone,
+					saveType: 'ADDRESS'
+				}).then(res => {
+					if (res.code == 1) {
+						uni.navigateBack({
+							delta: 1
+						});
+						uni.showToast({
+							icon: 'none',
+							title: '保存成功'
+						});
+					} else {
+						uni.showToast({
+							title: '保存失败',
+							image: '../../static/images/order/icon/shibai.png'
+						});
+					}
+				});
+			}
+			if (that.showType == 'upd') {
+				api.invoiceUpd({
+					invoicePk: that.invoicePk,
+					saveType: 'ADDRESS',
+					receiveAddress: that.addressDetails.receiveAddress,
+					addressNumber: that.addressDetails.addressNumber,
+					receiveName: that.addressDetails.receiveName,
+					memSex: that.addressDetails.memSex,
+					receivePhone: that.addressDetails.receivePhone
+				}).then(res => {
+					if (res.code == 1) {
+						uni.navigateBack({
+							delta: 1
+						});
+						uni.showToast({
+							icon: 'none',
+							title: '修改成功'
+						});
+					} else {
+						uni.showToast({
+							title: '修改失败',
+							image: '../../static/images/order/icon/shibai.png'
+						});
+					}
+				});
+			}
 		}
 	}
 };
@@ -120,7 +163,7 @@ export default {
 			flex: 0.4;
 		}
 		input {
-			flex: 1
+			flex: 1;
 		}
 	}
 }

@@ -1,17 +1,18 @@
 {
 	"pages": [{
-			"path": "pages/index/fdd/fdd",
-			"style": {}
-		},
-
-		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationStyle": "custom",
 				"navigationBarBackgroundColor": "#43403a",
 				"enablePullDownRefresh": true
 			}
-		}, {
+		},
+		{
+			"path": "pages/index/fdd/fdd",
+			"style": {}
+		},
+
+		{
 			"path": "pages/user/user",
 			"style": {
 				"navigationBarTitleText": "个人中心",
@@ -127,7 +128,7 @@
 		}, {
 			"path": "pages/invoice/addAddress",
 			"style": {
-				"navigationBarTitleText": "新增收货地址",
+				"navigationBarTitleText": "收货地址",
 				"navigationBarBackgroundColor": "#43403a"
 			}
 		},
@@ -152,32 +153,14 @@
 			}
 		},
 		{
-			"path": "pages/updInformation/updUp",
+			"path": "pages/invoice/updList",
 			"style": {
-				"navigationBarTitleText": "修改抬头",
-				"navigationBarBackgroundColor": "#43403a"
-			}
-		}, {
-			"path": "pages/updInformation/updList",
-			"style": {
-				"navigationBarTitleText": "选择修改",
+				"navigationBarTitleText": "发票管理",
 				"navigationBarBackgroundColor": "#43403a"
 			}
 		},
-		{
-			"path": "pages/updInformation/addUp",
-			"style": {
-				"navigationBarTitleText": "添加抬头",
-				"navigationBarBackgroundColor": "#43403a"
-			}
-		},
-		{
-			"path": "pages/updInformation/addAddress",
-			"style": {
-				"navigationBarTitleText": "修改地址",
-				"navigationBarBackgroundColor": "#43403a"
-			}
-		}, {
+		
+		 {
 			"path": "pages/comment/writeComment",
 			"style": {
 				"navigationBarTitleText": "发表评论",

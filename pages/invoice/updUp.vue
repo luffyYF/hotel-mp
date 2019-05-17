@@ -6,11 +6,11 @@
 				<view class="selType">
 					<radio-group @change="radioChange">
 						<label class="radio">
-							<radio value="enterprise" color="rgb(6,193,174)" :checked="upTypeName == 'enterprise' ? true : false" />
+							<radio value="enterprise" color="#cda754" :checked="upTypeName == 'enterprise' ? true : false" />
 							企业
 						</label>
 						<label class="radio">
-							<radio value="personage" color="rgb(6,193,174)" :checked="upTypeName == 'personage' ? true : false" />
+							<radio value="personage" color="#cda754" :checked="upTypeName == 'personage' ? true : false" />
 							个人
 						</label>
 					</radio-group>
@@ -69,6 +69,7 @@ export default {
 			upTypeName: 'personage',
 			showType: '',
 			userInfo: {},
+			riseType: '',
 			//个人抬头
 			PERSON: {
 				invoiceTitle: ''
@@ -158,10 +159,9 @@ export default {
 					}).then(res => {
 						if (res.code == 1) {
 							console.log(that.UNIT);
-							uni.navigateBack({
-								delta: 1
-							});
+
 							uni.showToast({
+								icon: 'none',
 								title: '修改成功'
 							});
 						} else {
@@ -190,10 +190,8 @@ export default {
 						saveType: 'PERSON'
 					}).then(res => {
 						if (res.code == 1) {
-							uni.navigateBack({
-								delta: 1
-							});
 							uni.showToast({
+								icon: 'none',
 								title: '修改成功'
 							});
 						} else {
@@ -206,8 +204,10 @@ export default {
 				}
 			} else if (that.showType == 'specialInvoice') {
 				for (var i in that.SPECIAL) {
-					if (that.SPECIAL[i] != '') {
+					if (that.SPECIAL[i] != ''||that.SPECIAL[i] != null) {
+						console.log(i);
 						continue;
+						
 					} else {
 						uni.showToast({
 							title: '带*号的为必填项 ',
@@ -216,6 +216,7 @@ export default {
 						return;
 					}
 				}
+				console.log(that.SPECIAL);
 				api.invoiceUpd({
 					invoicePk: that.invoicePk,
 					saveType: 'UNIT',
@@ -231,6 +232,7 @@ export default {
 							delta: 1
 						});
 						uni.showToast({
+							icon:"none",
 							title: '修改成功'
 						});
 					} else {
@@ -282,7 +284,7 @@ export default {
 			margin: 0 27.17391upx;
 			border-bottom: 1px solid #f5f9fc;
 			p {
-				flex: 1;
+				flex: 0.4;
 				font-size: 27.17391upx;
 			}
 			.selType {
@@ -300,7 +302,7 @@ export default {
 		button {
 			font-size: 27.17391upx;
 			color: white;
-			background-color: rgb(6, 193, 174);
+			background-color: #cda754;
 			margin: 36.23188upx;
 		}
 	}

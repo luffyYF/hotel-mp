@@ -170,8 +170,10 @@
 						</p>
 					</view>
 				</scroll-view>
-				<view style="margin-top:36.23188upx;" @tap="addPage(showType)" class="addBtn">
-					<button>{{ showType == 'ADDRESS' ? '新增地址' : '添加抬头' }}</button>
+				<view  @tap="addPage(showType)" class="addBtn">
+					<button >
+						{{ showType == 'ADDRESS' ? '新增地址' : '添加抬头' }}
+					</button>
 				</view>
 			</view>
 		</view>
@@ -242,6 +244,8 @@ export default {
 				that.invoiceInfo.openingBank = flag.openingBank;
 				that.invoiceInfo.openingAccount = flag.openingAccount;
 				that.invoiceInfo.riseType = 2;
+				console.log(flag);
+				currPage.data.saveUp = '';
 			} else if (flag.saveType == 'PERSON') {
 				that.invoiceInfo.invoiceTitle = flag.invoiceTitle;
 				that.invoiceInfo.riseType = 1;
@@ -250,6 +254,12 @@ export default {
 				that.invoiceInfo.invoiceCompanyAddress = '';
 				that.invoiceInfo.openingBank = '';
 				that.invoiceInfo.openingAccount = '';
+				console.log(flag);
+				currPage.data.saveUp = '';
+			}else if(flag.saveType == 'ADDRESS'){
+				that.invoiceInfo.receiveAddress = flag.receiveAddress;
+				that.invoiceInfo.receiveName = flag.receiveName;
+				that.invoiceInfo.receivePhone = flag.receivePhone;
 			}
 		}
 	},
@@ -377,7 +387,7 @@ export default {
 
 			if (flag == 'ADDRESS') {
 				uni.navigateTo({
-					url: 'addAddress'
+					url: 'addAddress?showType=add'
 				});
 			} else {
 				uni.navigateTo({
@@ -451,7 +461,7 @@ export default {
 				return;
 			}
 			uni.navigateTo({
-				url: '../updInformation/updList?showType=' + flag + '&&typeName=' + typeName
+				url: 'updList?showType=' + flag + '&&typeName=' + typeName
 			});
 			this.closeWindows();
 		},
@@ -610,10 +620,10 @@ page {
 	background-color: rgba(0, 0, 0, 0.5);
 	.addBtn {
 		button {
-			font-size: 28.9855upx;
-			background-color: white;
-			color: #666666;
-			margin: 0 18.11594upx;
+			font-size: 27.17391upx;
+			color: white;
+			background-color:#cda754;
+			margin: 36.23188upx;
 		}
 		button::after {
 			border: none;

@@ -73,9 +73,7 @@
 					<p>{{globalData.checkIn.month}}月{{globalData.checkIn.day}}日</p>
 				</view> -->
 			</view>
-			<view>
-				
-			</view>
+			<view></view>
 			<view class="room-list" v-for="(item, index) in roomTypeList" :key="index">
 				<view class="room-cover" @tap="gotoRoomInfo(item)">
 					<image style="width:100%;height: 362.31884upx;" :src="IMGURL + item.coverImage" mode="aspectFill"></image>
@@ -107,6 +105,7 @@
 </template>
 
 <script>
+import uniPopup from '@/components/uni-popup/uni-popup.vue';
 import roomDetails from '@/components/roomDetails/roomDetails';
 import utils from '@/utils/util';
 import api from '@/utils/api';
@@ -115,7 +114,8 @@ import user from '@/services/user.js';
 var app = getApp();
 export default {
 	components: {
-		roomDetails
+		roomDetails,
+		uniPopup
 	},
 	data() {
 		return {
@@ -352,6 +352,7 @@ export default {
 				}).then(res => {
 					if (res.code == 1) {
 						uni.showToast({
+							icon:'none',
 							title: '已收藏'
 						});
 
