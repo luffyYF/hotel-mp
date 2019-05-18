@@ -10,7 +10,7 @@
 						</p>
 						<p style="font-size: 25.36231upx;">{{ item.receiveAddress + item.addressNumber }}</p>
 					</view>
-					<p style="color: #0A98D5;text-align: center;"><span @tap="updUp(item.saveType, item)">编辑</span></p>
+					<p style="color:#cda754;text-align: center;"><span @tap="updUp(item.saveType, item)">编辑</span></p>
 				</view>
 			</uni-swipe-action>
 			<uni-swipe-action
@@ -25,7 +25,7 @@
 						<view style="flex: 1" @tap="useUp(item.saveType, item)">
 							<p>个人:{{ item.invoiceTitle }}</p>
 						</view>
-						<p style="color: #0A98D5;text-align: center;"><span style="margin-right: 9.05797upx;" @tap="updUp(item.saveType, item)">编辑</span></p>
+						<p style="color: #cda754;text-align: center;"><span style="margin-right: 9.05797upx;" @tap="updUp(item.saveType, item)">编辑</span></p>
 					</view>
 				</view>
 			</uni-swipe-action>
@@ -44,21 +44,8 @@
 						<p>企业:{{ item.invoiceTitle }}</p>
 						<p style="color: #666666;">税号：{{ item.companyTaxNo }}</p>
 					</view>
-					<p style="color: #0A98D5;text-align: center;">
-						<span
-							style="margin-right: 9.05797upx;"
-							@tap="useUp(item.saveType, item)"
-							v-if="showType == 'UNIT' ? (item.openingAccount == null || item.openingAccount == '' ? true : false) : false"
-						>
-							不完善
-						</span>
-						<span
-							style="margin-right: 9.05797upx;"
-							@tap="updUp(item.saveType, item)"
-							v-if="showType == 'UNIT' ? (item.openingAccount == null || item.openingAccount == '' ? false : true) : true"
-						>
-							编辑
-						</span>
+					<p style="color: #cda754;text-align: center;">
+						<span style="margin-right: 9.05797upx;" @tap="updUp(item.saveType, item)">{{ item.isPerfectFlag ? '编辑' : '不完善' }}</span>
 					</p>
 				</view>
 			</uni-swipe-action>
@@ -108,6 +95,53 @@ export default {
 		that.getList(flag);
 	},
 	methods: {
+		//是否完善
+		isPerfectFlag(item) {
+			if (this.typeName == 'specialInvoice') {
+				
+				if (item.invoiceTitle == '' || item.invoiceTitle == null) {
+					item.isPerfectFlag = false;
+					return item;
+				} else {
+					item.isPerfectFlag = true;
+				}
+				if (item.companyTaxNo == '' || item.companyTaxNo == null) {
+					item.isPerfectFlag = false;
+					return item;
+				} else {
+					item.isPerfectFlag = true;
+				}
+				if (item.invoiceCompanyPhone == '' || item.invoiceCompanyPhone == null) {
+					item.isPerfectFlag = false;
+					return item;
+				} else {
+					item.isPerfectFlag = true;
+				}
+				if (item.invoiceCompanyAddress == '' || item.invoiceCompanyAddress == null) {
+					item.isPerfectFlag = false;
+					return item;
+				} else {
+					item.isPerfectFlag = true;
+				}
+				if (item.openingBank == '' || item.openingBank == null) {
+					item.isPerfectFlag = false;
+					return item;
+				} else {
+					item.isPerfectFlag = true;
+				}
+				if (item.openingAccount == '' || item.openingAccount == null) {
+					item.isPerfectFlag = false;
+				} else {
+					item.isPerfectFlag = true;
+					
+				}
+				return item;
+			}else{
+				
+				item.isPerfectFlag = true;
+				return item;
+			}
+		},
 		//获取数据
 		getList(flag) {
 			let that = this;
@@ -122,6 +156,9 @@ export default {
 					}).then(res => {
 						if (res.code == 1) {
 							obj.UNIT = res.data.UNIT;
+							for (var i = 0; i < obj.UNIT.length; i++) {
+								obj.UNIT[i] = that.isPerfectFlag(obj.UNIT[i]);
+							}
 							that.upAddress = obj;
 							if (obj.PERSON == undefined && obj.UNIT == undefined) {
 								console.log('没数据');
@@ -136,6 +173,9 @@ export default {
 				}).then(res => {
 					if (res.code == 1) {
 						obj.UNIT = res.data.UNIT;
+						for (var i = 0; i < obj.UNIT.length; i++) {
+							obj.UNIT[i] = that.isPerfectFlag(obj.UNIT[i]);
+						}
 						that.upAddress = obj;
 						if (obj.UNIT == undefined) {
 							console.log('没数据');
@@ -166,6 +206,9 @@ export default {
 					}).then(res => {
 						if (res.code == 1) {
 							obj.UNIT = res.data.UNIT;
+							for (var i = 0; i < obj.UNIT.length; i++) {
+								obj.UNIT[i] = that.isPerfectFlag(obj.UNIT[i]);
+							}
 							that.upAddress = obj;
 							if (obj.PERSON == undefined && obj.UNIT == undefined) {
 								console.log('没数据');
@@ -238,11 +281,10 @@ export default {
 			let typeName = that.typeName;
 			if (flag == 'UNIT') {
 				if (typeName == 'specialInvoice') {
-					if (obj.openingAccount == null || obj.openingAccount == '') {
+					if (!obj.isPerfectFlag) {
 						uni.navigateTo({
 							url: 'updUp?showType=' + 'specialInvoice' + '&obj=' + JSON.stringify(obj)
 						});
-						
 					} else {
 						that.invoiceInfo.saveType = 'UNIT';
 						that.invoiceInfo.riseType = 2;

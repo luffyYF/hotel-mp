@@ -403,8 +403,8 @@ receivePhone
 	删除用户发票配送信息
 	invoicePk 发票主键
 	*/
-	delInvoice: (data) => request.post('order/invoice/del?invoicePk='+data.invoicePk, {
-	
+	delInvoice: (data) => request.post('order/invoice/del?invoicePk=' + data.invoicePk, {
+
 	}, apiHotel2),
 
 
@@ -432,6 +432,44 @@ receivePhone
 	 */
 	collectCancel: (data) => request.post('collection/cancel?roomTypePk=' + data.roomTypePk, {}, apiHotel2),
 
+
+	/**
+	 * 查询房型，外观，公共区域，周边景点等图片
+	 * url: /miniapp/hotel/roomType/imagesList
+	 * type: GET
+	 *
+	 * @param companyPk 酒店主键
+	 * @return BaseResult
+	 */
+	imagesList: (data) => request.get('roomType/imagesList', {
+		companyPk: data.companyPk,
+	}, apiHotel),
+	/* 
+	 发表评论
+	companyPk*（必填）
+	公司主键
+	content	
+	评论内容
+	grade
+	主评分1-5
+	gradeService	
+	服务态度评分1-5
+	photos	string
+	评论图片，多张图片用逗号分隔
+	roomTypeName	
+	房间类型名称
+	roomTypePk*	（必填）
+	房间类型主键
+	 */
+	comment: (data) => request.post('comment/comment', {
+		companyPk: data.companyPk,
+		content: data.content,
+		grade: data.grade,
+		gradeService: data.gradeService,
+		roomTypeName: data.roomTypeName,
+		roomTypePk: data.roomTypePk
+	}, apiHotel2),
+
 	/* 
 	 查找评论列表
 	 filterType 
@@ -447,17 +485,6 @@ receivePhone
 		roomTypePk: data.roomTypePk
 	}, apiHotel2),
 
-	/**
-	 * 查询房型，外观，公共区域，周边景点等图片
-	 * url: /miniapp/hotel/roomType/imagesList
-	 * type: GET
-	 *
-	 * @param companyPk 酒店主键
-	 * @return BaseResult
-	 */
-	imagesList: (data) => request.get('roomType/imagesList', {
-		companyPk: data.companyPk,
-	}, apiHotel)
 
 }
 

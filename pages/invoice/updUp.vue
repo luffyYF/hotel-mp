@@ -113,7 +113,7 @@ export default {
 			if (opt.hasOwnProperty('obj')) {
 				that.invoicePk = JSON.parse(opt.obj).invoicePk;
 				if (JSON.parse(opt.obj).saveType == 'UNIT') {
-					console.log(that.SPECIAL);
+					/* console.log(that.SPECIAL); */
 					that.SPECIAL.invoiceTitle = JSON.parse(opt.obj).invoiceTitle;
 					that.SPECIAL.companyTaxNo = JSON.parse(opt.obj).companyTaxNo;
 					that.SPECIAL.invoiceCompanyPhone = JSON.parse(opt.obj).invoiceCompanyPhone;
@@ -158,7 +158,7 @@ export default {
 						companyTaxNo: that.UNIT.companyTaxNo
 					}).then(res => {
 						if (res.code == 1) {
-							console.log(that.UNIT);
+							/* console.log(that.UNIT); */
 
 							uni.showToast({
 								icon: 'none',
@@ -204,10 +204,9 @@ export default {
 				}
 			} else if (that.showType == 'specialInvoice') {
 				for (var i in that.SPECIAL) {
-					if (that.SPECIAL[i] != ''||that.SPECIAL[i] != null) {
-						console.log(i);
+					if (that.SPECIAL[i] != '' || that.SPECIAL[i] != null) {
+						/* console.log(i+'不为空'); */
 						continue;
-						
 					} else {
 						uni.showToast({
 							title: '带*号的为必填项 ',
@@ -216,7 +215,7 @@ export default {
 						return;
 					}
 				}
-				console.log(that.SPECIAL);
+				/* console.log(that.SPECIAL); */
 				api.invoiceUpd({
 					invoicePk: that.invoicePk,
 					saveType: 'UNIT',
@@ -232,7 +231,7 @@ export default {
 							delta: 1
 						});
 						uni.showToast({
-							icon:"none",
+							icon: 'none',
 							title: '修改成功'
 						});
 					} else {

@@ -169,7 +169,7 @@ export default {
 				this.orderDetails.statusTitle = '已完成';
 				this.orderDetails.statusMsg = '订单已完成，欢迎您的下次光临';
 				this.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '评价', isShow: true }];
-				this.orderDetails.OperationMethod = [this.cancelOrder, this.cancelOrder];
+				this.orderDetails.OperationMethod = [this.cancelOrder, this.writeComment];
 				this.orderDetails.showBtn = true;
 				break;
 			default:
@@ -180,10 +180,12 @@ export default {
 		this.orderDetails.nights = this.getDays(strDateStart, strDateEnd);
 	},
 	methods: {
-		goRoom: function() {
+		//发表评价
+		writeComment(){
+			let that=this
 			uni.navigateTo({
-				url: '../roomDetails/roomDetails'
-			});
+				url:'../comment/writeComment?roomTypeName='+that.orderDetails.roomTypeName+'&&roomTypePk='+that.orderDetails.roomTypePk
+			})
 		},
 		getDays(strDateStart, strDateEnd) {
 			var strSeparator = '-'; //日期分隔符
@@ -271,7 +273,7 @@ export default {
 							paySign: res.data.paySign,
 							success: function(res) {
 								uni.reLaunch({
-									url: 'payFinish?orderPk=' + that.orderInfo.orderPk + '&userPk=' + that.orderInfo.userPk
+									url: '../payment/payFinish?orderPk=' + that.orderInfo.orderPk + '&userPk=' + that.orderInfo.userPk
 								});
 							},
 							fail: function(res) {},

@@ -1,5 +1,7 @@
 {
-	"pages": [{
+	"pages": [
+
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationStyle": "custom",
@@ -7,11 +9,6 @@
 				"enablePullDownRefresh": true
 			}
 		},
-		{
-			"path": "pages/index/fdd/fdd",
-			"style": {}
-		},
-
 		{
 			"path": "pages/user/user",
 			"style": {
@@ -69,7 +66,15 @@
 				"navigationBarTitleText": "评论列表",
 				"navigationBarBackgroundColor": "#43403a"
 			}
-		}, {
+		},
+		{
+			"path": "pages/comment/writeComment",
+			"style": {
+				"navigationBarTitleText": "发表评论",
+				"navigationBarBackgroundColor": "#43403a"
+			}
+		},
+		{
 			"path": "pages/aboutUs/aboutUs",
 			"style": {
 				"navigationBarTitleText": "关于我们",
@@ -156,14 +161,6 @@
 			"path": "pages/invoice/updList",
 			"style": {
 				"navigationBarTitleText": "发票管理",
-				"navigationBarBackgroundColor": "#43403a"
-			}
-		},
-		
-		 {
-			"path": "pages/comment/writeComment",
-			"style": {
-				"navigationBarTitleText": "发表评论",
 				"navigationBarBackgroundColor": "#43403a"
 			}
 		}

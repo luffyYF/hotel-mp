@@ -3,7 +3,7 @@
 		<scroll-view class="invoicePage">
 			<view class="whetherNeed">
 				<p style="font-size: 32.60869upx;">需要发票</p>
-				<switch :checked="whetherNeed" @change="Need" />
+				<switch :checked="whetherNeed" @change="Need" color='#cda754' />
 			</view>
 			<view class="invoiceContent" v-if="whetherNeed">
 				<view class="invoiceType">
@@ -97,13 +97,10 @@
 						</p>
 						<image style="width: 36.23188upx;height: 36.23188upx;" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</view>
-					<view class="invoiceTitle">
-						<p style="flex: 1;color: #000000;">需要备注酒店名称及日期</p>
-						<label class="checkbox"><checkbox value="" checked="" /></label>
-					</view>
+					
 				</view>
 				<view class="submit">
-					<button type="primary" style="background-color:rgb(253,151,0) ;" @tap="submitInvoice">提交</button>
+					<button type="primary" style="background-color:#cda754 ;" @tap="submitInvoice">提交</button>
 					<ul class="s-ul">
 						<li class="s-li">
 							<p>
@@ -120,7 +117,7 @@
 		<view class="selAddress" v-if="isShowAddress">
 			<view class="model">
 				<view class="titleRow">
-					<span style="color:#0A98D5;" @tap="gotoUpd(showType)">编辑</span>
+					<span style="color:#cda754;" @tap="gotoUpd(showType)">编辑</span>
 					<view class="title">
 						<h2>{{ showType == 'ADDRESS' ? '选择地址' : '选择抬头' }}</h2>
 					</view>
@@ -143,37 +140,33 @@
 						<view style="width: 10%;text-align: center;" @tap="addAddress">
 							<image src="../../static/images/user/feedback.png" style="width: 36.23188upx;height:36.23188upx;" mode=""></image>
 						</view> -->
-						<view style="flex:0.8;">
+						<view style="flex:0.8;"  @tap="useUp(item.saveType, item)">
 							<p style="font-size: 25.36231upx;">
 								<span style="margin-right: 18.11594upx;">{{ item.receiveName }}</span>
 								<span>{{ item.receivePhone }}</span>
 							</p>
 							<p style="font-size: 25.36231upx;">{{ item.receiveAddress + item.addressNumber }}</p>
 						</view>
-						<p style="color: #0A98D5;flex: 0.2;text-align: center;"><span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span></p>
+						<p style="color: #cda754;flex: 0.2;text-align: center;"><span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span></p>
 					</view>
 					<view class="up-item" v-for="(item, index) in upAddress.PERSON" :key="index" v-if="showType == 'PERSON' || showType == 'UNIT'">
-						<view style="flex: 0.8;">
+						<view style="flex: 0.8;"  @tap="useUp(item.saveType, item)">
 							<p>个人:{{ item.invoiceTitle }}</p>
 						</view>
-						<p style="color: #0A98D5;flex: 0.2;text-align: center;"><span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span></p>
+						<p style="color: #cda754;flex: 0.2;text-align: center;"><span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">使用</span></p>
 					</view>
 					<view class="up-item" v-for="(item, index) in upAddress.UNIT" :key="index" v-if="showType == 'PERSON' || showType == 'UNIT'">
-						<view style="flex: 0.8;">
+						<view style="flex: 0.8;"  @tap="useUp(item.saveType, item)">
 							<p>企业:{{ item.invoiceTitle }}</p>
 							<p style="color: #666666;">税号：{{ item.companyTaxNo }}</p>
 						</view>
-						<p style="color: #0A98D5;flex: 0.2;text-align: center;">
-							<span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">
-								{{ showType == 'UNIT' ? (item.openingAccount == null || item.openingAccount == '' ? '不完善' : '使用') : '使用' }}
-							</span>
+						<p style="color: #cda754;flex: 0.2;text-align: center;">
+							<span style="margin-right: 9.05797upx;" @tap="useUp(item.saveType, item)">{{ item.isPerfectFlag ? '使用' : '不完善' }}</span>
 						</p>
 					</view>
 				</scroll-view>
-				<view  @tap="addPage(showType)" class="addBtn">
-					<button >
-						{{ showType == 'ADDRESS' ? '新增地址' : '添加抬头' }}
-					</button>
+				<view @tap="addPage(showType)" class="addBtn">
+					<button>{{ showType == 'ADDRESS' ? '新增地址' : '添加抬头' }}</button>
 				</view>
 			</view>
 		</view>
@@ -244,7 +237,7 @@ export default {
 				that.invoiceInfo.openingBank = flag.openingBank;
 				that.invoiceInfo.openingAccount = flag.openingAccount;
 				that.invoiceInfo.riseType = 2;
-				console.log(flag);
+				
 				currPage.data.saveUp = '';
 			} else if (flag.saveType == 'PERSON') {
 				that.invoiceInfo.invoiceTitle = flag.invoiceTitle;
@@ -254,9 +247,9 @@ export default {
 				that.invoiceInfo.invoiceCompanyAddress = '';
 				that.invoiceInfo.openingBank = '';
 				that.invoiceInfo.openingAccount = '';
-				console.log(flag);
+				
 				currPage.data.saveUp = '';
-			}else if(flag.saveType == 'ADDRESS'){
+			} else if (flag.saveType == 'ADDRESS') {
 				that.invoiceInfo.receiveAddress = flag.receiveAddress;
 				that.invoiceInfo.receiveName = flag.receiveName;
 				that.invoiceInfo.receivePhone = flag.receivePhone;
@@ -264,6 +257,61 @@ export default {
 		}
 	},
 	methods: {
+		//是否完善
+		isPerfectFlag(item) {
+			let that = this;
+			let typeName;
+			if (that.options == 1) {
+				typeName = 'plainInvoice';
+			} else if (that.options == 2) {
+				typeName = 'specialInvoice';
+			} else {
+				return;
+			}
+			if (typeName == 'specialInvoice') {
+				
+				if (item.invoiceTitle == '' || item.invoiceTitle == null) {
+					item.isPerfectFlag = false;
+					return item;
+				} else {
+					item.isPerfectFlag = true;
+				}
+				if (item.companyTaxNo == '' || item.companyTaxNo == null) {
+					item.isPerfectFlag = false;
+					return item;
+				} else {
+					item.isPerfectFlag = true;
+				}
+				if (item.invoiceCompanyPhone == '' || item.invoiceCompanyPhone == null) {
+					item.isPerfectFlag = false;
+					return item;
+				} else {
+					item.isPerfectFlag = true;
+				}
+				if (item.invoiceCompanyAddress == '' || item.invoiceCompanyAddress == null) {
+					item.isPerfectFlag = false;
+					return item;
+				} else {
+					item.isPerfectFlag = true;
+				}
+				if (item.openingBank == '' || item.openingBank == null) {
+					item.isPerfectFlag = false;
+					return item;
+				} else {
+					item.isPerfectFlag = true;
+				}
+				if (item.openingAccount == '' || item.openingAccount == null) {
+					item.isPerfectFlag = false;
+				} else {
+					item.isPerfectFlag = true;
+				}
+				return item;
+			} else {
+			
+				item.isPerfectFlag = true;
+				return item;
+			}
+		},
 		//是否需要发票
 		Need() {
 			this.whetherNeed = !this.whetherNeed;
@@ -317,6 +365,9 @@ export default {
 					}).then(res => {
 						if (res.code == 1) {
 							obj.UNIT = res.data.UNIT;
+							for (var i = 0; i < obj.UNIT.length; i++) {
+								obj.UNIT[i] = that.isPerfectFlag(obj.UNIT[i]);
+							}
 							that.upAddress = obj;
 							if (obj.PERSON == undefined && obj.UNIT == undefined) {
 								uni.navigateTo({
@@ -334,6 +385,9 @@ export default {
 				}).then(res => {
 					if (res.code == 1) {
 						obj.UNIT = res.data.UNIT;
+						for (var i = 0; i < obj.UNIT.length; i++) {
+							obj.UNIT[i] = that.isPerfectFlag(obj.UNIT[i]);
+						}
 						that.upAddress = obj;
 						if (obj.UNIT == undefined) {
 							uni.navigateTo({
@@ -411,7 +465,7 @@ export default {
 
 			if (flag == 'UNIT') {
 				if (typeName == 'specialInvoice') {
-					if (obj.openingAccount == null || obj.openingAccount == '') {
+					if (!obj.isPerfectFlag) {
 						uni.navigateTo({
 							url: 'updUp?showType=' + 'specialInvoice' + '&obj=' + JSON.stringify(obj)
 						});
@@ -622,7 +676,7 @@ page {
 		button {
 			font-size: 27.17391upx;
 			color: white;
-			background-color:#cda754;
+			background-color: #cda754;
 			margin: 36.23188upx;
 		}
 		button::after {
@@ -703,7 +757,7 @@ page {
 				margin-right: 18.11594upx;
 				margin-bottom: 18.11594upx;
 				text-align: center;
-				border: 1px solid rgb(0, 196, 176);
+				border: 1px solid #cda754;
 				display: flex;
 				vertical-align: middle;
 				align-items: center;
@@ -712,7 +766,7 @@ page {
 			}
 			.active {
 				color: white;
-				background-color: rgb(0, 196, 176);
+				background-color: #cda754;
 			}
 			.no-active {
 				background-color: #999999;

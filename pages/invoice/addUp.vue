@@ -155,7 +155,7 @@ export default {
 						memPk: that.userInfo.memPk
 					}).then(res => {
 						if (res.code == 1) {
-							console.log(that.UNIT);
+							/* console.log(that.UNIT); */
 							uni.showToast({
 								icon: 'none',
 								title: '保存成功'
@@ -436,7 +436,6 @@ export default {
 		}
 	}
 	.operationBtn {
-		
 		button {
 			font-size: 27.17391upx;
 			color: white;
