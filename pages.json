@@ -166,7 +166,14 @@
 		}
 
 
-	],
+	    ,{
+            "path" : "pages/imageList/imageList",
+            "style": {
+            	"navigationBarTitleText": "酒店展示图",
+            	"navigationBarBackgroundColor": "#43403a"
+            }
+        }
+    ],
 	"tabBar": {
 		"color": "#8c8c8c",
 		"selectedColor": "#43403a",

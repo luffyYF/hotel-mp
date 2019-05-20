@@ -1,22 +1,26 @@
 <template>
 	<view class="commentPage">
 		<view class="uni-comment">
-			<view class="uni-comment-list" v-for="(object, index) in count" :key="index">
+			<view class="uni-comment-list" v-for="(item, index) in ListComment" :key="index">
 				<view class="uni-comment-face"><image src="../../static/images/comment/user-img.jpg" mode="" style="height: 72.46376upx;"></image></view>
 				<view class="uni-comment-body">
-					<view class="uni-comment-top"><text class="name">网友</text></view>
+					<view class="uni-comment-top">
+						<text class="name">{{ item.memName }}</text>
+					</view>
 					<view class="uni-comment-date">
-						<text>08/10 08:12</text>
-						<view>
-							<image style="height:27.17391upx;width: 27.17391upx;" src="../../static/images/room/star.png" mode=""></image>
-							<image style="height:27.17391upx;width: 27.17391upx;" src="../../static/images/room/star.png" mode=""></image>
-							<image style="height:27.17391upx;width: 27.17391upx;" src="../../static/images/room/star.png" mode=""></image>
-							<image style="height:27.17391upx;width: 27.17391upx;" src="../../static/images/room/star.png" mode=""></image>
-							<image style="height:27.17391upx;width: 27.17391upx;" src="../../static/images/room/star.png" mode=""></image>
+						<text>{{ item.createTime }}</text>
+						<view class="starList">
+							<image
+								v-for="(item, index) in 5"
+								:key="index"
+								:src="index >= item.grade ? '../../static/images/mylssue/st_star.png' : '../../static/images/mylssue/st_star_active.png'"
+								mode=""
+								class="s-star"
+							></image>
 						</view>
 					</view>
 					<view class="uni-comment-content">
-						很酷的HBuilderX和uni-app，开发一次既能生成小程序，又能生成App
+						{{ item.content }}
 						<view class="commentImg">
 							<image @tap="showImg" src="http://img.zx123.cn/Resources/zx123cn/uploadfile/2017/0222/20170222165608_36883.jpg" mode=""></image>
 						</view>
@@ -35,19 +39,26 @@
 
 <script>
 import api from '@/utils/api';
+import config from '@/utils/config.js';
 export default {
 	data() {
 		return {
-			count: 10
+			ListComment: []
 		};
 	},
 	onLoad() {
+		let that = this;
 		api.listComment({
 			filterType: 'ALL',
 			pageNum: 1,
 			pageSize: 10,
-			roomTypePk: data.roomTypePk
-		}).then(res => {});
+			companyPk: config.COMPANYPK
+		}).then(res => {
+			console.log(res);
+			if (res.code == 1) {
+				that.ListComment = res.data.list;
+			}
+		});
 	},
 	methods: {
 		showImg() {
@@ -74,6 +85,18 @@ export default {
 		.uni-comment-top {
 			text {
 				font-size: 32.60869upx;
+			}
+		}
+		.uni-comment-date {
+			.starList {
+				display: flex;
+				vertical-align: middle;
+				align-items: center;
+				justify-content: center;
+				.s-star {
+					width: 36.23188upx;
+					height: 36.23188upx;
+				}
 			}
 		}
 		.uni-comment-content {

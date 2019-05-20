@@ -121,56 +121,62 @@ export default {
 			orderInfo: {}
 		};
 	},
+	onShow(opt) {
+		
+	},
 	onLoad(opt) {
+		let that = this;
 		/* console.log(JSON.parse(opt.orderDetails)); */
-		this.orderDetails = JSON.parse(opt.orderDetails);
-
-		this.IMGURL = api.config.IMGURL;
-		switch (this.orderDetails.orderStatus) {
+		that.orderDetails = JSON.parse(opt.orderDetails);
+		that.IMGURL = api.config.IMGURL;
+		switch (that.orderDetails.orderStatus) {
 			case 0:
-				this.orderDetails.statusTitle = '待付款';
-				this.orderDetails.statusMsg = '订单已下单，请尽快付款';
-				this.orderDetails.btnTitle = [{ title: '一键付款', isShow: true }, { title: '取消订单', isShow: true }];
-				this.orderDetails.OperationMethod = [this.AkeyPayment, this.cancelOrder];
-				this.orderDetails.showBtn = true;
+				that.orderDetails.statusTitle = '待付款';
+				that.orderDetails.statusMsg = '订单已下单，请尽快付款';
+				that.orderDetails.btnTitle = [{ title: '一键付款', isShow: true }, { title: '取消订单', isShow: true }];
+				that.orderDetails.OperationMethod = [that.AkeyPayment, that.cancelOrder];
+				that.orderDetails.showBtn = true;
 				break;
 			case 1:
-				this.orderDetails.statusTitle = '待接单';
-				this.orderDetails.statusMsg = '订单已付款，请等待接单';
-				this.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '取消订单', isShow: true }];
-				this.orderDetails.OperationMethod = [this.cancelOrder, this.cancelOrder];
-				this.orderDetails.showBtn = true;
+				that.orderDetails.statusTitle = '待接单';
+				that.orderDetails.statusMsg = '订单已付款，请等待接单';
+				that.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '取消订单', isShow: true }];
+				that.orderDetails.OperationMethod = [that.cancelOrder, that.cancelOrder];
+				that.orderDetails.showBtn = true;
 				break;
 			case 2:
-				this.orderDetails.statusTitle = '已接单';
-				this.orderDetails.statusMsg = '订单已接单，请尽快到达酒店入住';
-				this.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '取消订单', isShow: true }];
-				this.orderDetails.OperationMethod = [this.cancelOrder, this.cancelOrder];
-				this.orderDetails.showBtn = true;
+				that.orderDetails.statusTitle = '已接单';
+				that.orderDetails.statusMsg = '订单已接单，请尽快到达酒店入住';
+				that.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '取消订单', isShow: true }];
+				that.orderDetails.OperationMethod = [that.cancelOrder, that.cancelOrder];
+				that.orderDetails.showBtn = true;
 				break;
 			case 3:
-				this.orderDetails.statusTitle = '已入住';
-				this.orderDetails.statusMsg = '您已入住，请好好享用';
-				this.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '取消订单', isShow: true }];
-				this.orderDetails.OperationMethod = [this.cancelOrder, this.cancelOrder];
-				this.orderDetails.showBtn = true;
+				that.orderDetails.statusTitle = '已入住';
+				that.orderDetails.statusMsg = '您已入住，请好好享用';
+				that.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '取消订单', isShow: true }];
+				that.orderDetails.OperationMethod = [that.cancelOrder, that.cancelOrder];
+				that.orderDetails.showBtn = true;
 				break;
 			case 4:
-				this.orderDetails.statusTitle = '取消中';
-				this.orderDetails.statusMsg = '订单正取消中，请稍等片刻';
-				this.orderDetails.showBtn = false;
+				that.orderDetails.statusTitle = '取消中';
+				that.orderDetails.statusMsg = '订单正取消中，请稍等片刻';
+				that.orderDetails.showBtn = false;
 				break;
 			case 5:
-				this.orderDetails.statusTitle = '已取消';
-				this.orderDetails.statusMsg = '订单已取消，欢迎您的下次光临';
-				this.orderDetails.showBtn = false;
+				that.orderDetails.statusTitle = '已取消';
+				that.orderDetails.statusMsg = '订单已取消，欢迎您的下次光临';
+				that.orderDetails.showBtn = false;
 				break;
 			case 6:
-				this.orderDetails.statusTitle = '已完成';
-				this.orderDetails.statusMsg = '订单已完成，欢迎您的下次光临';
-				this.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '评价', isShow: true }];
-				this.orderDetails.OperationMethod = [this.cancelOrder, this.writeComment];
-				this.orderDetails.showBtn = true;
+				that.orderDetails.statusTitle = '已完成';
+				that.orderDetails.statusMsg = '订单已完成，欢迎您的下次光临';
+				that.orderDetails.btnTitle = [
+					{ title: '已评价', isShow: that.orderDetails.commentFlag == 1 ? true : false },
+					{ title: '评价', isShow: that.orderDetails.commentFlag == 0 ? true : false }
+				];
+				that.orderDetails.OperationMethod = [that.haveEvaluation, that.writeComment];
+				that.orderDetails.showBtn = true;
 				break;
 			default:
 				break;
@@ -180,12 +186,25 @@ export default {
 		this.orderDetails.nights = this.getDays(strDateStart, strDateEnd);
 	},
 	methods: {
+		//已评价
+		haveEvaluation() {
+			uni.showToast({
+				icon: 'none',
+				title: '已评价'
+			});
+		},
 		//发表评价
-		writeComment(){
-			let that=this
+		writeComment() {
+			let that = this;
 			uni.navigateTo({
-				url:'../comment/writeComment?roomTypeName='+that.orderDetails.roomTypeName+'&&roomTypePk='+that.orderDetails.roomTypePk
-			})
+				url:
+					'../comment/writeComment?roomTypeName=' +
+					that.orderDetails.roomTypeName +
+					'&&roomTypePk=' +
+					that.orderDetails.roomTypePk +
+					'&&orderPk=' +
+					that.orderDetails.orderPk
+			});
 		},
 		getDays(strDateStart, strDateEnd) {
 			var strSeparator = '-'; //日期分隔符

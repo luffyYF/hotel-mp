@@ -127,6 +127,7 @@ import uniSwiperDot from '../../components/uni-swiper-dot/uni-swiper-dot.vue';
 import api from '@/utils/api.js';
 import allocation from '@/utils/config.js';
 import user from '@/services/user.js';
+var app = getApp();
 export default {
 	props: {
 		roomData: {}
@@ -158,7 +159,7 @@ export default {
 			//图片数组
 			that.info = that.roomData.data.images;
 			//入住时间
-			that.globalData = that.roomData.globalData;
+			that.globalData = app.$vm.globalData;
 
 			//开始入住时间
 			that.beginDate = that.roomData.beginDate;

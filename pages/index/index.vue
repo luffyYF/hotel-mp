@@ -5,7 +5,7 @@
 				<image class="img-bg" src="../../static/images/index/1.jpg" mode="widthFix"></image>
 				<h2 class="info-title">
 					<view class="title">{{ companyInfo.name }}</view>
-					<view class="imgCount">
+					<view class="imgCount" @tap="gotoImageList()">
 						<image src="../../static/images/index/photo.png" mode=""></image>
 						<span>16张</span>
 					</view>
@@ -144,6 +144,7 @@ export default {
 		let currPage = pages[pages.length - 1];
 		let that = this;
 		that.globalData = app.$vm.globalData;
+		console.log(app.$vm.globalData);
 		/* console.log(that.globalData); */
 		//转换日期格式
 		that.convdate();
@@ -190,6 +191,12 @@ export default {
 			});
 	},
 	methods: {
+		//跳转到图片列表页
+		gotoImageList() {
+			uni.navigateTo({
+				url: '../imageList/imageList'
+			});
+		},
 		//跳转到房间详情页
 		gotoRoomInfo(item) {
 			let that = this;
@@ -210,7 +217,7 @@ export default {
 								that.isRoomDetails = true;
 								that.roomData = res;
 								that.roomData.item = item;
-								that.roomData.globalData = that.globalData;
+								/* that.roomData.globalData = that.globalData; */
 								that.roomData.beginDate = that.beginDate;
 								that.roomData.endDate = that.endDate;
 							}
@@ -352,7 +359,7 @@ export default {
 				}).then(res => {
 					if (res.code == 1) {
 						uni.showToast({
-							icon:'none',
+							icon: 'none',
 							title: '已收藏'
 						});
 

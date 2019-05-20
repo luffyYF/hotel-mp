@@ -446,6 +446,7 @@ receivePhone
 	}, apiHotel),
 	/* 
 	 发表评论
+	 orderPk订单主键（必填）
 	companyPk*（必填）
 	公司主键
 	content	
@@ -462,6 +463,7 @@ receivePhone
 	房间类型主键
 	 */
 	comment: (data) => request.post('comment/comment', {
+		orderPk: data.orderPk,
 		companyPk: data.companyPk,
 		content: data.content,
 		grade: data.grade,
@@ -482,7 +484,8 @@ receivePhone
 		filterType: data.filterType,
 		pageNum: data.pageNum,
 		pageSize: data.pageSize,
-		roomTypePk: data.roomTypePk
+		roomTypePk: data.roomTypePk,
+		companyPk: data.companyPk
 	}, apiHotel2),
 
 

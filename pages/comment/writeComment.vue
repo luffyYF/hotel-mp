@@ -63,12 +63,14 @@ export default {
 			//描述内容
 			descContent: '',
 			roomTypeName:'',
-			roomTypePk:''
+			roomTypePk:'',
+			orderPk:''
 		};
 	},
 	onLoad(opt) {
 		this.roomTypeName=opt.roomTypeName;
 		this.roomTypePk=opt.roomTypePk;
+		this.orderPk=opt.orderPk;
 	},
 	methods: {
 		setDescScore(index) {
@@ -102,6 +104,7 @@ export default {
 				return;
 			}
 			api.comment({
+				orderPk:that.orderPk,
 				companyPk: config.COMPANYPK,
 				content: that.descContent,
 				grade: that.descScore,
@@ -111,11 +114,16 @@ export default {
 			}).then(res => {
 				if(res.code==1){
 					uni.navigateBack({
-						delta:1
+						delta:2
 					})
 					uni.showToast({
 						icon:'none',
 						title:"评价成功"
+					})
+				}else{
+					uni.showToast({
+						icon:'none',
+						title:"评价失败"
 					})
 				}
 			});
