@@ -137,16 +137,19 @@ export default {
 			let that = this;
 			if (that.showType == 'plainInvoice') {
 				if (that.upTypeName == 'enterprise') {
-					for (var i in that.UNIT) {
-						if (that.UNIT[i] != '') {
-							continue;
-						} else {
-							uni.showToast({
-								title: '带*号的为必填项 ',
-								image: '../../static/images/order/icon/shibai.png'
-							});
-							return;
-						}
+					if (that.UNIT.companyTaxNo == '' || that.UNIT.companyTaxNo == null) {
+						uni.showToast({
+							title: '带*号的为必填项 ',
+							image: '../../static/images/order/icon/shibai.png'
+						});
+						return;
+					}
+					if (that.UNIT.invoiceTitle == '' || that.UNIT.invoiceTitle == null) {
+						uni.showToast({
+							title: '带*号的为必填项 ',
+							image: '../../static/images/order/icon/shibai.png'
+						});
+						return;
 					}
 					api.invoiceSave({
 						saveType: 'UNIT',
@@ -168,17 +171,14 @@ export default {
 						}
 					});
 				} else if (that.upTypeName == 'personage') {
-					for (var i in that.PERSON) {
-						if (that.PERSON[i] != '') {
-							continue;
-						} else {
-							uni.showToast({
-								title: '带*号的为必填项 ',
-								image: '../../static/images/order/icon/shibai.png'
-							});
-							return;
-						}
+					if (that.PERSON.invoiceTitle == '' || that.PERSON.invoiceTitle == null) {
+						uni.showToast({
+							title: '带*号的为必填项 ',
+							image: '../../static/images/order/icon/shibai.png'
+						});
+						return;
 					}
+
 					api.invoiceSave({
 						saveType: 'PERSON',
 						invoiceTitle: that.PERSON.invoiceTitle,
@@ -334,7 +334,7 @@ export default {
 						continue;
 					} else {
 						uni.showToast({
-							title: '带*号的为必填项 ',
+							title: '请填写完整信息！ ',
 							image: '../../static/images/order/icon/shibai.png'
 						});
 						return;
@@ -439,7 +439,7 @@ export default {
 		button {
 			font-size: 27.17391upx;
 			color: white;
-			background-color:#cda754;
+			background-color: #cda754;
 			margin: 36.23188upx;
 		}
 	}

@@ -100,7 +100,7 @@
 				</view>
 			</view>
 		</view>
-		<roomDetails v-if="isRoomDetails" :roomData="roomData" @closeRoom="closeRoom"></roomDetails>
+		<roomDetails v-if="isRoomDetails" :roomData="roomData" @closeRoom="closeRoom" @gotoPrice="gotoPrice"></roomDetails>
 	</view>
 </template>
 
@@ -144,7 +144,7 @@ export default {
 		let currPage = pages[pages.length - 1];
 		let that = this;
 		that.globalData = app.$vm.globalData;
-		console.log(app.$vm.globalData);
+
 		/* console.log(that.globalData); */
 		//转换日期格式
 		that.convdate();
@@ -213,13 +213,21 @@ export default {
 							memPk: that.userInfo.memPk //用户主键
 						}).then(res => {
 							if (res.code == 1) {
-								wx.hideTabBar();
-								that.isRoomDetails = true;
+								
 								that.roomData = res;
 								that.roomData.item = item;
 								/* that.roomData.globalData = that.globalData; */
 								that.roomData.beginDate = that.beginDate;
 								that.roomData.endDate = that.endDate;
+								
+								
+								console.log(that.roomData);
+								uni.navigateTo({
+									url: '../roomInfo/roomInfo?obj='+JSON.stringify(that.roomData),
+									success: res => {},
+									fail: () => {},
+									complete: () => {}
+								});
 							}
 						});
 					});
@@ -232,7 +240,7 @@ export default {
 						roomTypePk: roomTypePk, //房型主键
 						beginDate: that.beginDate, //开始日期
 						endDate: that.endDate, //结束日期
-						memPk: that.userInfo.memPk //用户主键
+						memPk: '' //用户主键
 					}).then(res => {
 						if (res.code == 1) {
 							wx.hideTabBar();
@@ -245,7 +253,30 @@ export default {
 					});
 				});
 		},
-
+		//房间详情提交
+		gotoPrice(e) {
+			let that = this;
+			user.isUserinfo()
+				.then(res => {
+					//先关闭页面
+					that.closeRoom();
+					//跳转到订单填写页
+					var obj = {
+						roomTypeInfo: e, //房间信息
+						globalData: that.globalData, //入住时间和退房时间
+						beginDate: that.beginDate, //入住日期
+						endDate: that.endDate //退房日期
+					};
+					uni.navigateTo({
+						url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
+					});
+				})
+				.catch(res => {
+					uni.navigateTo({
+						url: '../login/login'
+					});
+				});
+		},
 		//关闭房间详情页
 		closeRoom() {
 			let that = this;
@@ -272,6 +303,7 @@ export default {
 		},
 		//选择日期
 		selectDate() {
+			console.log(this.globalData);
 			uni.navigateTo({
 				url: '../selectDate/selectDate?checkIn=' + JSON.stringify(this.globalData.checkIn) + '&checkOut=' + JSON.stringify(this.globalData.checkOut),
 				animationType: 'pop-in',
@@ -360,7 +392,7 @@ export default {
 					if (res.code == 1) {
 						uni.showToast({
 							icon: 'none',
-							title: '已收藏'
+							title: '完成收藏'
 						});
 
 						api.getHome({
@@ -391,6 +423,10 @@ export default {
 							userPk: that.userInfo.memPk
 						}).then(res => {
 							if (res.code == 1) {
+								uni.showToast({
+									icon: 'none',
+									title: '取消收藏'
+								});
 								that.roomTypeList = res.data.roomTypeList;
 								/* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
 							}
@@ -614,10 +650,10 @@ export default {
 			}
 		}
 		.collect-icon {
-			width: 63.40579upx;
-			height: 63.40579upx;
+			width: 54.34782upx;
+			height: 54.34782upx;
 			position: absolute;
-			z-index: 4;
+
 			right: 36.23188upx;
 			top: 36.23188upx;
 		}

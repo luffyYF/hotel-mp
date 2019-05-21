@@ -170,7 +170,6 @@ export default {
 			this.IMGURL = allocation.IMGROOTURL;
 		}
 	},
-	mounted() {},
 	data() {
 		return {
 			info: [],
@@ -204,27 +203,7 @@ export default {
 			this.current = e.detail.current;
 		},
 		gotoPrice() {
-			let that = this;
-			user.isUserinfo()
-				.then(res => {
-					//先关闭页面
-					that.closePage();
-					//跳转到订单填写页
-					var obj = {
-						roomTypeInfo: that.roomTypeInfo, //房间信息
-						globalData: that.globalData, //入住时间和退房时间
-						beginDate: that.beginDate, //入住日期
-						endDate: that.endDate //退房日期
-					};
-					uni.navigateTo({
-						url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
-					});
-				})
-				.catch(res => {
-					uni.navigateTo({
-						url: '../login/login'
-					});
-				});
+			this.$emit('gotoPrice', this.roomTypeInfo);
 		},
 		closePage() {
 			this.$emit('closeRoom');

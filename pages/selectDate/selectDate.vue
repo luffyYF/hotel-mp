@@ -70,13 +70,18 @@
 </template>
 
 <script>
+var app = getApp();
 export default {
 	data() {
 		return {
 			calendarLists: [],
 			checkIn: '',
 			checkOut: '',
-			today: ''
+			today: '',
+			page: '',
+			pageData: {},
+			beginDate: '',
+			endDate: ''
 		};
 	},
 	onLoad(options) {
@@ -117,6 +122,11 @@ export default {
 		console.log(_checkOut);
 		this.checkIn = _checkIn;
 		this.checkOut = _checkOut;
+
+		if (options.page == 'collect') {
+			this.page = options.page;
+			this.pageData = JSON.parse(options.obj);
+		}
 	},
 	onShow() {},
 	methods: {
@@ -161,10 +171,10 @@ export default {
 			}
 		},
 		sureDate() {
+			let that = this;
 			var app = getApp();
 			app.$vm.globalData.checkIn = this.checkIn;
 			app.$vm.globalData.checkOut = this.checkOut;
-			console.log(app.$vm.globalData);
 
 			/* var pages = getCurrentPages();
 			var currPage = pages[pages.length - 1]; //当前页面
@@ -174,7 +184,49 @@ export default {
 				globalData: app.$vm.globalData
 			});
 			 */
-			uni.navigateBack();
+
+			if (this.page == 'collect') {
+				this.convdate();
+				let obj = {
+					roomTypeInfo: that.pageData.roomTypeInfo, //房间信息
+					globalData: app.$vm.globalData, //入住时间和退房时间
+					beginDate: that.beginDate, //入住日期
+					endDate: that.endDate //退房日期
+				};
+				uni.navigateTo({
+					url: '../placeOrder/placeOrder?roomInfo=' + JSON.stringify(obj)
+				});
+			} else {
+				uni.navigateBack();
+			}
+		},
+		//转换日期格式
+		convdate() {
+			let that = this;
+			let globalData = app.$vm.globalData;
+			//将日期转换为2019-04-25这种格式
+			if (typeof globalData.checkOut.month != 'string') {
+				if (globalData.checkOut.month < 10) {
+					globalData.checkOut.month = '0' + globalData.checkOut.month;
+				}
+			}
+			if (typeof globalData.checkOut.day != 'string') {
+				if (globalData.checkOut.day < 10) {
+					globalData.checkOut.day = '0' + globalData.checkOut.day;
+				}
+			}
+			if (typeof globalData.checkIn.month != 'string') {
+				if (globalData.checkIn.month < 10) {
+					globalData.checkIn.month = '0' + globalData.checkIn.month;
+				}
+			}
+			if (typeof globalData.checkIn.day != 'string') {
+				if (globalData.checkIn.day < 10) {
+					globalData.checkIn.day = '0' + globalData.checkIn.day;
+				}
+			}
+			that.beginDate = globalData.checkIn.year + '-' + globalData.checkIn.month + '-' + globalData.checkIn.day;
+			that.endDate = globalData.checkOut.year + '-' + globalData.checkOut.month + '-' + globalData.checkOut.day;
 		},
 		/**
 		 * @params year {Number} 年份

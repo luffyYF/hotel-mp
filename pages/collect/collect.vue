@@ -1,14 +1,14 @@
 <template>
 	<view>
-		<view class="collect-item" v-for="(item, index) in collectList" :key="index" @tap="gotoRoomInfo(item)">
+		<view class="collect-item" v-for="(item, index) in collectList" :key="index">
 			<image class="collect-icon" src="../../static/images/user/onChose.png" mode="" @tap="collectCancel(item)"></image>
-			<image class="collect-img" :src="IMGURL + item.coverImage" mode=""></image>
-			<view class="collect-title">
+			<image class="collect-img" :src="IMGURL + item.coverImage" mode="" @tap="gotoRoomInfo(item)"></image>
+			<view class="collect-title" @tap="gotoRoomInfo(item)">
 				<h2>{{ item.roomTypeName }}</h2>
 				<p>￥{{ item.collectPrice }}</p>
 			</view>
 		</view>
-		<roomDetails v-if="isRoomDetails" :roomData="roomData" @closeRoom="closeRoom"></roomDetails>
+		<roomDetails v-if="isRoomDetails" :roomData="roomData" @closeRoom="closeRoom" @gotoPrice="gotoPrice"></roomDetails>
 	</view>
 </template>
 
@@ -55,11 +55,11 @@ export default {
 	methods: {
 		//房间详情页
 		gotoRoomInfo(item) {
-			
 			let that = this;
 			user.isUserinfo()
 				.then(res => {
 					user.getUserInfo().then(res => {
+						/* console.log(res); */
 						api.getRoomType({
 							gradePk: res.gradePk, //会员级别
 							companyPk: allocation.COMPANYPK, //酒店主键
@@ -69,13 +69,13 @@ export default {
 							memPk: that.userInfo.memPk //用户主键
 						}).then(res => {
 							if (res.code == 1) {
-								wx.hideTabBar();
-								that.isRoomDetails = true;
 								that.roomData = res;
 								that.roomData.item = item;
-								that.roomData.globalData = that.globalData;
+								/* that.roomData.globalData = that.globalData; */
 								that.roomData.beginDate = that.beginDate;
 								that.roomData.endDate = that.endDate;
+								wx.hideTabBar();
+								that.isRoomDetails = true;
 							}
 						});
 					});
@@ -91,13 +91,46 @@ export default {
 						memPk: that.userInfo.memPk //用户主键
 					}).then(res => {
 						if (res.code == 1) {
-							wx.hideTabBar();
-							that.isRoomDetails = true;
 							that.roomData = res;
 							that.roomData.globalData = that.globalData;
 							that.roomData.beginDate = that.beginDate;
 							that.roomData.endDate = that.endDate;
+							wx.hideTabBar();
+							that.isRoomDetails = true;
 						}
+					});
+				});
+		},
+		//房间详情提交
+		gotoPrice(e) {
+			let that = this;
+			user.isUserinfo()
+				.then(res => {
+					//先关闭页面
+					that.closeRoom();
+					//跳转到订单填写页
+					var obj = {
+						roomTypeInfo: e, //房间信息
+						globalData: that.globalData, //入住时间和退房时间
+						beginDate: that.beginDate, //入住日期
+						endDate: that.endDate //退房日期
+					};
+					console.log(that.globalData);
+					uni.navigateTo({
+						url:
+							'../selectDate/selectDate?checkIn=' +
+							JSON.stringify(that.globalData.checkIn) +
+							'&checkOut=' +
+							JSON.stringify(that.globalData.checkOut) +
+							'&page=collect&&obj=' +
+							JSON.stringify(obj),
+						animationType: 'pop-in',
+						animationDuration: 200
+					});
+				})
+				.catch(res => {
+					uni.navigateTo({
+						url: '../login/login'
 					});
 				});
 		},
@@ -128,6 +161,7 @@ export default {
 			that.beginDate = that.globalData.checkIn.year + '-' + that.globalData.checkIn.month + '-' + that.globalData.checkIn.day;
 			that.endDate = that.globalData.checkOut.year + '-' + that.globalData.checkOut.month + '-' + that.globalData.checkOut.day;
 		},
+
 		//关闭房间详情页
 		closeRoom() {
 			this.isRoomDetails = false;
@@ -155,7 +189,7 @@ export default {
 							if (res.code == 1) {
 								that.getCollectList();
 								uni.showToast({
-									icon:'none',
+									icon: 'none',
 									title: '已取消'
 								});
 							}

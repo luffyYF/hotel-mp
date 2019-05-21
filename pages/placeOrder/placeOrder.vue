@@ -85,7 +85,7 @@
 		<view class="operation">
 			<button class="orderPrice" @tap="gotoCost">
 				<span>￥{{ totalPrice.totalPrice }}</span>
-				<span style="font-size: 18.11594upx;text-decoration: line-through;margin-left: -90.57971upx;color: #ccc;">￥{{ totalPrice.oldTotalPrice }}</span>
+				<span style="font-size: 18.11594upx;text-decoration: line-through;margin-left: -36.23188upx;color: #ccc;">￥{{ totalPrice.oldTotalPrice }}</span>
 				<span @tap="gotoCost()">明细</span>
 			</button>
 			<button class="submitOrder" @tap="gotoPayment()">提交订单</button>
@@ -97,6 +97,7 @@
 import api from '@/utils/api';
 import allocation from '@/utils/config';
 import user from '@/services/user.js';
+var app=getApp();
 export default {
 	data() {
 		return {
@@ -144,7 +145,7 @@ export default {
 		var obj = JSON.parse(opt.roomInfo);
 		//房间信息和入住时间
 		this.roomTypeInfo = obj.roomTypeInfo;
-		this.globalData = obj.globalData;
+		this.globalData = app.$vm.globalData;
 		this.beginDate = obj.beginDate;
 		this.endDate = obj.endDate;
 	},
