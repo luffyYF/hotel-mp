@@ -159,7 +159,7 @@ export default {
 					}).then(res => {
 						if (res.code == 1) {
 							/* console.log(that.UNIT); */
-
+							uni.navigateBack();
 							uni.showToast({
 								icon: 'none',
 								title: '修改成功'
@@ -190,6 +190,7 @@ export default {
 						saveType: 'PERSON'
 					}).then(res => {
 						if (res.code == 1) {
+							uni.navigateBack();
 							uni.showToast({
 								icon: 'none',
 								title: '修改成功'
@@ -227,9 +228,7 @@ export default {
 					openingAccount: that.SPECIAL.openingAccount
 				}).then(res => {
 					if (res.code == 1) {
-						uni.navigateBack({
-							delta: 1
-						});
+						uni.navigateBack();
 						uni.showToast({
 							icon: 'none',
 							title: '修改成功'

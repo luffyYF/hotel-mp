@@ -1,9 +1,9 @@
 <template>
-	<view class="page" v-cloak>
-		<view class="masklayer"></view>
+	<view class="page" :style="parentPage == 'index' ? 'top:0px;':''" v-cloak>
+		<view class="masklayer" v-if="parentPage == 'index' ? false : true"></view>
 		<view class="roomTop">
 			<h2>{{ roomTypeInfo.typeName }}[人气精选预付价]</h2>
-			<image src="../../static/images/room/error.png" mode="" @tap="closePage"></image>
+			<image src="../../static/images/room/error.png" mode="" @tap="closePage" v-if="parentPage == 'index' ? false : true"></image>
 		</view>
 		<scroll-view :scroll-y="true" class="roomPage">
 			<uniSwiperDot :info="info" :current="current" field="content" :mode="mode">
@@ -144,6 +144,8 @@ export default {
 				mask: true
 			});
 
+			that.parentPage = that.roomData.parentPage;
+
 			setTimeout(function() {
 				uni.hideLoading();
 			}, 1000);
@@ -195,7 +197,9 @@ export default {
 			beginDate: '',
 			endDate: '',
 			//是否收藏
-			ifCollect: ''
+			ifCollect: '',
+			//上一级页面
+			parentPage: ''
 		};
 	},
 	methods: {
@@ -254,6 +258,14 @@ export default {
 	right: 0;
 	margin: auto;
 	z-index: -1;
+}
+.page-index {
+	position: static;
+	background-color: white;
+	top: 0upx;
+	bottom: 99.63768upx;
+	width: 100%;
+	z-index: 10;
 }
 .page {
 	position: fixed;

@@ -105,7 +105,6 @@
 </template>
 
 <script>
-import uniPopup from '@/components/uni-popup/uni-popup.vue';
 import roomDetails from '@/components/roomDetails/roomDetails';
 import utils from '@/utils/util';
 import api from '@/utils/api';
@@ -114,8 +113,7 @@ import user from '@/services/user.js';
 var app = getApp();
 export default {
 	components: {
-		roomDetails,
-		uniPopup
+		roomDetails
 	},
 	data() {
 		return {
@@ -190,6 +188,49 @@ export default {
 				});
 			});
 	},
+	onPullDownRefresh() {
+		let that = this;
+		user.isUserinfo()
+			.then(res => {
+				user.getUserInfo().then(res => {
+					that.userInfo = res;
+
+					api.getHome({
+						gradePk: res.gradePk,
+						companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
+						beginDate: that.beginDate,
+						endDate: that.endDate,
+						userPk: res.memPk
+					}).then(res => {
+						if (res.code == 1) {
+							that.roomTypeList = res.data.roomTypeList;
+							that.companyInfo = res.data.companyInfo;
+							that.IMGURL = api.config.IMGURL;
+							/* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
+							uni.stopPullDownRefresh();
+						}
+					});
+				});
+			})
+			.catch(res => {
+				console.log(res);
+				api.getHome({
+					gradePk: '',
+					companyPk: '2583636c-71cd-4d7a-afa3-dce10b6b0e55',
+					beginDate: that.beginDate,
+					endDate: that.endDate,
+					userPk: ''
+				}).then(res => {
+					if (res.code == 1) {
+						that.roomTypeList = res.data.roomTypeList;
+						that.companyInfo = res.data.companyInfo;
+						that.IMGURL = api.config.IMGURL;
+						/* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
+						uni.stopPullDownRefresh();
+					}
+				});
+			});
+	},
 	methods: {
 		//跳转到图片列表页
 		gotoImageList() {
@@ -213,17 +254,16 @@ export default {
 							memPk: that.userInfo.memPk //用户主键
 						}).then(res => {
 							if (res.code == 1) {
-								
 								that.roomData = res;
 								that.roomData.item = item;
 								/* that.roomData.globalData = that.globalData; */
 								that.roomData.beginDate = that.beginDate;
 								that.roomData.endDate = that.endDate;
-								
-								
+								that.roomData.parentPage = 'index';
+
 								console.log(that.roomData);
 								uni.navigateTo({
-									url: '../roomInfo/roomInfo?obj='+JSON.stringify(that.roomData),
+									url: '../roomInfo/roomInfo?obj=' + JSON.stringify(that.roomData),
 									success: res => {},
 									fail: () => {},
 									complete: () => {}
@@ -237,18 +277,26 @@ export default {
 					api.getRoomType({
 						gradePk: '', //会员级别
 						companyPk: allocation.COMPANYPK, //酒店主键
-						roomTypePk: roomTypePk, //房型主键
+						roomTypePk:item.roomTypePk, //房型主键
 						beginDate: that.beginDate, //开始日期
 						endDate: that.endDate, //结束日期
 						memPk: '' //用户主键
 					}).then(res => {
 						if (res.code == 1) {
-							wx.hideTabBar();
-							that.isRoomDetails = true;
 							that.roomData = res;
-							that.roomData.globalData = that.globalData;
+							that.roomData.item = item;
+							/* that.roomData.globalData = that.globalData; */
 							that.roomData.beginDate = that.beginDate;
 							that.roomData.endDate = that.endDate;
+							that.roomData.parentPage = 'index';
+							
+							console.log(that.roomData);
+							uni.navigateTo({
+								url: '../roomInfo/roomInfo?obj=' + JSON.stringify(that.roomData),
+								success: res => {},
+								fail: () => {},
+								complete: () => {}
+							});
 						}
 					});
 				});

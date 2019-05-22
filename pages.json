@@ -26,7 +26,8 @@
 			"path": "pages/order/order",
 			"style": {
 				"navigationBarTitleText": "订单",
-				"navigationBarBackgroundColor": "#43403a"
+				"navigationBarBackgroundColor": "#43403a",
+				"navigationStyle": "custom"
 			}
 		},
 		{

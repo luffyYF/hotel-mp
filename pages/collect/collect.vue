@@ -99,7 +99,7 @@ export default {
 							that.isRoomDetails = true;
 						}
 					});
-				});
+				});	
 		},
 		//房间详情提交
 		gotoPrice(e) {

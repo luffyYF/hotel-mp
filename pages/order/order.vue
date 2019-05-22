@@ -1,5 +1,6 @@
 <template>
 	<view class="index">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="标题"></uni-nav-bar>
 		<tab @selectFunc="checked"></tab>
 		<view v-if="isShow" class="order-list">
 			<view class="list-item" @click="orderDetails(item)" v-for="(item, index) of lists" :key="index">
@@ -66,6 +67,9 @@
 <script>
 import tab from '../../components/tab/tab.vue';
 import np from '../../components/order/no-order.vue';
+import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
+import uniIcon from '@/components/uni-icon/uni-icon.vue'
+
 import api from '../../utils/api.js';
 import allocation from '../../utils/config.js';
 import user from '@/services/user.js';
@@ -73,7 +77,9 @@ var app = getApp();
 export default {
 	components: {
 		tab,
-		np
+		np,
+		uniNavBar,
+		uniIcon
 	},
 	data() {
 		return {

@@ -39,7 +39,7 @@
 						<image src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 					</view>
 
-					<image class="houseImg" :src="IMGURL + orderDetails.coverImage" mode=""></image>
+					<image class="houseImg" :src="orderDetails.coverImage" mode=""></image>
 					<view class="checkinAddress">
 						<view class="Address">
 							<view class="title">
@@ -121,14 +121,13 @@ export default {
 			orderInfo: {}
 		};
 	},
-	onShow(opt) {
-		
-	},
+	onShow(opt) {},
 	onLoad(opt) {
 		let that = this;
 		/* console.log(JSON.parse(opt.orderDetails)); */
 		that.orderDetails = JSON.parse(opt.orderDetails);
 		that.IMGURL = api.config.IMGURL;
+		that.orderDetails.coverImage = that.IMGURL + that.orderDetails.coverImage;
 		switch (that.orderDetails.orderStatus) {
 			case 0:
 				that.orderDetails.statusTitle = '待付款';

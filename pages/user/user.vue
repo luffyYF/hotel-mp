@@ -37,7 +37,7 @@
 				<image src="../../static/images/index/right.png" mode=""></image>
 			</view>
 			<view @tap="gotoAddress()" hover-class="color-hover">
-				<image src="../../static/images/user/feedback.png" mode=""></image>
+				<image src="../../static/images/user/position.png" mode=""></image>
 				<span>收件地址</span>
 				<image src="../../static/images/index/right.png" mode=""></image>
 			</view>
