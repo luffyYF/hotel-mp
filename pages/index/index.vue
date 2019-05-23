@@ -255,7 +255,8 @@ export default {
 						}).then(res => {
 							if (res.code == 1) {
 								that.roomData = res;
-								that.roomData.item = item;
+								
+
 								/* that.roomData.globalData = that.globalData; */
 								that.roomData.beginDate = that.beginDate;
 								that.roomData.endDate = that.endDate;
@@ -277,7 +278,7 @@ export default {
 					api.getRoomType({
 						gradePk: '', //会员级别
 						companyPk: allocation.COMPANYPK, //酒店主键
-						roomTypePk:item.roomTypePk, //房型主键
+						roomTypePk: item.roomTypePk, //房型主键
 						beginDate: that.beginDate, //开始日期
 						endDate: that.endDate, //结束日期
 						memPk: '' //用户主键
@@ -289,7 +290,7 @@ export default {
 							that.roomData.beginDate = that.beginDate;
 							that.roomData.endDate = that.endDate;
 							that.roomData.parentPage = 'index';
-							
+
 							console.log(that.roomData);
 							uni.navigateTo({
 								url: '../roomInfo/roomInfo?obj=' + JSON.stringify(that.roomData),
@@ -301,7 +302,7 @@ export default {
 					});
 				});
 		},
-		//房间详情提交
+		/* //房间详情提交
 		gotoPrice(e) {
 			let that = this;
 			user.isUserinfo()
@@ -338,11 +339,11 @@ export default {
 			}).then(res => {
 				if (res.code == 1) {
 					that.roomTypeList = res.data.roomTypeList;
-					/* res.data.companyInfo.image = that.IMGURL + res.data.companyInfo.image.replace(/\\/g, '/'); */
+					
 				}
 			});
 			wx.showTabBar();
-		},
+		}, */
 		//跳转到评论页
 		gotoComment() {
 			uni.navigateTo({
@@ -687,6 +688,7 @@ export default {
 				color: #fff;
 				font-size: 36.23188upx;
 				.original {
+					margin-left: 18.11594upx;
 					font-size: 21.73913upx;
 					text-decoration: line-through;
 					color: #ccc;

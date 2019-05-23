@@ -146,6 +146,7 @@ export default {
 			}).then(res => {
 				if (res.code == 1) {
 					/* 	var obj = JSON.stringify(res.data); */
+					
 					uni.navigateTo({
 						url: '../../pages/order/orderDetails?orderDetails=' + JSON.stringify(res.data)
 					});

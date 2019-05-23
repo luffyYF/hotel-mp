@@ -33,7 +33,7 @@
 					</view>
 				</view>
 				<view class="checkinCard">
-					<view class="checkinName">
+					<view class="checkinName" @tap="gotoRoomDetails()">
 						<h3>{{ orderDetails.companyName }}</h3>
 						<text class="cc">{{ orderDetails.roomTypeName }}{{ '(' + orderDetails.rentCount + '间)' }}</text>
 						<image src="../../static/images/order/icon/youjiantou.png" mode=""></image>
@@ -41,17 +41,21 @@
 
 					<image class="houseImg" :src="orderDetails.coverImage" mode=""></image>
 					<view class="checkinAddress">
-						<view class="Address">
+						<view class="Address" @tap="gotoMap()">
 							<view class="title">
-								<text>地址:</text>
-								<text>{{ orderDetails.companyAddress }}</text>
+								<p style="display: inline-block;vertical-align middle">
+									酒店地址:
+									<image class="icons" style="vertical-align:middle" src="../../static/images/order/icon/dingwei.png" mode=""></image>
+								</p>
+								<text>{{ companyInfo.companyAddress }}</text>
 							</view>
-							<view class="addressIcon"><image class="icons" src="../../static/images/order/icon/dingwei.png" mode=""></image></view>
 						</view>
-						<view class="tell" @tap="makingCall('13318969277')">
-							<text>电话:</text>
-							<text>13318969277</text>
-							<image class="icons" src="../../static/images/order/icon/tell.png" mode=""></image>
+						<view class="tell" @tap="makingCall()">
+							<p style="display: inline-block;vertical-align middle">
+								客服电话:
+								<image class="icons" style="vertical-align:middle" src="../../static/images/order/icon/tell.png" mode=""></image>
+							</p>
+							<text>{{ companyInfo.telPhone }}</text>
 						</view>
 					</view>
 				</view>
@@ -70,7 +74,7 @@
 				<view class="invoice" @tap="orderDetails.invoiceType != 0 ? checkInvoice() : ''">
 					<text>发票</text>
 					<text>{{ orderDetails.invoiceType == 0 ? '无需开具发票' : '查看发票' }}</text>
-					<image class="icons" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
+					<image class="icons" v-if="orderDetails.invoiceType == 0 ?false: true" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 				</view>
 			</view>
 			<view class="reserve">
@@ -111,6 +115,7 @@
 import api from '@/utils/api.js';
 import wxUser from '@/services/wxUser.js';
 import allocation from '@/utils/config.js';
+import user from '@/services/user.js';
 export default {
 	components: {},
 	data() {
@@ -118,42 +123,45 @@ export default {
 			active: 1,
 			orderDetails: {},
 			IMGURL: '',
-			orderInfo: {}
+			orderInfo: {},
+			companyInfo: {}
 		};
 	},
 	onShow(opt) {},
 	onLoad(opt) {
 		let that = this;
-		/* console.log(JSON.parse(opt.orderDetails)); */
-		that.orderDetails = JSON.parse(opt.orderDetails);
+
+		/* console.log(JSON.parse(opt.orderDetails).companyInfo); */
+		that.companyInfo = JSON.parse(opt.orderDetails).companyInfo;
+		that.orderDetails = JSON.parse(opt.orderDetails).orderInfo;
 		that.IMGURL = api.config.IMGURL;
 		that.orderDetails.coverImage = that.IMGURL + that.orderDetails.coverImage;
 		switch (that.orderDetails.orderStatus) {
 			case 0:
 				that.orderDetails.statusTitle = '待付款';
 				that.orderDetails.statusMsg = '订单已下单，请尽快付款';
-				that.orderDetails.btnTitle = [{ title: '一键付款', isShow: true }, { title: '取消订单', isShow: true }];
+				that.orderDetails.btnTitle = [{ title: '立即付款', isShow: true }, { title: '取消订单', isShow: true }];
 				that.orderDetails.OperationMethod = [that.AkeyPayment, that.cancelOrder];
 				that.orderDetails.showBtn = true;
 				break;
 			case 1:
 				that.orderDetails.statusTitle = '待接单';
 				that.orderDetails.statusMsg = '订单已付款，请等待接单';
-				that.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '取消订单', isShow: true }];
+				that.orderDetails.btnTitle = [{ title: '立即付款', isShow: false }, { title: '取消订单', isShow: true }];
 				that.orderDetails.OperationMethod = [that.cancelOrder, that.cancelOrder];
 				that.orderDetails.showBtn = true;
 				break;
 			case 2:
 				that.orderDetails.statusTitle = '已接单';
 				that.orderDetails.statusMsg = '订单已接单，请尽快到达酒店入住';
-				that.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '取消订单', isShow: true }];
+				that.orderDetails.btnTitle = [{ title: '立即付款', isShow: false }, { title: '取消订单', isShow: true }];
 				that.orderDetails.OperationMethod = [that.cancelOrder, that.cancelOrder];
 				that.orderDetails.showBtn = true;
 				break;
 			case 3:
 				that.orderDetails.statusTitle = '已入住';
 				that.orderDetails.statusMsg = '您已入住，请好好享用';
-				that.orderDetails.btnTitle = [{ title: '一键付款', isShow: false }, { title: '取消订单', isShow: true }];
+				that.orderDetails.btnTitle = [{ title: '立即付款', isShow: false }, { title: '取消订单', isShow: true }];
 				that.orderDetails.OperationMethod = [that.cancelOrder, that.cancelOrder];
 				that.orderDetails.showBtn = true;
 				break;
@@ -185,6 +193,37 @@ export default {
 		this.orderDetails.nights = this.getDays(strDateStart, strDateEnd);
 	},
 	methods: {
+		//查看房间详情
+		gotoRoomDetails() {
+			let that = this;
+			user.getUserInfo().then(res => {
+				/* console.log(res); */
+				api.getRoomType({
+					gradePk: res.gradePk, //会员级别
+					companyPk: allocation.COMPANYPK, //酒店主键
+					roomTypePk: that.orderDetails.roomTypePk, //房型主键
+					beginDate: that.orderDetails.beginDate, //开始日期
+					endDate: that.orderDetails.endDate, //结束日期
+					memPk: res.memPk //用户主键
+				}).then(res => {
+					if (res.code == 1) {
+						that.roomData = res;
+
+						/* that.roomData.globalData = that.globalData; */
+						that.roomData.beginDate = that.orderDetails.beginDate;
+						that.roomData.endDate = that.orderDetails.endDate;
+						that.roomData.viewDetails = true;
+						that.roomData.parentPage = 'index';
+						uni.navigateTo({
+							url: '../roomInfo/roomInfo?obj=' + JSON.stringify(that.roomData),
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						});
+					}
+				});
+			});
+		},
 		//已评价
 		haveEvaluation() {
 			uni.showToast({
@@ -205,6 +244,7 @@ export default {
 					that.orderDetails.orderPk
 			});
 		},
+		//
 		getDays(strDateStart, strDateEnd) {
 			var strSeparator = '-'; //日期分隔符
 			var oDate1;
@@ -217,7 +257,9 @@ export default {
 			iDays = parseInt(Math.abs(strDateS - strDateE) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
 			return iDays;
 		},
+		//查看明细
 		gotoCost() {
+			let that=this;
 			api.getOrderPrice({
 				beginDate: this.orderDetails.beginDate,
 				couponMemberPk: this.orderDetails.couponMemberPk == null ? '' : this.orderDetails.couponMemberPk,
@@ -227,15 +269,32 @@ export default {
 				userPk: this.orderDetails.userPk
 			}).then(res => {
 				if (res.code == 1) {
+					res.data.orderStatus=that.orderDetails.orderStatus;
+					res.data.orderInfo = {
+						orderPk: that.orderDetails.orderPk,
+						userPk: that.orderDetails.userPk
+					};
 					uni.navigateTo({
 						url: '../costDetail/costDetail?details=' + JSON.stringify(res.data)
 					});
 				}
 			});
 		},
-		makingCall(phoneNumber) {
+		//拨打客服电话
+		makingCall() {
 			uni.makePhoneCall({
-				phoneNumber: phoneNumber
+				phoneNumber: this.companyInfo.telPhone
+			});
+		},
+		//跳到地图详情页
+		gotoMap() {
+			var obj = {
+				latitude: this.companyInfo.latitude,
+				longitude: this.companyInfo.longitude,
+				title: this.orderDetails.companyName
+			};
+			uni.navigateTo({
+				url: '../map/map?mapInfo=' + JSON.stringify(obj)
 			});
 		},
 		//取消订单
@@ -268,7 +327,6 @@ export default {
 			let that = this;
 			that.orderInfo = {
 				orderPk: that.orderDetails.orderPk,
-				totalPrice: that.orderDetails.totalPrice,
 				userPk: that.orderDetails.userPk
 			};
 			wxUser.getUserInfo().then(res => {
@@ -450,16 +508,11 @@ export default {
 	margin-right: 18.11594upx;
 }
 .orderPage .orderDetails .checkin .checkinCard .checkinAddress > view {
-	line-height: 63.40579upx;
+	padding: 9.05797upx 0;
 }
 .orderPage .orderDetails .checkin .checkinCard .checkinAddress .icons {
-	display: inline-block;
-	float: right;
-	width: 39.85507upx;
-	height: 39.85507upx;
-	margin-top: 9.05797upx;
-	position: absolute;
-	right: 18.11594upx;
+	width: 32.60869upx;
+	height: 32.60869upx;
 }
 
 .orderPage .orderDetails .checkinCost,

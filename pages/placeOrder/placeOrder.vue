@@ -84,8 +84,8 @@
 		</view>
 		<view class="operation">
 			<button class="orderPrice" @tap="gotoCost">
-				<span>￥{{ totalPrice.totalPrice }}</span>
-				<span style="font-size: 18.11594upx;text-decoration: line-through;margin-left: -36.23188upx;color: #ccc;">￥{{ totalPrice.oldTotalPrice }}</span>
+				<span>￥{{ totalPrice.totalPrice }}<span style="font-size: 18.11594upx;text-decoration: line-through;color: #ccc;margin-left: 18.11594upx;">￥{{ totalPrice.oldTotalPrice }}</span></span>
+				
 				<span @tap="gotoCost()">明细</span>
 			</button>
 			<button class="submitOrder" @tap="gotoPayment()">提交订单</button>
@@ -242,14 +242,16 @@ export default {
 					}).then(res => {
 						if (res.code == 1) {
 							console.log(res.data);
-							var obj = {
+							
+							/* var obj = {
 								orderPk: res.data,
 								totalPrice: that.totalPrice.totalPrice,
+								oldTotalPrice:that.totalPrice.oldTotalPrice,
 								userPk: that.userInfo.memPk
 							};
 							uni.navigateTo({
 								url: '../payment/payment?obj=' + JSON.stringify(obj)
-							});
+							}); */
 						}
 					});
 				} else {
@@ -264,7 +266,7 @@ export default {
 						userPk: that.userInfo.memPk
 					}).then(res => {
 						if (res.code == 1) {
-							console.log(res.data);
+							console.log(res);
 							var obj = {
 								orderPk: res.data,
 								totalPrice: that.totalPrice.totalPrice,
@@ -639,7 +641,7 @@ page {
 	font-size: 36.23188upx;
 	float: left;
 }
-.operation > .orderPrice > span:nth-child(3) {
+.operation > .orderPrice > span:nth-child(2) {
 	color: #333333;
 	font-size: 21.73913upx;
 	float: right;

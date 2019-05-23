@@ -103,7 +103,7 @@
 				</view>
 			</view>
 		</scroll-view>
-		<view class="operation">
+		<view class="operation" v-if="roomData.viewDetails==true?false:true">
 			<button class="reserveBtn" style="" @tap="gotoPrice()" :disabled="roomTypeInfo.isFull == 'Y' ? true : false">
 				<span>￥{{ roomTypeInfo.disPrice }}</span>
 				<span style="font-size:28.9855upx;text-decoration: line-through;margin-left: 18.11594upx;color: #ccc;">￥{{ roomTypeInfo.price }}</span>

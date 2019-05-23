@@ -1,38 +1,29 @@
 <template>
 	<view class="PayPage">
 		<view class="reminder">
-			<view class="reminder-title">
-				<view class="re-icon"><image src="../../static/images/room/succees.png" mode=""></image></view>
-				<view class="re-content">
-					<h2>提交订单完成，请尽快完成付款！</h2>
-					<p>订单为您保留30分钟，请及时付款，超时订单将自动取消!</p>
-				</view>
-			</view>
-			<view class="re-details">
-				<p>
-					房费：
-					<span>￥{{ orderInfo.totalPrice }}</span>
-				</p>
-				<p>
-					住房押金：
-					<span>免押金</span>
-				</p>
-				<p>
-					待付总金额：
-					<span>￥{{ orderInfo.totalPrice }}</span>
-				</p>
+			<view class="re-icon"><image src="../../static/images/order/icon/gouxuan.png" mode=""></image></view>
+			<view class="re-desc">
+				<h2>提交订单完成</h2>
+				<h2>
+					支付剩余时间：
+					<span style="font-weight: bold;">30：00</span>
+				</h2>
+				<h2 style="font-size: 21.73913upx;">请及时付款，超时订单将自动取消!</h2>
 			</view>
 		</view>
 		<view class="sel-title"><p>选择支付方式</p></view>
-		<view class="select-mode" @tap="pay">
+		<view class="select-mode" @tap="selPay('WX_APPLET')">
 			<image src="../../static/images/room/wx.jpg" mode=""></image>
-			<p>微信支付</p>
+			<p style="flex: 1;">微信支付</p>
+			<span>
+				￥{{ orderInfo.totalPrice }}
+				<span style="font-size: 18.11594upx;text-decoration: line-through;color: #ccc;margin: 0 18.11594upx;">￥{{ orderInfo.oldTotalPrice }}</span>
+			</span>
+			<label style="padding-right: 0;">
+				<view><radio value="" :checked="payWay == 'WX_APPLET' ? true : false" /></view>
+			</label>
 		</view>
-		<view class="footer">
-			<a @tap="backHomepage">返回首页</a>
-			|
-			<a @tap="gotoBack">返回填写订单页面</a>
-		</view>
+		<view class="payBtn"><button @tap="pay" type="primary">立即支付</button></view>
 	</view>
 </template>
 
@@ -44,7 +35,10 @@ import wxUser from '@/services/wxUser.js';
 export default {
 	data() {
 		return {
-			orderInfo: {}
+			orderInfo: {},
+			//支付方式
+			payWay: ''
+			//剩余时间
 		};
 	},
 	onLoad(opt) {
@@ -57,138 +51,136 @@ export default {
 		});
 	},
 	methods: {
-		backHomepage() {
-			uni.reLaunch({
-				url: '../index/index'
-			});
+		//时间倒计时
+		resetTime() {
+			var timer = null;
+			var t = time;
+			var m = 0;
+			var s = 0;
+			m = Math.floor((t / 60) % 60);
+			m < 10 && (m = '0' + m);
+			s = Math.floor(t % 60);
+			function countDown() {
+				s--;
+				s < 10 && (s = '0' + s);
+				if (s.length >= 3) {
+					s = 59;
+					m = '0' + (Number(m) - 1);
+				}
+				if (m.length >= 3) {
+					m = '00';
+					s = '00';
+					clearInterval(timer);
+				}
+				console.log(m + '分钟' + s + '秒');
+			}
+			timer = setInterval(countDown, 1000);
 		},
-		gotoBack() {
-			uni.navigateBack({
-				delta: 1
-			});
+
+		//选择支付方式
+		selPay(payWay) {
+			this.payWay = payWay;
 		},
+		//提交支付
 		pay() {
 			var that = this;
-			api.payment({
-				appid: allocation.APPID,
-				openid: that.orderInfo.openId,
-				orderPk: that.orderInfo.orderPk,
-				payType: 'WX_APPLET'
-			}).then(res => {
-				if (res.code == 1) {
-					console.log(res);
 
-					wx.requestPayment({
-						appId: res.data.appId,
-						timeStamp: res.data.timeStamp,
-						nonceStr: res.data.nonceStr,
-						package: res.data.package,
-						signType: res.data.signType,
-						paySign: res.data.paySign,
-						success: function(res) {
-							uni.navigateTo({
-								url: 'payFinish?orderPk=' + that.orderInfo.orderPk + '&userPk=' + that.orderInfo.userPk
-							});
-						},
-						fail: function(res) {},
-						complete: function(res) {}
-					});
-				}
-			});
+			if (that.payWay != '' && that.payWay != null) {
+				console.log(that.payWay + '支付');
+				api.payment({
+					appid: allocation.APPID,
+					openid: that.orderInfo.openId,
+					orderPk: that.orderInfo.orderPk,
+					payType: that.payWay
+				}).then(res => {
+					if (res.code == 1) {
+						console.log(res);
+						wx.requestPayment({
+							appId: res.data.appId,
+							timeStamp: res.data.timeStamp,
+							nonceStr: res.data.nonceStr,
+							package: res.data.package,
+							signType: res.data.signType,
+							paySign: res.data.paySign,
+							success: function(res) {
+								//支付成功执行回调
+								uni.navigateTo({
+									url: 'payFinish?orderPk=' + that.orderInfo.orderPk + '&userPk=' + that.orderInfo.userPk
+								});
+							},
+							fail: function(res) {},
+							complete: function(res) {}
+						});
+					}
+				});
+			} else {
+				uni.showToast({
+					icon: 'none',
+					title: '请选择支付方式'
+				});
+			}
 		}
 	}
 };
 </script>
 
-<style>
+<style lang="scss">
 .PayPage {
 	background-color: #f5f9fc;
-	height: 100%;
-}
-uni-page-body {
-	height: 100%;
-}
-.PayPage .reminder {
-	background-color: white;
-	border-bottom: 1px solid #eee;
-}
-.PayPage .reminder-title {
-	display: flex;
-	padding: 36.23188upx 0 36.23188upx 28.9855upx;
-	vertical-align: middle;
-	align-items: center;
-	background-color: white;
-	border-bottom: 1px solid #eee;
-}
-.PayPage .reminder-title > .re-icon {
-	flex: 0.2;
-	text-align: center;
-}
-.PayPage .reminder-title > .re-icon > image {
-	width: 90.57971upx;
-	height: 90.57971upx;
-}
-.PayPage .reminder-title > .re-content {
-	flex: 0.8;
-}
-.PayPage .reminder-title > .re-content > h2 {
-	font-size: 28.9855upx;
-	font-weight: 400;
-}
-.PayPage .reminder-title > .re-content > p {
-	font-size: 25.36231upx;
-	color: #999999;
-	line-height: 20px;
-}
-.PayPage .reminder .re-details {
-	padding: 27.17391upx 28.9855upx;
-}
-.PayPage .reminder .re-details > p {
-	color: #333333;
-	background-color: white;
-	font-size: 25.36231upx;
-	margin: 14.49275upx;
-	line-height: normal;
-}
-.PayPage .reminder .re-details > p > span {
-	color: #f72845;
-	font-size: 27.17391upx;
-}
-.PayPage .sel-title {
-	padding: 9.05797upx 28.9855upx;
-}
-.PayPage .sel-title p {
-	font-size: 21.73913upx;
-	color: #666666;
-	margin: 19.92753upx 0;
-}
-.PayPage .select-mode {
-	background-color: white;
-	padding: 21.73913upx 28.9855upx;
-	display: flex;
-	vertical-align: middle;
-	align-items: center;
-	border-top: 1px solid #eee;
-	border-bottom: 1px solid #eee;
-}
-.PayPage .select-mode > image {
-	width: 72.46376upx;
-	height: 72.46376upx;
-}
-.PayPage .select-mode > p {
-	font-size: 25.36231upx;
-	margin-left: 18.11594upx;
-}
-.footer {
-	display: flex;
-	padding-top: 181.15942upx;
-	vertical-align: middle;
-	align-items: center;
-	justify-content: center;
-	background-color: white;
-}
-.footer > a {
-	color: #007aff;
-	margin: 18.11594upx;
+	.reminder {
+		background-color: white;
+		border-bottom: 1px solid #eee;
+		padding: 36.23188upx 0;
+		.re-icon {
+			text-align: center;
+			padding: 18.11594upx 0;
+			image {
+				width: 126.81159upx;
+				height: 126.81159upx;
+			}
+		}
+		.re-desc {
+			text-align: center;
+			h2 {
+				padding: 9.05797upx 0;
+			}
+		}
+	}
+
+	.sel-title {
+		padding: 9.05797upx 28.9855upx;
+		p {
+			font-size: 27.17391upx;
+			color: #666666;
+			margin: 19.92753upx 0;
+		}
+	}
+	.select-mode {
+		background-color: white;
+		padding: 27.17391upx;
+		display: flex;
+		vertical-align: middle;
+		align-items: center;
+		border-top: 1px solid #eee;
+		border-bottom: 1px solid #eee;
+		image {
+			width: 72.46376upx;
+			height: 72.46376upx;
+		}
+		p {
+			font-size: 25.36231upx;
+			margin-left: 18.11594upx;
+		}
+	}
+	.payBtn {
+		text-align: center;
+		position: fixed;
+		overflow: hidden;
+		bottom: 90.57971upx;
+		width: 100%;
+		button {
+			width: 90%;
+		}
+	}
 }
 </style>
