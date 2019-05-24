@@ -1,5 +1,6 @@
 <template>
 	<view class="costPage">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="费用明细"></uni-nav-bar>
 		<view class="costContent">
 			<view class="allPrice" @tap="showPrice()">
 				<h3>总房费:</h3>
@@ -57,6 +58,9 @@ export default {
 		this.details = JSON.parse(opt.details);
 	},
 	methods: {
+		back(){
+			uni.navigateBack();
+		},
 		//查看每日房价
 		showPrice() {
 			this.isShow = !this.isShow;

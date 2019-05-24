@@ -1,5 +1,8 @@
 <template>
-	<roomDetails :roomData="roomData" @gotoPrice="gotoPrice"></roomDetails>
+	<view class="">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="房间详情"></uni-nav-bar>
+		<roomDetails :roomData="roomData" @gotoPrice="gotoPrice"></roomDetails>
+	</view>
 </template>
 <script>
 import roomDetails from '@/components/roomDetails/roomDetails';
@@ -20,12 +23,15 @@ export default {
 		this.roomData = JSON.parse(opt.obj);
 	},
 	methods: {
+		back(){
+			uni.navigateBack();
+		},
 		//房间详情提交
 		gotoPrice(e) {
 			let that = this;
 			user.isUserinfo()
 				.then(res => {
-				/* 	console.log(res); */
+					/* 	console.log(res); */
 
 					//跳转到订单填写页
 					var obj = {

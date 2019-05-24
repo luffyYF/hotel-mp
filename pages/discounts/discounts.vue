@@ -1,14 +1,15 @@
 <template>
 	<view class="discountsPage">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="优惠券"></uni-nav-bar>
 		<view class="tabs">
 			<view class="tabs-title" :class="num == 0 ? 'active' : ''" @tap="checked(0)">
 				可使用(
-				<span>{{effectiveList.length}}</span>
+				<span>{{ effectiveList.length }}</span>
 				)
 			</view>
 			<view class="tabs-title" :class="num == 1 ? 'active' : ''" @tap="checked(1)">
 				已失效(
-				<span>{{invalidList.length}}</span>
+				<span>{{ invalidList.length }}</span>
 				)
 			</view>
 		</view>
@@ -16,10 +17,10 @@
 			<swiper-item>
 				<view class="card-list">
 					<view class="card-item" v-for="(item, index) in effectiveList" :key="index" @tap="selCoupons(item)">
-						<view class="card-img">￥{{item.value}}</view>
+						<view class="card-img">￥{{ item.value }}</view>
 						<view class="card-content">
-							<h2>{{item.couponName}}</h2>
-							<span>有效期：{{item.beginDate}} ~ {{item.endDate}}</span>
+							<h2>{{ item.couponName }}</h2>
+							<span>有效期：{{ item.beginDate }} ~ {{ item.endDate }}</span>
 							<p>可使用</p>
 						</view>
 					</view>
@@ -28,10 +29,10 @@
 			<swiper-item>
 				<view class="card-list">
 					<view class="card-item" style="opacity: .6;" v-for="(item, index) in invalidList" :key="index">
-						<view class="card-img">￥{{item.value}}</view>
+						<view class="card-img">￥{{ item.value }}</view>
 						<view class="card-content">
-							<h2>{{item.couponName}}</h2>
-							<span>有效期：{{item.beginDate}} ~ {{item.endDate}}</span>
+							<h2>{{ item.couponName }}</h2>
+							<span>有效期：{{ item.beginDate }} ~ {{ item.endDate }}</span>
 							<p>已失效</p>
 						</view>
 						<view class="card-lose"><image src="../../static/images/user/invalid.png" mode=""></image></view>
@@ -47,17 +48,20 @@ export default {
 	data() {
 		return {
 			num: 0,
-			invalidList:[],
-			effectiveList:[]
+			invalidList: [],
+			effectiveList: []
 		};
 	},
-	onLoad(opt){
+	onLoad(opt) {
 		var obj = JSON.parse(opt.obj);
 		/* console.log(obj) */
-		this.invalidList=obj.invalidList;
-		this.effectiveList=obj.effectiveList;		
+		this.invalidList = obj.invalidList;
+		this.effectiveList = obj.effectiveList;
 	},
 	methods: {
+		back() {
+			uni.navigateBack();
+		},
 		change(e) {
 			this.num = e.detail.current;
 		},
@@ -65,7 +69,7 @@ export default {
 			this.num = e;
 			this.$emit('selectFunc', e);
 		},
-		selCoupons(item){
+		selCoupons(item) {
 			var pages = getCurrentPages();
 			var currPage = pages[pages.length - 1]; //当前页面
 			var prevPage = pages[pages.length - 2]; //上一个页面
@@ -84,7 +88,7 @@ page {
 	background-color: #f5f9fc;
 	height: 100%;
 }
-.tabs{
+.tabs {
 	position: fixed;
 }
 .discountsPage {
@@ -126,7 +130,7 @@ page {
 			.card-item {
 				height: 100px;
 				margin: 27.17391upx;
-				
+
 				display: flex;
 				vertical-align: middle;
 				align-items: center;
@@ -162,7 +166,6 @@ page {
 						margin-bottom: 18.11594upx;
 						padding-top: 18.11594upx;
 						font-weight: 500;
-						
 					}
 					span {
 						display: block;

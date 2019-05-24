@@ -1,8 +1,11 @@
 <template>
 	<view class="orderPage" v-cloak>
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="订单详情"></uni-nav-bar>
 		<view class="orderDetails">
 			<view class="markedwords">
 				<text>{{ orderDetails.statusTitle }}</text>
+				<text v-if="!payOvertime">支付剩余时间：{{showTime}}</text>
+				<text v-if="payOvertime">支付已超时</text>
 				<text>{{ orderDetails.statusMsg }}</text>
 			</view>
 			<view class="warmPrompt">
@@ -124,10 +127,21 @@ export default {
 			orderDetails: {},
 			IMGURL: '',
 			orderInfo: {},
-			companyInfo: {}
+			companyInfo: {},
+			//显示时间
+			showTime: '0分0秒',
+			//定时器id
+			timerId: '',
+			//分钟
+			minutes: '',
+			//秒
+			seconds: '',
+			//剩余时长
+			remainTime: '',
+			//是否支付超时
+			payOvertime: false
 		};
 	},
-	onShow(opt) {},
 	onLoad(opt) {
 		let that = this;
 
@@ -188,11 +202,41 @@ export default {
 			default:
 				break;
 		}
-		var strDateStart = this.orderDetails.beginDate;
-		var strDateEnd = this.orderDetails.endDate;
-		this.orderDetails.nights = this.getDays(strDateStart, strDateEnd);
+		var strDateStart = that.orderDetails.beginDate;
+		var strDateEnd = that.orderDetails.endDate;
+		that.orderDetails.nights = that.getDays(strDateStart, strDateEnd);
+		
+		
+		that.resetTime();
+	},
+	onUnload() {
+		clearInterval(this.timerId);
 	},
 	methods: {
+		back(){
+			uni.navigateBack();
+		},
+		//时间倒计时
+		resetTime() {
+			let that = this;
+			that.remainTime = that.orderDetails.paymentBufferTime * 60;
+			
+			that.timerId = setInterval(that.CountDown, 1000);
+		},
+		//循环执行
+		CountDown() {
+			let that = this;
+			if (that.remainTime >= 0) {
+				that.minutes = Math.floor(that.remainTime / 60); //算出有几分钟
+				that.seconds = Math.floor(that.remainTime % 60); //算出有几秒钟
+				that.showTime = that.minutes + '分' + that.seconds + '秒';
+				that.remainTime--;
+				console.log(that.showTime);
+			} else {
+				clearInterval(that.timerId);
+				that.payOvertime = !that.payOvertime;
+			}
+		}, 
 		//查看房间详情
 		gotoRoomDetails() {
 			let that = this;

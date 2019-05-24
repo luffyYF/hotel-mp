@@ -1,5 +1,6 @@
 <template>
 	<view class="loginPage">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="登录"></uni-nav-bar>
 		<view class="company-icon">
 			<image class="logo-avatar" :src="wxUserInfo.avatarUrl?wxUserInfo.avatarUrl:''" mode="cover"></image>
 			<view class="accountNo">
@@ -43,6 +44,9 @@
 			})
 		},
 		methods: {
+			back(){
+				uni.navigateBack();
+			},
 			getUserInfo: function(res) {
 				this.isAuthorizeShow = false
 				this.wxUserInfo = res.userInfo

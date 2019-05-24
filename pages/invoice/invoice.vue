@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="申请发票"></uni-nav-bar>
 		<scroll-view class="invoicePage">
 			<view class="whetherNeed">
 				<p style="font-size: 32.60869upx;">需要发票</p>
@@ -257,6 +258,9 @@ export default {
 		}
 	},
 	methods: {
+		back(){
+			uni.navigateBack();
+		},
 		//是否完善
 		isPerfectFlag(item) {
 			let that = this;

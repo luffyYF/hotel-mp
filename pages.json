@@ -44,7 +44,8 @@
 			"path": "pages/selectDate/selectDate",
 			"style": {
 				"navigationBarTitleText": "选择日期",
-				"navigationBarBackgroundColor": "#43403a"
+				"navigationBarBackgroundColor": "#43403a",
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -57,33 +58,37 @@
 			"path": "pages/comment/comment",
 			"style": {
 				"navigationBarTitleText": "评论列表",
-				"navigationBarBackgroundColor": "#43403a"
+				"navigationBarBackgroundColor": "#43403a",
+				"navigationStyle": "custom"
 			}
-		},
-		{
+		}, {
 			"path": "pages/comment/writeComment",
 			"style": {
 				"navigationBarTitleText": "发表评论",
-				"navigationBarBackgroundColor": "#43403a"
+				"navigationBarBackgroundColor": "#43403a",
+				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path": "pages/aboutUs/aboutUs",
 			"style": {
 				"navigationBarTitleText": "关于我们",
-				"navigationBarBackgroundColor": "#43403a"
+				"navigationBarBackgroundColor": "#43403a",
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/collect/collect",
 			"style": {
 				"navigationBarTitleText": "我的收藏",
-				"navigationBarBackgroundColor": "#43403a"
+				"navigationBarBackgroundColor": "#43403a",
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/share/share",
 			"style": {
 				"navigationBarTitleText": "分享",
-				"navigationBarBackgroundColor": "#43403a"
+				"navigationBarBackgroundColor": "#43403a",
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -109,7 +114,8 @@
 			"path": "pages/map/map",
 			"style": {
 				"navigationBarTitleText": "酒店地图",
-				"navigationBarBackgroundColor": "#43403a"
+				"navigationBarBackgroundColor": "#43403a",
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -171,7 +177,8 @@
 			"path": "pages/imageList/imageList",
 			"style": {
 				"navigationBarTitleText": "酒店展示图",
-				"navigationBarBackgroundColor": "#43403a"
+				"navigationBarBackgroundColor": "#43403a",
+				"navigationStyle": "custom"
 			}
 		}
 	],
@@ -199,6 +206,10 @@
 				"text": "我的"
 			}
 		]
+	},
+	//设置全局页面样式
+	"globalStyle": {
+		"navigationStyle": "custom"
 	},
 	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)

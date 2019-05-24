@@ -1,5 +1,6 @@
 <template>
 	<view class="addUpPage">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="修改抬头"></uni-nav-bar>
 		<view class="plainInvoice" v-if="showType == 'plainInvoice' ? true : false">
 			<view class="UpType">
 				<p>抬头类型</p>
@@ -131,6 +132,9 @@ export default {
 	},
 	onShow() {},
 	methods: {
+		back() {
+			uni.navigateBack();
+		},
 		//选择抬头类型
 		radioChange(e) {
 			this.upTypeName = e.target.value;
@@ -228,6 +232,22 @@ export default {
 					openingAccount: that.SPECIAL.openingAccount
 				}).then(res => {
 					if (res.code == 1) {
+						/* var pages = getCurrentPages();
+						var currPage = pages[pages.length - 1]; //当前页面
+						var prevPage = pages[pages.length - 2]; //上一个页面
+						var obj = {
+							saveType: 'UNIT',
+							invoiceTitle: that.SPECIAL.invoiceTitle,
+							companyTaxNo: that.SPECIAL.companyTaxNo,
+							invoiceCompanyPhone: that.SPECIAL.invoiceCompanyPhone,
+							invoiceCompanyAddress: that.SPECIAL.invoiceCompanyAddress,
+							openingBank: that.SPECIAL.openingBank,
+							openingAccount: that.SPECIAL.openingAccount
+						};
+						//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+						prevPage.setData({
+							saveUp: obj
+						}); */
 						uni.navigateBack();
 						uni.showToast({
 							icon: 'none',

@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="我的收藏"></uni-nav-bar>
 		<view class="collect-item" v-for="(item, index) in collectList" :key="index">
 			<image class="collect-icon" src="../../static/images/user/onChose.png" mode="" @tap="collectCancel(item)"></image>
 			<image class="collect-img" :src="IMGURL + item.coverImage" mode="" @tap="gotoRoomInfo(item)"></image>
@@ -21,7 +22,7 @@ import user from '@/services/user.js';
 var app = getApp();
 export default {
 	components: {
-		roomDetails
+		roomDetails,
 	},
 	data() {
 		return {
@@ -53,6 +54,9 @@ export default {
 		});
 	},
 	methods: {
+		back() {
+			uni.navigateBack();
+		},
 		//房间详情页
 		gotoRoomInfo(item) {
 			let that = this;

@@ -1,5 +1,6 @@
 <template>
 	<view v-cloak>
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" :title="showType == 'ADDRESS' ? '收件地址' : '发票管理'"></uni-nav-bar>
 		<scroll-view scroll-y class="content">
 			<uni-swipe-action :options="options" @click="delItem(item)" v-for="(item, index) in upAddress.ADDRESS" :key="index" v-if="showType == 'ADDRESS'">
 				<view class="address-item">
@@ -95,10 +96,12 @@ export default {
 		that.getList(flag);
 	},
 	methods: {
+		back() {
+			uni.navigateBack();
+		},
 		//是否完善
 		isPerfectFlag(item) {
 			if (this.typeName == 'specialInvoice') {
-				
 				if (item.invoiceTitle == '' || item.invoiceTitle == null) {
 					item.isPerfectFlag = false;
 					return item;
@@ -133,11 +136,9 @@ export default {
 					item.isPerfectFlag = false;
 				} else {
 					item.isPerfectFlag = true;
-					
 				}
 				return item;
-			}else{
-				
+			} else {
 				item.isPerfectFlag = true;
 				return item;
 			}

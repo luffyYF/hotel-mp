@@ -1,5 +1,6 @@
 <template>
 	<view class="selPage">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="查看发票"></uni-nav-bar>
 		<view class="row">
 			<p class="title">发票类型:</p>
 			<p class="content">{{ invoiceInfo.invoiceType == 1 ? '普通发票（电子）' : '专用发票' }}</p>
@@ -98,7 +99,9 @@ export default {
 	onLoad(opt) {
 		this.invoiceInfo = JSON.parse(opt.invoiceInfo);
 	},
-	methods: {}
+	methods: {
+		back(){uni.navigateBack()}
+	}
 };
 </script>
 

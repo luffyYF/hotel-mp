@@ -1,5 +1,6 @@
 <template>
 	<view class="commentPage">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="评论列表"></uni-nav-bar>
 		<view class="uni-comment">
 			<view class="uni-comment-list" v-for="(item, index) in ListComment" :key="index">
 				<view class="uni-comment-face"><image src="../../static/images/comment/user-img.jpg" mode="" style="height: 72.46376upx;"></image></view>
@@ -41,6 +42,7 @@
 import api from '@/utils/api';
 import config from '@/utils/config.js';
 export default {
+	
 	data() {
 		return {
 			ListComment: []
@@ -61,6 +63,9 @@ export default {
 		});
 	},
 	methods: {
+		back() {
+			uni.navigateBack();
+		},
 		showImg() {
 			uni.previewImage({
 				urls: [
@@ -75,11 +80,9 @@ export default {
 </script>
 
 <style lang="scss">
-.commentPage {
-	padding: 18.11594upx;
-}
+
 .uni-comment {
-	width: 100%;
+	padding: 18.11594upx;
 	.uni-comment-list {
 		display: flex;
 		.uni-comment-top {

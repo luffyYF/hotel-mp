@@ -1,5 +1,6 @@
 <template>
 	<view class="addUpPage">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="添加抬头"></uni-nav-bar>
 		<view class="plainInvoice" v-if="showType == 'plainInvoice' ? true : false">
 			<view class="UpType">
 				<p>抬头类型</p>
@@ -126,8 +127,10 @@ export default {
 			that.userInfo = res;
 		});
 	},
-	onShow() {},
 	methods: {
+		back() {
+			uni.navigateBack();
+		},
 		//选择抬头类型
 		radioChange(e) {
 			this.upTypeName = e.target.value;

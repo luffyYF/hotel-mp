@@ -1,5 +1,6 @@
 <template>
 	<view class="container">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="发表评论"></uni-nav-bar>
 		<view class="describe">
 			<view class="d-score">
 				<span>描述相符：</span>
@@ -73,6 +74,9 @@ export default {
 		this.orderPk=opt.orderPk;
 	},
 	methods: {
+		back() {
+			uni.navigateBack();
+		},
 		setDescScore(index) {
 			this.descScore = index + 1;
 		},

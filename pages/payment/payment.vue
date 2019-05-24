@@ -1,13 +1,15 @@
 <template>
 	<view class="PayPage">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="支付订单"></uni-nav-bar>
 		<view class="reminder">
 			<view class="re-icon"><image src="../../static/images/order/icon/gouxuan.png" mode=""></image></view>
 			<view class="re-desc">
 				<h2>提交订单完成</h2>
-				<h2>
+				<h2 v-if="!payOvertime">
 					支付剩余时间：
-					<span style="font-weight: bold;">30：00</span>
+					<span style="font-weight: bold;">{{ showTime }}</span>
 				</h2>
+				<h2 v-if="payOvertime">支付已超时</h2>
 				<h2 style="font-size: 21.73913upx;">请及时付款，超时订单将自动取消!</h2>
 			</view>
 		</view>
@@ -37,8 +39,19 @@ export default {
 		return {
 			orderInfo: {},
 			//支付方式
-			payWay: ''
-			//剩余时间
+			payWay: '',
+			//显示时间
+			showTime: '',
+			//定时器id
+			timerId: '',
+			//分钟
+			minutes: '',
+			//秒
+			seconds: '',
+			//剩余时长
+			remainTime: '',
+			//是否支付超时
+			payOvertime: false
 		};
 	},
 	onLoad(opt) {
@@ -49,34 +62,38 @@ export default {
 			console.log(res);
 			that.orderInfo.openId = res.openId;
 		});
+		that.remainTime = that.orderInfo.paymentBufferTime * 60;
+		that.resetTime();
+	},
+	onUnload() {
+		clearInterval(this.timerId);
 	},
 	methods: {
+		back() {
+			uni.navigateBack();
+		},
 		//时间倒计时
 		resetTime() {
-			var timer = null;
-			var t = time;
-			var m = 0;
-			var s = 0;
-			m = Math.floor((t / 60) % 60);
-			m < 10 && (m = '0' + m);
-			s = Math.floor(t % 60);
-			function countDown() {
-				s--;
-				s < 10 && (s = '0' + s);
-				if (s.length >= 3) {
-					s = 59;
-					m = '0' + (Number(m) - 1);
-				}
-				if (m.length >= 3) {
-					m = '00';
-					s = '00';
-					clearInterval(timer);
-				}
-				console.log(m + '分钟' + s + '秒');
-			}
-			timer = setInterval(countDown, 1000);
-		},
+			let that = this;
 
+			that.timerId = setInterval(() => {
+				that.CountDown();
+			}, 1000);
+		},
+		//循环执行
+		CountDown() {
+			let that = this;
+			if (that.remainTime >= 0) {
+				that.minutes = Math.floor(that.remainTime / 60); //算出有几分钟
+				that.seconds = Math.floor(that.remainTime % 60); //算出有几秒钟
+				that.showTime = that.minutes + '分' + that.seconds + '秒';
+				that.remainTime--;
+				console.log(that.showTime);
+			} else {
+				clearInterval(that.timerId);
+				that.payOvertime = !that.payOvertime;
+			}
+		},
 		//选择支付方式
 		selPay(payWay) {
 			this.payWay = payWay;
@@ -84,40 +101,46 @@ export default {
 		//提交支付
 		pay() {
 			var that = this;
-
-			if (that.payWay != '' && that.payWay != null) {
-				console.log(that.payWay + '支付');
-				api.payment({
-					appid: allocation.APPID,
-					openid: that.orderInfo.openId,
-					orderPk: that.orderInfo.orderPk,
-					payType: that.payWay
-				}).then(res => {
-					if (res.code == 1) {
-						console.log(res);
-						wx.requestPayment({
-							appId: res.data.appId,
-							timeStamp: res.data.timeStamp,
-							nonceStr: res.data.nonceStr,
-							package: res.data.package,
-							signType: res.data.signType,
-							paySign: res.data.paySign,
-							success: function(res) {
-								//支付成功执行回调
-								uni.navigateTo({
-									url: 'payFinish?orderPk=' + that.orderInfo.orderPk + '&userPk=' + that.orderInfo.userPk
-								});
-							},
-							fail: function(res) {},
-							complete: function(res) {}
-						});
-					}
-				});
-			} else {
+			if (that.payOvertime) {
 				uni.showToast({
 					icon: 'none',
-					title: '请选择支付方式'
+					title: '支付失败，订单已超时'
 				});
+			} else {
+				if (that.payWay != '' && that.payWay != null) {
+					console.log(that.payWay + '支付');
+					api.payment({
+						appid: allocation.APPID,
+						openid: that.orderInfo.openId,
+						orderPk: that.orderInfo.orderPk,
+						payType: that.payWay
+					}).then(res => {
+						if (res.code == 1) {
+							console.log(res);
+							wx.requestPayment({
+								appId: res.data.appId,
+								timeStamp: res.data.timeStamp,
+								nonceStr: res.data.nonceStr,
+								package: res.data.package,
+								signType: res.data.signType,
+								paySign: res.data.paySign,
+								success: function(res) {
+									//支付成功执行回调
+									uni.navigateTo({
+										url: 'payFinish?orderPk=' + that.orderInfo.orderPk + '&userPk=' + that.orderInfo.userPk
+									});
+								},
+								fail: function(res) {},
+								complete: function(res) {}
+							});
+						}
+					});
+				} else {
+					uni.showToast({
+						icon: 'none',
+						title: '请选择支付方式'
+					});
+				}
 			}
 		}
 	}

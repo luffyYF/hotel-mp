@@ -1,5 +1,6 @@
 <template>
 	<view class="fillorderPage">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="填写订单"></uni-nav-bar>
 		<view class="orderContent">
 			<view class="room-info" @tap="gotoRoom">
 				<h2>{{ roomTypeInfo.typeName }}</h2>
@@ -84,8 +85,11 @@
 		</view>
 		<view class="operation">
 			<button class="orderPrice" @tap="gotoCost">
-				<span>￥{{ totalPrice.totalPrice }}<span style="font-size: 18.11594upx;text-decoration: line-through;color: #ccc;margin-left: 18.11594upx;">￥{{ totalPrice.oldTotalPrice }}</span></span>
-				
+				<span>
+					￥{{ totalPrice.totalPrice }}
+					<span style="font-size: 18.11594upx;text-decoration: line-through;color: #ccc;margin-left: 18.11594upx;">￥{{ totalPrice.oldTotalPrice }}</span>
+				</span>
+
 				<span @tap="gotoCost()">明细</span>
 			</button>
 			<button class="submitOrder" @tap="gotoPayment()">提交订单</button>
@@ -97,7 +101,7 @@
 import api from '@/utils/api';
 import allocation from '@/utils/config';
 import user from '@/services/user.js';
-var app=getApp();
+var app = getApp();
 export default {
 	data() {
 		return {
@@ -128,8 +132,8 @@ export default {
 			bookableCount: '',
 			//总价
 			totalPrice: {
-				totalPrice:'',
-				oldTotalPrice:''
+				totalPrice: '',
+				oldTotalPrice: ''
 			},
 			//选择的发票类型
 			typeInvoice: '',
@@ -189,6 +193,9 @@ export default {
 		});
 	},
 	methods: {
+		back(){
+			uni.navigateBack();
+		},
 		//支付下单
 		gotoPayment() {
 			var that = this;
@@ -242,16 +249,16 @@ export default {
 					}).then(res => {
 						if (res.code == 1) {
 							console.log(res.data);
-							
-							/* var obj = {
-								orderPk: res.data,
+							var obj = {
+								orderPk: res.data.orderPk,
+								paymentBufferTime: res.data.paymentBufferTime ,
 								totalPrice: that.totalPrice.totalPrice,
-								oldTotalPrice:that.totalPrice.oldTotalPrice,
+								oldTotalPrice: that.totalPrice.oldTotalPrice,
 								userPk: that.userInfo.memPk
 							};
 							uni.navigateTo({
 								url: '../payment/payment?obj=' + JSON.stringify(obj)
-							}); */
+							});
 						}
 					});
 				} else {
@@ -268,8 +275,10 @@ export default {
 						if (res.code == 1) {
 							console.log(res);
 							var obj = {
-								orderPk: res.data,
+								orderPk: res.data.orderPk,
+								paymentBufferTime: res.data.paymentBufferTime,
 								totalPrice: that.totalPrice.totalPrice,
+								oldTotalPrice: that.totalPrice.oldTotalPrice,
 								userPk: that.userInfo.memPk
 							};
 							uni.navigateTo({

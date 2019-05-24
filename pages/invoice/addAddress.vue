@@ -1,5 +1,6 @@
 <template>
 	<view class="addAddress">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="收货地址"></uni-nav-bar>
 		<view class="row">
 			<p>*收货地址：</p>
 			<input type="text" placeholder="请填写收货地址" placeholder-style="color:#999;font-size:27.17391upx" value="" v-model="addressDetails.receiveAddress" />
@@ -75,6 +76,9 @@ export default {
 		}
 	},
 	methods: {
+		back() {
+			uni.navigateBack();
+		},
 		//选择性别
 		radioChange(e) {
 			this.addressDetails.memSex = e.target.value;

@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="分享"></uni-nav-bar>
 		<view class="share-img1"><image src="../../static/images/user/share_img.jpg" mode="widthFix"></image></view>
 		<view class="share-img2">
 			<view>
@@ -15,11 +16,21 @@
 </template>
 
 <script>
+import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue';
+import uniIcon from '@/components/uni-icon/uni-icon.vue';
 export default {
+	components: {
+		uniNavBar,
+		uniIcon
+	},
 	data() {
 		return {};
 	},
-	methods: {}
+	methods: {
+		back() {
+			uni.navigateBack();
+		}
+	}
 };
 </script>
 
@@ -42,7 +53,6 @@ export default {
 			width: 108.69565upx;
 			height: 108.69565upx;
 		}
-		
 	}
 }
 </style>

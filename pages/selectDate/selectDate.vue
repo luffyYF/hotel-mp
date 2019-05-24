@@ -1,6 +1,7 @@
 <template>
 	<!--pages/datePicker/datePicker.wxml-->
 	<view>
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="选择日期"></uni-nav-bar>
 		<!-- 入住/离店时间/入住天数 -->
 		<view class="date-header fixed-top">
 			<view class="date-days">
@@ -71,7 +72,13 @@
 
 <script>
 var app = getApp();
+import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue';
+import uniIcon from '@/components/uni-icon/uni-icon.vue';
 export default {
+	components: {
+		uniNavBar,
+		uniIcon
+	},
 	data() {
 		return {
 			calendarLists: [],
@@ -130,6 +137,9 @@ export default {
 	},
 	onShow() {},
 	methods: {
+		back() {
+			uni.navigateBack();
+		},
 		// 将时间戳转化为年月日星期
 		formatDate(date) {
 			let _date = new Date(date);

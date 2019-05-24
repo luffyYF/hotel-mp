@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="酒店展示图"></uni-nav-bar>
 		<view class="tabs">
 			<view v-for="(item, index) in imagesList" :key="index" class="tabs-title" :class="num == index ? 'active' : ''" @click="checked(index)">{{ item.name }}</view>
 		</view>
@@ -20,7 +21,13 @@
 <script>
 import api from '@/utils/api.js';
 import config from '@/utils/config.js';
+import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue';
+import uniIcon from '@/components/uni-icon/uni-icon.vue';
 export default {
+	components: {
+		uniNavBar,
+		uniIcon
+	},
 	data() {
 		return {
 			num: 0,
@@ -59,6 +66,9 @@ export default {
 		});
 	},
 	methods: {
+		back() {
+			uni.navigateBack();
+		},
 		checked(flag) {
 			this.num = flag;
 		},
@@ -78,7 +88,6 @@ export default {
 	align-items: center;
 	background-color: #ffffff;
 	position: fixed;
-	top: 0;
 	width: 100%;
 	z-index: 999;
 	border-bottom: 1px solid #f7f9fb;
@@ -112,14 +121,13 @@ export default {
 	.item {
 		break-inside: avoid;
 		display: block;
-		
 
 		.item__content {
 			text-align: center;
 			image {
 				width: 100%;
 				display: block;
-				margin-bottom: 9.05797upx
+				margin-bottom: 9.05797upx;
 			}
 		}
 	}

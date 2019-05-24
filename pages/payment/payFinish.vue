@@ -1,5 +1,6 @@
 <template>
 	<view class="finshPage">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="支付完成"></uni-nav-bar>
 		<view class="b-w">
 			<view class="payPrice">
 				<image :src="msg ? '../../static/images/order/icon/gouxuan.png' : '../../static/images/order/icon/shibai.png'" mode=""></image>
@@ -56,6 +57,9 @@ export default {
 		}
 	},
 	methods: {
+		back(){
+			uni.navigateBack();
+		},
 		backHomepage() {
 			uni.switchTab({
 				url: '../index/index'

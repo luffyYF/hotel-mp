@@ -1,6 +1,6 @@
 <template>
 	<view class="index">
-		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="标题"></uni-nav-bar>
+		<uni-nav-bar statusBar="true" fixed="true" backgroundColor="#43403a" color="#ffffff" title="订单"></uni-nav-bar>
 		<tab @selectFunc="checked"></tab>
 		<view v-if="isShow" class="order-list">
 			<view class="list-item" @click="orderDetails(item)" v-for="(item, index) of lists" :key="index">
@@ -67,8 +67,8 @@
 <script>
 import tab from '../../components/tab/tab.vue';
 import np from '../../components/order/no-order.vue';
-import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
-import uniIcon from '@/components/uni-icon/uni-icon.vue'
+import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue';
+import uniIcon from '@/components/uni-icon/uni-icon.vue';
 
 import api from '../../utils/api.js';
 import allocation from '../../utils/config.js';
@@ -146,7 +146,7 @@ export default {
 			}).then(res => {
 				if (res.code == 1) {
 					/* 	var obj = JSON.stringify(res.data); */
-					
+
 					uni.navigateTo({
 						url: '../../pages/order/orderDetails?orderDetails=' + JSON.stringify(res.data)
 					});

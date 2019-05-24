@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="会员与积分规则"></uni-nav-bar>
 		<view class="memberPage">
 			<view class="m-top">
 				<image src="../../static/images/memberImg/memberbanner.jpg" mode="widthFix" style="width: 100%;"></image>
@@ -83,7 +84,11 @@ export default {
 	data() {
 		return {};
 	},
-	methods: {}
+	methods: {
+		back(){
+			uni.navigateBack();
+		}
+	}
 };
 </script>
 

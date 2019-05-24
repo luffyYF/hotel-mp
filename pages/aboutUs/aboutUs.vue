@@ -1,5 +1,6 @@
 <template>
 	<view class="aboutusPage">
+		<uni-nav-bar left-icon="back" statusBar="true" fixed="true" @click-left="back" backgroundColor="#43403a" color="#ffffff" title="关于我们"></uni-nav-bar>
 		<view class="CompanyProfile">
 			<h2>公司简介</h2>
 			<p>
@@ -62,14 +63,18 @@ export default {
 	data() {
 		return {};
 	},
-	methods: {}
+	methods: {
+		back() {
+			uni.navigateBack();
+		}
+	}
 };
 </script>
 
 <style lang="scss">
 .aboutusPage {
-	padding: 27.17391upx;
 	.CompanyProfile {
+		padding: 27.17391upx;
 		h2 {
 			font-size: 36.23188upx;
 			font-weight: 500;
@@ -85,6 +90,8 @@ export default {
 		}
 	}
 	.about-culture {
+		padding: 27.17391upx;
+
 		h4 {
 			font-size: 36.23188upx;
 			font-weight: 500;
@@ -104,6 +111,8 @@ export default {
 		}
 	}
 	.about-cooperation {
+		padding: 27.17391upx;
+
 		h4 {
 			margin-bottom: 10px;
 			font-size: 20px;
