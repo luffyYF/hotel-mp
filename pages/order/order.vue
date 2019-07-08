@@ -140,17 +140,8 @@ export default {
 			}
 		},
 		orderDetails(item) {
-			api.getOrder({
-				orderPk: item.orderPk,
-				userPk: this.userInfo.memPk
-			}).then(res => {
-				if (res.code == 1) {
-					/* 	var obj = JSON.stringify(res.data); */
-
-					uni.navigateTo({
-						url: '../../pages/order/orderDetails?orderDetails=' + JSON.stringify(res.data)
-					});
-				}
+			uni.navigateTo({
+				url: '../../pages/order/orderDetails?orderPk=' + item.orderPk + '&userPk=' + this.userInfo.memPk
 			});
 		},
 		getDays(strDateStart, strDateEnd) {

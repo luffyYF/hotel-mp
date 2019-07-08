@@ -4,8 +4,10 @@
 		<view class="orderDetails">
 			<view class="markedwords">
 				<text>{{ orderDetails.statusTitle }}</text>
-				<text v-if="!payOvertime">支付剩余时间：{{showTime}}</text>
-				<text v-if="payOvertime">支付已超时</text>
+				<view v-if="orderDetails.orderStatus == 0 ? true : false">
+					<p v-if="!payOvertime" style="text-align: center;">支付剩余时间：{{ showTime }}</p>
+					<p v-if="payOvertime" style="text-align: center;">支付已超时</p>
+				</view>
 				<text>{{ orderDetails.statusMsg }}</text>
 			</view>
 			<view class="warmPrompt">
@@ -77,7 +79,7 @@
 				<view class="invoice" @tap="orderDetails.invoiceType != 0 ? checkInvoice() : ''">
 					<text>发票</text>
 					<text>{{ orderDetails.invoiceType == 0 ? '无需开具发票' : '查看发票' }}</text>
-					<image class="icons" v-if="orderDetails.invoiceType == 0 ?false: true" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
+					<image class="icons" v-if="orderDetails.invoiceType == 0 ? false : true" src="../../static/images/order/icon/youjiantou.png" mode=""></image>
 				</view>
 			</view>
 			<view class="reserve">
@@ -144,84 +146,108 @@ export default {
 	},
 	onLoad(opt) {
 		let that = this;
-
-		/* console.log(JSON.parse(opt.orderDetails).companyInfo); */
-		that.companyInfo = JSON.parse(opt.orderDetails).companyInfo;
-		that.orderDetails = JSON.parse(opt.orderDetails).orderInfo;
-		that.IMGURL = api.config.IMGURL;
-		that.orderDetails.coverImage = that.IMGURL + that.orderDetails.coverImage;
-		switch (that.orderDetails.orderStatus) {
-			case 0:
-				that.orderDetails.statusTitle = '待付款';
-				that.orderDetails.statusMsg = '订单已下单，请尽快付款';
-				that.orderDetails.btnTitle = [{ title: '立即付款', isShow: true }, { title: '取消订单', isShow: true }];
-				that.orderDetails.OperationMethod = [that.AkeyPayment, that.cancelOrder];
-				that.orderDetails.showBtn = true;
-				break;
-			case 1:
-				that.orderDetails.statusTitle = '待接单';
-				that.orderDetails.statusMsg = '订单已付款，请等待接单';
-				that.orderDetails.btnTitle = [{ title: '立即付款', isShow: false }, { title: '取消订单', isShow: true }];
-				that.orderDetails.OperationMethod = [that.cancelOrder, that.cancelOrder];
-				that.orderDetails.showBtn = true;
-				break;
-			case 2:
-				that.orderDetails.statusTitle = '已接单';
-				that.orderDetails.statusMsg = '订单已接单，请尽快到达酒店入住';
-				that.orderDetails.btnTitle = [{ title: '立即付款', isShow: false }, { title: '取消订单', isShow: true }];
-				that.orderDetails.OperationMethod = [that.cancelOrder, that.cancelOrder];
-				that.orderDetails.showBtn = true;
-				break;
-			case 3:
-				that.orderDetails.statusTitle = '已入住';
-				that.orderDetails.statusMsg = '您已入住，请好好享用';
-				that.orderDetails.btnTitle = [{ title: '立即付款', isShow: false }, { title: '取消订单', isShow: true }];
-				that.orderDetails.OperationMethod = [that.cancelOrder, that.cancelOrder];
-				that.orderDetails.showBtn = true;
-				break;
-			case 4:
-				that.orderDetails.statusTitle = '取消中';
-				that.orderDetails.statusMsg = '订单正取消中，请稍等片刻';
-				that.orderDetails.showBtn = false;
-				break;
-			case 5:
-				that.orderDetails.statusTitle = '已取消';
-				that.orderDetails.statusMsg = '订单已取消，欢迎您的下次光临';
-				that.orderDetails.showBtn = false;
-				break;
-			case 6:
-				that.orderDetails.statusTitle = '已完成';
-				that.orderDetails.statusMsg = '订单已完成，欢迎您的下次光临';
-				that.orderDetails.btnTitle = [
-					{ title: '已评价', isShow: that.orderDetails.commentFlag == 1 ? true : false },
-					{ title: '评价', isShow: that.orderDetails.commentFlag == 0 ? true : false }
-				];
-				that.orderDetails.OperationMethod = [that.haveEvaluation, that.writeComment];
-				that.orderDetails.showBtn = true;
-				break;
-			default:
-				break;
+		if (opt.userPk != '' && opt.orderPk != '') {
+			that.getOrder(opt.orderPk, opt.userPk);
+		} else {
+			uni.navigateBack();
+			uni.showToast({
+				icon: 'none',
+				title: '查看失败'
+			});
 		}
-		var strDateStart = that.orderDetails.beginDate;
-		var strDateEnd = that.orderDetails.endDate;
-		that.orderDetails.nights = that.getDays(strDateStart, strDateEnd);
-		
-		
-		that.resetTime();
 	},
 	onUnload() {
 		clearInterval(this.timerId);
 	},
 	methods: {
-		back(){
+		back() {
 			uni.navigateBack();
+		},
+		//更新数据
+		getOrder(orderPk, userPk) {
+			let that = this;
+			api.getOrder({
+				orderPk: orderPk,
+				userPk: userPk
+			}).then(res => {
+				if (res.code == 1) {
+					/* 	var obj = JSON.stringify(res.data); */
+					that.companyInfo = res.data.companyInfo;
+					that.orderDetails = res.data.orderInfo;
+					that.IMGURL = api.config.IMGURL;
+					that.orderDetails.coverImage = that.IMGURL + that.orderDetails.coverImage;
+					
+					switch (that.orderDetails.orderStatus) {
+						case 0:
+							that.orderDetails.statusTitle = '待付款';
+							that.orderDetails.statusMsg = '订单已下单，请尽快付款';
+							that.orderDetails.btnTitle = [{ title: '立即付款', isShow: true }, { title: '取消订单', isShow: true }];
+							that.orderDetails.OperationMethod = [that.AkeyPayment, that.cancelOrder];
+							that.orderDetails.showBtn = true;
+							that.resetTime();
+							break;
+						case 1:
+							that.orderDetails.statusTitle = '待接单';
+							that.orderDetails.statusMsg = '订单已付款，请等待接单';
+							that.orderDetails.btnTitle = [{ title: '立即付款', isShow: false }, { title: '取消订单', isShow: true }];
+							that.orderDetails.OperationMethod = [that.cancelOrder, that.cancelOrder];
+							that.orderDetails.showBtn = true;
+							break;
+						case 2:
+							that.orderDetails.statusTitle = '已接单';
+							that.orderDetails.statusMsg = '订单已接单，请尽快到达酒店入住';
+							that.orderDetails.btnTitle = [{ title: '立即付款', isShow: false }, { title: '取消订单', isShow: true }];
+							that.orderDetails.OperationMethod = [that.cancelOrder, that.cancelOrder];
+							that.orderDetails.showBtn = true;
+							break;
+						case 3:
+							that.orderDetails.statusTitle = '已入住';
+							that.orderDetails.statusMsg = '您已入住，请好好享用';
+							that.orderDetails.btnTitle = [{ title: '立即付款', isShow: false }, { title: '取消订单', isShow: true }];
+							that.orderDetails.OperationMethod = [that.cancelOrder, that.cancelOrder];
+							that.orderDetails.showBtn = true;
+							break;
+						case 4:
+							that.orderDetails.statusTitle = '取消中';
+							that.orderDetails.statusMsg = '订单正取消中，请稍等片刻';
+							that.orderDetails.showBtn = false;
+							break;
+						case 5:
+							that.orderDetails.statusTitle = '已取消';
+							that.orderDetails.statusMsg = '订单已取消，欢迎您的下次光临';
+							that.orderDetails.showBtn = false;
+							break;
+						case 6:
+							that.orderDetails.statusTitle = '已完成';
+							that.orderDetails.statusMsg = '订单已完成，欢迎您的下次光临';
+							that.orderDetails.btnTitle = [
+								{ title: '已评价', isShow: that.orderDetails.commentFlag == 1 ? true : false },
+								{ title: '评价', isShow: that.orderDetails.commentFlag == 0 ? true : false }
+							];
+							that.orderDetails.OperationMethod = [that.haveEvaluation, that.writeComment];
+							that.orderDetails.showBtn = true;
+							break;
+						default:
+							break;
+					}
+					var strDateStart = that.orderDetails.beginDate;
+					var strDateEnd = that.orderDetails.endDate;
+					that.orderDetails.nights = that.getDays(strDateStart, strDateEnd);
+				}
+			});
 		},
 		//时间倒计时
 		resetTime() {
 			let that = this;
-			that.remainTime = that.orderDetails.paymentBufferTime * 60;
-			
-			that.timerId = setInterval(that.CountDown, 1000);
+
+			if (that.orderDetails.paymentBufferTime == null) {
+				that.payOvertime = true;
+				that.orderDetails.showBtn = false;
+				
+			} else {
+				that.remainTime = that.orderDetails.paymentBufferTime * 60;
+				that.timerId = setInterval(that.CountDown, 1000);
+			}
 		},
 		//循环执行
 		CountDown() {
@@ -234,9 +260,10 @@ export default {
 				console.log(that.showTime);
 			} else {
 				clearInterval(that.timerId);
-				that.payOvertime = !that.payOvertime;
+				that.orderDetails.showBtn = false;
+				that.payOvertime = true;
 			}
-		}, 
+		},
 		//查看房间详情
 		gotoRoomDetails() {
 			let that = this;
@@ -303,7 +330,7 @@ export default {
 		},
 		//查看明细
 		gotoCost() {
-			let that=this;
+			let that = this;
 			api.getOrderPrice({
 				beginDate: this.orderDetails.beginDate,
 				couponMemberPk: this.orderDetails.couponMemberPk == null ? '' : this.orderDetails.couponMemberPk,
@@ -313,7 +340,7 @@ export default {
 				userPk: this.orderDetails.userPk
 			}).then(res => {
 				if (res.code == 1) {
-					res.data.orderStatus=that.orderDetails.orderStatus;
+					res.data.orderStatus = that.orderDetails.orderStatus;
 					res.data.orderInfo = {
 						orderPk: that.orderDetails.orderPk,
 						userPk: that.orderDetails.userPk
@@ -354,7 +381,7 @@ export default {
 							userPk: that.orderDetails.userPk
 						}).then(res => {
 							if (res.success) {
-								uni.navigateBack();
+								that.getOrder(that.orderDetails.orderPk, that.orderDetails.userPk);
 								uni.showToast({
 									title: '订单已取消',
 									duration: 1500

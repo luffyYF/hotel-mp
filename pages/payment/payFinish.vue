@@ -52,7 +52,8 @@ export default {
 				orderPk: opt.orderPk,
 				userPk: opt.userPk
 			}).then(res => {
-				that.orderInfo = res.data;
+				that.orderInfo = res.data.orderInfo;
+				
 			});
 		}
 	},
